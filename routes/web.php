@@ -11,13 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+//Auth::routes();
+
+/*
+ * Authentiocation routes
+ */
+
+
+Route::group(['namespace' => 'Auth'], function()
+{
+
+    Route::get('login', 'LoginController@index');
+    Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@login']);
+
+    Route::post('logout', 'LoginController@logout');
+    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+    Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm');
+    Route::post('password/reset', 'ForgotPasswordController@reset');
+    Route::get('password/reset/{token}', 'ForgotPasswordController@showResetForm');
+
+    Route::get('register', 'RegisterController@showRegistrationForm');
+    Route::post('register', 'RegisterController@register');
+
+    Route::get('auth/{provider}', 'LoginController@provider');
+    Route::get('auth/{provider}/callback', 'LoginController@providerCallback');
+
 });
 
-Auth::routes();
 
+
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 {

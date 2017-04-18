@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}" id="register">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -67,7 +67,28 @@
                                 </button>
                             </div>
                         </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href="{{ url('/auth/github') }}" class="btn btn-github"><i class="fa fa-github"></i> Github</a>
+                                <a href="{{ url('/auth/google') }}" class="btn btn-twitter"><i class="fa fa-twitter"></i> Google</a>
+                                <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+                            </div>
+                        </div>
                     </form>
+
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#register').submit(function(e){
+
+
+                                $(this).attr('target', '_blank');
+
+
+
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>

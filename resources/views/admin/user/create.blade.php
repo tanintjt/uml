@@ -1,20 +1,17 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/user', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <div class="input-group">
-                <span class="input-group-btn">
-                    <a href="{!! url(Request::segment(1).'/user') !!}" class="btn btn-flat btn-danger pull-right"><i class="fa fa-remove"></i> Cancel</a>
-                    <button class="btn btn-flat btn-primary pull-right" type="submit"><i class="fa fa-check"></i> Save</button>
-                </span>
-            </div>
+    {!! Form::open(array('url' => Request::segment(1).'/user/store', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;{!! $title !!}
         </div>
-        <div class="box-body">
+
+        <div class="panel-body">
+
             <div class="col-xs-6">
                 <div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
-                    {!! Form::label('role_id', 'Role :', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('role_id', 'Roles :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control', 'id' => 'role_id']) !!}
                         @if ($errors->has('role_id'))
@@ -24,6 +21,7 @@
                         @endif
                     </div>
                 </div>
+
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                     {!! Form::label('name', 'Name :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -35,6 +33,42 @@
                         @endif
                     </div>
                 </div>
+
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    {!! Form::label('email', 'E-mail :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('email', old('email'), ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'E-mail address']) !!}
+                        @if ($errors->has('email'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+
+                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    {!! Form::label('password', 'Password :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => 'Password']) !!}
+                        @if ($errors->has('password'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('password_confirmation ', 'Confirm Password :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password_confirmation', 'placeholder' => 'Confirm password']) !!}
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('status', 'Status :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -46,45 +80,14 @@
                         </label>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-xs-6">
-                <div class="form-group{{ $errors->has('msisdn') ? ' has-error' : '' }}">
-                    {!! Form::label('msisdn', 'Mobile # :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        <div class="input-group">
-                            <span class="input-group-addon">+880</span>
-                            {!! Form::text('msisdn', old('msisdn'), ['class' => 'form-control', 'id' => 'msisdn', 'placeholder' => '17XXXXXXXX']) !!}
-                        </div>
-                        @if ($errors->has('msisdn'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('msisdn') }}</strong>
-                            </span>
-                        @endif
+                <div class="form-group">
+                    <div class="col-xs-offset-3 col-xs-9">
+                        <button class="btn btn-sm btn-primary" type="submit"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+                        <a href="{!! url('admin/user') !!}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-repeat"></span> Cancel</a>
                     </div>
                 </div>
-                <div class="form-group{{ $errors->has('pin') ? ' has-error' : '' }}">
-                    {!! Form::label('pin', 'PIN :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::password('pin', ['class' => 'form-control', 'id' => 'pin', 'placeholder' => 'PIN']) !!}
-                        @if ($errors->has('pin'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('pin') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group{{ $errors->has('pin_confirmation') ? ' has-error' : '' }}">
-                    {!! Form::label('pin_confirmation', 'Confirmed PIN :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::password('pin_confirmation', ['class' => 'form-control', 'id' => 'pin_confirmation', 'placeholder' => 'PIN Confirmed']) !!}
-                        @if ($errors->has('pin'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('pin_confirmation') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
+
             </div>
 
         </div>

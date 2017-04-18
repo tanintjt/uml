@@ -1,7 +1,8 @@
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{!! config('app.name') !!}</title>
+    <title>{!! config('app.name') . (isset($title) ? ' | ' . $title : '') !!}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="{!! asset('public/themes/default/css/bootstrap.min.css') !!}" rel="stylesheet">
     <!-- Font Awesome -->
@@ -13,23 +14,10 @@
     <link href="{!! asset('public/themes/default/css/AdminLTE.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('public/themes/default/css/skins/_all-skins.min.css') !!}" rel="stylesheet">
     <!-- iCheck -->
-    <link href="{!! asset('public/themes/default/plugins/iCheck/flat/blue.css') !!}" rel="stylesheet">
-    <!-- jvectormap -->
-    <link href="{!! asset('public/themes/default/plugins/jvectormap/jquery-jvectormap-1.2.2.css') !!}" rel="stylesheet">
-    <!-- Date Picker -->
-    <link href="{!! asset('public/themes/default/plugins/datepicker/datepicker3.css') !!}" rel="stylesheet">
-    <!-- Daterange picker -->
-    <link href="{!! asset('public/themes/default/plugins/daterangepicker/daterangepicker.css') !!}" rel="stylesheet">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link href="{!! asset('public/themes/default/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}" rel="stylesheet">
+    <link href="{!! asset('public/themes/default/plugins/iCheck/square/blue.css') !!}" rel="stylesheet">
 
-    @if(isset($css))
-        {!!  $css !!}
-    @endif
-    @if(isset($extracss))
-        {!! $extracss !!}
-    @endif
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

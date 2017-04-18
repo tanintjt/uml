@@ -32,7 +32,7 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th>Name</th>
-                        <th>MSISDN</th>
+                        <th>E-mail</th>
                         <th>Roles</th>
                         <th width="5%">Status</th>
                         <th width="10%">Actions</th>
@@ -44,8 +44,8 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ $row->name }}</td>
-                            <td>{{ $row->msisdn }}</td>
-                            <td>{{ $row->roles->display_name }}</td>
+                            <td>{{ $row->email }}</td>
+                            <td>{{ $row->roles[0]->display_name }}</td>
                             <td class="text-center">
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>

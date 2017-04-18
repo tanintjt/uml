@@ -6,6 +6,7 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use DB;
 use Validator;
 use Session;
 
@@ -68,8 +69,8 @@ class UserController extends Controller
 
         $roles = $this->roleList();
 
-        $rows = User::Search(Session::get('search'))->
-                Role(Session::get('role_id'))->
+        $rows = User::Role()->Search(Session::get('search'))->
+                RoleId(Session::get('role_id'))->
                 Status(Session::get('status'))->
                 orderBy('name', 'asc')->
                 paginate(config('app.limit'));
@@ -101,19 +102,19 @@ class UserController extends Controller
         $rules = [
             'role_id'   => 'not_in:0',
             'name'      => 'required',
-            'msisdn'    => 'required|unique:users,msisdn',
-            'pin'       => 'required|numeric|between:4,4|confirmed',
+            'email'     => 'required|email|unique:users,email',
+            'password'  => 'required|min:4|confirmed',
         ];
 
         $messages = [
             'role_id.not_in'    => 'Role is required!',
             'name.required'     => 'Name is required!',
-            'msisdn.required'   => 'Mobile # is required!',
-            'msisdn.unique'     => 'Mobile # is already registered!',
-            'pin.required'      => 'Your PIN is reuired!',
-            'pin.numeric'       => 'Your PIN should be numeric!',
-            'pin.between'       => 'PIN should be min 4 & max 4',
-            'pin.confirmed'     => 'Your PIN didn\'t match!',
+            'email.required'    => 'Email is required!',
+            'email.email'       => 'Not a valid e-mail address!',
+            'email.unique'      => 'Email is already registered!',
+            'password.required' => 'Your passowr is reuired!',
+            'password.min'      => 'Password should be min 4 characters long',
+            'password.confirmed'=> 'Your password didn\'t match!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -123,15 +124,17 @@ class UserController extends Controller
         }
         $user = User::create(
             [
-                'role_id'   => $request->input('role_id'),
-                'name'      => $request->input('name'),
-                'msisdn'    => $request->input('msisdn'),
-                'password'  => bcrypt($request->input('pin')),
-                'status'    => $request->input('status')
+                'name'          => $request->input('name'),
+                'email'         => $request->input('email'),
+                'password'      => bcrypt($request->input('password')),
+                'provider'      => 'uml',
+                'provider_id'   => bcrypt($request->input('password')),
+                'status'        => $request->input('status')
             ]
         );
 
         if ($user->id > 0) {
+            $user->attachRole($request->input('role_id'));
             $message = 'New '.  $user->name.' user added.';
             $error = false;
         } else {
@@ -165,55 +168,11 @@ class UserController extends Controller
     {
         $row = User::findOrFail($id);
         $title = 'Edit '. $row->name . ' details';
-        $extrajs = "<script>
-            
-            $(function() {
-                $('#role_id').select2();
-                
-                $('#checkbox').click(function(){
-                    if($('#checkbox').is(':checked') ){
-                        $('#role_id > option').prop('selected','selected');
-                        $('#role_id').trigger('change');
-                    }else{
-                        $('#role_id > option').removeAttr('selected');
-                         $('#role_id').trigger('change');
-                     }
-                });
-                
-                $(window).on('load', function() {
-                    var clientid =  $('#client_id').val();
-                   
-                    $('#dealer_id').empty().append('<option value=\"0\">Select a dealer</option>');
-                    $.get('".url('admin/user/dealer')."/'+this.value, function(data)
-                    {                
-                        $.each(data, function(index, el) {
-                            $('#dealer_id').append('<option value=\"' + el.id + '\">' + el.name + '</option>');
-                        });
-                    });
-                });
-                
-                $('#client_id').on('change', function() {
-                    
-                    $('#dealer_id').empty().append('<option value=\"0\">Select a dealer</option>');
-                    $.get('".url('admin/user/dealer')."/'+this.value, function(data)
-                    {                
-                        $.each(data, function(index, el) {
-                            $('#dealer_id').append('<option value=\"' + el.id + '\">' + el.name + '</option>');
-                        });
-                    });
-                });
-                
-            });
-		</script>";
-        $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
-        $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';
         $roles = $this->roleList(true);
-        $clients = $this->clientList(true);
-        $dealers = $this->dealerList(true, 0);
-        $userRoles = \DB::table("role_user")
+        $userRoles = DB::table("role_user")
             ->where("user_id",$id)
             ->pluck('role_id')->toArray();
-        return view('admin.user.edit',compact('title', 'row', 'roles', 'clients', 'dealers', 'userRoles', 'js', 'css', 'extrajs'));
+        return view('admin.user.edit',compact('title', 'row', 'roles', 'userRoles'));
     }
 
     /**
@@ -228,21 +187,19 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $rules = [
-            'group_id'  => 'not_in:0',
-            'client_id' => 'not_in:0',
+            'role_id'   => 'not_in:0',
             'name'      => 'required',
         ];
 
         $messages = [
-            'group_id.not_in'    => 'Group is required!',
-            'client_id.not_in'   => 'Client is required!',
-            'name.required'      => 'Name is required!',
+            'role_id.not_in'    => 'Role is required!',
+            'name.required'     => 'Name is required!',
         ];
 
         if ($request->has('password')) {
-            $rules['password']  = 'between:8,15|confirmed';
+            $rules['password']  = 'min:4|confirmed';
             //$messages['password.alpha_num'] = 'Password should be alpha numeric!';
-            $messages['password.between'] = 'Password should be min 8 & max 15 characters long';
+            $messages['password.min'] = 'Password should be min 4 characters long';
             $messages['password.confirmed'] = 'Your password didn\'t match!';
         }
 
@@ -253,18 +210,20 @@ class UserController extends Controller
         }
 
         $input = array(
-            'group_id'  => $request->get('group_id'),
-            'client_id' => $request->get('client_id'),
-            'name'      => $request->get('name'),
-            'status'    => $request->get('status')
+            'name'          => $request->input('name'),
+            'status'        => $request->input('status')
         );
 
         //update password
         if ($request->has('password')) {
-            $input['password'] = bcrypt($request->get('password'));
+            $input['password'] = bcrypt($request->input('password'));
         }
 
         if ($user->update($input)) {
+            DB::table("role_user")->where("user_id",$user->id)->delete();
+
+            $user->attachRole($request->input('role_id'));
+
             $message = $user->name.' user updated.';
             $error = false;
         } else {
@@ -285,16 +244,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $users = User::where('user_id', $user->id)->count();
-        if($users > 0):
-            $message =  $user->name.' user failed to delete, user exists.';
-            $error = true;
-        else :
-            $message =  $user->name.' user deleted.';
-            $error = true;
-            $user->delete();
-
-        endif;
+        $user->delete();
+        $message =  $user->name.' user failed to delete, user exists.';
+        $error = true ;
 
         return redirect('admin/user')->with(['message' => $message, 'error' => $error]);
     }

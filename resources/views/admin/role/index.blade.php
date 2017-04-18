@@ -31,6 +31,7 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th>Name</th>
+                        <th>Descripption</th>
                         <th width="10%"># of Users</th>
                         <th width="5%">Status</th>
                         <th width="10%">Actions</th>
@@ -42,7 +43,8 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ $row->display_name }}</td>
-                            <td>{{ count($row->users) }}</td>
+                            <td>{{ $row->description }}</td>
+                            <td class="text-center">{{ count($row->users)}}</td>
                             <td class="text-center">
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>

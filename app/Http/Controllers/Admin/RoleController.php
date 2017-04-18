@@ -103,10 +103,10 @@ class RoleController extends Controller
             });
 		</script>";
         $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
-        $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';
+        //$css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';
 
         $permissions = $this->permissionList(true);
-        return view('admin.role.create', compact('title', 'permissions', 'js', 'css', 'extrajs') );
+        return view('admin.role.create', compact('title', 'permissions', 'js', 'extrajs') );
     }
 
     /**
@@ -134,8 +134,9 @@ class RoleController extends Controller
         }
 
         $role = new Role();
-        $role->name = empty($request->input('slug')) ?  str_slug($request->input('name'), '-') : $request->input('slug');
+        $role->name = str_slug($request->input('name'), '-');
         $role->display_name = $request->input('name');
+        $role->description = $request->input('description');
         $role->status = $request->input('status');
         $role->save();
 

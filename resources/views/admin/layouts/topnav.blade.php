@@ -38,10 +38,10 @@
                                 <a href="{!! url(Request::segment(1).'/profile') !!}" class="btn bg-navy-active btn-flat"><i class="fa fa-user"></i> Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{!! route('logout') !!}" class="btn bg-orange-active btn-flat" onclick="event.preventDefault();
+                                <a href="{!! url('logout') !!}" class="btn bg-orange-active btn-flat" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Sign out</a>
                             </div>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
