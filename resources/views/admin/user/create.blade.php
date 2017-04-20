@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/user/store', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/user', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="glyphicon glyphicon-plus"></span>&nbsp;{!! $title !!}

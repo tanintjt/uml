@@ -37,11 +37,11 @@
                         </tr>
                         <tr>
                             <th class="active">Client</th>
-                            <td>{!! $row->dealers->clients->name !!}</td>
+                            {{--<td>{!! $row->dealers->clients->name !!}</td>--}}
                         </tr>
                         <tr>
                             <th class="active">Dealer</th>
-                            <td>{!! $row->dealers->name !!}</td>
+                            {{--<td>{!! $row->dealers->name !!}</td>--}}
                         </tr>
                         <tr>
                             <th class="active">API Key</th>
@@ -53,6 +53,7 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
         </div>
     </div>
     {!! Form::close() !!}

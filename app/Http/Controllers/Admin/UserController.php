@@ -154,6 +154,7 @@ class UserController extends Controller
     public function show($id)
     {
         $row = User::findOrFail($id);
+
         $title = 'User '. $row->name . ' details';
         return view('admin.user.view',compact('title', 'row'));
     }
@@ -240,8 +241,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
+
         $user = User::findOrFail($id);
 
         $user->delete();

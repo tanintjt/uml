@@ -60,9 +60,11 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'status' => 1 ], $request->input('remember'))) {
 
             if(Auth::user()->hasRole('super-administrator')) {
+
                 return redirect($this->redirectTo);
             } else {
 
@@ -75,8 +77,6 @@ class LoginController extends Controller
                     ]);
                 }
             }
-
-
         }
 
         return redirect('login')->withErrors([

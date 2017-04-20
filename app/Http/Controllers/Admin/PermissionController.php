@@ -204,7 +204,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, $id)
+    public function delete(Request $id)
     {
         $permission = Permission::findOrFail($id);
 
