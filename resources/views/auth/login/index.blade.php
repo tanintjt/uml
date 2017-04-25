@@ -10,12 +10,14 @@
             <p class="login-box-msg">Sign in to start your session</p>
 
             {!! Form::open(array('url' => 'login', 'name' => 'login-form', 'id' => 'login-form')) !!}
+
+            {{--{!! Form::open(array('route' => 'login', 'name' => 'login-form', 'id' => 'login-form')) !!}--}}
                 <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" class="form-control" placeholder="Email" name="email">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Password" name="password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
@@ -32,13 +34,13 @@
                 </div>
             {!! Form::close() !!}
 
-            <div class="social-auth-links text-center">
+           {{-- <div class="social-auth-links text-center">
                 <hr />
                 <a href="{{ url('auth/facebook') }}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
                     Facebook</a>
                 <a href="{{ url('auth/google') }}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
                     Google+</a>
-            </div>
+            </div>--}}
 
             <a href="{{ url('password/reset') }}">I forgot my password</a><br>
 
