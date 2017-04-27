@@ -1,5 +1,6 @@
 @extends('admin.layouts.master')
 
+
 @section('content')
     {!! Form::open(array('url' => Request::segment(1).'/user', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
