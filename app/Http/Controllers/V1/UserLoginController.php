@@ -20,7 +20,7 @@ class UserLoginController extends Controller
 
     public function index()
     {
-        
+
         $title = 'Login to your account';
         return view('auth/login/index', compact('title'));
     }

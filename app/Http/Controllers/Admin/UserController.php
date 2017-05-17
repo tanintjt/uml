@@ -69,11 +69,13 @@ class UserController extends Controller
 
         $roles = $this->roleList();
 
-        $rows = User::Role()->Search(Session::get('search'))->
-                RoleId(Session::get('role_id'))->
-                Status(Session::get('status'))->
-                orderBy('name', 'asc')->
-                paginate(config('app.limit'));
+            $rows = User::Role()->Search(Session::get('search'))->
+            RoleId(Session::get('role_id'))->
+            Status(Session::get('status'))->
+            orderBy('name', 'asc')->
+            paginate(config('app.limit'));
+
+
 
         return view('admin/user/index', compact('rows', 'title', 'roles', 'extrajs'));
     }
@@ -269,5 +271,13 @@ class UserController extends Controller
         endforeach;
 
         return $rolelist;
+    }
+
+
+    public function profile()
+    {
+
+        $title = "User Profile";
+        return view('admin.user.profile',compact('title'));
     }
 }
