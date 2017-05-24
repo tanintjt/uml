@@ -71,7 +71,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
     Route::post('/register', 'LoginController@register');
 
-    Route::post('/abc', 'LoginController@logout');
+    Route::post('/logout', 'LoginController@logout');
 
 
 });
