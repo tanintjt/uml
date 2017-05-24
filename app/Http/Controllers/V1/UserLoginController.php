@@ -12,11 +12,11 @@ class UserLoginController extends Controller
 {
 
 
-    public function __construct()
-    {
-
-        $this->middleware('auth.basic');
-    }
+//    public function __construct()
+//    {
+//
+//        $this->middleware('auth.basic');
+//    }
 
     public function index()
     {
