@@ -44,8 +44,8 @@ class LoginController extends Controller
                 'api_token' =>str_random(60),
             ];
 
-            DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token);
-
+           $insert = DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token);
+          
             return response()->json([
                 'name' => Auth::user()->name,
                 'email' =>Auth::user()->email,
