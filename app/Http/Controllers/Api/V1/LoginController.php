@@ -36,19 +36,6 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-       /* $row = $request->user();
-
-        $result['user'] = [
-            'name' => $row->name,
-            'email' => $row->email,
-//            'provider' => $row->provider,
-//            'provider_id' => $row->provider_id,
-            'api_token' =>str_random(30),
-        ];
-
-        //return $request->user();
-        return response()->json(['error' => false, 'result'=>$request], 200);*/
-
 
         if (Auth::check()) {
 
@@ -64,12 +51,13 @@ class LoginController extends Controller
                 'email' =>Auth::user()->email,
                 'api_token' =>$user_token['api_token'],
             ]);
-        } else {
+        }
+        else
+         {
             return response()->json([
                 'error'=>'Authorization error'
             ]);
-        }
-
+         }
     }
 
     public function logout(Request $request){
@@ -79,14 +67,19 @@ class LoginController extends Controller
             'api_token' =>Null,
         ];
 
-        DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token);
+        if(DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token)){
 
-        Auth::logout();
+            Auth::logout();
 
-        return response()->json([
-            'message'=>'successfully Logged out.'
-        ]);
-
+            return response()->json([
+                'message'=>'successfully Logged out.'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error'=>'error'
+            ]);
+        }
 
     }
 }
