@@ -114,10 +114,8 @@ class LoginController extends Controller
     {
 
         $user = Socialite::driver($provider)->user();
-        print_r($user);exit;
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
-
 
         //return $user->token;
         return redirect($this->redirectTo);
