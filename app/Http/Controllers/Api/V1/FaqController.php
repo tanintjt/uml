@@ -31,6 +31,7 @@ class FaqController extends Controller
         $rules = array('file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub');
 
         $validator = Validator::make(array('file' => $file), $rules);
+
         if ($validator->passes()) {
             // Files destination
             $destinationPath = 'public/uploads/faqs/';
@@ -41,18 +42,10 @@ class FaqController extends Controller
             $input['file'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
         }
 
-
-
-      /*  $file =Input::file('file');
-        $imagedata = file_get_contents($file);
+        $imagedata = file_get_contents($file_original_name);
         $base64 = base64_encode($imagedata);
-        $oUser->avatar = $base64;
-        $oUser->update();*/
 
-
-
-
-        $faq = Faq::create($input);
+        $faq = Faq::create($base64);
 
             if ($faq) {
                  $result = 'Successfully Saved';
@@ -67,7 +60,6 @@ class FaqController extends Controller
             return response()->json(['error' => $error, 'result' => $result], $http_code);
 
     }
-
 
 
     /*public function geocode(){
