@@ -80,6 +80,17 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
     Route::get('/service-package', [ 'as' => 'service-package', 'uses' => 'ServicePackageController@index']);
 
+    Route::post('/service-request', [ 'as' => 'service-request', 'uses' => 'ServiceRequestController@store']);
+
+    /*Faqs*/
+    Route::get('/faqs', [ 'as' => 'service-request', 'uses' => 'FaqController@index']);
+
+    Route::post('/faq-store', [ 'as' => 'service-request', 'uses' => 'FaqController@store']);
+
+    /*test*/
+    Route::get('/geocode', [ 'as' => 'service-request', 'uses' => 'FaqController@geocode']);
+
+
 
 });
 
