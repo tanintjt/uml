@@ -90,7 +90,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     /*test*/
     Route::get('/geocode', [ 'as' => 'service-request', 'uses' => 'FaqController@geocode']);
 
-
+    Route::post('/distance', 'ServiceCenterController@distanceCalculation');
 
 });
 

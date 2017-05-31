@@ -7,5 +7,12 @@ use App\Http\Controllers\Controller;
 
 class PromotionController extends Controller
 {
-    //
+
+
+
+    public function index(){
+
+
+
+    }
 }

@@ -12,6 +12,8 @@ use Validator;
 class FaqController extends Controller
 {
 
+
+
     public function index(){
 
         $rows = Faq::get();
@@ -19,6 +21,9 @@ class FaqController extends Controller
 
         return response()->json(['error' => false, 'result' => $result ], 200);
     }
+
+
+
 
     public function store(Request $request) {
 
@@ -33,24 +38,28 @@ class FaqController extends Controller
         $validator = Validator::make(array('file' => $file), $rules);
 
         if ($validator->passes()) {
-            // Files destination
+
+            /*// Files destination
             $destinationPath = 'public/uploads/faqs/';
 
             $file_original_name = $file->getClientOriginalName();
             $file_name = rand(11111, 99999) . $file_original_name;
             $file->move($destinationPath, $file_name);
-            $input['file'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
-        }
+            $input['file'] = date('Y-m-d h:i:s', time()).'  '.$file_name;*/
 
-        $imagedata = file_get_contents($file_original_name);
-        $base64 = base64_encode($imagedata);
 
-        $faq = Faq::create($base64);
+            $img_data = file_get_contents($file);
+            $type = pathinfo($file, PATHINFO_EXTENSION);
+            $base64 = base64_encode($img_data);
+
+            $faq = Faq::create([
+                'file' => $base64,
+            ]);
 
             if ($faq) {
-                 $result = 'Successfully Saved';
-                 $error = false;
-                 $http_code = 201;
+                $result = 'Successfully Saved';
+                $error = false;
+                $http_code = 201;
             } else {
                 $result = 'Request failed.';
                 $http_code = 500;
@@ -59,7 +68,10 @@ class FaqController extends Controller
 
             return response()->json(['error' => $error, 'result' => $result], $http_code);
 
+        }
     }
+
+
 
 
     /*public function geocode(){
@@ -73,5 +85,8 @@ class FaqController extends Controller
 
         return response()->json(['lat' => $lat, 'long' => $long]);
     }*/
+
+
+
 
 }
