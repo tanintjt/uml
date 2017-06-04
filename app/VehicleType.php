@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class VehicleType extends Model
 {
-    protected $table = 'promotions';
-   
-   
+    protected $table = 'vehicle_type';
+
+
     protected $fillable = [
-        'file'
+        'name', 'description'
     ];
 }

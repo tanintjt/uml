@@ -17,7 +17,6 @@ class ServiceRequestController extends Controller
 
         $user = Auth::user();
 
-
         $rules = [
             'user_id' => 'required',
             'service_center_id' => 'required',
@@ -42,7 +41,7 @@ class ServiceRequestController extends Controller
             ->exists();
 
         if($request_exists){
-            return response()->json(['error' => true, 'result' => 'Already Requested. Please try another one!!!' ], 200);
+            return response()->json(['error' => true, 'result' => 'Already added. Please try another one!!!' ], 200);
         }
         else{
             $service_request = ServiceRequest::create(

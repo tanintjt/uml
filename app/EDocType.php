@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class EDocType extends Model
 {
-    protected $table = 'promotions';
-   
-   
+    protected $table = 'e_doc_type';
+
+
     protected $fillable = [
-        'file'
+        'name'
     ];
 }

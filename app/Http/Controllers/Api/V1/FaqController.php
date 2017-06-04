@@ -13,7 +13,6 @@ class FaqController extends Controller
 {
 
 
-
     public function index(){
 
         $rows = Faq::get();
@@ -21,7 +20,6 @@ class FaqController extends Controller
 
         return response()->json(['error' => false, 'result' => $result ], 200);
     }
-
 
 
 
@@ -67,7 +65,6 @@ class FaqController extends Controller
             }
 
             return response()->json(['error' => $error, 'result' => $result], $http_code);
-
         }
     }
 

@@ -15,10 +15,10 @@ class CreateVehicleCatalogTable extends Migration
     {
         Schema::create('vehicle_catalog', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('vehicle_type',255)->nullable();
+            $table->integer('vehicle_type')->unsigned();
             $table->integer('vehicle_id')->unsigned();
             $table->integer('brand_id')->unsigned();
-            $table->string('vehicle_model',255)->nullable();
+            $table->integer('vehicle_model')->unsigned();
             $table->string('vehicle_image', 255)->nullable();
             $table->timestamps();
 
@@ -31,6 +31,18 @@ class CreateVehicleCatalogTable extends Migration
             if(Schema::hasTable('vehicle'))
             {
                 $table->foreign('vehicle_id')->references('id')->on('vehicle')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            }
+
+            if(Schema::hasTable('vehicle_type'))
+            {
+                $table->foreign('vehicle_type')->references('id')->on('vehicle_type')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            }
+
+            if(Schema::hasTable('vehicle_model'))
+            {
+                $table->foreign('vehicle_model')->references('id')->on('vehicle_model')
                     ->onUpdate('cascade')->onDelete('cascade');
             }
         });

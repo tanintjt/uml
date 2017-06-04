@@ -4,11 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class Brochure extends Model
 {
-    protected $table = 'promotions';
-   
-   
+
+
+    protected $table = 'brochure';
+
+
     protected $fillable = [
         'file'
     ];

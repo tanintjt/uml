@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers\api\V1;
 
-use App\Promotion;
+use App\EDocument;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
-class PromotionController extends Controller
+use DB;
+class EDocumentController extends Controller
 {
 
 
+    public function index(Request $request){
 
-    public function index(){
+        $rows = DB::table('e_documents')
+            ->join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
+            ->where('e_documents.doc_type_id',$request->doc_type_id)
+            ->select('e_doc_type.name','e_documents.issue_date','e_documents.expiry_date','e_documents.file')
+            ->get();
 
-        $rows = Promotion::get();
-        $result['Promotion'] = $rows;
+        $result['E Documents'] = $rows;
 
         return response()->json(['error' => false, 'result' => $result ], 200);
     }
@@ -23,7 +28,6 @@ class PromotionController extends Controller
 
 
     public function store(Request $request) {
-
 
         $input = $request->all();
 
@@ -36,14 +40,18 @@ class PromotionController extends Controller
         if ($validator->passes()) {
 
             $img_data = file_get_contents($file);
-            $type = pathinfo($file, PATHINFO_EXTENSION);
+            pathinfo($file, PATHINFO_EXTENSION);
             $base64 = base64_encode($img_data);
 
-            $promotion = Promotion::create([
+
+            $doc = EDocument::create([
                 'file' => $base64,
+                'doc_type_id' => $request->doc_type_id,
+                'issue_date' => $request->issue_date,
+                'expiry_date' => $request->expiry_date,
             ]);
 
-            if ($promotion) {
+            if ($doc) {
                 $result = 'Successfully Saved';
                 $error = false;
                 $http_code = 201;
@@ -52,8 +60,9 @@ class PromotionController extends Controller
                 $http_code = 500;
                 $error = true;
             }
-
             return response()->json(['error' => $error, 'result' => $result], $http_code);
         }
     }
+
+
 }

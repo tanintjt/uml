@@ -25,34 +25,6 @@ use Illuminate\Http\Request;
 
 
 
-/*Route::group(['prefix'=>'v1','namespace' => 'V1'], function () {
-
-    Route::get('get-login',['as' =>'get-login', 'uses'=>'UserLoginController@index']);
-
-});*/
-
-
-//Route::group(['prefix'=>'v1','namespace' => 'V1','middleware' => 'auth.basic'], function () {
-//
-//
-//    Route::get('abc', function (Request $request) {
-//        //return $request->user();
-//        return response()->json(['name'=>$request->user()->name,
-//            'email'=>$request->user()->email,
-//            'provider'=>$request->user()->provider]);
-//
-//    });
-//
-//    Route::post('post-login', [ 'as' => 'post-user-login', 'uses' => 'UserLoginController@login']);
-//
-//    //Route::match(array('GET', 'POST'), 'login', 'UserLoginController@login');
-//
-//    Route::post('user-logout',['as'=>'user-logout', 'uses'=>'UserLoginController@logout']);
-//
-//});
-
-
-
 Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basic'], function () {
 
     /*Route::get('auth', function (Request $request) {
@@ -65,11 +37,10 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
     });*/
 
-
+    /*basic :auth */
+    Route::post('/register', 'LoginController@register');
 
     Route::post('/login', 'LoginController@login');
-
-    Route::post('/register', 'LoginController@register');
 
     Route::post('/logout', 'LoginController@logout');
 
@@ -86,6 +57,43 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     Route::get('/faqs', [ 'as' => 'service-request', 'uses' => 'FaqController@index']);
 
     Route::post('/faq-store', [ 'as' => 'service-request', 'uses' => 'FaqController@store']);
+
+    /*Vehicle*/
+    Route::post('/vehicle', [ 'as' => 'vehicle', 'uses' => 'VehicleController@index']);
+
+    Route::post('/vc-store', [ 'as' => 'vc-store', 'uses' => 'VehicleCatalogController@store']);
+
+    Route::post('/vehicle-catalog', [ 'as' => 'vehicle-catalog', 'uses' => 'VehicleCatalogController@index']);
+
+
+    /*E Doc Type*/
+    Route::post('/doc-type-store', [ 'as' => 'doc-type-store', 'uses' => 'EDocTypeController@store']);
+
+
+    /*E Document*/
+    Route::post('/docs-store', [ 'as' => 'docs-store', 'uses' => 'EDocumentController@store']);
+
+    Route::post('/docs', [ 'as' => 'docs', 'uses' => 'EDocumentController@index']);
+
+
+
+    /* promotions*/
+    Route::get('/promotion', [ 'as' => 'promotion', 'uses' => 'PromotionController@index']);
+
+    Route::post('/promotion-store', [ 'as' => 'promotion-store', 'uses' => 'PromotionController@store']);
+
+
+    /*Brochure*/
+    Route::get('/brochure', [ 'as' => 'brochure', 'uses' => 'BrochureController@index']);
+
+    Route::post('/brochure-store', [ 'as' => 'brochure-store', 'uses' => 'BrochureController@store']);
+
+
+    /*news & events..*/
+    Route::get('/news-events', [ 'as' => 'news-events', 'uses' => 'NewsEventsController@index']);
+
+    Route::post('/store-news-events', [ 'as' => 'store-news-events', 'uses' => 'NewsEventsController@store']);
+
 
     /*test*/
     Route::get('/geocode', [ 'as' => 'service-request', 'uses' => 'FaqController@geocode']);

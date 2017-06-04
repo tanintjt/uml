@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\api\V1;
 
-use App\Promotion;
+use App\Brochure;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
-class PromotionController extends Controller
+class BrochureController extends Controller
 {
 
 
 
     public function index(){
 
-        $rows = Promotion::get();
-        $result['Promotion'] = $rows;
+        $rows = Brochure::get();
+        $result['Brochure'] = $rows;
 
         return response()->json(['error' => false, 'result' => $result ], 200);
     }
@@ -39,7 +39,7 @@ class PromotionController extends Controller
             $type = pathinfo($file, PATHINFO_EXTENSION);
             $base64 = base64_encode($img_data);
 
-            $promotion = Promotion::create([
+            $promotion = Brochure::create([
                 'file' => $base64,
             ]);
 
