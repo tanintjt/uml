@@ -55,7 +55,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
     Route::post('/min-distance',[ 'as' => 'min-distance', 'uses' => 'ServiceCenterController@distanceCalculation']);
 
-    
+
     /*Faqs*/
     Route::get('/faqs', [ 'as' => 'service-request', 'uses' => 'FaqController@index']);
 
@@ -101,7 +101,6 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
     /*test*/
     Route::get('/geocode', [ 'as' => 'service-request', 'uses' => 'FaqController@geocode']);
-
 
 
 });
