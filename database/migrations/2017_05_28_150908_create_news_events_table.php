@@ -20,7 +20,7 @@ class CreateNewsEventsTable extends Migration
             $table->dateTime('end_date')->nullable();
             $table->string('title', 255)->nullable();
             $table->text('details', 255)->nullable();
-            $table->string('file', 255)->nullable();
+            $table->binary('file')->nullable();
 
             $table->timestamps();
 

@@ -15,7 +15,7 @@ class CreateBrochureTable extends Migration
     {
         Schema::create('brochure', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file', 255)->nullable();
+            $table->binary('file')->nullable();
             $table->timestamps();
 
         });

@@ -19,7 +19,7 @@ class CreateVehicleCatalogTable extends Migration
             $table->integer('vehicle_id')->unsigned();
             $table->integer('brand_id')->unsigned();
             $table->integer('vehicle_model')->unsigned();
-            $table->string('vehicle_image', 255)->nullable();
+            $table->binary('vehicle_image')->nullable();
             $table->timestamps();
 
             if(Schema::hasTable('brands'))

@@ -19,7 +19,7 @@ class CreateServiceCenterTable extends Migration
             $table->double('longitude', 19, 16)->default(0);
             $table->string('phone', 20)->nullable();
             $table->text('address')->nullable();
-            $table->string('store_image', 255)->nullable();
+            $table->binary('store_image')->nullable();
             $table->timestamps();
 
         });

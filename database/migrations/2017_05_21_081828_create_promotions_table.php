@@ -15,7 +15,7 @@ class CreatePromotionsTable extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file',255);
+            $table->binary('file')->nullable();
             $table->timestamps();
         });
     }
