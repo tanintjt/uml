@@ -67,7 +67,6 @@ class LoginController extends Controller
 
                 return redirect($this->redirectTo);
             } else {
-
                 if(Auth::user()->hasRole(['administrator', 'manager'])) {
                     return redirect('client/dashboard');
                 } else {

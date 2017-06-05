@@ -46,7 +46,7 @@
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ $row->name }}</td>
                             <td>{{ $row->email }}</td>
-                            <td>{{ $row->roles[0]->display_name }}</td>
+                            <td>{{ isset($row->roles[0])?$row->roles[0]->display_name:''}}</td>
                             <td class="text-center">
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>
