@@ -60,16 +60,18 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'status' => 1 ], $request->input('remember'))) {
+
 
             if(Auth::user()->hasRole('super-administrator')) {
 
                 return redirect($this->redirectTo);
             } else {
                 if(Auth::user()->hasRole(['administrator', 'manager'])) {
+
                     return redirect('client/dashboard');
                 } else {
+                 
                     Auth::logout();
                     return redirect('login')->withErrors([
                         'error' => 'Sorry, you do not have proper permission to access the web system.',
