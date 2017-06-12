@@ -71,7 +71,7 @@ class LoginController extends Controller
 
                     return redirect('client/dashboard');
                 } else {
-                 
+
                     Auth::logout();
                     return redirect('login')->withErrors([
                         'error' => 'Sorry, you do not have proper permission to access the web system.',
