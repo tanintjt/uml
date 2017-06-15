@@ -147,7 +147,8 @@ class LoginController extends Controller
                     'password' => bcrypt($user->id),
                     'provider' => $provider,
                     'provider_id' => $user->id,
-                    'status' => 1
+                    'status' => 1,
+                    'api_token'=>isset($user->api_token)?$user->api_token:''
                 ]);
 
         //$user->attachRole($newuser->id);

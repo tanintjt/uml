@@ -40,11 +40,11 @@ class LoginController extends Controller
         if (Auth::check()) {
 
             $user_token = [
-                'remember_token' =>str_random(30),
+                'remember_token' =>str_random(60),
                 'api_token' =>str_random(60),
             ];
 
-           $insert = DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token);
+            DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token);
           
             return response()->json([
                 'name' => Auth::user()->name,
