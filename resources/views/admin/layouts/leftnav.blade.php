@@ -24,6 +24,7 @@
                     <li><a href="{!! url(Request::segment(1).'/user') !!}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
+            <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-bank"></i> <span>Service Center</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-laptop"></i>

@@ -57,6 +57,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     Route::any('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete']);
 
+    Route::resource('/service-center',  'ServiceCenterController');
+
 });
 
 

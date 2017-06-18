@@ -41,11 +41,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => '127.0.0.1',
+            'host' => '192.168.3.202',
             'port' => '3306',
             'database' => 'uml',
-            'username' => 'root',
-            'password' => 'Sheb@2020',
+            'username' => 'uml',
+            'password' => 'Sheb@2017',
             'unix_socket' => '',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -54,20 +54,6 @@ return [
             'engine' => 'InnoDB',
         ],
         
-        'mysql' => [
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'port' => '',
-            'database' => 'uml',
-            'username' => 'root',
-            'password' => '',
-            'unix_socket' => '',
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => 'tbl_',
-            'strict' => true,
-            'engine' => 'InnoDB',
-        ],
 
         'pgsql' => [
             'driver' => 'pgsql',

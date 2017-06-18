@@ -19,4 +19,13 @@ class ServiceCenter extends Model
     protected $fillable = [
         'latitude', 'longitude', 'phone', 'address','store_image'
     ];
+
+
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('address', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
 }
