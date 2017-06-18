@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBrochureTable extends Migration
+class AlterPromotionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateBrochureTable extends Migration
      */
     public function up()
     {
-        Schema::create('brochure', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('file', 256)->nullable();
-            $table->timestamps();
+        Schema::table('promotions', function (Blueprint $table) {
+
+            $table->string('file', 256)->nullable()->change();
 
         });
     }
@@ -28,6 +27,6 @@ class CreateBrochureTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brochure');
+        Schema::dropIfExists('promotions');
     }
 }

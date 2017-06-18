@@ -15,7 +15,7 @@ class CreateFaqTable extends Migration
     {
         Schema::create('faq', function (Blueprint $table) {
             $table->increments('id');
-            $table->binary('file')->nullable();
+            $table->string('file', 256)->nullable();
             $table->timestamps();
 
         });

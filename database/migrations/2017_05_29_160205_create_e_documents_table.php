@@ -18,7 +18,7 @@ class CreateEDocumentsTable extends Migration
             $table->integer('doc_type_id')->unsigned();
             $table->dateTime('issue_date')->nullable();
             $table->dateTime('expiry_date')->nullable();
-            $table->binary('file')->nullable();
+            $table->string('file', 256)->nullable();
             $table->timestamps();
 
             if(Schema::hasTable('e_doc_type'))

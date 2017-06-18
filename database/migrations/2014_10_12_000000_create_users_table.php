@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('provider');
             $table->string('provider_id')->unique();
             $table->boolean('status')->default(2);
-            $table->string('api_token',60)->unique(); // api token
+            $table->string('api_token',60)->unique()->nullable(); // api token
             $table->rememberToken();
             $table->timestamps();
         });

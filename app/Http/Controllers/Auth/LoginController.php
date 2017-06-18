@@ -148,7 +148,7 @@ class LoginController extends Controller
                     'provider' => $provider,
                     'provider_id' => $user->id,
                     'status' => 1,
-                    'api_token'=>isset($user->api_token)?$user->api_token:''
+                    'api_token'=>isset($user->api_token)?$user->api_token:Null
                 ]);
 
         //$user->attachRole($newuser->id);
