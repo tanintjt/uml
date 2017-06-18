@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/service-center', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form','files'=>'true')) !!}
     {!! Form::model($row,['method' => 'PUT','url' => Request::segment(1).'/service-center/'.$row->id,'class' => 'form-horizontal', 'id' => 'admin-form','files'=>'true' ]) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -56,7 +55,7 @@
                 <div class="form-group{{ $errors->has('store_image') ? ' has-error' : '' }}">
                     {!! Form::label('store_image', 'Store Image:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
-                        {!! Form::file('store_image',old('store_image',$row->store_image), [ 'class' => 'form-control','required']) !!}
+                        {!! Form::file('store_image',old('store_image'), [ 'class' => 'form-control','required']) !!}
                         @if ($errors->has('store_image'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('store_image') }}</strong>

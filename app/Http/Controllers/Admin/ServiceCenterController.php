@@ -136,7 +136,7 @@ class ServiceCenterController extends Controller
     public function edit($id)
     {
         $row = ServiceCenter::findOrFail($id);
-        $title = 'Edit  details';
+        $title = 'Edit details';
         return view('admin.service_center.edit',compact('title', 'row'));
     }
 
@@ -149,38 +149,57 @@ class ServiceCenterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permission = Permission::findOrFail($id);
+        $model = ServiceCenter::findOrFail($id);
 
         $rules = [
-            'name' => 'required|unique:permissions,name,'.$id.',id'
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'store_image' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
         ];
 
         $messages = [
-            'name.required'     => 'Permission name is required!',
-            'name.unique'       => 'Permission name already exists!',
+            'latitude.required' => ' Latitude is required!',
+            'longitude.required' => ' Longitude is required!',
+            'phone.required' => ' Phone is required!',
+            'address.required' => ' Address is required!',
+            'store_image.required' => ' Image is required!',
         ];
+
+        $file = Input::file('store_image');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return redirect('admin/permission/'.$id.'/edit')->withErrors($validator)->withInput();
+
+            return redirect('admin/service-center/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        $input =  [
-            'display_name'  => $request->get('name'),
-            'name'          => str_slug($request->get('name'), '-'),
-            'description'   => $request->get('description'),
-            'status'        => $request->get('status')
-        ];
+        // Files destination
+        $destinationPath = 'public/uploads/service_center/';
 
-        if ($permission->update($input)) {
-            $message = $permission->display_name.' permission updated.';
+        // Create folders if they don't exist
+        if ( !file_exists($destinationPath) ) {
+            mkdir ($destinationPath, 0777);
+        }
+
+        $file_original_name = $file->getClientOriginalName();
+        $file_name = rand(11111, 99999) . $file_original_name;
+        $file->move($destinationPath, $file_name);
+        $input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+
+
+        $model = ServiceCenter::update($input);
+
+        if ($model->id > 0) {
+            $message = 'Service Center Successfully updated.';
             $error = false;
         } else {
-            $message =  $permission->display_name.' permission update fail.';
+            $message =  'Service Center updating fail.';
             $error = true;
         }
 
-        return redirect('admin/permission')->with(['message' => $message, 'error' => $error]);
+        return redirect('admin/service-center')->with(['message' => $message, 'error' => $error]);
     }
 }
