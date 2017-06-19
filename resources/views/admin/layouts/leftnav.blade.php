@@ -24,22 +24,21 @@
                     <li><a href="{!! url(Request::segment(1).'/user') !!}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
-            <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-bank"></i> <span>Service Center</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-laptop"></i>
-                    <span>UI Elements</span>
+                    <i class="fa fa-car"></i>
+                    <span>Vehicles</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                    <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                    <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                    <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                    <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                    <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                    <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Vehicle</a></li>
+                    <li><a href={!! url(Request::segment(1).'/vehicle-type') !!}><i class="fa fa-circle-o"></i> Vehicle Type</a></li>
+                    <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Vehicle Model</a></li>
+                    <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Vehicle Catalog</a></li>
                 </ul>
             </li>
             <li class="treeview">

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/service-center', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/service-package', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
@@ -9,7 +9,7 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-success btn-sm go"><span class="glyphicon glyphicon-search"></span> Go</button>
                     <button type="button" class="btn btn-info btn-sm clear"><span class="glyphicon glyphicon-refresh"></span> Clear</button>
-                    <a href="{!! url(Request::segment(1).'/service-center/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
+                    <a href="{!! url(Request::segment(1).'/service-package/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
                 </span>
             </div>
             <div class="pull-right">
@@ -30,10 +30,8 @@
                     <thead>
                     <tr class="active">
                         <th width="5%">#</th>
-                        <th width="20%">Address</th>
-                        <th width="8%">Phone</th>
-                        <th width="5%">Latitude</th>
-                        <th width="5%">Longitude</th>
+                        <th width="20%">Name</th>
+                        <th width="8%">Package Rate</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -42,19 +40,17 @@
                     @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td>{{ $row->address}}</td>
-                            <td>{{ $row->phone}}</td>
-                            <td>{{ $row->latitude}}</td>
-                            <td>{{ $row->longitude}}</td>
+                            <td>{{ $row->name}}</td>
+                            <td>{{ $row->package_rate}}</td>
                             {{--<td class="text-center">
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>--}}
                             <td>
-                                <a href="{!! url(Request::segment(1).'/service-center/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                <a href="{!! url(Request::segment(1).'/service-center/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{!! url(Request::segment(1).'/service-package/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a href="{!! url(Request::segment(1).'/service-package/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 
                                 {{--<a href="{!! url(Request::segment(1).'/permission/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" role="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
-                                <a href="{!! route('service-center-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete Service Center" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete  ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="{!! route('service-package-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     @endforeach

@@ -14,7 +14,7 @@ class ServiceCenterController extends Controller
 
     public function index(Request $request){
 
-        $title = 'Service Center';
+        $title = 'Service Location';
         $extrajs = "<script>
 		$(function() {
 
@@ -64,7 +64,7 @@ class ServiceCenterController extends Controller
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
-        return view('admin/service_center/index', compact('rows', 'title', 'extrajs'));
+        return view('admin/vehicle_type/index', compact('rows', 'title', 'extrajs'));
     }
 
 
@@ -150,6 +150,7 @@ class ServiceCenterController extends Controller
     public function update(Request $request, $id)
     {
 
+        $input = $request->all();
         $model = ServiceCenter::findOrFail($id);
 
         $rules = [
@@ -188,10 +189,11 @@ class ServiceCenterController extends Controller
         $file_original_name = $file->getClientOriginalName();
         $file_name = rand(11111, 99999) . $file_original_name;
         $file->move($destinationPath, $file_name);
-        $input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+        //$input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+        $input['store_image'] = 'public/uploads/service_center/' . $file_name;
 
 
-        $model = ServiceCenter::update($input);
+        $model->update($input);
 
         if ($model->id > 0) {
             $message = 'Service Center Successfully updated.';
@@ -202,5 +204,30 @@ class ServiceCenterController extends Controller
         }
 
         return redirect('admin/service-center')->with(['message' => $message, 'error' => $error]);
+    }
+
+
+    public function show($id){
+
+        $row = ServiceCenter::findOrFail($id);
+
+        $title = 'Service Location details';
+        return view('admin.service_center.view',compact('title', 'row'));
+    }
+
+
+
+    public function delete($id)
+    {
+
+        $model = ServiceCenter::where('id',$id)->first();
+
+        $message = 'Service Center deleted.';
+        $error = false;
+
+        $model->delete();
+
+        return redirect()->back()->with(['message' => $message, 'error' => $error]);
+
     }
 }

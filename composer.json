@@ -13,7 +13,8 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
-        "zizaco/entrust": "5.2.x-dev"
+        "zizaco/entrust": "5.2.x-dev",
+        "illuminate/html": "5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

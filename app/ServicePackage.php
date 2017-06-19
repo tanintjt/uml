@@ -19,4 +19,14 @@ class ServicePackage extends Model
     protected $fillable = [
         'name', 'details', 'package_rate',
     ];
+
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('address', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
+
+
 }

@@ -57,7 +57,22 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     Route::any('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete']);
 
+    /*service-location*/
     Route::resource('/service-center',  'ServiceCenterController');
+
+    Route::any('/service-center/delete/{id}', [ 'as' => 'service-center-delete', 'uses' => 'ServiceCenterController@delete']);
+
+    /*service-package*/
+
+    Route::resource('/service-package',  'ServicePackageController');
+
+    Route::any('/service-package/delete/{id}', [ 'as' => 'service-package-delete', 'uses' => 'ServicePackageController@delete']);
+
+    /*vehicle-type*/
+
+    Route::resource('/vehicle-type',  'VehicleTypeController');
+
+    Route::any('/vehicle-type/delete/{id}', [ 'as' => 'vehicle-type-delete', 'uses' => 'VehicleTypeController@delete']);
 
 });
 

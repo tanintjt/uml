@@ -12,4 +12,11 @@ class VehicleType extends Model
     protected $fillable = [
         'name', 'description'
     ];
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('address', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
 }
