@@ -85,7 +85,7 @@ class VehicleTypeController extends Controller
         ];
 
         $messages = [
-            'name.required' => ' Latitude is required!',
+            'name.required' => ' Name is required!',
         ];
 
 
@@ -136,7 +136,7 @@ class VehicleTypeController extends Controller
         ];
 
         $messages = [
-            'name.required' => ' Latitude is required!',
+            'name.required' => ' Name is required!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

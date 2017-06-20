@@ -64,7 +64,7 @@ class ServiceCenterController extends Controller
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
-        return view('admin/vehicle_type/index', compact('rows', 'title', 'extrajs'));
+        return view('admin/service_center/index', compact('rows', 'title', 'extrajs'));
     }
 
 

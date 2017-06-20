@@ -74,6 +74,22 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     Route::any('/vehicle-type/delete/{id}', [ 'as' => 'vehicle-type-delete', 'uses' => 'VehicleTypeController@delete']);
 
+    /*Vehicle Model*/
+
+    Route::resource('/vehicle-model',  'VehicleModelController');
+
+    Route::any('/vehicle-model/delete/{id}', [ 'as' => 'vehicle-model-delete', 'uses' => 'VehicleModelController@delete']);
+
+
+    /*Vehicle*/
+
+    Route::resource('/vehicle',  'VehicleController');
+
+    Route::any('/vehicle/delete/{id}', [ 'as' => 'vehiclel-delete', 'uses' => 'VehicleController@delete']);
+
+
+
+
 });
 
 

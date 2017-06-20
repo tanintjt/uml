@@ -53,7 +53,7 @@ return [
             'strict' => true,
             'engine' => 'InnoDB',
         ],
-        
+
 
         'pgsql' => [
             'driver' => 'pgsql',
