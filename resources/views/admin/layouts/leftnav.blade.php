@@ -38,7 +38,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{!! url(Request::segment(1).'/vehicle-type') !!}"><i class="fa fa-circle-o"></i> Vehicle Type</a></li>
                     <li><a href="{!! url(Request::segment(1).'/vehicle-model') !!}"><i class="fa fa-circle-o"></i> Vehicle Model</a></li>
-                    <li><a href="{!! url(Request::segment(1).'/vehicle-brand') !!}"><i class="fa fa-circle-o"></i> Vehicle Brand</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/brand') !!}"><i class="fa fa-circle-o"></i> Brand</a></li>
                     <li><a href="{!! url(Request::segment(1).'/vehicle') !!}"><i class="fa fa-circle-o"></i> Vehicle</a></li>
                 </ul>
             </li>

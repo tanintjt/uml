@@ -13,5 +13,12 @@ class Brand extends Model
      protected $fillable = [
         'parent_id', 'name', 'status',
     ];
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('name', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
      
 }

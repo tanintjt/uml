@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Validator;
+use Session;
 class BrandController extends Controller
 {
 
