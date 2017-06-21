@@ -18,14 +18,21 @@ use Illuminate\Http\Request;
 });*/
 
 
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/api/user', function (Request $request) {
     return $request->user();
 });*/
 
 
 
 
-Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basic'], function () {
+    //Route::post('/register', 'Api\V1\LoginController@register');
+    //Route::post('/login', 'Api\V1\LoginController@login');
+
+/*Route::post('/api/login', 'Api\V1\LoginController@login')->middleware('auth.basic');*/
+
+Route::post('/api/register', 'Api\V1\LoginController@register');
+
+Route::group(['prefix'=>'api','namespace' => 'Api\V1', 'middleware' => 'auth.basic' ], function () {
 
     /*Route::get('auth', function (Request $request) {
         //return $request->user();
@@ -38,8 +45,8 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     });*/
 
     /*basic :auth */
-    Route::post('/register', 'LoginController@register');
 
+//    Route::post('/register', 'LoginController@register');
     Route::post('/login', 'LoginController@login');
 
     Route::post('/logout', 'LoginController@logout');

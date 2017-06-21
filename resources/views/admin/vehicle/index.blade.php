@@ -32,13 +32,11 @@
                     <thead>
                     <tr class="active">
                         <th width="5%">#</th>
-                        <th>Brand</th>
-                        <th>Type</th>
-                        <th>Model</th>
-                        <th>production_year</th>
-                        <th>engine_displacement</th>
-                        <th>fuel_system</th>
-                        <th width="5%">Status</th>
+                        <th width="5%">Brand</th>
+                        <th width="5%">Type</th>
+                        <th width="5%">Model</th>
+                        <th width="5%">Fuel System</th>
+                        <th width="10%">Image</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -48,19 +46,17 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ isset($row->brand->name)?$row->brand->name:''}}</td>
-                            <td>{{ isset($row->model->name)?$row->model->name:''}}</td>
                             <td>{{ isset($row->types->name)?$row->types->name:''}}</td>
-                            <td>{{ $row->production_year }}</td>
-                            <td>{{ $row->engine_displacement }}</td>
+                            <td>{{ isset($row->model->name)?$row->model->name:''}}</td>
                             <td>{{ $row->fuel_system }}</td>
-                            <td>{{ $row->engine_displacement }}</td>
-
+                            {{--<td><a href="{!! route('vehicle-image',$row->id) !!}" data-toggle="modal" data-target="#image"><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px"></a></td>--}}
+                            <td><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%"></td>
                             <td>
-                                <a href="{!! url(Request::segment(1).'/user/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                <a href="{!! url(Request::segment(1).'/user/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 
                                 {{--<a href="{!! url(Request::segment(1).'/user/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->name !!}" data-message="Are you sure you want to delete {!!  $row->name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
-                                <a href="{!! route('user-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->name !!}" data-message="Are you sure you want to delete {!!  $row->name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     @endforeach
@@ -77,7 +73,7 @@
     {!! Form::close() !!}
 
     <div class="modal modan-danger" id="confirmDelete" user="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" >
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>
@@ -93,4 +89,24 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal fade" id="image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{--<h4 class="modal-title">{{$title}}</h4>--}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    {{--@include('admin.vehicle.vehicle_image')--}}
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 @endsection

@@ -116,7 +116,7 @@ class ServiceCenterController extends Controller
         $file_original_name = $file->getClientOriginalName();
         $file_name = rand(11111, 99999) . $file_original_name;
         $file->move($destinationPath, $file_name);
-        $input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+        $input['store_image'] = 'public/uploads/service_center/' . $file_name;
 
 
         $service_center = ServiceCenter::create($input);
@@ -158,7 +158,7 @@ class ServiceCenterController extends Controller
             'longitude' => 'required',
             'phone' => 'required',
             'address' => 'required',
-            'store_image' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
+//            'store_image' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
         ];
 
         $messages = [
@@ -166,7 +166,7 @@ class ServiceCenterController extends Controller
             'longitude.required' => ' Longitude is required!',
             'phone.required' => ' Phone is required!',
             'address.required' => ' Address is required!',
-            'store_image.required' => ' Image is required!',
+//            'store_image.required' => ' Image is required!',
         ];
 
         $file = Input::file('store_image');

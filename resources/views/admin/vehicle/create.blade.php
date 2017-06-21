@@ -64,9 +64,6 @@
                         {!! Form::textarea('engine_details', old('engine_details'), ['class' => 'form-control', 'id' => 'engine_details', 'placeholder' => 'Engine Details', 'rows' => 3]) !!}
                     </div>
                 </div>
-
-
-
             </div>
             <div class="col-xs-5">
 

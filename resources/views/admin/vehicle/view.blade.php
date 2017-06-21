@@ -1,14 +1,14 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => 'admin/user/'.$row->id, 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form', 'method' => 'get')) !!}
+    {!! Form::open(array('url' => 'admin/vehicle/'.$row->id, 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form', 'method' => 'get')) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;{!! $title !!}
             <div class="input-group pull-right">
                 <span class="input-group-btn">
-                    <a href="{!! url('admin/user/'.$row->id.'/edit')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                    <a href="{!! url('admin/user')!!}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+                    <a href="{!! url('admin/vehicle/'.$row->id.'/edit')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    <a href="{!! url('admin/vehicle')!!}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
                 </span>
             </div>
         </div>
@@ -18,38 +18,34 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <th width="10%" class="active">Name</th>
-                            <td>{!! $row->name !!}</td>
+                            <th width="10%" class="active">Brand</th>
+                            <td>{!!isset($row->brand->name)?$row->brand->name:'' !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">Email</th>
-                            <td>{!! $row->email !!}</td>
+                            <th class="active">Type</th>
+                            <td>{!! isset($row->types->name)?$row->types->name:'' !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">Roles</th>
+                            <th class="active">Model</th>
                             <td>
-                                @if(!empty($row->roles))
-                                    @foreach($row->roles as $v)
-                                        <label class="label label-success">{{ $v->display_name }}</label>
-                                    @endforeach
-                                @endif
+                                {!! isset($row->model->name)?$row->model->name:'' !!}
                             </td>
                         </tr>
                         <tr>
-                            <th class="active">Client</th>
-                            {{--<td>{!! $row->dealers->clients->name !!}</td>--}}
+                            <th class="active">Production Year</th>
+                            <td>{!! $row->production_year !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">Dealer</th>
-                            {{--<td>{!! $row->dealers->name !!}</td>--}}
+                            <th class="active">Engine Displacement</th>
+                            <td>{!! $row->engine_displacement !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">API Key</th>
-                            <td>{!! $row->api_token !!}</td>
+                            <th class="active">Engine Details</th>
+                            <td>{!! $row->engine_details !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">Status</th>
-                            <td>{!! $row->status == 1 ? '<span class="label label-primary">Active</span>':'<span class="label label-danger">Inactive</span>' !!}</td>
+                            <th class="active">fuel System</th>
+                            <td>{!! $row->fuel_system !!}</td>
                         </tr>
                     </tbody>
                 </table>

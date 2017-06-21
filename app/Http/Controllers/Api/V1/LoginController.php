@@ -26,7 +26,7 @@ class LoginController extends Controller
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
-                'status'        => $request->input('status')
+                'status'        => 1
             ]
         );
         return response()->json(['status'=>true,'message'=>'User created successfully','data'=>$user]);

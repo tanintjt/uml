@@ -13,7 +13,7 @@ class AlterVehicleTable extends Migration
      */
     public function up()
     {
-        Schema::table('vehicle', function($table)
+        Schema::table('vehicles', function($table)
         {
             $table->integer('brand_id')->unsigned()->after('id')->default(0);
             $table->string('vehicle_image', 256)->nullable()->after('fuel_system');
@@ -33,6 +33,6 @@ class AlterVehicleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicle');
+        Schema::dropIfExists('vehicles');
     }
 }

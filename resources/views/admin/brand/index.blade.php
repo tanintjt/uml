@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/vehicle-type', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/brand', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
@@ -9,7 +9,7 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-success btn-sm go"><span class="glyphicon glyphicon-search"></span> Go</button>
                     <button type="button" class="btn btn-info btn-sm clear"><span class="glyphicon glyphicon-refresh"></span> Clear</button>
-                    <a href="{!! url(Request::segment(1).'/vehicle-type/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
+                    <a href="{!! url(Request::segment(1).'/brand')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
                 </span>
             </div>
             <div class="pull-right">
@@ -44,11 +44,11 @@
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>--}}
                             <td>
-                                <a href="{!! url(Request::segment(1).'/vehicle-type/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                <a href="{!! url(Request::segment(1).'vehicle'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{!! url(Request::segment(1).'/brand/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a href="{!! url(Request::segment(1).'/brand/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 
                                 {{--<a href="{!! url(Request::segment(1).'/permission/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" role="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
-                                <a href="{!! route('vehicle-type-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="{!! route('brand-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->name !!}" data-message="Are you sure you want to delete {!!  $row->name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     @endforeach

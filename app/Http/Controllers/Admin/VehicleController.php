@@ -117,7 +117,10 @@ class VehicleController extends Controller
             'model_id'   => 'not_in:0',
             'brand_id'   => 'not_in:0',
             'production_year'      => 'required',
-
+            'engine_displacement'      => 'required',
+            'engine_details'      => 'required',
+            'fuel_system'      => 'required',
+            'vehicle_image'      => 'required',
         ];
 
         $messages = [
@@ -144,13 +147,14 @@ class VehicleController extends Controller
 
         // Create folders if they don't exist
         if ( !file_exists($destinationPath) ) {
-            mkdir ($destinationPath, 0777);
+            mkdir ($destinationPath, 775);
         }
 
         $file_original_name = $file->getClientOriginalName();
         $file_name = rand(11111, 99999) . $file_original_name;
         $file->move($destinationPath, $file_name);
-        $input['vehicle_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+//        $input['vehicle_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+        $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
 
         $vehicle = Vehicle::create($input);
 
@@ -174,10 +178,19 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        $row = User::findOrFail($id);
+        $row = Vehicle::findOrFail($id);
 
-        $title = 'User '. $row->name . ' details';
-        return view('admin.user.view',compact('title', 'row'));
+        $title = 'Vehicle details';
+        return view('admin.vehicle.view',compact('title', 'row'));
+    }
+
+
+    public function vehicle_image($id){
+
+        $row = Vehicle::findOrFail($id);
+        $title =  $row->vehicle_image ;
+
+        return view('admin.vehicle.vehicle_image',compact('title', 'row'));
     }
 
     /**
@@ -188,13 +201,14 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        $row = User::findOrFail($id);
-        $title = 'Edit '. $row->name . ' details';
-        $roles = $this->roleList(true);
-        $userRoles = DB::table("role_user")
-            ->where("user_id",$id)
-            ->pluck('role_id')->toArray();
-        return view('admin.user.edit',compact('title', 'row', 'roles', 'userRoles'));
+        $row = Vehicle::findOrFail($id);
+        $title = 'Edit details';
+
+        $type = $this->typeList(true);
+        $model = $this->modelList(true);
+        $brand = $this->brandList(true);
+
+        return view('admin.vehicle.edit',compact('title', 'row', 'type', 'model','brand'));
     }
 
     /**
@@ -206,54 +220,68 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $input = $request->all();
+
+        $model = Vehicle::findOrFail($id);
 
         $rules = [
-            'role_id'   => 'not_in:0',
-            'name'      => 'required',
+            'type_id'   => 'not_in:0',
+            'model_id'   => 'not_in:0',
+            'brand_id'   => 'not_in:0',
+            'production_year'      => 'required',
+            'engine_displacement'      => 'required',
+            'engine_details'      => 'required',
+            'fuel_system'      => 'required',
+//            'vehicle_image'      => 'required',
         ];
 
         $messages = [
-            'role_id.not_in'    => 'Role is required!',
-            'name.required'     => 'Name is required!',
+            'type_id.not_in'    => 'Type is required!',
+            'model_id.required'     => 'Model is required!',
+            'brand_id.required'    => 'Brand is required!',
+            'production_year.required' => 'Production Year is required!',
+            'engine_displacement.required' => 'Engine Displacement is required!',
+            'engine_details.required' => 'Engine Details is required!',
+            'fuel_system.required' => 'Fuel System is required!',
+//            'vehicle_image.required' => 'Vehicle Image is required!',
+
         ];
 
-        if ($request->has('password')) {
-            $rules['password']  = 'min:4|confirmed';
-            //$messages['password.alpha_num'] = 'Password should be alpha numeric!';
-            $messages['password.min'] = 'Password should be min 4 characters long';
-            $messages['password.confirmed'] = 'Your password didn\'t match!';
-        }
+        $file = Input::file('vehicle_image');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return redirect('admin/user/'.$id.'/edit')->withErrors($validator)->withInput();
+
+            return redirect('admin/vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        $input = array(
-            'name'          => $request->input('name'),
-            'status'        => $request->input('status')
-        );
+        // Files destination
+        $destinationPath = 'public/uploads/vehicle/';
 
-        //update password
-        if ($request->has('password')) {
-            $input['password'] = bcrypt($request->input('password'));
+        // Create folders if they don't exist
+        if ( !file_exists($destinationPath) ) {
+            mkdir ($destinationPath, 0777);
         }
 
-        if ($user->update($input)) {
-            DB::table("role_user")->where("user_id",$user->id)->delete();
+        $file_original_name = $file->getClientOriginalName();
+        $file_name = rand(11111, 99999) . $file_original_name;
+        $file->move($destinationPath, $file_name);
+        //$input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+        $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
 
-            $user->attachRole($request->input('role_id'));
 
-            $message = $user->name.' user updated.';
+        $model->update($input);
+
+        if ($model->id > 0) {
+            $message = $file_original_name. 'vehicle Successfully updated.';
             $error = false;
         } else {
-            $message =  $user->name.' user update fail.';
+            $message =  'vehicle updating fail.';
             $error = true;
         }
 
-        return redirect('admin/user')->with(['message' => $message, 'error' => $error]);
+        return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
     }
 
     /**
@@ -265,13 +293,13 @@ class VehicleController extends Controller
     public function delete($id)
     {
 
-        $user = User::findOrFail($id);
+        $user = Vehicle::findOrFail($id);
 
         $user->delete();
-        $message =  $user->name.' user failed to delete, user exists.';
+        $message =  ' Successfully deleted';
         $error = true ;
 
-        return redirect('admin/user')->with(['message' => $message, 'error' => $error]);
+        return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
     }
 
     /**
