@@ -26,8 +26,10 @@
             </li>
             <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
             <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>
 
-            <li class="treeview{!!  in_array(Request::segment(2), ['vehicle-catalog', 'vehicle-type', 'vehicle-model','vehicle']) ? ' active': '' !!}">
+            <li class="treeview{!!  in_array(Request::segment(2), ['vehicle-type', 'vehicle-model','vehicle','brand']) ? ' active': '' !!}">
                 <a href="#">
                     <i class="fa fa-car"></i>
                     <span>Vehicles</span>
@@ -43,60 +45,28 @@
                 </ul>
             </li>
 
-
+            <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa  fa-gg"></i> <span>Spare Parts Category</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-houzz"></i> <span>Spare Parts</span></a></li>
 
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>Examples</span>
+                    <i class="fa fa-folder"></i> <span>Attachments</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                    <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                    <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                    <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                    <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                    <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                    <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                    <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                    <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                    <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Brochure</a></li>
+                    <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> E-Doc Type</a></li>
+                    <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> E Documents</a></li>
+                    <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Faqs</a></li>
+                    <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i>News & Events</a></li>
+                    <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i>Promotions</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-share"></i> <span>Multilevel</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                    <li>
-                        <a href="#"><i class="fa fa-circle-o"></i> Level One
-                            <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                            <li>
-                                <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                </ul>
-            </li>
+
+            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-commenting-o"></i> <span>Feedback</span></a></li>
+
         </ul>
     </section>
     <!-- /.sidebar -->
