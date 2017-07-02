@@ -26,8 +26,8 @@
             </li>
             <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
             <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
-            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
-            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>
+            <li><a href=""><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
+            <li><a href=""><i class="fa fa-history"></i> <span>Service History</span></a></li>
 
             <li class="treeview{!!  in_array(Request::segment(2), ['vehicle-type', 'vehicle-model','vehicle','brand']) ? ' active': '' !!}">
                 <a href="#">
@@ -45,8 +45,8 @@
                 </ul>
             </li>
 
-            <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa  fa-gg"></i> <span>Spare Parts Category</span></a></li>
-            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-houzz"></i> <span>Spare Parts</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/spare-parts-category') !!}"><i class="fa fa-gg"></i> <span>Spare Parts Category</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/spare-parts') !!}"><i class="fa fa-houzz"></i> <span>Spare Parts</span></a></li>
 
             <li class="treeview">
                 <a href="#">
@@ -56,12 +56,12 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Brochure</a></li>
-                    <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> E-Doc Type</a></li>
-                    <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> E Documents</a></li>
-                    <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Faqs</a></li>
-                    <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i>News & Events</a></li>
-                    <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i>Promotions</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> Brochure</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> E-Doc Type</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> E Documents</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> Faqs</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i>News & Events</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i>Promotions</a></li>
                 </ul>
             </li>
 

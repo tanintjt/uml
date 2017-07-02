@@ -52,6 +52,10 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1', 'middleware' => 'auth.bas
     Route::post('/logout', 'LoginController@logout');
 
 
+    /*brand*/
+    Route::get('/brand', [ 'as' => 'brand', 'uses' => 'BrandController@index']);
+
+
     /*Services....... */
 
     Route::get('/service-center', [ 'as' => 'service-center', 'uses' => 'ServiceCenterController@index']);

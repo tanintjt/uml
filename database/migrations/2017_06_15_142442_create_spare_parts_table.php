@@ -16,7 +16,7 @@ class CreateSparePartsTable extends Migration
         Schema::create('spare_parts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('part_id',false,11);
+            $table->string('part_id',64);
             $table->decimal('rate', 5,2);
             $table->integer('sp_cat_id')->unsigned();
             $table->timestamps();

@@ -96,10 +96,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     Route::any('/brand/delete/{id}', [ 'as' => 'brand-delete', 'uses' => 'BrandController@delete']);
 
 
+   /*spare parts category*/
+
+    Route::resource('/spare-parts-category',  'SparePartsCategoryController');
+
+    Route::any('/spare-parts-category/delete/{id}', [ 'as' => 'spare-parts-category-delete', 'uses' => 'SparePartsCategoryController@delete']);
 
 
+    /*Spare parts*/
+
+    Route::resource('/spare-parts',  'SparePartsController');
+
+    Route::any('/spare-parts/delete/{id}', [ 'as' => 'spare-parts-delete', 'uses' => 'SparePartsController@delete']);
 
 });
+
+
+
 
 
 /*------test------*/

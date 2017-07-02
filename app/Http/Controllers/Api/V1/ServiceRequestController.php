@@ -18,13 +18,13 @@ class ServiceRequestController extends Controller
         $user = Auth::user();
 
         $rules = [
-            'user_id' => 'required',
+            //'user_id' => 'required',
             'service_center_id' => 'required',
             'service_package_id' => 'required',
         ];
 
         $messages = [
-            'user_id.required' => 'User is required!',
+            //'user_id.required' => 'User is required!',
             'service_center_id.required' => 'Service Center is required!',
             'service_package_id.required' => 'Service Package is required!',
         ];
@@ -46,7 +46,7 @@ class ServiceRequestController extends Controller
         else{
             $service_request = ServiceRequest::create(
                 [
-                    'user_id'   => $request->input('user_id'),
+                    'user_id'   => $user->id,
                     'service_center_id'      => $request->input('service_center_id'),
                     'service_package_id'     => $request->input('service_package_id'),
                     'status'    =>0,
