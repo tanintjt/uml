@@ -88,7 +88,6 @@ class ServiceCenterController extends Controller
         }
         //print_r($lcs);exit;
         return response()->json(['error' => false, 'result' => $min ], 202);
-
     }
 
 }
