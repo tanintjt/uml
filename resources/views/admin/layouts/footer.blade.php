@@ -22,6 +22,11 @@
 <script src="{!! asset('public/themes/default/plugins/daterangepicker/daterangepicker.js') !!}"></script>
 <!-- datepicker -->
 <script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.js') !!}"></script>
+
+<!-- color picker -->
+{{--<script src="{!! asset('public/themes/default/plugins/colorpicker/bootstrap-colorpicker.js') !!}"></script>--}}
+{{--<script src="{!! asset('public/themes/default/plugins/colorpicker/bootstrap-colorpicker.min.js') !!}"></script>--}}
+
 <!-- Bootstrap WYSIHTML5 -->
 <script src="{!! asset('public/themes/default/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') !!}"></script>
 <!-- Slimscroll -->

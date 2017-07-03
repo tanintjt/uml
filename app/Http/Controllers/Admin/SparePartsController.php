@@ -145,20 +145,13 @@ class SparePartsController extends Controller
      */
     public function show($id)
     {
-        $row = Vehicle::findOrFail($id);
+        $row = SpareParts::findOrFail($id);
 
-        $title = 'Vehicle details';
-        return view('admin.vehicle.view',compact('title', 'row'));
+        $title = 'Spare Parts details';
+        return view('admin.spare_parts.view',compact('title', 'row'));
     }
 
 
-    public function vehicle_image($id){
-
-        $row = Vehicle::findOrFail($id);
-        $title =  $row->vehicle_image ;
-
-        return view('admin.vehicle.vehicle_image',compact('title', 'row'));
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -168,14 +161,12 @@ class SparePartsController extends Controller
      */
     public function edit($id)
     {
-        $row = Vehicle::findOrFail($id);
+        $row = SpareParts::findOrFail($id);
         $title = 'Edit details';
 
-        $type = $this->typeList(true);
-        $model = $this->modelList(true);
-        $brand = $this->brandList(true);
+        $sp_cat_list = $this->SpCategoryList(true);
 
-        return view('admin.vehicle.edit',compact('title', 'row', 'type', 'model','brand'));
+        return view('admin.spare_parts.edit',compact('title', 'row', 'sp_cat_list'));
     }
 
     /**
@@ -189,66 +180,41 @@ class SparePartsController extends Controller
     {
         $input = $request->all();
 
-        $model = Vehicle::findOrFail($id);
+        $model = SpareParts::findOrFail($id);
 
         $rules = [
-            'type_id'   => 'not_in:0',
-            'model_id'   => 'not_in:0',
-            'brand_id'   => 'not_in:0',
-            'production_year'      => 'required',
-            'engine_displacement'      => 'required',
-            'engine_details'      => 'required',
-            'fuel_system'      => 'required',
-//            'vehicle_image'      => 'required',
+            'sp_cat_id'   => 'not_in:0',
+            'name'      => 'required',
+            'part_id'      => 'required',
+            'rate'      => 'numeric|required',
         ];
 
         $messages = [
-            'type_id.not_in'    => 'Type is required!',
-            'model_id.required'     => 'Model is required!',
-            'brand_id.required'    => 'Brand is required!',
-            'production_year.required' => 'Production Year is required!',
-            'engine_displacement.required' => 'Engine Displacement is required!',
-            'engine_details.required' => 'Engine Details is required!',
-            'fuel_system.required' => 'Fuel System is required!',
-//            'vehicle_image.required' => 'Vehicle Image is required!',
-
+            'sp_cat_id.not_in'    => 'Spare Parts Category is required!',
+            'name.required'    => 'Name is required!',
+            'part_id.required' => 'Part ID is required!',
+            'rate.required' => 'Rate is required!',
         ];
-
-        $file = Input::file('vehicle_image');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
 
-            return redirect('admin/vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
+            return redirect('admin/spare-parts/'.$id.'/edit')->withErrors($validator)->withInput();
         }
-
-        // Files destination
-        $destinationPath = 'public/uploads/vehicle/';
-
-        // Create folders if they don't exist
-        if ( !file_exists($destinationPath) ) {
-            mkdir ($destinationPath, 0777);
-        }
-
-        $file_original_name = $file->getClientOriginalName();
-        $file_name = rand(11111, 99999) . $file_original_name;
-        $file->move($destinationPath, $file_name);
-        //$input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
-        $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
 
 
         $model->update($input);
 
         if ($model->id > 0) {
-            $message = $file_original_name. 'vehicle Successfully updated.';
+            $message =' Successfully updated.';
             $error = false;
         } else {
-            $message =  'vehicle updating fail.';
+            $message =  'Updating fail.';
             $error = true;
         }
 
-        return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
+        return redirect('admin/spare-parts')->with(['message' => $message, 'error' => $error]);
     }
 
     /**
@@ -260,13 +226,13 @@ class SparePartsController extends Controller
     public function delete($id)
     {
 
-        $user = Vehicle::findOrFail($id);
+        $user = SpareParts::findOrFail($id);
 
         $user->delete();
         $message =  ' Successfully deleted';
         $error = true ;
 
-        return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
+        return redirect('admin/spare-parts')->with(['message' => $message, 'error' => $error]);
     }
 
     /**

@@ -1,6 +1,19 @@
+
+{{--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" rel="stylesheet">
+
+--}}{{--<link href="public/themes/default/plugins/picker/css/bootstrap-colorpicker.min.css" rel="stylesheet">--}}{{--
+
+--}}{{--<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>--}}{{--
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+--}}{{--<script src='public/themes/default/plugins/picker/js/bootstrap-colorpicker.js'></script>--}}{{--
+<script src="{!! asset('public/themes/default/plugins/picker/js/bootstrap-colorpicker.js') !!}"></script>
+<link href="{!! asset('public/themes/default/plugins/picker/css/bootstrap-colorpicker.min.css') !!}" rel="stylesheet">--}}
 @extends('admin.layouts.master')
 
 @section('content')
+
     {!! Form::open(array('url' => Request::segment(1).'/vehicle', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form','files'=>'true')) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -99,15 +112,23 @@
                 </div>
 
                 <div class="form-group">
+                    {!! Form::label('color', 'Color :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('color', old('color', '#2fccad'), ['class' => 'form-control color', 'id' => 'color']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">
                         <button class="btn btn-sm btn-primary" type="submit"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
-                        <a href="{!! url('admin/user') !!}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-repeat"></span> Cancel</a>
+                        <a href="{!! url('admin/vehicle') !!}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-repeat"></span> Cancel</a>
                     </div>
                 </div>
 
             </div>
-
         </div>
     </div>
     {!! Form::close() !!}
 @endsection
+
+

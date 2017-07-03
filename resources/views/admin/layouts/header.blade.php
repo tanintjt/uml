@@ -22,6 +22,9 @@
     <link href="{!! asset('public/themes/default/plugins/daterangepicker/daterangepicker.css') !!}" rel="stylesheet">
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="{!! asset('public/themes/default/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}" rel="stylesheet">
+    <!-- Color picker -->
+    {{--<link href="{!! asset('public/themes/default/plugins/colorpicker/bootstrap-colorpicker.css') !!}" rel="stylesheet">--}}
+    {{--<link href="{!! asset('public/themes/default/plugins/colorpicker/bootstrap-colorpicker.min.css') !!}" rel="stylesheet">--}}
 
     @if(isset($css))
         {!!  $css !!}

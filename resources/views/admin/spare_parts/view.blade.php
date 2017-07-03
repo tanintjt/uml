@@ -18,34 +18,22 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <th width="10%" class="active">Brand</th>
-                            <td>{!!isset($row->brand->name)?$row->brand->name:'' !!}</td>
+                            <th width="15%" class="active">Name</th>
+                            <td>{!!isset($row->name)?ucfirst($row->name):'' !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">Type</th>
-                            <td>{!! isset($row->types->name)?$row->types->name:'' !!}</td>
+                            <th class="active">Spare Parts Category</th>
+                            <td>{!! isset($row->sp_cat->name)?ucfirst($row->sp_cat->name):'' !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">Model</th>
+                            <th class="active">Part ID</th>
                             <td>
-                                {!! isset($row->model->name)?$row->model->name:'' !!}
+                                {!! isset($row->part_id)?$row->part_id:'' !!}
                             </td>
                         </tr>
                         <tr>
-                            <th class="active">Production Year</th>
-                            <td>{!! $row->production_year !!}</td>
-                        </tr>
-                        <tr>
-                            <th class="active">Engine Displacement</th>
-                            <td>{!! $row->engine_displacement !!}</td>
-                        </tr>
-                        <tr>
-                            <th class="active">Engine Details</th>
-                            <td>{!! $row->engine_details !!}</td>
-                        </tr>
-                        <tr>
-                            <th class="active">fuel System</th>
-                            <td>{!! $row->fuel_system !!}</td>
+                            <th class="active">Rate</th>
+                            <td>{!! $row->rate !!}</td>
                         </tr>
                     </tbody>
                 </table>

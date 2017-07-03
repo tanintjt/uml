@@ -93,11 +93,36 @@ class VehicleController extends Controller
     {
         $title = 'Add Vehicle';
 
+        $extrajs = "<script>
+            $(function() {
+                var colpick = $('.color').each( function() {
+                    $(this).minicolors({
+                      control: $(this).attr('data-control') || 'hue',
+                      inline: $(this).attr('data-inline') === 'true',
+                      letterCase: 'lowercase',
+                      opacity: false,
+                      change: function(hex, opacity) {
+                        if(!hex) return;
+                        if(opacity) hex += ', ' + opacity;
+                        try {
+                          console.log(hex);
+                        } catch(e) {}
+                        $(this).select();
+                      },
+                      theme: 'bootstrap'
+                    });
+                });
+            });
+		</script>";
+
+        $css = '<link href="'.asset('public/themes/default/css/colors.css').'" rel="stylesheet" type="text/css" media="screen">';
+        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';
+
         $type = $this->typeList(true);
         $model = $this->modelList(true);
         $brand = $this->brandList(true);
 
-        return view('admin.vehicle.create', compact('title', 'type','model','brand') );
+        return view('admin.vehicle.create', compact('title', 'type','model','brand','css', 'js', 'extrajs') );
     }
 
     /**
@@ -121,6 +146,7 @@ class VehicleController extends Controller
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
+            'color'      => 'required',
         ];
 
         $messages = [
@@ -132,6 +158,7 @@ class VehicleController extends Controller
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
+            'color.required' => 'Vehicle Color is required!',
 
         ];
 
@@ -204,11 +231,36 @@ class VehicleController extends Controller
         $row = Vehicle::findOrFail($id);
         $title = 'Edit details';
 
+        $extrajs = "<script>
+            $(function() {
+                var colpick = $('.color').each( function() {
+                    $(this).minicolors({
+                      control: $(this).attr('data-control') || 'hue',
+                      inline: $(this).attr('data-inline') === 'true',
+                      letterCase: 'lowercase',
+                      opacity: false,
+                      change: function(hex, opacity) {
+                        if(!hex) return;
+                        if(opacity) hex += ', ' + opacity;
+                        try {
+                          console.log(hex);
+                        } catch(e) {}
+                        $(this).select();
+                      },
+                      theme: 'bootstrap'
+                    });
+                });
+            });
+		</script>";
+
+        $css = '<link href="'.asset('public/themes/default/css/colors.css').'" rel="stylesheet" type="text/css" media="screen">';
+        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';
+
         $type = $this->typeList(true);
         $model = $this->modelList(true);
         $brand = $this->brandList(true);
 
-        return view('admin.vehicle.edit',compact('title', 'row', 'type', 'model','brand'));
+        return view('admin.vehicle.edit',compact('title', 'row', 'type', 'model','brand','css', 'js', 'extrajs'));
     }
 
     /**
@@ -232,6 +284,7 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
+            'color'      => 'required',
 //            'vehicle_image'      => 'required',
         ];
 
@@ -243,6 +296,7 @@ class VehicleController extends Controller
             'engine_displacement.required' => 'Engine Displacement is required!',
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
+            'color.required' => 'Vehicle Color is required!',
 //            'vehicle_image.required' => 'Vehicle Image is required!',
 
         ];
@@ -274,7 +328,7 @@ class VehicleController extends Controller
         $model->update($input);
 
         if ($model->id > 0) {
-            $message = $file_original_name. 'vehicle Successfully updated.';
+            $message ='Successfully updated.';
             $error = false;
         } else {
             $message =  'vehicle updating fail.';

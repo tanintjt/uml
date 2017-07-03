@@ -99,6 +99,13 @@
                 </div>
 
                 <div class="form-group">
+                    {!! Form::label('color', 'Color :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('color', old('color', $row->color), ['class' => 'form-control color', 'id' => 'color']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">
                         <button class="btn btn-sm btn-primary" type="submit"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
                         <a href="{!! url('admin/vehicle') !!}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-repeat"></span> Cancel</a>
