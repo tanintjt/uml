@@ -48,7 +48,7 @@
             <li><a href="{!! url(Request::segment(1).'/spare-parts-category') !!}"><i class="fa fa-gg"></i> <span>Spare Parts Category</span></a></li>
             <li><a href="{!! url(Request::segment(1).'/spare-parts') !!}"><i class="fa fa-houzz"></i> <span>Spare Parts</span></a></li>
 
-            <li class="treeview">
+            <li class="treeview{!!  in_array(Request::segment(2), ['brochure', 'e-doc-type','e-document','faq','news-events','promotions']) ? ' active': '' !!}">
                 <a href="#">
                     <i class="fa fa-folder"></i> <span>Attachments</span>
                     <span class="pull-right-container">
@@ -56,16 +56,16 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href=""><i class="fa fa-circle-o"></i> Brochure</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> E-Doc Type</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> E Documents</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> Faqs</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i>News & Events</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i>Promotions</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/brochure') !!}"><i class="fa fa-circle-o"></i> Brochure</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/e-doc-type') !!}"><i class="fa fa-circle-o"></i> E-Doc Type</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/e-documents') !!}"><i class="fa fa-circle-o"></i> E Documents</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/faq') !!}"><i class="fa fa-circle-o"></i> Faqs</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/news-events') !!}"><i class="fa fa-circle-o"></i>News & Events</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/promotions') !!}"><i class="fa fa-circle-o"></i>Promotions</a></li>
                 </ul>
             </li>
 
-            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-commenting-o"></i> <span>Feedback</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/feedback') !!}"><i class="fa fa-commenting-o"></i> <span>Feedback</span></a></li>
 
         </ul>
     </section>

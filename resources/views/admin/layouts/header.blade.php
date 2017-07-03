@@ -17,7 +17,8 @@
     <!-- jvectormap -->
     <link href="{!! asset('public/themes/default/plugins/jvectormap/jquery-jvectormap-1.2.2.css') !!}" rel="stylesheet">
     <!-- Date Picker -->
-    <link href="{!! asset('public/themes/default/plugins/datepicker/datepicker3.css') !!}" rel="stylesheet">
+    {{--<link href="{!! asset('public/themes/default/plugins/datepicker/datepicker3.css') !!}" rel="stylesheet">--}}
+    {{--<link href="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.css') !!}" rel="stylesheet">--}}
     <!-- Daterange picker -->
     <link href="{!! asset('public/themes/default/plugins/daterangepicker/daterangepicker.css') !!}" rel="stylesheet">
     <!-- bootstrap wysihtml5 - text editor -->

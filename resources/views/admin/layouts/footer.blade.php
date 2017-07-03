@@ -21,7 +21,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="{!! asset('public/themes/default/plugins/daterangepicker/daterangepicker.js') !!}"></script>
 <!-- datepicker -->
-<script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.js') !!}"></script>
+{{--<script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.js') !!}"></script>--}}
+{{--<script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.js') !!}"></script>--}}
 
 <!-- color picker -->
 {{--<script src="{!! asset('public/themes/default/plugins/colorpicker/bootstrap-colorpicker.js') !!}"></script>--}}

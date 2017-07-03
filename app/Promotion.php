@@ -10,6 +10,6 @@ class Promotion extends Model
    
    
     protected $fillable = [
-        'file'
+        'file','title'
     ];
 }

@@ -109,6 +109,46 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     Route::any('/spare-parts/delete/{id}', [ 'as' => 'spare-parts-delete', 'uses' => 'SparePartsController@delete']);
 
+
+    /*Brochure*/
+
+    Route::resource('/brochure',  'BrochureController');
+
+    Route::any('/brochure/delete/{id}', [ 'as' => 'brochure-delete', 'uses' => 'BrochureController@delete']);
+
+
+    /*EDoc Type*/
+
+    Route::resource('/e-doc-type',  'EDocTypeController');
+
+    Route::any('/e-doc-type/delete/{id}', [ 'as' => 'e-doc-type-delete', 'uses' => 'EDocTypeController@delete']);
+
+    /*E Documents*/
+    Route::resource('/e-documents',  'EDocumentController');
+
+    Route::any('/e-documents/delete/{id}', [ 'as' => 'e-documents-delete', 'uses' => 'EDocumentController@delete']);
+
+
+    /*Faq*/
+
+    Route::resource('/faq',  'FaqController');
+
+    Route::any('/faq/delete/{id}', [ 'as' => 'faq-delete', 'uses' => 'FaqController@delete']);
+
+   /*News Events*/
+
+    Route::resource('/news-events',  'NewsEventsController');
+
+    Route::any('/news-events/delete/{id}', [ 'as' => 'news-events-delete', 'uses' => 'NewsEventsController@delete']);
+
+
+    /*Promotions*/
+    Route::resource('/promotions',  'PromotionController');
+
+    Route::any('/promotions/delete/{id}', [ 'as' => 'promotions-delete', 'uses' => 'PromotionController@delete']);
+
+
+
 });
 
 

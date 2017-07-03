@@ -13,4 +13,8 @@ class EDocument extends Model
     protected $fillable = [
         'doc_type_id','issue_date','expiry_date','file'
     ];
+
+    public function doc_type(){
+        return $this->belongsTo('App\EDocType','doc_type_id', 'id');
+    }
 }

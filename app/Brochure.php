@@ -12,6 +12,13 @@ class Brochure extends Model
 
 
     protected $fillable = [
-        'file'
+        'file','title'
     ];
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('name', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
 }

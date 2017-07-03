@@ -10,6 +10,6 @@ class Faq extends Model
 
 
     protected $fillable = [
-        'file'
+        'file','title'
     ];
 }
