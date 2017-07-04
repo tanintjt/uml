@@ -65,7 +65,7 @@
                 </ul>
             </li>
 
-            <li><a href="{!! url(Request::segment(1).'/feedback') !!}"><i class="fa fa-commenting-o"></i> <span>Feedback</span></a></li>
+            {{--<li><a href=""><i class="fa fa-commenting-o"></i> <span>Feedback</span></a></li>--}}
 
         </ul>
     </section>
