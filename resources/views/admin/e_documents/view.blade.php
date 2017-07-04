@@ -18,34 +18,20 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <th width="10%" class="active">Brand</th>
-                            <td>{!!isset($row->brand->name)?$row->brand->name:'' !!}</td>
+                            <th width="20%" class="active">E-Doc Type</th>
+                            <td>{!! isset($row->doc_type->name)?$row->doc_type->name:'' !!}</td>
                         </tr>
                         <tr>
-                            <th class="active">Type</th>
-                            <td>{!! isset($row->types->name)?$row->types->name:'' !!}</td>
-                        </tr>
-                        <tr>
-                            <th class="active">Model</th>
+                            <th class="active">Issue Date</th>
                             <td>
-                                {!! isset($row->model->name)?$row->model->name:'' !!}
+                                {!! isset($row->issue_date)?date('Y-m-d', strtotime($row->issue_date)):''!!}
                             </td>
                         </tr>
                         <tr>
-                            <th class="active">Production Year</th>
-                            <td>{!! $row->production_year !!}</td>
-                        </tr>
-                        <tr>
-                            <th class="active">Engine Displacement</th>
-                            <td>{!! $row->engine_displacement !!}</td>
-                        </tr>
-                        <tr>
-                            <th class="active">Engine Details</th>
-                            <td>{!! $row->engine_details !!}</td>
-                        </tr>
-                        <tr>
-                            <th class="active">fuel System</th>
-                            <td>{!! $row->fuel_system !!}</td>
+                            <th class="active">Expiry Date</th>
+                            <td>
+                                {!!isset($row->expiry_date)?date('Y-m-d', strtotime($row->expiry_date)):'' !!}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

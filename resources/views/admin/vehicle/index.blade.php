@@ -36,7 +36,7 @@
                         <th width="5%">Type</th>
                         <th width="5%">Model</th>
                         <th width="5%">Fuel System</th>
-                        <th width="10%">Image</th>
+                        <th width="10%" class="text-center">Image</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -49,13 +49,10 @@
                             <td>{{ isset($row->types->name)?$row->types->name:''}}</td>
                             <td>{{ isset($row->model->name)?$row->model->name:''}}</td>
                             <td>{{ $row->fuel_system }}</td>
-                            {{--<td><a href="{!! route('vehicle-image',$row->id) !!}" data-toggle="modal" data-target="#image"><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px"></a></td>--}}
                             <td><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%"></td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-
-                                {{--<a href="{!! url(Request::segment(1).'/user/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->name !!}" data-message="Are you sure you want to delete {!!  $row->name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
                                 <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
@@ -66,7 +63,7 @@
         </div>
 
         <div class="box-footer">
-            {{--{{ $rows->links() }}--}}
+
         </div>
 
     </div>

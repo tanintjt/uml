@@ -1,15 +1,4 @@
 
-{{--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" rel="stylesheet">
-
---}}{{--<link href="public/themes/default/plugins/picker/css/bootstrap-colorpicker.min.css" rel="stylesheet">--}}{{--
-
---}}{{--<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>--}}{{--
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
---}}{{--<script src='public/themes/default/plugins/picker/js/bootstrap-colorpicker.js'></script>--}}{{--
-<script src="{!! asset('public/themes/default/plugins/picker/js/bootstrap-colorpicker.js') !!}"></script>
-<link href="{!! asset('public/themes/default/plugins/picker/css/bootstrap-colorpicker.min.css') !!}" rel="stylesheet">--}}
 @extends('admin.layouts.master')
 
 @section('content')

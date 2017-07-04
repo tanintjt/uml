@@ -25,9 +25,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('description', 'Description :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-3">
-                        {!! Form::textarea('description', old('description',$row->description), ['class' => 'form-control', 'id' => 'description', 'placeholder' => 'Description', 'rows' => 3]) !!}
+                    {!! Form::label('status', 'Status :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        <label class="radio-inline">
+                            {!! Form::radio('status', '1', true, ['id' => 'statuson']) !!} Yes
+                        </label>
+                        <label class="radio-inline">
+                            {!! Form::radio('status', '2', false, ['id' => 'statusoff']) !!} No
+                        </label>
                     </div>
                 </div>
             </div>

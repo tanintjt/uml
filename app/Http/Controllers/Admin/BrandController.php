@@ -99,10 +99,10 @@ class BrandController extends Controller
         $brand = Brand::create($input);
 
         if ($brand->id > 0) {
-            $message = 'New '.  $brand->name.' brand added.';
+            $message = 'New '.  $brand->name.'  brand added.';
             $error = false;
         } else {
-            $message =  'New '. $request->get('name') .'brand adding fail.';
+            $message =  'New '. $request->get('name') .' brand adding fail.';
             $error = true;
         }
 
@@ -149,10 +149,10 @@ class BrandController extends Controller
 
 
         if ($model->id > 0) {
-            $message = $model->name.'Brand Successfully updated.';
+            $message = $model->name.'  Brand Successfully updated.';
             $error = false;
         } else {
-            $message =  $request->get('name') .'Brand updating fail.';
+            $message =  $request->get('name') .'  Brand updating fail.';
             $error = true;
         }
 

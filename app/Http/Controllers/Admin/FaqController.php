@@ -137,21 +137,26 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function update(Request $request, $id)
     {
-
         $input = $request->all();
+
         $model = Faq::findOrFail($id);
 
         $rules = [
             'title' => 'required',
-            'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
+            'file' => 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
         ];
 
         $messages = [
             'title.required' => 'Title is required!',
-            'file.required' => 'File is required!',
+           // 'file.required' => 'File is required!',
         ];
+
+
+        $file = Input::file('file');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -160,20 +165,33 @@ class FaqController extends Controller
             return redirect('admin/faq/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
+        if(count($file)>0){
+            // Files destination
+            $destinationPath = 'public/uploads/faq/';
+
+            // Create folders if they don't exist
+            if ( !file_exists($destinationPath) ) {
+                mkdir ($destinationPath, 0777);
+            }
+
+            $file_original_name = $file->getClientOriginalName();
+            $file_name = rand(11111, 99999) . $file_original_name;
+            $file->move($destinationPath, $file_name);
+            $input['file'] = 'public/uploads/faq/' . $file_name;
+        }
+
         $model->update($input);
 
-
         if ($model->id > 0) {
-            $message = $model->name.' Successfully updated.';
+            $message ='Successfully updated.';
             $error = false;
         } else {
-            $message =  $request->get('name') .'updating fail.';
+            $message =  'updating fail.';
             $error = true;
         }
 
         return redirect('admin/faq')->with(['message' => $message, 'error' => $error]);
     }
-
 
     public function show($id){
 

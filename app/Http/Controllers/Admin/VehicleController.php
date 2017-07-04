@@ -310,20 +310,21 @@ class VehicleController extends Controller
             return redirect('admin/vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        // Files destination
-        $destinationPath = 'public/uploads/vehicle/';
+        if(count($file)>0){
+            // Files destination
+            $destinationPath = 'public/uploads/vehicle/';
 
-        // Create folders if they don't exist
-        if ( !file_exists($destinationPath) ) {
-            mkdir ($destinationPath, 0777);
+            // Create folders if they don't exist
+            if ( !file_exists($destinationPath) ) {
+                mkdir ($destinationPath, 0777);
+            }
+
+            $file_original_name = $file->getClientOriginalName();
+            $file_name = rand(11111, 99999) . $file_original_name;
+            $file->move($destinationPath, $file_name);
+            //$input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
+            $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
         }
-
-        $file_original_name = $file->getClientOriginalName();
-        $file_name = rand(11111, 99999) . $file_original_name;
-        $file->move($destinationPath, $file_name);
-        //$input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
-        $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
-
 
         $model->update($input);
 

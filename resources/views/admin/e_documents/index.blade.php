@@ -32,11 +32,10 @@
                     <thead>
                     <tr class="active">
                         <th width="5%">#</th>
-                        <th width="5%">Brand</th>
-                        <th width="5%">Type</th>
-                        <th width="5%">Model</th>
-                        <th width="5%">Fuel System</th>
-                        <th width="10%">Image</th>
+                        <th width="5%">E Doc Type</th>
+                        <th width="5%">Issue Date</th>
+                        <th width="5%">Expiry Date</th>
+                        <th width="5%" class="text-center">File</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -45,18 +44,16 @@
                     @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td>{{ isset($row->brand->name)?$row->brand->name:''}}</td>
-                            <td>{{ isset($row->types->name)?$row->types->name:''}}</td>
-                            <td>{{ isset($row->model->name)?$row->model->name:''}}</td>
-                            <td>{{ $row->fuel_system }}</td>
-                            {{--<td><a href="{!! route('vehicle-image',$row->id) !!}" data-toggle="modal" data-target="#image"><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px"></a></td>--}}
-                            <td><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%"></td>
+                            <td>{{ isset($row->doc_type->name)?$row->doc_type->name:''}}</td>
+                            <td>{{ isset($row->issue_date)?date('Y-m-d', strtotime($row->issue_date)):''}}</td>
+                            <td>{{ isset($row->expiry_date)?date('Y-m-d', strtotime($row->expiry_date)):''}}</td>
+                            <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>
                             <td>
-                                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{!! url(Request::segment(1).'/e-documents/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a href="{!! url(Request::segment(1).'/e-documents/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 
                                 {{--<a href="{!! url(Request::segment(1).'/user/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->name !!}" data-message="Are you sure you want to delete {!!  $row->name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
-                                <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="{!! route('e-documents-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     @endforeach
@@ -66,9 +63,7 @@
         </div>
 
         <div class="box-footer">
-            {{--{{ $rows->links() }}--}}
         </div>
-
     </div>
     {!! Form::close() !!}
 

@@ -141,17 +141,18 @@ class BrochureController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $input = $request->all();
+
+        $model = Brochure::findOrFail($id);
 
         $rules = [
             'title' => 'required',
-            'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
+            'file' => 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
         ];
 
         $messages = [
             'title.required' => 'Title is required!',
-            'file.required' => 'File is required!',
+            //'file.required' => 'File is required!',
         ];
 
 
@@ -160,30 +161,32 @@ class BrochureController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return redirect('admin/brochure/create')->withErrors($validator)->withInput();
-        }
-        // Files destination
-        $destinationPath = 'public/uploads/brochure/';
 
-        // Create folders if they don't exist
-        if ( !file_exists($destinationPath) ) {
-            mkdir ($destinationPath, 775);
+            return redirect('admin/brochure/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        $file_original_name = $file->getClientOriginalName();
-        $file_name = rand(11111, 99999) . $file_original_name;
-        $file->move($destinationPath, $file_name);
-//        $input['vehicle_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
-        $input['file'] = 'public/uploads/brochure/' . $file_name;
+        if(count($file)>0){
+            // Files destination
+            $destinationPath = 'public/uploads/brochure/';
 
-        $vehicle = Brochure::create($input);
+            // Create folders if they don't exist
+            if ( !file_exists($destinationPath) ) {
+                mkdir ($destinationPath, 0777);
+            }
 
-        if ($vehicle->id > 0) {
+            $file_original_name = $file->getClientOriginalName();
+            $file_name = rand(11111, 99999) . $file_original_name;
+            $file->move($destinationPath, $file_name);
+            $input['file'] = 'public/uploads/brochure/' . $file_name;
+        }
 
-            $message = 'Successfully Added';
+        $model->update($input);
+
+        if ($model->id > 0) {
+            $message ='Successfully updated.';
             $error = false;
         } else {
-            $message =  'Adding fail.';
+            $message =  'updating fail.';
             $error = true;
         }
 

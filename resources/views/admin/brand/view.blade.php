@@ -21,8 +21,8 @@
                         <td>{!! $row->name !!}</td>
                     </tr>
                     <tr>
-                        <th class="active">Details</th>
-                        <td>{!! $row->description !!}</td>
+                        <th class="active">Status</th>
+                        <td>{!! $row->status !!}</td>
                     </tr>
                     </tbody>
                 </table>

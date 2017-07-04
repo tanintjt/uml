@@ -48,8 +48,10 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                     <tr>
-                                        <td><img src="{!!asset('public/uploads/service_center/').'/'.$row->store_image!!}"></td>
-                                        {{--<td>{!! Html::image('public/uploads/service_center/97623Eskaton Rd.jpg','alt', array( 'width' => '100%', 'height' => '67%' )) !!}</td>--}}
+                                        @if(isset($row->store_image))
+                                             <td><img src="{!! asset(isset($row->store_image)?$row->store_image:'') !!}" width="90%" height="60%" style="margin-left:5%"></td>
+                                        @else
+                                        @endif
                                     </tr>
                                     </tbody>
                                 </table>

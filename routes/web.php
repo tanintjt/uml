@@ -148,7 +148,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     Route::any('/promotions/delete/{id}', [ 'as' => 'promotions-delete', 'uses' => 'PromotionController@delete']);
 
 
+    /*Service History*/
 
+    Route::resource('/service-history',  'ServiceHistoryController');
 });
 
 

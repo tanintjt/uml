@@ -8,7 +8,7 @@ class Brand extends Model
 {
     
     protected $table = 'brands';
-   
+    public $timestamps = false;
    
      protected $fillable = [
         'parent_id', 'name', 'status',

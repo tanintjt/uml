@@ -9,7 +9,7 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-success btn-sm go"><span class="glyphicon glyphicon-search"></span> Go</button>
                     <button type="button" class="btn btn-info btn-sm clear"><span class="glyphicon glyphicon-refresh"></span> Clear</button>
-                    <a href="{!! url(Request::segment(1).'/brand')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
+                    <a href="{!! url(Request::segment(1).'/brand/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
                 </span>
             </div>
             <div class="pull-right">
@@ -31,6 +31,7 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th width="20%">Name</th>
+                        <th width="20%">Status</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -40,6 +41,7 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ $row->name}}</td>
+                            <td>{{ $row->status}}</td>
                             {{--<td class="text-center">
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>--}}

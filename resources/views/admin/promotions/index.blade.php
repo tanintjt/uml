@@ -30,9 +30,9 @@
                     <thead>
                     <tr class="active">
                         <th width="5%">#</th>
-                        <th width="20%">Title</th>
-                        <th width="20%">Upload File</th>
-                        <th width="10%">Actions</th>
+                        <th width="20%" class="text-center">Title</th>
+                        <th width="20%" class="text-center">Upload File</th>
+                        <th width="10%" class="text-center">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,10 +40,9 @@
                     @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td>{{ $row->title}}</td>
-                            {{--<td><img src="{!! asset(isset($row->file)?$row->file:'') !!}" width="60px" height="50px" style="margin-left: 26%"></td>--}}
-                            <td><img src="/public/uploads/brochure" width="60px" height="50px" style="margin-left: 26%"></td>
-                            <td>
+                            <td class="text-center">{{ $row->title}}</td>
+                            <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>
+                            <td class="text-center">
                                 <a href="{!! url(Request::segment(1).'/promotions/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/promotions/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
 

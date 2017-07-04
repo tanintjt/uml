@@ -35,7 +35,7 @@
                         <th width="5%">Title</th>
                         <th width="5%">Start Date</th>
                         <th width="5%">End Date</th>
-                        <th width="10%">File</th>
+                        <th width="10%" class="text-center">File</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -47,8 +47,7 @@
                             <td>{{ isset($row->title)?$row->title:''}}</td>
                             <td>{{ isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):''}}</td>
                             <td>{{ isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):''}}</td>
-                            {{--<td><a href="{!! route('vehicle-image',$row->id) !!}" data-toggle="modal" data-target="#image"><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px"></a></td>--}}
-                            <td><img src="{!!asset(isset($row->file)?$row->file:'') !!}" width="60px" height="50px" style="margin-left: 26%"></td>
+                            <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/news-events/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/news-events/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
