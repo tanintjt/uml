@@ -166,6 +166,9 @@ class FaqController extends Controller
         }
 
         if(count($file)>0){
+            //Delete previous image from folder
+            unlink($model->file);
+
             // Files destination
             $destinationPath = 'public/uploads/faq/';
 

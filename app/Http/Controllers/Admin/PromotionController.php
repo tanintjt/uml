@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Promotion;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
@@ -168,6 +169,9 @@ class PromotionController extends Controller
         }
 
         if(count($file)>0){
+            //Delete previous image from folder
+            unlink($model->file);
+
             // Files destination
             $destinationPath = 'public/uploads/promotions/';
 

@@ -181,7 +181,9 @@ class ServiceCenterController extends Controller
 
 
         if(count($file)>0) {
-            // Files destination
+            //Delete previous image from folder
+            unlink($model->file);
+
             // Files destination
             $destinationPath = 'public/uploads/service_center/';
 
