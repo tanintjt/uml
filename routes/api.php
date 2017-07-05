@@ -83,6 +83,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1', 'middleware' => 'auth.bas
 
     /*E Doc Type*/
     Route::post('/doc-type-store', [ 'as' => 'doc-type-store', 'uses' => 'EDocTypeController@store']);
+    Route::post('/doc-type', [ 'as' => 'doc-type', 'uses' => 'EDocTypeController@index']);
 
 
     /*E Document*/
