@@ -217,7 +217,7 @@ class NewsEventsController extends Controller
     public function delete($id)
     {
 
-        $model = Brochure::where('id',$id)->first();
+        $model = NewsEvents::where('id',$id)->first();
 
         $message =  $model->name.' deleted.';
         $error = false;

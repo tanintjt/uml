@@ -49,7 +49,13 @@
                             <td>{{ isset($row->types->name)?$row->types->name:''}}</td>
                             <td>{{ isset($row->model->name)?$row->model->name:''}}</td>
                             <td>{{ $row->fuel_system }}</td>
-                            <td><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%"></td>
+                            <td>
+                                @if( isset($row->vehicle_image))
+                                <img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%">
+                                @else
+                                    <img src="{{ URL::to('/img/default.jpg') }}" width="80px" height="80px">
+                                @endif
+                            </td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>

@@ -42,7 +42,7 @@
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td class="text-center">{{ $row->title}}</td>
                             <td class="text-center">
-                                 @if( URL::to('public/uploads/'.$row->file))
+                                 @if( isset($row->file))
                                     <a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a>
                                  @else
                                     <img src="{{ URL::to('/img/default.jpg') }}" width="80px" height="80px">
