@@ -41,7 +41,13 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td class="text-center">{{ $row->title}}</td>
-                            <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>
+                            <td class="text-center">
+                                 @if( URL::to('public/uploads/'.$row->file))
+                                    <a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a>
+                                 @else
+                                    <img src="{{ URL::to('/img/default.jpg') }}" width="80px" height="80px">
+                                 @endif
+                            </td>
                             <td class="text-center">
                                 <a href="{!! url(Request::segment(1).'/promotions/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/promotions/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
