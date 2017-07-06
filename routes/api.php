@@ -110,6 +110,8 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1', 'middleware' => 'auth.bas
 
     Route::post('/store-news-events', [ 'as' => 'store-news-events', 'uses' => 'NewsEventsController@store']);
 
+    /*device_info*/
+    Route::post('/device-info', [ 'as' => 'device-info', 'uses' => 'LoginController@device_info']);
 
     /*test*/
     Route::get('/geocode', [ 'as' => 'service-request', 'uses' => 'FaqController@geocode']);

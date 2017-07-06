@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\User;
+use App\UserDevice;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -26,6 +27,7 @@ class LoginController extends Controller
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
+                //'device_id'   =>   1,
                 'status'        => 1
             ]
         );
@@ -36,21 +38,23 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $row = $request->user();
 
-        if (Auth::check()) {
+        if ($row) {
 
-            $user_token = [
-                'remember_token' =>str_random(60),
-                'api_token' =>str_random(60),
-            ];
+            /*$data_exists = DB::table('users_devices')->where('user_id', '=', $row->id)
+                                   ->where('device_id', '=', $row->device_id)
+                                   ->exists();
+            if($data_exists){
 
-            DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token);
-          
-            return response()->json([
-                'name' => Auth::user()->name,
-                'email' =>Auth::user()->email,
-                'api_token' =>$user_token['api_token'],
-            ]);
+                UserDevice::create(
+                    [
+                        'user_id'  =>$row->id,
+                        'device_id'  =>$row->device_id,
+                    ]
+                );
+            }*/
+            return response()->json(['error' => false, 'result' => $row ], 202);
         }
         else
          {
@@ -61,26 +65,49 @@ class LoginController extends Controller
     }
 
 
+    public function device_info(Request $request){
+
+
+            //$input = $request->all();
+
+            $data_exists = DB::table('users_devices')->where('user_id', '=',$request->user_id)
+                ->where('device_id', '=', $request->device_id)
+                ->exists();
+
+            if(!$data_exists){
+
+                UserDevice::create(
+                    [
+                        'user_id'  =>$request->user_id,
+                        'device_id'  =>$request->device_id,
+                    ]
+                );
+                return response()->json(['error' => false, 'message'=>'User created successfully'], 202);
+            }else{
+                return response()->json([
+                    'error'=>'Already Exists!!!'
+                ]);
+            }
+    }
+
+
+
     public function logout(Request $request){
 
 
-        $user_token = [
+       /* $user_token = [
             'api_token' =>Null,
-        ];
+        ];*/
 
-        if(DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token)){
+//        if(DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token)){
 
             Auth::logout();
 
             return response()->json([
                 'message'=>'successfully Logged out.'
             ]);
-        }
-        else{
-            return response()->json([
-                'error'=>'error'
-            ]);
-        }
+//        }
+
 
     }
 }
