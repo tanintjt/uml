@@ -35,8 +35,8 @@ Route::group(['namespace' => 'Auth'], function()
     Route::get('register', 'RegisterController@showRegistrationForm');
     Route::post('register', 'RegisterController@register');
 
-    Route::get('auth/{provider}', 'LoginController@provider');
-    Route::get('auth/{provider}/callback', 'LoginController@providerCallback');
+    /*Route::get('auth/{provider}', 'LoginController@provider');
+    Route::get('auth/{provider}/callback', 'LoginController@providerCallback');*/
 
 });
 

@@ -23,12 +23,10 @@ use Illuminate\Http\Request;
 });*/
 
 
+Route::post('api/auth', 'Api\V1\LoginController@provider');
+//Route::get('api/auth/{provider}/callback', 'Api\V1\LoginController@providerCallback');
 
 
-    //Route::post('/register', 'Api\V1\LoginController@register');
-    //Route::post('/login', 'Api\V1\LoginController@login');
-
-/*Route::post('/api/login', 'Api\V1\LoginController@login')->middleware('auth.basic');*/
 
 Route::post('/api/register', 'Api\V1\LoginController@register');
 

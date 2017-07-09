@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\DB;
-
+use Socialite;
+use Session;
 class LoginController extends Controller
 {
 
@@ -36,25 +37,13 @@ class LoginController extends Controller
 
 
 
+
     public function login(Request $request)
     {
         $row = $request->user();
 
         if ($row) {
-
-            /*$data_exists = DB::table('users_devices')->where('user_id', '=', $row->id)
-                                   ->where('device_id', '=', $row->device_id)
-                                   ->exists();
-            if($data_exists){
-
-                UserDevice::create(
-                    [
-                        'user_id'  =>$row->id,
-                        'device_id'  =>$row->device_id,
-                    ]
-                );
-            }*/
-            return response()->json(['error' => false, 'result' => $row ], 202);
+             return response()->json(['error' => false, 'result' => $row ], 202);
         }
         else
          {
@@ -63,6 +52,54 @@ class LoginController extends Controller
             ]);
          }
     }
+
+
+
+    public function provider(Request $request)
+    {
+
+        $authUser = $this->findOrCreateUser($request->all());
+        Auth::login($authUser, true);
+
+    }
+
+
+    public function findOrCreateUser($request)
+    {
+        //print_r($request['provider_id']);exit;
+
+        $authUser = User::where('provider_id',$request['provider_id'])->where('provider',$request['provider'])->exists();
+
+        if ($authUser) {
+            return $authUser;
+        }
+
+        $newUser = User::create([
+            'name'     => $request['name'],
+            'email'    => $request['email'],
+            'provider' => $request['provider'],
+            'provider_id' =>$request['provider_id'],
+            'status' => 1,
+        ]);
+
+        return response()->json(['error' => false, 'result' => $newUser], 202);
+    }
+
+
+
+    public function providerCallback($provider)
+    {
+
+        $user = Socialite::driver($provider)->user();
+
+        $authUser = $this->findOrCreateUser($user, $provider);
+        Auth::login($authUser, true);
+
+        return true;
+
+    }
+
+
 
 
     public function device_info(Request $request){

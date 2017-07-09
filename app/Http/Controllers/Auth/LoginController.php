@@ -132,7 +132,7 @@ class LoginController extends Controller
      * @param  $user Socialite user object
      * @param $provider Social auth provider
      * @return  User
-     */
+ */
     public function findOrCreateUser($user, $provider)
     {
         $authUser = User::where('provider_id', $user->id)->first();
@@ -148,7 +148,7 @@ class LoginController extends Controller
                     'provider' => $provider,
                     'provider_id' => $user->id,
                     'status' => 1,
-                    'api_token'=>isset($user->api_token)?$user->api_token:Null
+                    //'api_token'=>isset($user->api_token)?$user->api_token:Null
                 ]);
 
         //$user->attachRole($newuser->id);
