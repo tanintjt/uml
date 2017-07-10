@@ -114,6 +114,11 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1'], function () {
     /*test*/
     Route::get('/geocode', [ 'as' => 'service-request', 'uses' => 'FaqController@geocode']);
 
+    /*Spare Parts Category..*/
+    Route::get('/sp-category', [ 'as' => 'sp-category', 'uses' => 'SparePartsCategoryController@index']);
+
+    Route::get('/spare-parts', [ 'as' => 'spare-parts', 'uses' => 'SparePartsController@index']);
+
 });
 
 
