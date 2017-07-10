@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\DB;
-use Socialite;
 use Session;
+use Validator;
 class LoginController extends Controller
 {
 
@@ -18,8 +18,32 @@ class LoginController extends Controller
         $this->user = $user;
     }*/
 
+    /*---------------Basic authentication--------------*/
 
     public function register(Request $request){
+
+        $rules = [
+            'name' =>  'required',
+            'email' => 'required',
+            'password' => 'required',
+            'phone' => 'required',
+        ];
+
+        $messages = [
+            'name.required' => 'Name is required!',
+            'email.required' => 'Email is required!',
+            'password.required' => 'Password is required!',
+            'phone.required' => 'Phone is required!',
+        ];
+
+        $validator = Validator::make($request->all(),$rules, $messages);
+
+        if ($validator->fails()) {
+
+            $result = $validator->errors()->all();
+
+            return response()->json(['error' => true, 'result' => $result], 400);
+        }
 
         $user = User::create(
             [
@@ -28,7 +52,6 @@ class LoginController extends Controller
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
-                //'device_id'   =>   1,
                 'status'        => 1
             ]
         );
@@ -52,11 +75,39 @@ class LoginController extends Controller
             ]);
          }
     }
+    /*---------------Basic authentication : end --------------*/
 
 
+
+
+
+    /*-----------------Social authentication----------------*/
 
     public function provider(Request $request)
     {
+
+        $rules = [
+            'name' =>  'required',
+            'email' => 'required',
+            'provider' => 'required',
+            'provider_id' => 'required',
+        ];
+
+        $messages = [
+            'name.required' => 'Name is required!',
+            'email.required' => 'Email is required!',
+            'provider.required' => 'Provider is required!',
+            'provider_id.required' => 'Provider Id is required!',
+        ];
+
+        $validator = Validator::make($request->all(),$rules, $messages);
+
+        if ($validator->fails()) {
+
+            $result = $validator->errors()->all();
+
+            return response()->json(['error' => true, 'result' => $result], 400);
+        }
 
         $authUser = $this->findOrCreateUser($request->all());
         Auth::login($authUser, true);
@@ -66,46 +117,33 @@ class LoginController extends Controller
 
     public function findOrCreateUser($request)
     {
-        //print_r($request['provider_id']);exit;
 
-        $authUser = User::where('provider_id',$request['provider_id'])->where('provider',$request['provider'])->exists();
+        $authUser = User::where('provider_id',$request['provider_id'])->where('provider',$request['provider'])->first();
 
         if ($authUser) {
+
             return $authUser;
         }
+        else{
 
-        $newUser = User::create([
-            'name'     => $request['name'],
-            'email'    => $request['email'],
-            'provider' => $request['provider'],
-            'provider_id' =>$request['provider_id'],
-            'status' => 1,
-        ]);
+            $newUser = User::create([
+                'name'          =>    $request['name'],
+                'email'         =>    $request['email'],
+                'provider'      =>    $request['provider'],
+                'provider_id'   =>    $request['provider_id'],
+                'status'        =>   1
+            ]);
 
-        return response()->json(['error' => false, 'result' => $newUser], 202);
+            return $newUser;
+        }
     }
-
-
-
-    public function providerCallback($provider)
-    {
-
-        $user = Socialite::driver($provider)->user();
-
-        $authUser = $this->findOrCreateUser($user, $provider);
-        Auth::login($authUser, true);
-
-        return true;
-
-    }
+    /*-----------------Social authentication : end----------------*/
 
 
 
 
     public function device_info(Request $request){
 
-
-            //$input = $request->all();
 
             $data_exists = DB::table('users_devices')->where('user_id', '=',$request->user_id)
                 ->where('device_id', '=', $request->device_id)
@@ -129,22 +167,14 @@ class LoginController extends Controller
 
 
 
-    public function logout(Request $request){
 
-
-       /* $user_token = [
-            'api_token' =>Null,
-        ];*/
-
-//        if(DB::table('users')->where('id', '=', Auth::user()->id)->update($user_token)){
+    public function logout(){
 
             Auth::logout();
 
             return response()->json([
                 'message'=>'successfully Logged out.'
             ]);
-//        }
-
 
     }
 }
