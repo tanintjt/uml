@@ -87,7 +87,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1'], function () {
     /*E Document*/
     Route::post('/docs-store', [ 'as' => 'docs-store', 'uses' => 'EDocumentController@store']);
 
-    Route::post('/docs', [ 'as' => 'docs', 'uses' => 'EDocumentController@index']);
+    Route::get('/docs', [ 'as' => 'docs', 'uses' => 'EDocumentController@index']);
 
 
 

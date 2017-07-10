@@ -14,9 +14,8 @@ class EDocumentController extends Controller
 
     public function index(Request $request){
 
-        $rows = DB::table('e_documents')
-            ->join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
-            ->where('e_documents.doc_type_id',$request->doc_type_id)
+        $rows =EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
+            ->EDoc($request->input('doc_type_id'))
             ->select('e_doc_type.name','e_documents.issue_date','e_documents.expiry_date','e_documents.file')
             ->get();
 
