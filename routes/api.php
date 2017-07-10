@@ -30,7 +30,7 @@ Route::post('api/auth', 'Api\V1\LoginController@provider');
 
 Route::post('/api/register', 'Api\V1\LoginController@register');
 
-Route::group(['prefix'=>'api','namespace' => 'Api\V1', 'middleware' => 'auth.basic' ], function () {
+Route::group(['prefix'=>'api','namespace' => 'Api\V1'], function () {
 
     /*Route::get('auth', function (Request $request) {
         //return $request->user();
@@ -72,7 +72,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1', 'middleware' => 'auth.bas
 
 
     /*Vehicle*/
-    Route::post('/vehicle', [ 'as' => 'vehicle', 'uses' => 'VehicleController@index']);
+    Route::get('/vehicle', [ 'as' => 'vehicle', 'uses' => 'VehicleController@index']);
 
     Route::post('/vc-store', [ 'as' => 'vc-store', 'uses' => 'VehicleCatalogController@store']);
 
