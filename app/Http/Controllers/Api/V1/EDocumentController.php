@@ -19,9 +19,7 @@ class EDocumentController extends Controller
             ->select('e_doc_type.name','e_documents.issue_date','e_documents.expiry_date','e_documents.file')
             ->get();
 
-        $result['E Documents'] = $rows;
-
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json($rows, 200);
     }
 
 

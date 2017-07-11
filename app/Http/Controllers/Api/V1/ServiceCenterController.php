@@ -14,9 +14,10 @@ class ServiceCenterController extends Controller
     public function index(){
 
         $rows = ServiceCenter::get();
-        $result['Service Center'] = $rows;
+        /*$result['Service Center'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json(['error' => false, 'result' => $result ], 200);*/
+        return response()->json($rows, 200);
     }
 
 
@@ -87,7 +88,8 @@ class ServiceCenterController extends Controller
             }
         }
         //print_r($lcs);exit;
-        return response()->json(['error' => false, 'result' => $min ], 202);
+        return response()->json($min, 200);
+
     }
 
 }

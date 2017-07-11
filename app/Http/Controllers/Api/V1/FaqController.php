@@ -16,9 +16,10 @@ class FaqController extends Controller
     public function index(){
 
         $rows = Faq::get();
-        $result['Faq'] = $rows;
+        /*$result['Faq'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json(['error' => false, 'result' => $result ], 200);*/
+        return response()->json($rows, 200);
     }
 
 

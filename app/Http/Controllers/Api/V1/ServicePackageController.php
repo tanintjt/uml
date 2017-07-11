@@ -13,9 +13,7 @@ class ServicePackageController extends Controller
     public function index(){
 
         $rows = ServicePackage::get();
-        $result['Service Package'] = $rows;
-
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json($rows, 200);
     }
 
 }

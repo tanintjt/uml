@@ -17,8 +17,6 @@ class SparePartsController extends Controller
             ->select('spare_parts.name','spare_parts.part_id','spare_parts.rate','spare_parts_category.name as Category')
             ->get();
 
-        $result['Spare Parts'] = $rows;
-
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json($rows, 200);
     }
 }

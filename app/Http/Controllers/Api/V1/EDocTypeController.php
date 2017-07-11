@@ -13,9 +13,8 @@ class EDocTypeController extends Controller
     public function index(Request $request)
     {
         $rows = EDocType::get();
-        $result['EDocType'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json($rows, 200);
     }
 
     public function store(Request $request ){

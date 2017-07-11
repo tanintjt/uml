@@ -15,9 +15,10 @@ class PromotionController extends Controller
     public function index(){
 
         $rows = Promotion::get();
-        $result['Promotion'] = $rows;
+        /*$result['Promotion'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json(['error' => false, 'result' => $result ], 200);*/
+        return response()->json($rows, 200);
     }
 
 

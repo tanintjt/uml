@@ -15,9 +15,10 @@ class BrochureController extends Controller
     public function index(){
 
         $rows = Brochure::get();
-        $result['Brochure'] = $rows;
+        /*$result['Brochure'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json(['error' => false, 'result' => $result ], 200);*/
+        return response()->json($rows, 200);
     }
 
 

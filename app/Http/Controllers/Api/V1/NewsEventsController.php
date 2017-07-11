@@ -14,9 +14,10 @@ class NewsEventsController extends Controller
     public function index(){
 
         $rows = NewsEvents::get();
-        $result['News & Events'] = $rows;
+        /*$result['News & Events'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json(['error' => false, 'result' => $result ], 200);*/
+        return response()->json($rows, 200);
     }
 
     public function store(Request $request) {
