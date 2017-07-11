@@ -65,7 +65,7 @@ class ServiceRequestController extends Controller
             $error = true;
         }
 
-        return response()->json(['error' => $error, 'result' => $result], $http_code);
+        return response()->json($result, $http_code);
     }
 
 
