@@ -23,9 +23,11 @@ class VehicleController extends Controller
                 'vehicle.fuel_system', 'vehicle_type.name as type', 'vehicle_model.name as model')
             ->get();
 
-        $result['Vehicle'] = $rows;
+        /*$result['Vehicle'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result], 200);
+        return response()->json(['error' => false, 'result' => $result], 200);*/
+
+        return response()->json($rows, 200);
     }
 
 }
