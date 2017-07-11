@@ -144,7 +144,7 @@ class LoginController extends Controller
 
     public function device_info(Request $request){
 
-
+     //dd(Auth::user()->id);
             $data_exists = DB::table('users_devices')->where('user_id', '=',$request->user_id)
                 ->where('device_id', '=', $request->device_id)
                 ->exists();
