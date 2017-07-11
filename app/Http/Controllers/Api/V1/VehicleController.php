@@ -20,7 +20,7 @@ class VehicleController extends Controller
             ->Type($request->input('type_id'))
             ->Model($request->input('model_id'))
             ->select('vehicle.production_year','vehicle.engine_displacement','vehicle.engine_details',
-                'vehicle.fuel_system', 'vehicle_type.name as type', 'vehicle_model.name as model','vehicle.vehicle_image')
+                'vehicle.fuel_system', 'vehicle_type.name as type', 'vehicle_model.name as model','vehicle.vehicle_image','vehicle.available_colors')
             ->get();
 
         /*$result['Vehicle'] = $rows;

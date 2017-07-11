@@ -100,12 +100,24 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{{ $errors->has('available_colors') ? ' has-error' : '' }}">
+                    {!! Form::label('available_colors', 'Available Colors:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-3">
+                        {!! Form::file('available_colors[]', ['required','multiple'=>true]) !!}
+                        @if ($errors->has('available_colors'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('available_colors') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                {{--<div class="form-group">
                     {!! Form::label('color', 'Color :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::text('color', old('color', '#2fccad'), ['class' => 'form-control color', 'id' => 'color']) !!}
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">

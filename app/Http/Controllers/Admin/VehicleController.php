@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Brand;
 use App\Vehicle;
+use App\VehicleColor;
 use App\VehicleModel;
 use App\VehicleType;
 use Illuminate\Http\Request;
@@ -185,8 +186,27 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::create($input);
 
+
         if ($vehicle->id > 0) {
 
+            $colors = Input::file('available_colors');
+
+            if($colors){
+                foreach($colors as $color) {
+
+                    $model = new VehicleColor();
+                    $destinationPath = 'public/uploads/vehicle/';
+
+                    $file_original_name = $color->getClientOriginalName();
+                    $file_name = rand(11111, 99999) . $file_original_name;
+                    $color->move($destinationPath, $file_name);
+
+                    $model->vehicle_id = $vehicle->id;
+                    $model->available_colors = 'public/uploads/vehicle/'.$file_name;
+
+                    $model->save();
+                }
+            }
             $message = 'Successfully Added';
             $error = false;
         } else {
@@ -196,6 +216,9 @@ class VehicleController extends Controller
 
         return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
     }
+
+
+
 
     /**
      * Display the specified resource.
