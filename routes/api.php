@@ -96,12 +96,23 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     Route::post('/doc-type', [ 'as' => 'doc-type', 'uses' => 'EDocTypeController@index']);
 
 
+
+
+
+
+
     /*E Document*/
     Route::post('/docs-store', [ 'as' => 'docs-store', 'uses' => 'EDocumentController@store']);
 
-    Route::post('/docs-update', [ 'as' => 'docs-update', 'uses' => 'EDocumentController@update']);
 
-    /*Route::get('/docs', [ 'as' => 'docs', 'uses' => 'EDocumentController@index']);*/
+    Route::put('/e-docs/{id}/update', 'EDocumentController@update');
+
+
+
+
+
+
+
 
 
     Route::post('/promotion-store', [ 'as' => 'promotion-store', 'uses' => 'PromotionController@store']);

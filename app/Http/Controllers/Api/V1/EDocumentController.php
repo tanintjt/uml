@@ -81,36 +81,29 @@ class EDocumentController extends Controller
 
     public function update(Request $request, $id)
     {
-
         //$user = Auth::user();
+        $input = $request->all();
+
         $edocs = EDocument::find($id);
 
         if(!$edocs) {
-            return response()->json(['error' => true, 'result' => 'EDocument not found' ], 404);
+            return response()->json(['error' => true, 'result' => ' not found' ], 404);
         }
 
         $rules = [
             'doc_type_id'   => 'not_in:0',
-            'issue_date' => 'required',
-            'expiry_date' => 'required',
-            'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
+            'issue_date'      => 'required',
+            'expiry_date'      => 'required',
+           // 'file'      => 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub',
         ];
 
         $messages = [
             'doc_type_id.not_in'    => 'Type is required!',
-            'issue_date.required' => ' Issue Date is required!',
-            'expiry_date.required' => ' Expiry Date is required!',
-            'file.required' => ' File is required!',
+            'issue_date.required'     => 'Issue Date is required!',
+            'expiry_date.required'    => 'Expiry Date is required!',
+            'file.required' => 'File is required!',
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-
-            $result = $validator->errors()->all();
-
-            return response()->json(['error' => true, 'result' => $result ], 400);
-        }
 
         $file = Input::file('file');
 
@@ -118,12 +111,15 @@ class EDocumentController extends Controller
 
         if ($validator->fails()) {
 
-            return redirect('admin/e-documents/'.$id.'/edit')->withErrors($validator)->withInput();
+            $result = $validator->errors()->all();
+
+            return response()->json($result, 400);
         }
+
 
         if(count($file)>0){
             //Delete previous image from folder
-           // unlink($model->file);
+            //unlink($model->file);
 
             // Files destination
             $destinationPath = 'public/uploads/e_documents/';
@@ -139,15 +135,17 @@ class EDocumentController extends Controller
             $input['file'] = 'public/uploads/e_documents/' . $file_name;
         }
 
-        $edocs->update($input);
+        $data = array(
+            'doc_type_id'     => $request->input('doc_type_id'),
+            'issue_date'          => $request->input('issue_date'),
+            'expiry_date'          => $request->input('expiry_date'),
+            'file'          => $input['file'],
+        );
 
-        EDocument::update([
-            'doc_type_id' => $model->id,
-            'issue_date' => $input['available_colors']
-        ]);
+        $edocs->update($data);
 
         if ($edocs) {
-            $result = 'Successfully updated';
+            $result = 'Successfully Saved';
             $http_code = 201;
         } else {
             $result = 'Request failed.';
@@ -156,6 +154,7 @@ class EDocumentController extends Controller
         }
         return response()->json($result, $http_code);
     }
+
 
 
 
