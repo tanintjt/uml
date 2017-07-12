@@ -94,7 +94,7 @@ class VehicleController extends Controller
     {
         $title = 'Add Vehicle';
 
-        $extrajs = "<script>
+        /*$extrajs = "<script>
             $(function() {
                 var colpick = $('.color').each( function() {
                     $(this).minicolors({
@@ -117,7 +117,7 @@ class VehicleController extends Controller
 		</script>";
 
         $css = '<link href="'.asset('public/themes/default/css/colors.css').'" rel="stylesheet" type="text/css" media="screen">';
-        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';
+        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';*/
 
         $type = $this->typeList(true);
         $model = $this->modelList(true);
@@ -137,7 +137,7 @@ class VehicleController extends Controller
 
         $input = $request->all();
 
-
+//print_r($input);exit;
         $rules = [
             'type_id'   => 'not_in:0',
             'model_id'   => 'not_in:0',
@@ -147,7 +147,7 @@ class VehicleController extends Controller
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
-            'color'      => 'required',
+           // 'color'      => 'required',
         ];
 
         $messages = [
@@ -159,7 +159,7 @@ class VehicleController extends Controller
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
-            'color.required' => 'Vehicle Color is required!',
+           // 'color.required' => 'Vehicle Color is required!',
 
         ];
 
@@ -194,18 +194,21 @@ class VehicleController extends Controller
             if($colors){
                 foreach($colors as $color) {
 
-                    $model = new VehicleColor();
                     $destinationPath = 'public/uploads/vehicle/';
 
                     $file_original_name = $color->getClientOriginalName();
                     $file_name = rand(11111, 99999) . $file_original_name;
                     $color->move($destinationPath, $file_name);
 
-                    $model->vehicle_id = $vehicle->id;
-                    $model->available_colors = 'public/uploads/vehicle/'.$file_name;
+                    $input['available_colors'] = 'public/uploads/vehicle/'.$file_name;
 
-                    $model->save();
+
+                    VehicleColor::create([
+                        'vehicle_id' => $vehicle->id,
+                        'available_colors' => $input['available_colors']
+                    ]);
                 }
+
             }
             $message = 'Successfully Added';
             $error = false;
@@ -254,7 +257,7 @@ class VehicleController extends Controller
         $row = Vehicle::findOrFail($id);
         $title = 'Edit details';
 
-        $extrajs = "<script>
+        /*$extrajs = "<script>
             $(function() {
                 var colpick = $('.color').each( function() {
                     $(this).minicolors({
@@ -277,7 +280,7 @@ class VehicleController extends Controller
 		</script>";
 
         $css = '<link href="'.asset('public/themes/default/css/colors.css').'" rel="stylesheet" type="text/css" media="screen">';
-        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';
+        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';*/
 
         $type = $this->typeList(true);
         $model = $this->modelList(true);
@@ -307,7 +310,7 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
-            'color'      => 'required',
+           // 'color'      => 'required',
 //            'vehicle_image'      => 'required',
         ];
 
@@ -319,7 +322,7 @@ class VehicleController extends Controller
             'engine_displacement.required' => 'Engine Displacement is required!',
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
-            'color.required' => 'Vehicle Color is required!',
+           // 'color.required' => 'Vehicle Color is required!',
 //            'vehicle_image.required' => 'Vehicle Image is required!',
 
         ];
@@ -335,7 +338,7 @@ class VehicleController extends Controller
 
         if(count($file)>0){
             //Delete previous image from folder
-            unlink($model->file);
+            //unlink($model->file);
 
             // Files destination
             $destinationPath = 'public/uploads/vehicle/';
@@ -355,10 +358,31 @@ class VehicleController extends Controller
         $model->update($input);
 
         if ($model->id > 0) {
-            $message ='Successfully updated.';
+
+            $colors = Input::file('available_colors');
+
+            if($colors){
+                foreach($colors as $color) {
+
+                    $destinationPath = 'public/uploads/vehicle/';
+
+                    $file_original_name = $color->getClientOriginalName();
+                    $file_name = rand(11111, 99999) . $file_original_name;
+                    $color->move($destinationPath, $file_name);
+
+                    $input['available_colors'] = 'public/uploads/vehicle/'.$file_name;
+
+
+                    VehicleColor::update([
+                        'vehicle_id' => $model->id,
+                        'available_colors' => $input['available_colors']
+                    ]);
+                }
+            }
+            $message = 'Successfully Updated';
             $error = false;
         } else {
-            $message =  'vehicle updating fail.';
+            $message =  'Adding fail.';
             $error = true;
         }
 

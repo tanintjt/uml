@@ -12,7 +12,7 @@ class Vehicle extends Model
 
 
     protected $fillable = [
-       'brand_id', 'type_id', 'model_id','production_year','engine_displacement','engine_details','fuel_system','vehicle_image','available_colors'
+       'brand_id', 'type_id', 'model_id','production_year','engine_displacement','engine_details','fuel_system','vehicle_image'
     ];
 
     public function scopeType($query, $typeid)
@@ -39,6 +39,8 @@ class Vehicle extends Model
     public function brand(){
         return $this->belongsTo('App\Brand','brand_id', 'id');
     }
+
+
 
 
 }

@@ -101,7 +101,7 @@ class SparePartsController extends Controller
     {
 
         $input = $request->all();
-
+        $file = Input::file('file');
 
         $rules = [
             'sp_cat_id'   => 'not_in:0',
@@ -123,6 +123,20 @@ class SparePartsController extends Controller
         if ($validator->fails()) {
             return redirect('admin/spare-parts/create')->withErrors($validator)->withInput();
         }
+
+
+        // Files destination
+        $destinationPath = 'public/uploads/spare_parts/';
+
+        // Create folders if they don't exist
+        if ( !file_exists($destinationPath) ) {
+            mkdir ($destinationPath, 777);
+        }
+
+        $file_original_name = $file->getClientOriginalName();
+        $file_name = rand(11111, 99999) . $file_original_name;
+        $file->move($destinationPath, $file_name);
+        $input['file'] = 'public/uploads/spare_parts/' . $file_name;
 
         $vehicle = SpareParts::create($input);
 
