@@ -99,6 +99,8 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     /*E Document*/
     Route::post('/docs-store', [ 'as' => 'docs-store', 'uses' => 'EDocumentController@store']);
 
+    Route::post('/docs-update', [ 'as' => 'docs-update', 'uses' => 'EDocumentController@update']);
+
     /*Route::get('/docs', [ 'as' => 'docs', 'uses' => 'EDocumentController@index']);*/
 
 
@@ -119,6 +121,10 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
     /*user profile*/
     Route::get('/user-profile', [ 'as' => 'user-profile', 'uses' => 'UserController@user_profile']);
+
+
+    /*feedback*/
+    Route::post('/feedback', [ 'as' => 'feedback', 'uses' => 'FeedbackController@index']);
 
 
 

@@ -11,6 +11,6 @@ class FeedBack extends Model
 
 
     protected $fillable = [
-        'user_id','feedback_type','feedback_details'
+        'user_id','subject','feedback_details'
     ];
 }
