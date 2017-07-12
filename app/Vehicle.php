@@ -40,6 +40,10 @@ class Vehicle extends Model
         return $this->belongsTo('App\Brand','brand_id', 'id');
     }
 
+    public function colors(){
+        return $this->hasMany('App\VehicleColor','vehicle_id', 'id')->select('available_colors as image');
+    }
+
 
 
 
