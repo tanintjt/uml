@@ -65,7 +65,7 @@
                 <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
                     {!! Form::label('file', 'File:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
-                        {!! Form::file('file',old('file'), [ 'class' => 'form-control','required']) !!}
+                        {!! Form::file('file[]',['required','multiple'=>true]) !!}
                         @if ($errors->has('file'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('file') }}</strong>

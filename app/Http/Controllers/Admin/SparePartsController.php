@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 use Session;
-
+use Illuminate\Support\Facades\Input;
 class SparePartsController extends Controller
 {
 

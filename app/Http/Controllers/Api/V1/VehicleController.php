@@ -32,6 +32,7 @@ class VehicleController extends Controller
             $data[$i]['fuel_system'] = $rows[$i]->fuel_system;
             $data[$i]['type'] = $rows[$i]->type;
             $data[$i]['model'] = $rows[$i]->model;
+            $data[$i]['vehicle_image'] = $rows[$i]->vehicle_image;
 
             $data[$i]['colors'] = $rows[$i]->colors;
 
