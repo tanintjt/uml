@@ -33,9 +33,10 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th width="5%">Name</th>
-                        <th width="5%">Spare Parts Category</th>
+                        {{--<th width="5%">Spare Parts Category</th>--}}
                         <th width="5%">Part ID</th>
                         <th width="5%">Rate</th>
+                        <th width="5%">Uploaded Image</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -45,9 +46,16 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ isset($row->name)?ucfirst($row->name):''}}</td>
-                            <td>{{ isset($row->sp_cat->name)?ucfirst($row->sp_cat->name):''}}</td>
+                            {{--<td>{{ isset($row->sp_cat->name)?ucfirst($row->sp_cat->name):''}}</td>--}}
                             <td>{{ isset($row->part_id)?$row->part_id:''}}</td>
                             <td>{{ $row->rate }}</td>
+                            <td>
+                                @if( isset($row->file))
+                                    <img src="{!! asset(isset($row->file)?$row->file:'') !!}" width="60px" height="50px" style="margin-left: 26%">
+                                @else
+                                    <img src="{{ URL::to('/img/default.jpg') }}" width="80px" height="80px">
+                                @endif
+                            </td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/spare-parts/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/spare-parts/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>

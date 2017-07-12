@@ -11,7 +11,19 @@
 
             <div class="col-xs-7">
 
-                <div class="form-group{{ $errors->has('sp_cat_id') ? ' has-error' : '' }}">
+
+                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                    {!! Form::label('name', 'Name :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('name',  old('name'),['class' => 'form-control', 'id' => 'name', 'placeholder' => 'name']) !!}
+                        @if ($errors->has('name'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                {{--<div class="form-group{{ $errors->has('sp_cat_id') ? ' has-error' : '' }}">
                     {!! Form::label('sp_cat_id', 'Spare Parts Category :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('sp_cat_id', $sp_cat_list, old('sp_cat_id'), ['class' => 'form-control', 'id' => 'sp_cat_id']) !!}
@@ -21,7 +33,7 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group{{ $errors->has('part_id') ? ' has-error' : '' }}">
                     {!! Form::label('part_id', 'Part ID :', ['class' => 'col-xs-3 control-label']) !!}
@@ -38,17 +50,7 @@
             </div>
             <div class="col-xs-5">
 
-                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    {!! Form::label('name', 'Name :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('name',  old('name'),['class' => 'form-control', 'id' => 'name', 'placeholder' => 'name']) !!}
-                        @if ($errors->has('name'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('name') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
+
 
                 <div class="form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
                     {!! Form::label('rate', 'Rate :', ['class' => 'col-xs-3 control-label']) !!}
@@ -63,9 +65,9 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-                    {!! Form::label('file', 'File:', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('file', 'Image:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
-                        {!! Form::file('file[]',['required','multiple'=>true]) !!}
+                        {!! Form::file('file',['required','multiple'=>true]) !!}
                         @if ($errors->has('file'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('file') }}</strong>

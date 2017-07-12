@@ -67,13 +67,14 @@ class SparePartsController extends Controller
             Session::put('sp_cat_id', $request->input('sp_cat_id'));
         }
 
-        $sp_cat_list = $this->SpCategoryList();
+//        $sp_cat_list = $this->SpCategoryList();
 
 
-        $rows = SpareParts::with('sp_cat')->
+        /*$rows = SpareParts::with('sp_cat')->
         orderBy('id', 'asc')->
-        paginate(config('app.limit'));
+        paginate(config('app.limit'));*/
 
+        $rows = SpareParts::orderBy('id', 'asc')->paginate(config('app.limit'));
 
         return view('admin/spare_parts/index', compact('rows', 'title','sp_cat_list', 'extrajs'));
     }
@@ -87,7 +88,7 @@ class SparePartsController extends Controller
     {
         $title = 'Add Spare Parts';
 
-        $sp_cat_list = $this->SpCategoryList(true);
+//        $sp_cat_list = $this->SpCategoryList(true);
 
         return view('admin.spare_parts.create', compact('title', 'sp_cat_list') );
     }
@@ -103,17 +104,17 @@ class SparePartsController extends Controller
 
         $input = $request->all();
 
-        $files = Input::file('file');
+        $file = Input::file('file');
 
         $rules = [
-            'sp_cat_id'   => 'not_in:0',
+            //'sp_cat_id'   => 'not_in:0',
             'name'      => 'required',
             'part_id'      => 'required',
             'rate'      => 'numeric|required',
         ];
 
         $messages = [
-            'sp_cat_id.not_in'    => 'Spare Parts Category is required!',
+            //'sp_cat_id.not_in'    => 'Spare Parts Category is required!',
             'name.required'    => 'Name is required!',
             'part_id.required' => 'Part ID is required!',
             'rate.required' => 'Rate is required!',
@@ -126,37 +127,26 @@ class SparePartsController extends Controller
             return redirect('admin/spare-parts/create')->withErrors($validator)->withInput();
         }
 
-        $spare_parts = SpareParts::create($input);
 
+        $destinationPath = 'public/uploads/spare_parts/';
 
-        if ($spare_parts->id > 0) {
+        $file_original_name = $file->getClientOriginalName();
+        $file_name = rand(11111, 99999) . $file_original_name;
+        $file->move($destinationPath, $file_name);
 
-            if($files){
-                foreach($files as $file) {
+        $input['file'] = 'public/uploads/spare_parts/'.$file_name;
 
-                    $destinationPath = 'public/uploads/spare_parts/';
+        $sp = SpareParts::create($input);
 
-                    $file_original_name = $file->getClientOriginalName();
-                    $file_name = rand(11111, 99999) . $file_original_name;
-                    $file->move($destinationPath, $file_name);
+        if ($sp->id > 0) {
 
-                    $input['file'] = 'public/uploads/spare_parts/'.$file_name;
-
-
-                    SpareCategory::create([
-                        'sp_id' => $spare_parts->id,
-                        'sp_cat_id' => $input['sp_cat_id'],
-                        'file' => $input['file'],
-                    ]);
-                }
-
-            }
             $message = 'Successfully Added';
             $error = false;
         } else {
             $message =  'Adding fail.';
             $error = true;
         }
+
 
         return redirect('admin/spare-parts')->with(['message' => $message, 'error' => $error]);
     }

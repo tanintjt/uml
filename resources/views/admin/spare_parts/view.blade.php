@@ -21,10 +21,10 @@
                             <th width="15%" class="active">Name</th>
                             <td>{!!isset($row->name)?ucfirst($row->name):'' !!}</td>
                         </tr>
-                        <tr>
+                        {{--<tr>
                             <th class="active">Spare Parts Category</th>
                             <td>{!! isset($row->sp_cat->name)?ucfirst($row->sp_cat->name):'' !!}</td>
-                        </tr>
+                        </tr>--}}
                         <tr>
                             <th class="active">Part ID</th>
                             <td>

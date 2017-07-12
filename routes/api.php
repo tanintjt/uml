@@ -30,7 +30,10 @@ Route::post('api/auth', 'Api\V1\LoginController@provider');
 
 Route::post('/api/register', 'Api\V1\LoginController@register');
 
-Route::group(['prefix'=>'api','namespace' => 'Api\V1'], function () {
+Route::get('api/service-center', [ 'as' => 'service-center', 'uses' => 'Api\V1\ServiceCenterController@index']);
+Route::post('api/min-distance',[ 'as' => 'min-distance', 'uses' => 'Api\V1\ServiceCenterController@distanceCalculation']);
+
+Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basic'], function () {
 
     /*Route::get('auth', function (Request $request) {
         //return $request->user();
@@ -56,13 +59,13 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1'], function () {
 
     /*Services....... */
 
-    Route::get('/service-center', [ 'as' => 'service-center', 'uses' => 'ServiceCenterController@index']);
+    /*Route::get('/service-center', [ 'as' => 'service-center', 'uses' => 'ServiceCenterController@index']);*/
 
     Route::get('/service-package', [ 'as' => 'service-package', 'uses' => 'ServicePackageController@index']);
 
     Route::post('/service-request', [ 'as' => 'service-request', 'uses' => 'ServiceRequestController@store']);
 
-    Route::post('/min-distance',[ 'as' => 'min-distance', 'uses' => 'ServiceCenterController@distanceCalculation']);
+    /*Route::post('/min-distance',[ 'as' => 'min-distance', 'uses' => 'ServiceCenterController@distanceCalculation']);*/
 
 
     /*Faqs*/

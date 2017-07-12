@@ -12,7 +12,7 @@ class SpareParts extends Model
 
 
     protected $fillable = [
-        'name','part_id','rate','sp_cat_id'
+        'name','part_id','rate','file'
     ];
 
     public function scopeSP($query, $spid)

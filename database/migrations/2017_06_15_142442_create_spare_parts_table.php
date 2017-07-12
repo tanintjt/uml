@@ -18,14 +18,14 @@ class CreateSparePartsTable extends Migration
             $table->string('name');
             $table->string('part_id',64);
             $table->decimal('rate', 5,2);
-            $table->integer('sp_cat_id')->unsigned();
+//            $table->integer('sp_cat_id')->unsigned();
             $table->timestamps();
 
-            if(Schema::hasTable('spare_parts_category'))
-            {
-                $table->foreign('sp_cat_id')->references('id')->on('spare_parts_category')
-                    ->onUpdate('cascade')->onDelete('cascade');
-            }
+//            if(Schema::hasTable('spare_parts_category'))
+//            {
+//                $table->foreign('sp_cat_id')->references('id')->on('spare_parts_category')
+//                    ->onUpdate('cascade')->onDelete('cascade');
+//            }
         });
     }
 
