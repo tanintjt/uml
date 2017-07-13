@@ -21,7 +21,7 @@
                             <th width="10%" class="active">Title</th>
                             <td>{!!isset($row->title)?$row->title:'' !!}</td>
                         </tr>
-                        <tr>
+                        {{--<tr>
                             <th class="active">Start Date</th>
                             <td>{!! isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):'' !!}</td>
                         </tr>
@@ -30,7 +30,7 @@
                             <td>
                                 {!! isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):'' !!}
                             </td>
-                        </tr>
+                        </tr>--}}
                         <tr>
                             <th class="active">Details</th>
                             <td>{!! $row->details !!}</td>

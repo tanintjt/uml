@@ -24,10 +24,25 @@
                     <li><a href="{!! url(Request::segment(1).'/user') !!}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
-            <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
+            {{--<li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
             <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
             <li><a href=""><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
-            <li><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>
+            <li><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>--}}
+
+            <li class="treeview{!!  in_array(Request::segment(2), ['service-center', 'service-package','e-documents','service-history']) ? ' active': '' !!}">
+                <a href="#">
+                    <i class="fa fa-folder"></i> <span>Services</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
+                    <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
+                    <li><a href=""><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
+                    <li><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>
+                </ul>
+            </li>
 
             <li class="treeview{!!  in_array(Request::segment(2), ['vehicle-type', 'vehicle-model','vehicle','brand']) ? ' active': '' !!}">
                 <a href="#">
@@ -50,7 +65,7 @@
 
             <li class="treeview{!!  in_array(Request::segment(2), ['brochure', 'e-doc-type','e-documents','faq','news-events','promotions']) ? ' active': '' !!}">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>Attachments</span>
+                    <i class="fa fa-folder"></i> <span>Document</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -65,7 +80,7 @@
                 </ul>
             </li>
 
-            {{--<li><a href=""><i class="fa fa-commenting-o"></i> <span>Feedback</span></a></li>--}}
+
 
         </ul>
     </section>

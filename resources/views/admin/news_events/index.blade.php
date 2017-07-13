@@ -33,8 +33,6 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th width="5%">Title</th>
-                        <th width="5%">Start Date</th>
-                        <th width="5%">End Date</th>
                         <th width="10%" class="text-center">File</th>
                         <th width="10%">Actions</th>
                     </tr>
@@ -45,8 +43,8 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ isset($row->title)?$row->title:''}}</td>
-                            <td>{{ isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):''}}</td>
-                            <td>{{ isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):''}}</td>
+                            {{--<td>{{ isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):''}}</td>--}}
+                            {{--<td>{{ isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):''}}</td>--}}
                             <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/news-events/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>

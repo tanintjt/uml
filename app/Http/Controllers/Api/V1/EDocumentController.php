@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use DB;
-
+use File;
 class EDocumentController extends Controller
 {
 
@@ -81,8 +81,11 @@ class EDocumentController extends Controller
 
     public function update(Request $request, $id)
     {
+
         //$user = Auth::user();
-        $input = $request->all();
+        $input = [];
+        $file = $request->file('file');
+        //dd($file);
 
         $edocs = EDocument::find($id);
 
@@ -90,36 +93,47 @@ class EDocumentController extends Controller
             return response()->json(['error' => true, 'result' => ' not found' ], 404);
         }
 
-        $rules = [
+       /* $rules = [
             'doc_type_id'   => 'not_in:0',
-            'issue_date'      => 'required',
-            'expiry_date'      => 'required',
+           // 'issue_date'      => 'required',
+            //'expiry_date'      => 'required',
            // 'file'      => 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub',
         ];
 
         $messages = [
             'doc_type_id.not_in'    => 'Type is required!',
-            'issue_date.required'     => 'Issue Date is required!',
-            'expiry_date.required'    => 'Expiry Date is required!',
-            'file.required' => 'File is required!',
-        ];
+           // 'issue_date.required'     => 'Issue Date is required!',
+            //'expiry_date.required'    => 'Expiry Date is required!',
+            //'file.required' => 'File is required!',
+        ];*/
+
+        if($request->hasFile('file')) {
+            $rules['file'] = 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub';
+            $messages['file.mimes'] = 'File is required!';
+        }
 
 
-        $file = Input::file('file');
+        //$file = Input::file('file');
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+
+       /* $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
 
             $result = $validator->errors()->all();
 
             return response()->json($result, 400);
-        }
+        }*/
 
+        $oldfile = public_path().'public/uploads/e_documents/'.$edocs->img;
 
-        if(count($file)>0){
-            //Delete previous image from folder
-            //unlink($model->file);
+        if($request->hasFile('file')){
+            //Delete previous image
+            if( $request->input('file') != $edocs->file) {
+                if (File::exists($oldfile)) {
+                    File::delete($oldfile);
+                }
+            }
 
             // Files destination
             $destinationPath = 'public/uploads/e_documents/';
@@ -135,14 +149,14 @@ class EDocumentController extends Controller
             $input['file'] = 'public/uploads/e_documents/' . $file_name;
         }
 
-        $data = array(
-            'doc_type_id'     => $request->input('doc_type_id'),
-            'issue_date'          => $request->input('issue_date'),
-            'expiry_date'          => $request->input('expiry_date'),
-            'file'          => $input['file'],
-        );
 
-        $edocs->update($data);
+        //update....
+
+        /*if ($request->input('file')) {
+            $data['file'] = $input['file'];
+        }*/
+
+        $edocs->update($input);
 
         if ($edocs) {
             $result = 'Successfully Saved';
@@ -150,12 +164,10 @@ class EDocumentController extends Controller
         } else {
             $result = 'Request failed.';
             $http_code = 500;
-
         }
+
         return response()->json($result, $http_code);
     }
-
-
 
 
 }

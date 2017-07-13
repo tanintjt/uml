@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
+                {{--<div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
                     {!! Form::label('start_date', 'Start Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::text('start_date',  old('start_date'),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
@@ -42,7 +42,7 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </div>--}}
                 <div class="form-group">
                     {!! Form::label('details', ' Details :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -54,7 +54,7 @@
 
             <div class="col-xs-5">
 
-                <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
+                {{--<div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
                     {!! Form::label('end_date', 'End Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::text('end_date',  old('end_date'),['class' => 'form-control datepicker', 'id' => 'end_date', 'placeholder' => 'end date']) !!}
@@ -64,7 +64,7 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
                     {!! Form::label('file', 'File:', ['class' => 'col-xs-3 control-label']) !!}

@@ -15,7 +15,7 @@ class ServiceRequestController extends Controller
     public function store(Request $request ){
 
 
-        $user = Auth::user();
+        $user = $request->user();
 
         $rules = [
             //'user_id' => 'required',

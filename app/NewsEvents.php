@@ -11,6 +11,6 @@ class NewsEvents extends Model
 
 
     protected $fillable = [
-        'start_date','end_date','title','details','file'
+        'title','details','file'
     ];
 }

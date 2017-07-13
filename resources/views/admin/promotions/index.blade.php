@@ -31,6 +31,8 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th width="20%" class="text-center">Title</th>
+                        <th width="20%" class="text-center">Start Date</th>
+                        <th width="20%" class="text-center">End Date</th>
                         <th width="20%" class="text-center">Upload File</th>
                         <th width="10%" class="text-center">Actions</th>
                     </tr>
@@ -41,6 +43,8 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td class="text-center">{{ $row->title}}</td>
+                            <td>{{ isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):''}}</td>
+                            <td>{{ isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):''}}</td>
                             <td class="text-center">
                                  @if( isset($row->file))
                                     <a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a>

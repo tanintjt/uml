@@ -85,7 +85,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $row = $request->user();
-
+        //print_r($row);exit;
         if ($row) {
              return response()->json(['error' => false, 'result' => $row ], 202);
         }

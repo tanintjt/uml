@@ -20,6 +20,16 @@
                         <th width="20%" class="active">Title</th>
                         <td>{!! $row->title !!}</td>
                     </tr>
+                    <tr>
+                            <th class="active">Start Date</th>
+                            <td>{!! isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):'' !!}</td>
+                        </tr>
+                        <tr>
+                            <th class="active">End Date</th>
+                            <td>
+                                {!! isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):'' !!}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
