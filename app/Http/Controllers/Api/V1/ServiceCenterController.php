@@ -69,6 +69,7 @@ class ServiceCenterController extends Controller
                     'long'=>$lc->longitude,
                     'address'=>$lc->address,
                     'phone'=>$lc->phone,
+                    'store_image'=>$lc->store_image,
                 ];
 
                 array_push($lcs,$value);
