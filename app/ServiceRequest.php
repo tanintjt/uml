@@ -28,7 +28,12 @@ class ServiceRequest extends Model
         return $this->belongsTo('App\User', 'user_id')->select(array('id','name','created_at as user creation date','image'));
     }
 
-
+    public function scopeStatus($query, $status)
+    {
+        if($status > 0) {
+            return $query->where('service_request.status', '=', $status);
+        }
+    }
 
     public function service_center()
     {

@@ -78,6 +78,10 @@ class LoginController extends Controller
                 'image'         => $input['image']
             ]
         );
+
+        if ($user->id > 0) {
+            $user->attachRole(4);
+        }
         return response()->json(['status'=>true,'message'=>'User created successfully','data'=>$user]);
     }
 
@@ -159,7 +163,7 @@ class LoginController extends Controller
             ]);
 
             if ($newUser->id > 0) {
-                $newUser->attachRole();
+                $newUser->attachRole(4);
             }
 
             return $newUser;

@@ -27,21 +27,7 @@ class PromotionController extends Controller
             $result[$i]['end_date'] = date("jS F, Y", strtotime($rows[$i]->end_date));
             $result[$i]['created_at'] = $rows[$i]->created_at;
             $result[$i]['updated_at'] = $rows[$i]->updated_at;
-            /*
-             *  "id": 5,
-        "title": "pro1",
-        "file": "public/uploads/promotions/77937CT-100.pdf",
-        "start_date": "2017-07-03 00:00:00",
-        "end_date": "2017-07-04 00:00:00",
-        "created_at": "2017-07-13 14:36:50",
-        "updated_at": "2017-07-13 14:38:34"
-             */
-            /*$result = [
-                'title' => $row->title,
-                'start_date' => date("jS F, Y", strtotime($row->start_date)),
-                'end_date' => date("jS F, Y", strtotime($row->end_date)),
-                'file' => $row->file,
-            ];*/
+
         }
 
         return response()->json($result, 202);
