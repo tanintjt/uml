@@ -49,8 +49,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 {
     Route::resource('/permission', 'PermissionController', ['except' => ['index']]);
 
-    Route::resource('/role', 'RoleController');
-    Route::resource('/user', 'UserController');
+    /*Role*/
+    Route::resource('/role', 'RoleController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'role', ['uses' => 'RoleController@index']);
+
+    /*User*/
+    Route::resource('/user', 'UserController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'user', ['uses' => 'UserController@index']);
 
     Route::any('/user/delete/{id}', [ 'as' => 'user-delete', 'uses' => 'UserController@delete']);
 
@@ -61,13 +66,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     Route::any('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete']);
 
     /*service-location*/
-    Route::resource('/service-center',  'ServiceCenterController');
+    Route::resource('/service-center',  'ServiceCenterController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'service-center', ['uses' => 'ServiceCenterController@index']);
 
     Route::any('/service-center/delete/{id}', [ 'as' => 'service-center-delete', 'uses' => 'ServiceCenterController@delete']);
 
     /*service-package*/
 
-    Route::resource('/service-package',  'ServicePackageController');
+    Route::resource('/service-package',  'ServicePackageController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'service-package', ['uses' => 'ServicePackageController@index']);
 
     Route::any('/service-package/delete/{id}', [ 'as' => 'service-package-delete', 'uses' => 'ServicePackageController@delete']);
 
@@ -154,6 +161,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     /*Service History*/
 
     Route::resource('/service-history',  'ServiceHistoryController');
+
+    /*service_request*/
+    Route::any('/service-request', [ 'as' => 'service-request', 'uses' => 'ServiceRequestController@index']);
+
 });
 
 

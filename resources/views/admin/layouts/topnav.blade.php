@@ -19,24 +19,32 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="{!! url(Request::segment(1).'/profile') !!}" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{!! asset('public/themes/default/img/user2-160x160.jpg') !!}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        @if (isset(Auth::user()->image))
+                            <img src="{!! asset(Auth::user()->image) !!}" class="user-image" alt="User Image">
+                        @else
+                            <img src="{!! asset('public/themes/default/img/avatar5.png') !!}" class="user-image" alt="User Image">
+                        @endif
+
+                        <span class="hidden-xs">{!! Auth::user()->name !!}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{!! asset('public/themes/default/img/user2-160x160.jpg') !!}" class="img-circle" alt="User Image">
-
+                            @if (isset(Auth::user()->image))
+                                <img src="{!! asset(Auth::user()->image) !!}" class="img-circle" alt="User Image">
+                            @else
+                                <img src="{!! asset('public/themes/default/img/avatar5.png') !!}" class="img-circle" alt="User Image">
+                            @endif
                             <p>
-                                Alexander Pierce
-                                <small>Member since Nov. 2012</small>
+                                {!! ucfirst(Auth::user()->name) !!}
+                                <small>Member since {!!date('Y-m-d', strtotime(Auth::user()->created_at)) !!}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
+                            {{--<div class="pull-left">
                                 <a href="{!! url(Request::segment(1).'/profile') !!}" class="btn bg-navy-active btn-flat"><i class="fa fa-user"></i> Profile</a>
-                            </div>
+                            </div>--}}
                             <div class="pull-right">
                                 <a href="{!! url('logout') !!}" class="btn bg-orange-active btn-flat" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Sign out</a>

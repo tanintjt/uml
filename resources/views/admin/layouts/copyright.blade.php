@@ -1,7 +1,10 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> Beta 1.0
+        <strong><a href="http://www.uttaramotorsltd.com/">UTTARA MOTORS</a></strong>
     </div>
-    <strong>Copyright &copy; 2014-2017 <a href="http://shebatech.com.bd">Sheba Tech</a>.</strong> All rights
-    reserved.
+    <strong>Powered By <a href="http://shebatech.com.bd">Sheba Tech</a>.</strong>
+
 </footer>
+
+
+http://www.uttaramotorsltd.com/

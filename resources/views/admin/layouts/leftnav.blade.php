@@ -7,7 +7,7 @@
             <li class="header">MAIN NAVIGATION</li>
             <li{!!  in_array(Request::segment(2), ['dashboard']) ? ' class="active"': '' !!}>
                 <a href="{!! url(Request::segment(1).'/dashboard') !!}">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    {{--<i class="fa fa-dashboard"></i> <span>Dashboard</span>--}}
                 </a>
             </li>
             <li class="treeview{!!  in_array(Request::segment(2), ['permission', 'role', 'user']) ? ' active': '' !!}">
@@ -29,7 +29,7 @@
             <li><a href=""><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
             <li><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>--}}
 
-            <li class="treeview{!!  in_array(Request::segment(2), ['service-center', 'service-package','e-documents','service-history']) ? ' active': '' !!}">
+            <li class="treeview{!!  in_array(Request::segment(2), ['service-center', 'service-package','service-request','service-history']) ? ' active': '' !!}">
                 <a href="#">
                     <i class="fa fa-folder"></i> <span>Services</span>
                     <span class="pull-right-container">
@@ -39,7 +39,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
                     <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
-                    <li><a href=""><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
+                    <li><a href="{!! url(Request::segment(1).'/service-request') !!}"><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
                     <li><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>
                 </ul>
             </li>
@@ -65,7 +65,7 @@
 
             <li class="treeview{!!  in_array(Request::segment(2), ['brochure', 'e-doc-type','e-documents','faq','news-events','promotions']) ? ' active': '' !!}">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>Document</span>
+                    <i class="fa fa-folder"></i> <span>Contents</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

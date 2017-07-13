@@ -102,7 +102,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     Route::post('/docs-store', [ 'as' => 'docs-store', 'uses' => 'EDocumentController@store']);
 
 
-    Route::put('/e-docs/{id}/update', 'EDocumentController@update');
+    Route::post('/e-docs/{id}/update', 'EDocumentController@update');
 
 
 

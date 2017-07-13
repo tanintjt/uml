@@ -23,8 +23,8 @@ class ServicePackage extends Model
 
     public function scopeSearch($query, $name)
     {
-        if( trim($name) != '' ) {
-            return $query->where('address', 'LIKE', '%' . trim($name) . '%');
+        if( trim($name) != '') {
+            return $query->where('name', 'LIKE', '%' . trim($name) . '%');
         }
     }
 

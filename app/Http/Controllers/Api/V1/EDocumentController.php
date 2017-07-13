@@ -169,5 +169,4 @@ class EDocumentController extends Controller
         return response()->json($result, $http_code);
     }
 
-
 }

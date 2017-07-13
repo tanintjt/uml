@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
+use Zizaco\Entrust\EntrustRole;
+
 class LoginController extends Controller
 {
 
@@ -152,8 +154,13 @@ class LoginController extends Controller
                 'email'         =>    $request['email'],
                 'provider'      =>    $request['provider'],
                 'provider_id'   =>    $request['provider_id'],
+                'provider_id'   =>    $request['provider_id'],
                 'status'        =>   1
             ]);
+
+            if ($newUser->id > 0) {
+                $newUser->attachRole();
+            }
 
             return $newUser;
         }

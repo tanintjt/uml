@@ -12,13 +12,41 @@ class PromotionController extends Controller
 
 
 
-    public function index(){
+    public function index()
+    {
 
         $rows = Promotion::get();
-        /*$result['Promotion'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);*/
-        return response()->json($rows, 200);
+        $result = [];
+        for( $i = 0; $i< count($rows); $i++) {
+
+            $result[$i]['id'] = $rows[$i]->id;
+            $result[$i]['title'] = $rows[$i]->title;
+            $result[$i]['file'] = $rows[$i]->file;
+            $result[$i]['start_date'] = date("jS F, Y", strtotime($rows[$i]->start_date));
+            $result[$i]['end_date'] = date("jS F, Y", strtotime($rows[$i]->end_date));
+            $result[$i]['created_at'] = $rows[$i]->created_at;
+            $result[$i]['updated_at'] = $rows[$i]->updated_at;
+            /*
+             *  "id": 5,
+        "title": "pro1",
+        "file": "public/uploads/promotions/77937CT-100.pdf",
+        "start_date": "2017-07-03 00:00:00",
+        "end_date": "2017-07-04 00:00:00",
+        "created_at": "2017-07-13 14:36:50",
+        "updated_at": "2017-07-13 14:38:34"
+             */
+            /*$result = [
+                'title' => $row->title,
+                'start_date' => date("jS F, Y", strtotime($row->start_date)),
+                'end_date' => date("jS F, Y", strtotime($row->end_date)),
+                'file' => $row->file,
+            ];*/
+        }
+
+        return response()->json($result, 202);
+
+
     }
 
 
