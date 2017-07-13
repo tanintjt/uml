@@ -47,13 +47,16 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 {
-    Route::resource('/permission', 'PermissionController');
+    Route::resource('/permission', 'PermissionController', ['except' => ['index']]);
+
     Route::resource('/role', 'RoleController');
     Route::resource('/user', 'UserController');
 
     Route::any('/user/delete/{id}', [ 'as' => 'user-delete', 'uses' => 'UserController@delete']);
 
     Route::any('/role/delete/{id}', [ 'as' => 'role-delete', 'uses' => 'RoleController@delete']);
+
+    Route::match(['get', 'post'], 'permission', ['uses' => 'PermissionController@index']);
 
     Route::any('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete']);
 
