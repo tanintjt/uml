@@ -64,12 +64,11 @@ class LoginController extends Controller
 
 
             if(Auth::user()->hasRole('super-administrator')) {
-
-                return redirect($this->redirectTo);
+                //return redirect($this->redirectTo);
+                return redirect('admin/service-center');
             } else {
                 if(Auth::user()->hasRole(['administrator', 'manager'])) {
-
-                    return redirect('client/dashboard');
+                    return redirect('admin/service-center');
                 } else {
 
                     Auth::logout();

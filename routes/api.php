@@ -138,7 +138,8 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     Route::post('/feedback', [ 'as' => 'feedback', 'uses' => 'FeedbackController@index']);
 
 
-
+   /*history*/
+    Route::get('/service-history', [ 'as' => 'service-history', 'uses' => 'ServiceHistoryController@index']);
 
 });
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
 class LoginController extends Controller
@@ -22,11 +23,16 @@ class LoginController extends Controller
 
     public function register(Request $request){
 
+        //$input = $request->all();
+
+        $file = Input::file('image');
+
         $rules = [
             'name' =>  'required',
             'email' => 'required',
             'password' => 'required',
             'phone' => 'required',
+            'image' => 'required',
         ];
 
         $messages = [
@@ -34,6 +40,7 @@ class LoginController extends Controller
             'email.required' => 'Email is required!',
             'password.required' => 'Password is required!',
             'phone.required' => 'Phone is required!',
+            'image.required' => 'Profile Picture is required!',
         ];
 
         $validator = Validator::make($request->all(),$rules, $messages);
@@ -45,6 +52,19 @@ class LoginController extends Controller
             return response()->json(['error' => true, 'result' => $result], 400);
         }
 
+        // Files destination
+        $destinationPath = 'public/uploads/users/';
+
+        // Create folders if they don't exist
+        if ( !file_exists($destinationPath) ) {
+            mkdir ($destinationPath, 775);
+        }
+
+        $file_original_name = $file->getClientOriginalName();
+        $file_name = rand(11111, 99999) . $file_original_name;
+        $file->move($destinationPath, $file_name);
+        $input['image'] = 'public/uploads/users/' . $file_name;
+
         $user = User::create(
             [
                 'name'          => $request->input('name'),
@@ -52,7 +72,8 @@ class LoginController extends Controller
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
-                'status'        => 1
+                'status'        => 1,
+                'image'         => $input['image']
             ]
         );
         return response()->json(['status'=>true,'message'=>'User created successfully','data'=>$user]);

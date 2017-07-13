@@ -25,8 +25,10 @@ class ServiceRequest extends Model
 
     public function users()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User', 'user_id')->select(array('id','name','created_at as user creation date','image'));
     }
+
+
 
     public function service_center()
     {
@@ -36,7 +38,7 @@ class ServiceRequest extends Model
 
     public function service_package()
     {
-        return $this->belongsTo('App\ServicePackage', 'service_package_id');
+        return $this->belongsTo('App\ServicePackage', 'service_package_id')->select(array('id','name'));
     }
 
 
