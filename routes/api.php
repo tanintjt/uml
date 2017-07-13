@@ -127,8 +127,6 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     /*device_info*/
     Route::post('/device-info', [ 'as' => 'device-info', 'uses' => 'LoginController@device_info']);
 
-    /*test*/
-    Route::get('/geocode', [ 'as' => 'service-request', 'uses' => 'FaqController@geocode']);
 
     /*user profile*/
     Route::get('/user-profile', [ 'as' => 'user-profile', 'uses' => 'UserController@user_profile']);

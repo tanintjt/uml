@@ -45,7 +45,7 @@
                 </ul>
             </li>
 
-            <li><a href="{!! url(Request::segment(1).'/spare-parts-category') !!}"><i class="fa fa-gg"></i> <span>Spare Parts Category</span></a></li>
+            {{--<li><a href="{!! url(Request::segment(1).'/spare-parts-category') !!}"><i class="fa fa-gg"></i> <span>Spare Parts Category</span></a></li>--}}
             <li><a href="{!! url(Request::segment(1).'/spare-parts') !!}"><i class="fa fa-houzz"></i> <span>Spare Parts</span></a></li>
 
             <li class="treeview{!!  in_array(Request::segment(2), ['brochure', 'e-doc-type','e-documents','faq','news-events','promotions']) ? ' active': '' !!}">
