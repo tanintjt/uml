@@ -44,7 +44,7 @@
                     @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td>{{ isset($row->doc_type->name)?$row->doc_type->name:''}}</td>
+                            <td>{{ isset($row->doc_type->name)?ucfirst($row->doc_type->name):''}}</td>
                             <td>{{ isset($row->issue_date)?date('Y-m-d', strtotime($row->issue_date)):''}}</td>
                             <td>{{ isset($row->expiry_date)?date('Y-m-d', strtotime($row->expiry_date)):''}}</td>
                             <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>

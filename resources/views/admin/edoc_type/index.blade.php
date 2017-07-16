@@ -39,7 +39,7 @@
                     @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td>{{ $row->name}}</td>
+                            <td>{{ ucfirst($row->name)}}</td>
                             {{--<td class="text-center">
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>--}}

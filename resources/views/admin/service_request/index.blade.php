@@ -48,7 +48,7 @@
                             <td>{{ $row->service_package->name}}</td>
                             <td>{{ $row->created_at}}</td>
                             <td>
-                                <a href="#status" class="btn btn-info btn-xs" data-toggle="modal" data-target="#status">
+                                {{--<a href="status" class="btn btn-info btn-xs" data-toggle="modal" data-target="">
                                     @if($row->status==1)
                                         {{ 'Accept'}}
                                     @elseif($row->status==2)
@@ -56,7 +56,9 @@
                                     @else
                                         {{'Rescheduled'}}
                                     @endif
-                                </a>
+                                </a>--}}
+
+                                <a href="" class="btn btn-xs btn-default" title="Delete Service Center" user="button" data-toggle="modal" data-target="#status"></a>
                             </td>
 
                             {{--<td>
@@ -134,6 +136,25 @@
             </div>
         </div>
     </div>
+
+    <div class="modal modal-danger" id="status" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>
+                    <h4 class="modal-title">test</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-flat btn-default" id="confirm"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                    <button type="button" class="btn btn-sm btn-flat btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
