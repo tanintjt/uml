@@ -20,4 +20,10 @@ class UserController extends Controller
         return response()->json($result, 202);
 
     }
+
+
+    public function forgot_password(){
+
+
+    }
 }

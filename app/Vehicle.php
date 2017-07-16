@@ -15,16 +15,23 @@ class Vehicle extends Model
        'brand_id', 'type_id', 'model_id','production_year','engine_displacement','engine_details','fuel_system','vehicle_image'
     ];
 
-    public function scopeType($query, $typeid)
+    public function scopeTypeId($query, $typeid)
     {
         if( $typeid > 0 ) {
             return $query->where('vehicle.type_id',$typeid);
         }
     }
-    public function scopeModel($query, $modelid)
+    public function scopeModelId($query, $modelid)
     {
         if( $modelid > 0 ) {
             return $query->where('vehicle.model_id', $modelid);
+        }
+    }
+
+    public function scopeBrandId($query, $brandid)
+    {
+        if( $brandid > 0 ) {
+            return $query->where('vehicle.brand_id', $brandid);
         }
     }
 
@@ -44,6 +51,14 @@ class Vehicle extends Model
         return $this->hasMany('App\VehicleColor','vehicle_id', 'id')->select('available_colors as image');
     }
 
+
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('users.name', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
 
 
 

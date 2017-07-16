@@ -31,14 +31,14 @@ class EDocumentController extends Controller
         $file = Input::file('file');
 
         $rules = [
-            'doc_type_id'   => 'not_in:0',
+            'doc_type_id'   => 'required',
             'issue_date' => 'required',
             'expiry_date' => 'required',
             'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
         ];
 
         $messages = [
-            'doc_type_id.not_in'    => 'Type is required!',
+            'doc_type_id.required'    => 'Type is required!',
             'issue_date.required' => ' Issue Date is required!',
             'expiry_date.required' => ' Expiry Date is required!',
             'file.required' => ' File is required!',

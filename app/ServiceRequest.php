@@ -23,6 +23,14 @@ class ServiceRequest extends Model
     ];
 
 
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('users.name', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
+
     public function users()
     {
         return $this->belongsTo('App\User', 'user_id')->select(array('id','name','created_at as user creation date','image'));

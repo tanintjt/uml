@@ -64,7 +64,7 @@ class SparePartsController extends Controller
 
         if ($request->isMethod('post')) {
             Session::put('search', $request->input('search'));
-            Session::put('sp_cat_id', $request->input('sp_cat_id'));
+           // Session::put('sp_cat_id', $request->input('sp_cat_id'));
         }
 
 //        $sp_cat_list = $this->SpCategoryList();
@@ -74,7 +74,9 @@ class SparePartsController extends Controller
         orderBy('id', 'asc')->
         paginate(config('app.limit'));*/
 
-        $rows = SpareParts::orderBy('id', 'asc')->paginate(config('app.limit'));
+        $rows = SpareParts::Search(Session::get('search'))->
+        orderBy('id', 'asc')->
+        paginate(config('app.limit'));
 
         return view('admin/spare_parts/index', compact('rows', 'title','sp_cat_list', 'extrajs'));
     }

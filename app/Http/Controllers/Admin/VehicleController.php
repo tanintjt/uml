@@ -82,6 +82,21 @@ class VehicleController extends Controller
         paginate(config('app.limit'));
 
 
+        /*$rows = User::Role()->Search(Session::get('search'))->
+        RoleId(Session::get('role_id'))->
+        Status(Session::get('status'))->
+        orderBy('name', 'asc')->
+        paginate(config('app.limit'));*/
+
+        $rows = Vehicle::with('types','model','brand')->
+        TypeId(Session::get('type_id'))->
+        ModelId(Session::get('model_id'))->
+        BrandId(Session::get('brand_id'))->
+
+       // Status(Session::get('status'))->
+        orderBy('created_at', 'asc')->
+        paginate(config('app.limit'));
+
         return view('admin/vehicle/index', compact('rows', 'title', 'type','model','brand', 'extrajs'));
     }
 

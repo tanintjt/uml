@@ -12,9 +12,9 @@
                     <a href="{!! url(Request::segment(1).'/promotions/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
                 </span>
             </div>
-            <div class="pull-right">
+            {{--<div class="pull-right">
                 {!! Form::select('status', ['0' => 'All Status', '1' => 'Active','2' => 'Inactive'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
-            </div>
+            </div>--}}
 
         </div>
         <div class="box-body">
@@ -43,8 +43,8 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td class="text-center">{{ $row->title}}</td>
-                            <td>{{ isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):''}}</td>
-                            <td>{{ isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):''}}</td>
+                            <td class="text-center">{{ isset($row->start_date)?date('Y-m-d', strtotime($row->start_date)):''}}</td>
+                            <td class="text-center">{{ isset($row->end_date)?date('Y-m-d', strtotime($row->end_date)):''}}</td>
                             <td class="text-center">
                                  @if( isset($row->file))
                                     <a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a>

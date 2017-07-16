@@ -12,14 +12,14 @@ class ServiceRequestController extends Controller
 
     public function index(Request $request){
 
-        $title = "Service Request";
+       /* $title = "Service Request";
         $user = $request->user();
 
         $rows = ServiceRequest::with('users','service_center','service_package')->get();
 
-        return view('admin/service_request/index', compact('rows','title'));
+        return view('admin/service_request/index', compact('rows','title'));*/
 
-        /*$title = 'Service Request';
+        $title = 'Service Request';
         $extrajs = "<script>
 		$(function() {
 
@@ -69,8 +69,11 @@ class ServiceRequestController extends Controller
          orderBy('id', 'asc')->
          paginate(config('app.limit'));
 
-        return view('admin/service_request/index', compact('rows', 'title', 'extrajs'));*/
+        return view('admin/service_request/index', compact('rows', 'title', 'extrajs'));
     }
+
+
+
 
     public function status(Request $request,$id){
 

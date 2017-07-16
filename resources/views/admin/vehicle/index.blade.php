@@ -14,8 +14,9 @@
                 </span>
             </div>
             <div class="pull-right">
-                {{--{!! Form::select('status', ['0' => 'All Status', '1' => 'Active','2' => 'Inactive'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}--}}
-                {{--{!! Form::select('role_id', $roles, old('role_id', Session::get('role_id') ), ['class' => 'form-control input-sm', 'id' => 'role_id']) !!}--}}
+                {!! Form::select('type_id', $type, old('type_id', Session::get('type_id') ), ['class' => 'form-control input-sm', 'id' => 'type_id']) !!}
+                {!! Form::select('model_id', $model, old('model_id', Session::get('model_id') ), ['class' => 'form-control input-sm', 'id' => 'model_id']) !!}
+                {!! Form::select('brand_id', $brand, old('brand_id', Session::get('brand_id') ), ['class' => 'form-control input-sm', 'id' => 'brand_id']) !!}
             </div>
 
         </div>

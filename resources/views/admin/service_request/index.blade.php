@@ -1,11 +1,11 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/service-history', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/service-request', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
-                {!! Form::text('search', old('search', Session::get('search')), ['class' => 'form-control input-sm', 'placeholder' => 'Search for...', 'id' => 'search']) !!}
+                {{--{!! Form::text('search', old('search', Session::get('search')), ['class' => 'form-control input-sm', 'placeholder' => 'Search for...', 'id' => 'search']) !!}--}}
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-success btn-sm go"><span class="glyphicon glyphicon-search"></span> Go</button>
                     <button type="button" class="btn btn-info btn-sm clear"><span class="glyphicon glyphicon-refresh"></span> Clear</button>
@@ -13,7 +13,7 @@
                 </span>
             </div>
             <div class="pull-right">
-                {!! Form::select('status', ['0' => 'All Status', '0' => 'Accept','1' => 'Reject','2'=>'Rescheduled'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
+                {!! Form::select('status', ['' => 'All Status', '0' => 'Accept','1' => 'Reject','2'=>'Rescheduled'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
             </div>
 
         </div>

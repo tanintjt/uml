@@ -13,4 +13,12 @@ class NewsEvents extends Model
     protected $fillable = [
         'title','details','file'
     ];
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('title', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
+
 }

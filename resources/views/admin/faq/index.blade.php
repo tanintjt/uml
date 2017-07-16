@@ -12,9 +12,9 @@
                     <a href="{!! url(Request::segment(1).'/faq/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
                 </span>
             </div>
-            <div class="pull-right">
+            {{--<div class="pull-right">
                 {!! Form::select('status', ['0' => 'All Status', '1' => 'Active','2' => 'Inactive'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
-            </div>
+            </div>--}}
 
         </div>
         <div class="box-body">

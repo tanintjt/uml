@@ -78,22 +78,27 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     Route::any('/service-package/delete/{id}', [ 'as' => 'service-package-delete', 'uses' => 'ServicePackageController@delete']);
 
-    /*vehicle-type*/
 
-    Route::resource('/vehicle-type',  'VehicleTypeController');
+    /*vehicle-type*/
+    Route::resource('/vehicle-type',  'VehicleTypeController', ['except' => ['index']]);
+
+    Route::match(['get', 'post'], 'vehicle-type', ['uses' => 'VehicleTypeController@index']);
 
     Route::any('/vehicle-type/delete/{id}', [ 'as' => 'vehicle-type-delete', 'uses' => 'VehicleTypeController@delete']);
 
-    /*Vehicle Model*/
 
-    Route::resource('/vehicle-model',  'VehicleModelController');
+    /*Vehicle Model*/
+    Route::resource('/vehicle-model',  'VehicleModelController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'vehicle-model', ['uses' => 'VehicleModelController@index']);
 
     Route::any('/vehicle-model/delete/{id}', [ 'as' => 'vehicle-model-delete', 'uses' => 'VehicleModelController@delete']);
 
 
     /*Vehicle*/
 
-    Route::resource('/vehicle',  'VehicleController');
+    Route::resource('/vehicle',  'VehicleController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'vehicle', ['uses' => 'VehicleController@index']);
+
 
     Route::any('/vehicle/delete/{id}', [ 'as' => 'vehicle-delete', 'uses' => 'VehicleController@delete']);
     Route::any('/vehicle-image/{id}', [ 'as' => 'vehicle-image', 'uses' => 'VehicleController@vehicle_image']);
@@ -101,7 +106,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     /*Vehicle brands*/
 
-    Route::resource('/brand',  'BrandController');
+    Route::resource('/brand',  'BrandController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'brand', ['uses' => 'BrandController@index']);
 
     Route::any('/brand/delete/{id}', [ 'as' => 'brand-delete', 'uses' => 'BrandController@delete']);
 
@@ -115,21 +121,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     /*Spare parts*/
 
-    Route::resource('/spare-parts',  'SparePartsController');
+    Route::resource('/spare-parts',  'SparePartsController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'spare-parts', ['uses' => 'SparePartsController@index']);
 
     Route::any('/spare-parts/delete/{id}', [ 'as' => 'spare-parts-delete', 'uses' => 'SparePartsController@delete']);
 
 
     /*Brochure*/
 
-    Route::resource('/brochure',  'BrochureController');
+    Route::resource('/brochure',  'BrochureController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'brochure', ['uses' => 'BrochureController@index']);
 
     Route::any('/brochure/delete/{id}', [ 'as' => 'brochure-delete', 'uses' => 'BrochureController@delete']);
 
 
     /*EDoc Type*/
 
-    Route::resource('/e-doc-type',  'EDocTypeController');
+    Route::resource('/e-doc-type',  'EDocTypeController', ['except' => ['index']]);
+    Route::match(['get', 'post'], 'e-doc-type', ['uses' => 'EDocTypeController@index']);
 
     Route::any('/e-doc-type/delete/{id}', [ 'as' => 'e-doc-type-delete', 'uses' => 'EDocTypeController@delete']);
 
@@ -141,19 +150,26 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 
     /*Faq*/
 
-    Route::resource('/faq',  'FaqController');
+    Route::resource('/faq',  'FaqController', ['except' => ['index']]);
+
+    Route::match(['get', 'post'], 'faq', ['uses' => 'FaqController@index']);
+
 
     Route::any('/faq/delete/{id}', [ 'as' => 'faq-delete', 'uses' => 'FaqController@delete']);
 
    /*News Events*/
 
-    Route::resource('/news-events',  'NewsEventsController');
+    Route::resource('/news-events',  'NewsEventsController', ['except' => ['index']]);
+
+    Route::match(['get', 'post'], 'news-events', ['uses' => 'NewsEventsController@index']);
 
     Route::any('/news-events/delete/{id}', [ 'as' => 'news-events-delete', 'uses' => 'NewsEventsController@delete']);
 
 
     /*Promotions*/
-    Route::resource('/promotions',  'PromotionController');
+    Route::resource('/promotions',  'PromotionController', ['except' => ['index']]);
+
+    Route::match(['get', 'post'], 'promotions', ['uses' => 'PromotionController@index']);
 
     Route::any('/promotions/delete/{id}', [ 'as' => 'promotions-delete', 'uses' => 'PromotionController@delete']);
 

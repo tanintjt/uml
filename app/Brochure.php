@@ -18,7 +18,7 @@ class Brochure extends Model
     public function scopeSearch($query, $name)
     {
         if( trim($name) != '' ) {
-            return $query->where('name', 'LIKE', '%' . trim($name) . '%');
+            return $query->where('title', 'LIKE', '%' . trim($name) . '%');
         }
     }
 }

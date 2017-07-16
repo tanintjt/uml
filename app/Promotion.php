@@ -12,4 +12,14 @@ class Promotion extends Model
     protected $fillable = [
         'file','title','start_date','end_date'
     ];
+
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('title', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
+
 }
+

@@ -57,8 +57,12 @@ class PromotionController extends Controller
 
 		</script>";
 
+        if ($request->isMethod('post')) {
+            // Session::put('status', $request->input('status'));
+            Session::put('search', $request->input('search'));
+        }
 
-        $rows = Promotion::
+        $rows = Promotion::Search(Session::get('search'))->
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
