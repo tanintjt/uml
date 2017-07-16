@@ -34,7 +34,7 @@ class LoginController extends Controller
             'email' => 'required',
             'password' => 'required',
             'phone' => 'required',
-            'image' => 'required',
+            //'image' => 'required',
         ];
 
         $messages = [
@@ -42,7 +42,7 @@ class LoginController extends Controller
             'email.required' => 'Email is required!',
             'password.required' => 'Password is required!',
             'phone.required' => 'Phone is required!',
-            'image.required' => 'Profile Picture is required!',
+            //'image.required' => 'Profile Picture is required!',
         ];
 
         $validator = Validator::make($request->all(),$rules, $messages);

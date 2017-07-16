@@ -23,20 +23,20 @@ class EDocumentController extends Controller
 
         return response()->json($rows, 200);*/
 
-        $rows = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
+        $rows = EDocument::leftjoin('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
             ->EDoc($request->input('type'))
-            ->select('e_documents.id','e_documents.issue_date','e_documents.expiry_date')
+            ->select('e_documents.id','e_documents.issue_date','e_documents.expiry_date','e_documents.file','e_doc_type.id as ID')
             ->get();
 
         $result = [];
+
         for( $i = 0; $i< count($rows); $i++) {
 
             $result[$i]['id'] = $rows[$i]->id;
-            $data[$i]['type'] = $rows[$i]->type;
+            $data[$i]['name'] = $rows[$i]->doc_type->name;
             $result[$i]['file'] = $rows[$i]->file;
             $result[$i]['issue_date'] = date("jS F, Y", strtotime($rows[$i]->issue_date));
             $result[$i]['expiry_date'] = date("jS F, Y", strtotime($rows[$i]->expiry_date));
-
         }
 
         return response()->json($result, 202);
