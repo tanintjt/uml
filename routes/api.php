@@ -53,8 +53,7 @@ Route::get('api/promotion', [ 'as' => 'promotion', 'uses' => 'Api\V1\PromotionCo
 
 Route::get('api/spare-parts', [ 'as' => 'spare-parts', 'uses' => 'Api\V1\SparePartsController@index']);
 
-/*E documents*/
-Route::get('api/docs', [ 'as' => 'docs', 'uses' => 'Api\V1\EDocumentController@index']);
+
 
 
 /*location*/
@@ -99,6 +98,8 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
 
     /*E Document*/
+
+    Route::get('/docs', [ 'as' => 'docs', 'uses' => 'EDocumentController@index']);
     Route::post('/docs-store', [ 'as' => 'docs-store', 'uses' => 'EDocumentController@store']);
 
 
