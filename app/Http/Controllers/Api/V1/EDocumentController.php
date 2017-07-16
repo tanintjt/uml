@@ -68,7 +68,7 @@ class EDocumentController extends Controller
         $input['file'] = 'public/uploads/e_documents/' . $file_name;
 
 
-        $doc_exists = EDocument::where('doc_type_id','=',$request->doc_type_id)->exists();
+        //$doc_exists = EDocument::where('doc_type_id','=',$request->doc_type_id)->exists();
 
         /*if($doc_exists){
 
@@ -105,14 +105,7 @@ class EDocumentController extends Controller
         $input = [];
         $file = $request->file('file');
 
-        if($edoc_type_id){
-            $edocs = EDocument::where('doc_type_id','=',$edoc_type_id->id)->first();
 
-            if(!$edocs->id) {
-                return response()->json(['error' => true, 'result' => ' not found'], 404);
-            }
-        }
-        
         $rules = [
             'issue_date'      => 'required',
             'expiry_date'      => 'required',
@@ -133,49 +126,51 @@ class EDocumentController extends Controller
             return response()->json(['error' => true, 'result' => $result ], 400);
         }
 
-        /*
-        if($request->hasFile('file')) {
-            $rules['file'] = 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub';
-            $messages['file.mimes'] = 'File is required!';
-        }*/
 
+        if($edoc_type_id) {
 
-        $oldfile = public_path().'public/uploads/e_documents/'.$edocs->img;
+            $edocs = EDocument::where('doc_type_id', '=', $edoc_type_id->id)->first();
 
-        if($request->hasFile('file')){
-            //Delete previous image
-            if( $request->input('file') != $edocs->file) {
-                if (File::exists($oldfile)) {
-                    File::delete($oldfile);
+            $oldfile = public_path() . 'public/uploads/e_documents/' . $edocs->file;
+
+            if ($request->hasFile('file')) {
+                //Delete previous image
+                if ($request->input('file') != $edocs->file) {
+                    if (File::exists($oldfile)) {
+                        File::delete($oldfile);
+                    }
                 }
+
+                // Files destination
+                $destinationPath = 'public/uploads/e_documents/';
+
+                // Create folders if they don't exist
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777);
+                }
+
+                $file_original_name = $file->getClientOriginalName();
+                $file_name = rand(11111, 99999) . $file_original_name;
+                $file->move($destinationPath, $file_name);
+                $input['file'] = 'public/uploads/e_documents/' . $file_name;
             }
 
-            // Files destination
-            $destinationPath = 'public/uploads/e_documents/';
+            $edocs->update($input);
 
-            // Create folders if they don't exist
-            if ( !file_exists($destinationPath) ) {
-                mkdir ($destinationPath, 0777);
+            if ($edocs) {
+                $result = 'Successfully Saved';
+                $http_code = 201;
+            } else {
+                $result = 'Request failed.';
+                $http_code = 500;
             }
-
-            $file_original_name = $file->getClientOriginalName();
-            $file_name = rand(11111, 99999) . $file_original_name;
-            $file->move($destinationPath, $file_name);
-            $input['file'] = 'public/uploads/e_documents/' . $file_name;
+            return response()->json($result, $http_code);
         }
 
-
-        $edocs->update($input);
-
-        if ($edocs) {
-            $result = 'Successfully Saved';
-            $http_code = 201;
-        } else {
-            $result = 'Request failed.';
-            $http_code = 500;
+        else {
+            return response()->json(['error' => true, 'result' => ' not found'], 404);
         }
 
-        return response()->json($result, $http_code);
     }
 
 }
