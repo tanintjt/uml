@@ -14,15 +14,26 @@ class EDocument extends Model
         'doc_type_id','issue_date','expiry_date','file'
     ];
 
-    public function scopeEDoc($query, $typeid)
+    public function scopeEDoc($query, $type)
     {
-        if( $typeid > 0 ) {
-            return $query->where('e_documents.doc_type_id',$typeid);
+        if( trim($type) != '' ) {
+            return $query->where('e_doc_type.name', 'LIKE', '%' . trim($type) . '%');
         }
+
     }
 
 
     public function doc_type(){
         return $this->belongsTo('App\EDocType','doc_type_id', 'id');
     }
+
+
+    public function scopeSearch($query, $name)
+
+    {
+        if( trim($name) != '' ) {
+            return $query->where('users.name', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
+
 }
