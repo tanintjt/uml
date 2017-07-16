@@ -112,11 +112,21 @@ class EDocumentController extends Controller
                 return response()->json(['error' => true, 'result' => ' not found'], 404);
             }
         }
+        
+        $rules = [
+            'issue_date'      => 'required',
+            'expiry_date'      => 'required',
+            'file'      => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub',
+        ];
 
-        $rules = array('file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub');
+        $messages = [
+            'issue_date.required'     => 'Issue Date is required!',
+            'expiry_date.required'    => 'Expiry Date is required!',
+            'file.required' => 'File is required!',
+        ];
 
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        $validator = Validator::make(array('file' => $file), $rules);
 
         if ($validator->fails()) {
             $result = $validator->errors()->all();
