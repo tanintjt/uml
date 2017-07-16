@@ -75,7 +75,48 @@ class ServiceRequestController extends Controller
 
 
 
-    public function status(Request $request,$id){
+	public function edit($id)
+	{
+		$row = ServiceRequest::findOrFail($id);
+		$title = 'Edit Status';
 
-    }
+		return view('admin.service_request.status_form',compact('title', 'row'));
+	}
+
+
+	public function update(Request $request, $id)
+	{
+
+		$input = $request->all();
+		$model = ServiceRequest::findOrFail($id);
+
+		$rules = [
+			'status' => 'required',
+		];
+
+		$messages = [
+			'status.required' => ' Status is required!',
+		];
+
+		$validator = Validator::make($request->all(), $rules, $messages);
+
+		if ($validator->fails()) {
+
+			return redirect('admin/service-request/'.$id.'/edit')->withErrors($validator)->withInput();
+		}
+
+		$model->update($input);
+
+
+		if ($model->id > 0) {
+			$message = $model->name.' Status Successfully updated.';
+			$error = false;
+		} else {
+			$message =  $request->get('name') .'Status updating fail.';
+			$error = true;
+		}
+
+		return redirect('admin/service-request')->with(['message' => $message, 'error' => $error]);
+	}
+
 }

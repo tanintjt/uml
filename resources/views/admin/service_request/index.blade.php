@@ -13,7 +13,7 @@
                 </span>
             </div>
             <div class="pull-right">
-                {!! Form::select('status', ['0' => 'All Status', '1' => 'Accept','2' => 'Reject','3'=>'Rescheduled'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
+                {!! Form::select('status', ['0' => 'All Status', '1' => 'Pending','2' => 'Accept','3'=>'Reject','4'=>'Rescheduled'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
             </div>
 
         </div>
@@ -48,26 +48,18 @@
                             <td>{{ $row->service_package->name}}</td>
                             <td>{{ $row->created_at}}</td>
                             <td>
-                                {{--<a href="status" class="btn btn-info btn-xs" data-toggle="modal" data-target="">
+                                <a href="{!! url(Request::segment(1).'/service-request/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span>
                                     @if($row->status==1)
-                                        {{ 'Accept'}}
+                                        {{'Pending'}}
                                     @elseif($row->status==2)
-                                        {{ 'Reject'}}
-                                    @else
+                                        {{ 'Accept'}}
+                                    @elseif($row->status==3)
+                                        {{'Reject'}}
+                                    @elseif($row->status==4)
                                         {{'Rescheduled'}}
                                     @endif
-                                </a>--}}
-
-                                <a href="" class="btn btn-xs btn-default" title="Delete Service Center" user="button" data-toggle="modal" data-target="#status"></a>
+                                </a>
                             </td>
-
-                            {{--<td>
-                                <a href="{!! url(Request::segment(1).'/service-center/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                <a href="{!! url(Request::segment(1).'/service-center/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-
-                                <a href="{!! url(Request::segment(1).'/permission/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" role="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
-                                <a href="{!! route('service-center-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete Service Center" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete  ?"><span class="glyphicon glyphicon-trash"></span></a>
-                            </td>--}}
                         </tr>
                     @endforeach
                     </tbody>
@@ -136,25 +128,6 @@
             </div>
         </div>
     </div>
-
-    <div class="modal modal-danger" id="status" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>
-                    <h4 class="modal-title">test</h4>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-flat btn-default" id="confirm"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                    <button type="button" class="btn btn-sm btn-flat btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 @endsection
 

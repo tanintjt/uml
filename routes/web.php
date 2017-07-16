@@ -179,7 +179,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     Route::resource('/service-history',  'ServiceHistoryController');
 
     /*service_request*/
-    Route::any('/service-request', [ 'as' => 'service-request', 'uses' => 'ServiceRequestController@index']);
+    Route::resource('/service-request', 'ServiceRequestController', ['except' => ['index']]);
+
+    Route::match(['get', 'post'], 'service-request', ['uses' => 'ServiceRequestController@index']);
+
+
 
 });
 

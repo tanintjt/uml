@@ -97,12 +97,14 @@ class EDocumentController extends Controller
         return response()->json($result, $http_code);
     }
 
+
+
     public function update(Request $request, $type)
     {
 
         $edoc_type_id = EDocType::where('name','=',$type)->first();
 
-        $input = [];
+        $input = $request->all();
         $file = $request->file('file');
 
 
