@@ -16,12 +16,30 @@ class EDocumentController extends Controller
 
     public function index(Request $request){
 
-        $rows =EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
+        /*$rows =EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
             ->EDoc($request->input('type'))
             ->select('e_doc_type.name','e_documents.issue_date','e_documents.expiry_date','e_documents.file')
             ->get();
 
-        return response()->json($rows, 200);
+        return response()->json($rows, 200);*/
+
+        $rows = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
+            ->EDoc($request->input('type'))
+            ->select('e_documents.id','e_documents.issue_date','e_documents.expiry_date')
+            ->get();
+
+        $result = [];
+        for( $i = 0; $i< count($rows); $i++) {
+
+            $result[$i]['id'] = $rows[$i]->id;
+            $data[$i]['type'] = $rows[$i]->type;
+            $result[$i]['file'] = $rows[$i]->file;
+            $result[$i]['issue_date'] = date("jS F, Y", strtotime($rows[$i]->issue_date));
+            $result[$i]['expiry_date'] = date("jS F, Y", strtotime($rows[$i]->expiry_date));
+
+        }
+
+        return response()->json($result, 202);
     }
 
 
@@ -86,15 +104,15 @@ class EDocumentController extends Controller
 
         $doc = EDocument::create($input);
 
-        if ($doc) {
-            $result = 'Successfully Saved';
-            $http_code = 201;
+        if ($doc->id > 0) {
+            $message = 'New '.  $doc->expiry_date.' And '.$doc->expiry_date.'.';
+            $error = false;
         } else {
-            $result = 'Request failed.';
-            $http_code = 500;
-
+            $message =  'New '. $request->get('title') .'adding fail.';
+            $error = true;
         }
-        return response()->json($result, $http_code);
+
+        return response()->json($message, $error);
     }
 
 
@@ -160,7 +178,7 @@ class EDocumentController extends Controller
             $edocs->update($input);
 
             if ($edocs) {
-                $result = 'Successfully Saved';
+                $result = 'New '.  $edocs->expiry_date.' And '.$edocs->expiry_date.'.';
                 $http_code = 201;
             } else {
                 $result = 'Request failed.';
@@ -170,7 +188,7 @@ class EDocumentController extends Controller
         }
 
         else {
-            return response()->json(['error' => true, 'result' => ' not found'], 404);
+            return response()->json(['error' => true, 'result' => 'Not Found'], 404);
         }
 
     }

@@ -36,4 +36,8 @@ class EDocument extends Model
         }
     }
 
+    public function type(){
+        return $this->belongsTo('App\EDocType','doc_type_id', 'id')->select('name as type');
+    }
+
 }
