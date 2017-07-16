@@ -25,7 +25,7 @@
                             <img src="{!! asset('public/themes/default/img/avatar5.png') !!}" class="user-image" alt="User Image">
                         @endif
 
-                        <span class="hidden-xs">{!! Auth::user()->name !!}</span>
+                        <span class="hidden-xs">{!! isset(Auth::user()->name)?ucfirst(Auth::user()->name):'' !!}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -36,8 +36,8 @@
                                 <img src="{!! asset('public/themes/default/img/avatar5.png') !!}" class="img-circle" alt="User Image">
                             @endif
                             <p>
-                                {!! ucfirst(Auth::user()->name) !!}
-                                <small>Member since {!!date('Y-m-d', strtotime(Auth::user()->created_at)) !!}</small>
+                                {!! isset(Auth::user()->name)?ucfirst(Auth::user()->name):''!!}
+                                <small>Member since {!! isset(Auth::user()->created_at)?date('Y-m-d', strtotime(Auth::user()->created_at)):'' !!}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
