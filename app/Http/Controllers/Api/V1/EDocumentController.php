@@ -178,7 +178,7 @@ class EDocumentController extends Controller
             $edocs->update($input);
 
             if ($edocs) {
-                $result = 'New '.  $edocs->expiry_date.' And '.$edocs->expiry_date.'.';
+                $result = 'New '.  $edocs->expiry_date.' And '.$edocs->expiry_date. '  Updated';
                 $http_code = 201;
             } else {
                 $result = 'Request failed.';
