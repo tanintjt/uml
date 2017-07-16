@@ -54,7 +54,7 @@ class LoginController extends Controller
             return response()->json(['error' => true, 'result' => $result], 400);
         }
 
-        // Files destination
+        /*// Files destination
         $destinationPath = 'public/uploads/users/';
 
         // Create folders if they don't exist
@@ -65,7 +65,7 @@ class LoginController extends Controller
         $file_original_name = $file->getClientOriginalName();
         $file_name = rand(11111, 99999) . $file_original_name;
         $file->move($destinationPath, $file_name);
-        $input['image'] = 'public/uploads/users/' . $file_name;
+        $input['image'] = 'public/uploads/users/' . $file_name;*/
 
         $user = User::create(
             [
@@ -75,7 +75,7 @@ class LoginController extends Controller
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
                 'status'        => 1,
-                'image'         => $input['image']
+               // 'image'         => $input['image']
             ]
         );
 
