@@ -91,7 +91,7 @@ class UserController extends Controller
         $roles = $this->roleList(true);
         return view('admin.user.create', compact('title', 'roles') );
 
-        return redirect()->route('login');
+        //return redirect()->route('login');
     }
 
     /**

@@ -17,6 +17,9 @@ class ServiceRequestController extends Controller
 
         $user = $request->user();
 
+        $input_date = explode(" ",$request->request_date);
+        //print_r($input_date);exit;
+
         $rules = [
             //'user_id' => 'required',
             'service_center_id' => 'required',
@@ -50,8 +53,8 @@ class ServiceRequestController extends Controller
                     'service_center_id'      => $request->input('service_center_id'),
                     'service_package_id'     => $request->input('service_package_id'),
                     'status'    =>1,
-                    'request_time' => $request->input('request_time'),
-                    'request_date' => $request->input('request_date'),
+                    'request_date' => $input_date[0],
+                    'request_time' => $input_date[1],
                     'special_request'=>$request->input('special_request')
                 ]
             );

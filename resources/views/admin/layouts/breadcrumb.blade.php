@@ -1,6 +1,6 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>{!! $title !!}</h1>
+    <h1>{!! isset($title)?$title:'' !!}</h1>
     <ol class="breadcrumb">
         <li><a href="{!! url(Request::segment(1).'/dashboard') !!}"><i class="fa fa-home"></i> Home</a></li>
     @if( !empty( Request::segment(4) ) )

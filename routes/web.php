@@ -46,7 +46,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function()
 {
     Route::resource('/permission', 'PermissionController', ['except' => ['index']]);
 
@@ -55,8 +55,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     Route::match(['get', 'post'], 'role', ['uses' => 'RoleController@index']);
 
     /*User*/
-    Route::resource('/user', 'UserController', ['except' => ['index']]);
+    Route::resource('/user', 'UserController', [ 'except' => ['index', 'create', 'store'] ]);
+
     Route::match(['get', 'post'], 'user', ['uses' => 'UserController@index']);
+
+    /*Route::post('/user/store', [
+        'middleware' => 'permission:admin/user/store',
+        'as' => 'user-store',
+        'uses' => 'UserController@store']);*/
+
+    Route::get('/user/create', ['uses' => 'UserController@create', 'middleware' => ['role:super-administrator']]);
+
+    Route::post('user/store', ['uses' => 'UserController@store', 'middleware' => ['role:super-administrator']]);
+
 
     Route::any('/user/delete/{id}', [ 'as' => 'user-delete', 'uses' => 'UserController@delete']);
 
