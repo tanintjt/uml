@@ -27,13 +27,14 @@ Route::group(['namespace' => 'Auth'], function()
     Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@login']);
 
     Route::post('logout', 'LoginController@logout');
-    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
-    Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm');
-    Route::post('password/reset', 'ForgotPasswordController@reset');
-    Route::get('password/reset/{token}', 'ForgotPasswordController@showResetForm');
 
-    Route::get('register', 'RegisterController@showRegistrationForm');
-    Route::post('register', 'RegisterController@register');
+    Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'ResetPasswordController@reset');
+
+    //Route::get('register', 'RegisterController@showRegistrationForm');
+    //Route::post('register', 'RegisterController@register');
 
     /*Route::get('auth/{provider}', 'LoginController@provider');
     Route::get('auth/{provider}/callback', 'LoginController@providerCallback');*/

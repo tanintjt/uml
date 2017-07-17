@@ -1,7 +1,10 @@
-@extends('layouts.app')
+@extends('auth.layouts.master')
 
 @section('content')
 <div class="container">
+    <div class="login-logo">
+        <a href="http://localhost/uml"><b>Uttara Motors</b></a>
+    </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

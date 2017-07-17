@@ -28,6 +28,7 @@ Route::post('api/auth', 'Api\V1\LoginController@provider');
 
 Route::post('/api/register', 'Api\V1\LoginController@register');
 
+Route::post('/api/password/email', 'Api\V1\ForgotPasswordController@sendResetLinkEmail');
 
 /*brand*/
 Route::get('api/brand', [ 'as' => 'brand', 'uses' => 'Api\V1\BrandController@index']);

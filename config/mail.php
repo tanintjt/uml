@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'hello@example.com',
-        'name' => 'Example',
+        'address' => 'shebatech15@gmail.com',
+        'name' => 'Uttara Motors Services',
     ],
 
     /*
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => 'rtsdhaka@gmail.com',
+    'username' => 'shebatech15@gmail.com',
 
-    'password' => 'Rin@2011',
+    'password' => 'sheba@321',
 
     /*
     |--------------------------------------------------------------------------

@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'UML',
+    'name' => 'Uttara Motors',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => 'http://192.168.3.202/uml/index.php',
+    'url' => 'http://services.uttaramotorsltd.com',
 
     /*
     |--------------------------------------------------------------------------
