@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Carbon\Carbon;
 
 class ServiceRequestController extends Controller
 {
@@ -17,8 +18,19 @@ class ServiceRequestController extends Controller
 
         $user = $request->user();
 
-        $input_date = explode(" ",$request->request_date);
+        //$date = date('Y-m-d H:mm:ss', strtotime($request->request_date));
+        //$input_date = explode(" ",$request->request_date);
         //print_r($input_date);exit;
+        //$date_format = $input_date[0].' '.$input_date[1].' '.$input_date[2].' '.$input_date[3];
+       //print_r($date_format);exit;
+        $date = Carbon::parse($request->request_date);
+
+
+        //$date = date('Y-m-d', strtotime($date_format));
+
+       //print_r($date);exit;
+
+
 
         $rules = [
             //'user_id' => 'required',
@@ -53,8 +65,8 @@ class ServiceRequestController extends Controller
                     'service_center_id'      => $request->input('service_center_id'),
                     'service_package_id'     => $request->input('service_package_id'),
                     'status'    =>1,
-                    'request_date' => $input_date[0],
-                    'request_time' => $input_date[1],
+                    'request_date' => $date->format('Y-m-d'),
+                    'request_time' => $date->format('H:i:s'),
                     'special_request'=>$request->input('special_request')
                 ]
             );
