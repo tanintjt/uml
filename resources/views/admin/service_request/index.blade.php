@@ -34,6 +34,7 @@
                         <th width="10%">Customer Name</th>
                         <th width="10%">Service</th>
                         <th width="8%">Requested Date</th>
+                        <th width="8%">Requested Time</th>
                         {{--<th width="5%">Servicing Date</th>--}}
                         {{--<th width="5%">Time</th>--}}
                         <th width="10%">Status</th>
@@ -46,7 +47,8 @@
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ ucfirst($row->users->name)}}</td>
                             <td>{{ $row->service_package->name}}</td>
-                            <td>{{ $row->created_at}}</td>
+                            <td>{{ $row->request_date}}</td>
+                            <td>{{ $row->request_time}}</td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/service-request/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span>
                                     @if($row->status==1)

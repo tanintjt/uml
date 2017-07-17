@@ -1,3 +1,12 @@
+<link href="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.css') !!}" rel="stylesheet">
+<link href="{!! asset('public/themes/default/css/bootstrap.min.css') !!}" rel="stylesheet">
+<script src="{!! asset('public/themes/default/plugins/jQuery/jquery-2.2.3.min.js') !!}"></script>
+
+<script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.js') !!}"></script>
+
+
+
+
 @extends('admin.layouts.master')
 
 @section('content')
@@ -12,11 +21,11 @@
             </div>
         </div>
         <div class="box-body">
-            <div class="col-xs-12">
+            <div class="col-xs-6">
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                     {!! Form::label('status', 'Status:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-3">
-                        {!! Form::Select('type',array(
+                    <div class="col-xs-6">
+                        {!! Form::Select('status',array(
                                        '1'=>'Pending',
                                        '2'=>'Accept',
                                        '3'=>'Reject',
@@ -24,27 +33,55 @@
                                        '5'=>'Done',
 
                                        ),
-        old('type'),['class'=>'form-control ','placeholder'=>'Select One','required'=>'required']) !!}
+        old('status', $row->status),['class'=>'form-control ','placeholder'=>'Select One']) !!}
                         @if ($errors->has('status'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('status') }}</strong>
                             </span>
                         @endif
                     </div>
-                    <div class="col-xs-3">
-                        {!! Form::label('start_date', 'Start Date :', ['class' => 'col-xs-3 control-label']) !!}
-
-                        {!! Form::text('start_date',  old('start_date'),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
-                        @if ($errors->has('start_date'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('start_date') }}</strong>
-                            </span>
-                        @endif
-                    </div>
                 </div>
 
-            </div>
+
+                {{-- @if(isset($row->status))
+                    @if($row->status=='4')--}}
+                <div class="form-group">
+                    {!! Form::label('updated_at', 'Date :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::text('updated_at',  old('updated_at',date('Y-m-d', time())),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
+                    </div>
+                </div>
+                {{--@endif
+            @endif--}}
+
+
+             </div>
+             <div class="col-xs-6">
+                 <div class="form-group">
+                     {!! Form::label('request_date', 'Requested Date :', ['class' => 'col-xs-3 control-label']) !!}
+                     <div class="col-xs-6">
+                         {!! Form::text('request_date',  old('request_date'),['class' => 'form-control datepicker', 'id' => 'request_date','readonly']) !!}
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     {!! Form::label('request_time', 'Requested Time :', ['class' => 'col-xs-3 control-label']) !!}
+                     <div class="col-xs-6">
+                         {!! Form::text('request_time',  old('request_time'),['class' => 'form-control datepicker', 'id' => 'request_time', 'readonly']) !!}
+                     </div>
+                 </div>
+
+             </div>
         </div>
     </div>
     {!! Form::close() !!}
+
+
+
+    <script>
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format:'yyyy-mm-dd'
+        })
+    </script>
+
 @endsection

@@ -6,6 +6,7 @@ use App\ServiceRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
+use Validator;
 class ServiceRequestController extends Controller
 {
 
@@ -88,6 +89,7 @@ class ServiceRequestController extends Controller
 	{
 
 		$input = $request->all();
+		//print_r($input);exit;
 		$model = ServiceRequest::findOrFail($id);
 
 		$rules = [
@@ -95,7 +97,7 @@ class ServiceRequestController extends Controller
 		];
 
 		$messages = [
-			'status.required' => ' Status is required!',
+			'status.required' => 'Status is required!',
 		];
 
 		$validator = Validator::make($request->all(), $rules, $messages);
@@ -109,10 +111,10 @@ class ServiceRequestController extends Controller
 
 
 		if ($model->id > 0) {
-			$message = $model->name.' Status Successfully updated.';
+			$message = ' Status Successfully updated.';
 			$error = false;
 		} else {
-			$message =  $request->get('name') .'Status updating fail.';
+			$message = ' Status updating fail.';
 			$error = true;
 		}
 

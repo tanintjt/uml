@@ -19,7 +19,7 @@ class CreateServiceRequestTable extends Migration
             $table->integer('service_center_id')->unsigned();
             $table->integer('service_package_id')->unsigned();
             $table->string('status')->nullable();
-            $table->dateTime('request_time')->nullable();
+            //$table->dateTime('request_time')->nullable();
             $table->text('special_request')->nullable();
 
             $table->timestamps();

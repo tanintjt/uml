@@ -49,8 +49,9 @@ class ServiceRequestController extends Controller
                     'user_id'   => $user->id,
                     'service_center_id'      => $request->input('service_center_id'),
                     'service_package_id'     => $request->input('service_package_id'),
-                    'status'    =>0,
-                    'request_time' => date('Y-m-d h:i:s', time()),
+                    'status'    =>1,
+                    'request_time' => $request->input('request_time'),
+                    'request_date' => $request->input('request_date'),
                     'special_request'=>$request->input('special_request')
                 ]
             );
