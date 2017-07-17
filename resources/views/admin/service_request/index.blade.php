@@ -47,7 +47,7 @@
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ ucfirst($row->users->name)}}</td>
                             <td>{{ $row->service_package->name}}</td>
-                            <td>{{ $row->request_date}}</td>
+                            <td>{{ date("jS F, Y", strtotime($row->request_date))}}</td>
                             <td>{{ $row->request_time}}</td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/service-request/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span>
@@ -87,12 +87,11 @@
                             <tr>
                                 <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                                 <td>{{ $row->service_package->name}}</td>
-                                <td>{{ $row->created_at}}</td>
+                                <td>{{ date("jS F, Y", strtotime($row->updated_at))}}</td>
                                 {{--<td>{{ $row->latitude}}</td>--}}
                                 <td>
                                     {{'Shofiqul Haque'}}
                                 </td>
-
                                 {{--<td>
                                     <a href="{!! url(Request::segment(1).'/service-center/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                     <a href="{!! url(Request::segment(1).'/service-center/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>

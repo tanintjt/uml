@@ -107,8 +107,15 @@ class ServiceRequestController extends Controller
 			return redirect('admin/service-request/'.$id.'/edit')->withErrors($validator)->withInput();
 		}
 
-		$model->update($input);
+		//$model->update($input);
+		$data = [
+			'status' => $input['status'],
+			'updated_at' => $input['updated_at'].' '.$input['updated_time'],
+		];
 
+		//print_r($data);exit;
+
+		$model->update($data);
 
 		if ($model->id > 0) {
 			$message = ' Status Successfully updated.';

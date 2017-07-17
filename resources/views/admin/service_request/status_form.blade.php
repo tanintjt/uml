@@ -5,7 +5,9 @@
 <script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.js') !!}"></script>
 
 
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
 @extends('admin.layouts.master')
 
@@ -48,12 +50,20 @@
                 <div class="form-group">
                     {!! Form::label('updated_at', 'Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
-                        {!! Form::text('updated_at',  old('updated_at',date('Y-m-d', time())),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
+                        {!! Form::text('updated_at',  old('updated_at',date('Y-m-d', strtotime($row->updated_at))),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
                     </div>
                 </div>
                 {{--@endif
             @endif--}}
 
+                <div class="form-group">
+                    {!! Form::label('updated_time', 'Time :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::text('updated_time',  old('updated_at',date('HH:mm:ss', strtotime($row->updated_at))),['class' => 'form-control', 'id' => 'time', 'placeholder' => 'start date']) !!}
+                    </div>
+                </div>
+
+                {{--<input class="form-control" type="text" id="time"/>--}}
 
              </div>
              <div class="col-xs-6">
@@ -84,4 +94,11 @@
         })
     </script>
 
+
+    <script>
+        $('#time').datetimepicker({
+            format: 'HH:mm:ss'
+            //format: 'LT'
+        });
+    </script>
 @endsection
