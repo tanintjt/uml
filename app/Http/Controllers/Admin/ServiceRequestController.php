@@ -78,10 +78,12 @@ class ServiceRequestController extends Controller
 
 	public function edit($id)
 	{
+
+
 		$row = ServiceRequest::findOrFail($id);
 		$title = 'Edit Status';
 
-		return view('admin.service_request.status_form',compact('title', 'row'));
+		return view('admin.service_request.status_form',compact('title', 'row', 'extrajs'));
 	}
 
 
