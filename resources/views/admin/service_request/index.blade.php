@@ -59,6 +59,8 @@
                                         {{'Reject'}}
                                     @elseif($row->status==4)
                                         {{'Rescheduled'}}
+                                     @else
+                                        {{'Done'}}
                                     @endif
                                 </a>
                             </td>
