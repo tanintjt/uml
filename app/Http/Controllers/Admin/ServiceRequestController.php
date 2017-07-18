@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
 use Validator;
+use Carbon\Carbon;
 class ServiceRequestController extends Controller
 {
 
@@ -90,9 +91,9 @@ class ServiceRequestController extends Controller
 	public function update(Request $request, $id)
 	{
 
-		$input = $request->all();
-		//print_r($input);exit;
 		$model = ServiceRequest::findOrFail($id);
+
+		$date = Carbon::parse($request->input('updated_at'));
 
 		$rules = [
 			'status' => 'required',
@@ -111,8 +112,8 @@ class ServiceRequestController extends Controller
 
 		//$model->update($input);
 		$data = [
-			'status' => $input['status'],
-			'updated_at' => $input['updated_at'].' '.$input['updated_time'],
+			'status' => $request->input('status'),
+			'updated_at' => $date,
 		];
 
 		//print_r($data);exit;

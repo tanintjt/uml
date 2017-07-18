@@ -1,13 +1,9 @@
-<link href="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.css') !!}" rel="stylesheet">
-<link href="{!! asset('public/themes/default/css/bootstrap.min.css') !!}" rel="stylesheet">
-<script src="{!! asset('public/themes/default/plugins/jQuery/jquery-2.2.3.min.js') !!}"></script>
-
-<script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.js') !!}"></script>
 
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+
 
 @extends('admin.layouts.master')
 
@@ -44,26 +40,13 @@
                     </div>
                 </div>
 
-
-                {{-- @if(isset($row->status))
-                    @if($row->status=='4')--}}
                 <div class="form-group">
                     {!! Form::label('updated_at', 'Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
                         {!! Form::text('updated_at',  old('updated_at',date('Y-m-d', strtotime($row->updated_at))),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
                     </div>
                 </div>
-                {{--@endif
-            @endif--}}
 
-                <div class="form-group">
-                    {!! Form::label('updated_time', 'Time :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-6">
-                        {!! Form::text('updated_time',  old('updated_at',date('HH:mm:ss', strtotime($row->updated_at))),['class' => 'form-control', 'id' => 'time', 'placeholder' => 'start date']) !!}
-                    </div>
-                </div>
-
-                {{--<input class="form-control" type="text" id="time"/>--}}
 
              </div>
              <div class="col-xs-6">
@@ -88,17 +71,22 @@
 
 
     <script>
-        $('.datepicker').datepicker({
-            autoclose: true,
-            format:'yyyy-mm-dd'
-        })
-    </script>
 
+        $(function() {
+            $('input[name="updated_at"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                timePicker: true,
+               // yearRange: '1972:2050',
+                locale: {
+                    format: 'YYYY-MM-DD h:mm:ss A'
 
-    <script>
-        $('#time').datetimepicker({
-            format: 'HH:mm:ss'
-            //format: 'LT'
+                }
+
+            });
         });
+
     </script>
+
+
 @endsection
