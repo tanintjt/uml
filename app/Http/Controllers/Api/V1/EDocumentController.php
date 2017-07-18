@@ -35,8 +35,8 @@ class EDocumentController extends Controller
             $result[$i]['id'] = $rows[$i]->id;
             $result[$i]['name'] = $rows[$i]->name;
             $result[$i]['file'] = $rows[$i]->file;
-            $result[$i]['issue_date'] = date("jS F, Y", strtotime($rows[$i]->issue_date));
-            $result[$i]['expiry_date'] = date("jS F, Y", strtotime($rows[$i]->expiry_date));
+            $result[$i]['issue_date'] =  date("d/m/Y", strtotime($rows[$i]->issue_date));
+            $result[$i]['expiry_date'] = date("d/m/Y", strtotime($rows[$i]->expiry_date));
         }
 
         return response()->json($result, 202);
