@@ -12,9 +12,9 @@ class BrandController extends Controller
     public function index(Request $request)
     {
         //'2012-9-5 23:26:11.123789'
-        //$input = "Wed, Mar 9 2017 06:00:00" ;
-        //$date = Carbon::parse($input);
-        //dd($date->format('Y-m-d H:i:s'));
+        /*$input = "2017-07-20T06:00:00.000Z" ;
+        $date = Carbon::parse($input);
+        dd($date->format('Y-m-d H:i:s'));*/
 
         $rows = Brand::get();
 
