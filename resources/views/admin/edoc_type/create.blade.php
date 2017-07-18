@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/e-doc-type', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form','files'=>'true')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/e-doc-type/store', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form','files'=>'true')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">

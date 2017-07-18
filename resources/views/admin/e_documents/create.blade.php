@@ -9,7 +9,7 @@
 
 @section('content')
 
-    {!! Form::open(array('url' => Request::segment(1).'/e-documents', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form','files'=>'true')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/e-documents/store', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form','files'=>'true')) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="glyphicon glyphicon-plus"></span>&nbsp;{!! $title !!}

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/role', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/user/role', 'class' => 'form-horizontal', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
