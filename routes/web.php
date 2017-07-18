@@ -48,10 +48,18 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function()
 {
+
+    /* Permission */
     Route::resource('/permission', 'PermissionController', ['except' => ['index']]);
+
+    Route::match(['get', 'post'], 'user', ['uses' => 'PermissionController@index']);
+
+    Route::post('/user/permission', ['uses' => 'PermissionController@store']);
+
 
     /*Role*/
     Route::resource('/role', 'RoleController', ['except' => ['index']]);
+
     Route::match(['get', 'post'], 'role', ['uses' => 'RoleController@index']);
 
     /*User*/

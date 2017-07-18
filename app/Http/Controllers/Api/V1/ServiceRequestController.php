@@ -55,7 +55,7 @@ class ServiceRequestController extends Controller
                     'status'    =>1,
                     'request_date' => $date->format('Y-m-d'),
                     'request_time' => $date->format('H:i:s'),
-                    'special_request'=> $request->input('request_date')
+                    'special_request'=> $request->input('special_request')
                 ]
             );
 //        }
