@@ -55,12 +55,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
         'as' => 'admin.permission.index', 'uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator']
     ]);*/
 
-    Route::resource('/permission',  'PermissionController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    //Route::resource('/permission',  'PermissionController',['middleware' => ['role:super-administrator|administrator|manager']]);
 
 
-    Route::match(['get', 'post'], 'permission', ['uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator']]);
+   /* Route::get('/permission', [
+        'as' => 'admin.permission.index', 'uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator']
+    ]);*/
 
-    Route::post('/user/permission', ['as' => 'user-permission','uses' => 'PermissionController@store', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'permission', ['uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::post('/permission/store', ['as' => 'user-permission','uses' => 'PermissionController@store', 'middleware' => ['role:super-administrator']]);
 
     Route::any('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete', 'middleware' => ['role:super-administrator']]);
 
@@ -70,7 +74,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     Route::match(['get', 'post'], 'role', ['uses' => 'RoleController@index', 'middleware' => ['role:super-administrator']]);
 
-    Route::post('/user/role', ['as' => 'user-role','uses' => 'RoleController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/role/store', ['as' => 'user-role','uses' => 'RoleController@store', 'middleware' => ['role:super-administrator']]);
 
     Route::any('/role/delete/{id}', [ 'as' => 'role-delete', 'uses' => 'RoleController@delete', 'middleware' => ['role:super-administrator']]);
 
