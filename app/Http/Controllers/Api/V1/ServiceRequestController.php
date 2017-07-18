@@ -18,19 +18,7 @@ class ServiceRequestController extends Controller
 
         $user = $request->user();
 
-        //$date = date('Y-m-d H:mm:ss', strtotime($request->request_date));
-        //$input_date = explode(" ",$request->request_date);
-        //print_r($input_date);exit;
-        //$date_format = $input_date[0].' '.$input_date[1].' '.$input_date[2].' '.$input_date[3];
-       //print_r($date_format);exit;
         $date = Carbon::parse($request->request_date);
-
-
-        //$date = date('Y-m-d', strtotime($date_format));
-
-       //print_r($date);exit;
-
-
 
         $rules = [
             //'user_id' => 'required',
@@ -51,14 +39,14 @@ class ServiceRequestController extends Controller
             return response()->json(['error' => true, 'result' => $result ], 400);
         }
 
-        $request_exists = ServiceRequest::where('user_id','=',$user->id)->where('service_center_id','=',$request->service_center_id)
+        /*$request_exists = ServiceRequest::where('user_id','=',$user->id)->where('service_center_id','=',$request->service_center_id)
             ->where('service_package_id','=',$request->service_package_id)
-            ->exists();
+            ->exists();*/
 
-        if($request_exists){
+       /* if($request_exists){
             return response()->json(['error' => true, 'result' => 'Already added. Please try another one!!!' ], 200);
         }
-        else{
+        else{*/
             $service_request = ServiceRequest::create(
                 [
                     'user_id'   => $user->id,
@@ -70,7 +58,7 @@ class ServiceRequestController extends Controller
                     'special_request'=>$request->input('special_request')
                 ]
             );
-        }
+//        }
         if ($service_request) {
             $result = 'Successfully Sent Request';
             $error = false;
