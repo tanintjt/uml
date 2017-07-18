@@ -182,7 +182,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Edujugon\PushNotification\Providers\PushNotificationServiceProvider::class
+        Edujugon\PushNotification\Providers\PushNotificationServiceProvider::class,
+        LaravelFCM\FCMServiceProvider::class
 
     ],
 
@@ -241,6 +242,8 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PushNotification' => Edujugon\PushNotification\Facades\PushNotification::class,
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
 
     ],
 
