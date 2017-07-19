@@ -46,7 +46,6 @@ class EDocumentController extends Controller
 
     public function store(Request $request) {
 
-        $input = $request->all();
 
         $file = Input::file('file');
 
@@ -73,13 +72,13 @@ class EDocumentController extends Controller
             return response()->json($result, 400);
         }
 
-        $doc_type_exists = EDocument::where('doc_type_id','=',$request->input('doc_type_id'))
+       /* $doc_type_exists = EDocument::where('doc_type_id','=',$request->input('doc_type_id'))
             ->exists();
 
          if($doc_type_exists){
              return response()->json(['error' => true, 'result' => 'Already added. Please try another one!!!' ], 200);
-         }
-         else{
+         }*/
+//         else{
 
              // Files destination
              $destinationPath = 'public/uploads/e_documents/';
@@ -94,22 +93,6 @@ class EDocumentController extends Controller
              $file->move($destinationPath, $file_name);
              //$file = 'public/uploads/e_documents/' . $file_name;
 
-
-             //$doc_exists = EDocument::where('doc_type_id','=',$request->doc_type_id)->exists();
-
-             /*if($doc_exists){
-
-                 $edoc = EDocument::where('doc_type_id','=',$request->doc_type_id)->first();
-
-                 $oldfile = public_path().'public/uploads/e_documents/'.$edoc->file;
-
-                 if( $request->input('file') != $edoc->file) {
-                     if (File::exists($oldfile)) {
-                         File::delete($oldfile);
-                     }
-                 }
-
-             }*/
              $data = [
                  'issue_date' => Carbon::parse($request->input('issue_date')),
                  'expiry_date' => Carbon::parse($request->input('expiry_date')),
@@ -118,11 +101,10 @@ class EDocumentController extends Controller
              ];
 
              $doc = EDocument::create($data);
-        }
-
+//        }
 
         if ($doc->id > 0) {
-            //$message = 'New '.  $data['issue_date'].' And '.$data['expiry_date'].'  Added';
+
             $message = 'Successfully  Added';
             $error = false;
         } else {
@@ -135,27 +117,22 @@ class EDocumentController extends Controller
 
 
 
-    public function update(Request $request,$type)
+    public function update(Request $request, $id)
     {
 
-        //$model = Promotion::findOrFail($id);
-
-        $edoc_type_id = EDocType::where('name','=',$type)->first();
-
-        $file = Input::file('file');
-
+        $model = EDocument::findOrFail($id);
 
         $rules = [
 //            'issue_date'      => 'required',
 //            'expiry_date'      => 'required',
-            //'file'      => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub',
+            'file'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
         $messages = [
 //            'issue_date.required'     => 'Issue Date is required!',
 //            'expiry_date.required'    => 'Expiry Date is required!',
            // 'file.required' => 'File is required!',
-           // 'file.mimes' => 'Invalid File Format !',
+            'file.mimes' => 'Invalid File Format !',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -165,47 +142,30 @@ class EDocumentController extends Controller
             $result = $validator->errors()->all();
             return response()->json(['error' => true, 'result' => $result ], 400);
         }
+        //return Carbon::parse($request->input('issue_date'))->format('Y/m/d');
 
 
-        if($edoc_type_id) {
+            // Files destination
+            $destinationPath = 'public/uploads/e_documents/';
+        
+            $file = $request->file('file');
+            //$file_original_name = $file->getClientOriginalName();
+            //$file_name = rand(11111, 99999) . $file_original_name;
 
-            $edocs = EDocument::where('doc_type_id', '=', $edoc_type_id->id)->first();
+            $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
+            $file->move($destinationPath, $file_name);
 
-            $oldfile = public_path() . 'public/uploads/e_documents/' . $edocs->file;
+            $data = [
+                'issue_date' => Carbon::parse($request->input('issue_date'))->format('Y/m/d'),
+                'expiry_date' => Carbon::parse($request->input('expiry_date'))->format('Y/m/d'),
+                'file' => 'public/uploads/e_documents/' . $file_name,
+                'doc_type_id' => $request->input('doc_type_id')
+            ];
 
-            if ($request->hasFile('file')) {
-                //Delete previous image
-                if ($request->input('file') != $edocs->file) {
-                    if (File::exists($oldfile)) {
-                        File::delete($oldfile);
-                    }
-                }
+        $model->update($data);
 
-                // Files destination
-                $destinationPath = 'public/uploads/e_documents/';
 
-                // Create folders if they don't exist
-                if (!file_exists($destinationPath)) {
-                    mkdir($destinationPath, 0777);
-                }
-
-                $file_original_name = $file->getClientOriginalName();
-                $file_name = rand(11111, 99999) . $file_original_name;
-                $file->move($destinationPath, $file_name);
-                //$input['file'] = 'public/uploads/e_documents/' . $file_name;
-
-                $data = [
-                    'issue_date' => Carbon::parse($request->input('issue_date')),
-                    'expiry_date' => Carbon::parse($request->input('expiry_date')),
-                    'file'=> 'public/uploads/e_documents/' . $file_name,
-                    'doc_type_id'=>$request->input('doc_type_id')
-                ];
-
-                $edocs->update($data);
-            }
-
-            if ($edocs) {
-                //$result = 'New '.  $edocs->issue_date.' And '.$edocs->expiry_date. '  Updated';
+            if ($model) {
                 $result = 'Successfully Updated';
                 $http_code = 201;
             } else {
@@ -213,11 +173,7 @@ class EDocumentController extends Controller
                 $http_code = 500;
             }
             return response()->json($result, $http_code);
-        }
 
-        else {
-            return response()->json(['error' => true, 'result' => 'Not Found'], 404);
-        }
 
     }
 
