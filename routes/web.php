@@ -73,12 +73,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
         'as' => 'admin.permission.show', 'uses' => 'PermissionController@show', 'middleware' => ['role:super-administrator|administrator|manager']
     ]);
 
+    Route::get('/permission/{id}/edit', [ 'as' => 'permission-edit', 'uses' => 'PermissionController@edit', 'middleware' => ['role:super-administrator']]);
+
+    Route::put('/permission/{id}/update', [ 'as' => 'permission-update', 'uses' => 'PermissionController@update', 'middleware' => ['role:super-administrator']]);
+
+
     Route::match(['get', 'post'], 'permission', ['uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
 
 
-    Route::any('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::get('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete', 'middleware' => ['role:super-administrator']]);
 
 
     /*Role*/

@@ -208,9 +208,11 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
 
+        $permission->delete();
         $message =  $permission->display_name.' permission deleted.';
         $error = false;
-        $permission->delete();
+
+
         return redirect('admin/permission')->with(['message' => $message, 'error' => $error]);
     }
 }

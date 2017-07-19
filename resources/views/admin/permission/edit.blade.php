@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::model($row,['method' => 'PUT','url' => Request::segment(1).'/permission/'.$row->id,'class' => 'form-horizontal', 'id' => 'admin-form' ]) !!}
+    {!! Form::model($row,['method' => 'PUT','route'=>['permission-update',$row->id],'class' => 'form-horizontal', 'id' => 'admin-form' ]) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
