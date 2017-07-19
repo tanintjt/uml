@@ -100,7 +100,7 @@ class EDocumentController extends Controller
                  'file'=> 'public/uploads/e_documents/' . $file_name,
                  'doc_type_id'=>$request->input('type'),
 
-                 //'date' =>$request->input('issue_date'),
+                 'params' => $request->input('issue_date') . ' : ' . $request->input('expiry_date'),
              ];
 
              $doc = EDocument::create($data);
