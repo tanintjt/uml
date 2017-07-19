@@ -98,8 +98,7 @@ class EDocumentController extends Controller
                  'issue_date' => Carbon::parse($request->input('issue_date'))->format('Y-m-d'),
                  'expiry_date' => Carbon::parse($request->input('expiry_date'))->format('Y-m-d'),
                  'file'=> 'public/uploads/e_documents/' . $file_name,
-                 'doc_type_id'=>$request->input('type'),
-
+                 'doc_type_id' => $request->input('type'),
                  'params' => $request->input('issue_date') . ' : ' . $request->input('expiry_date'),
              ];
 
