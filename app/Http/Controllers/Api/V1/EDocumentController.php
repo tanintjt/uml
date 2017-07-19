@@ -142,13 +142,6 @@ class EDocumentController extends Controller
 
         $edoc_type_id = EDocType::where('name','=',$type)->first();
 
-        /*$e_documents  = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
-            ->where('e_doc_type.name','=',$type)
-            ->select('e_documents.id')
-            ->first();*/
-
-       // dd($e_documents);
-        //$input = $request->all();
         $file = Input::file('file');
 
 
@@ -200,16 +193,16 @@ class EDocumentController extends Controller
                 $file_name = rand(11111, 99999) . $file_original_name;
                 $file->move($destinationPath, $file_name);
                 //$input['file'] = 'public/uploads/e_documents/' . $file_name;
+
+                $data = [
+                    'issue_date' => Carbon::parse($request->input('issue_date')),
+                    'expiry_date' => Carbon::parse($request->input('expiry_date')),
+                    'file'=> 'public/uploads/e_documents/' . $file_name,
+                    'doc_type_id'=>$request->input('doc_type_id')
+                ];
+
+                $edocs->update($data);
             }
-
-            $data = [
-                'issue_date' => Carbon::parse($request->input('issue_date')),
-                'expiry_date' => Carbon::parse($request->input('expiry_date')),
-                'file'=> 'public/uploads/e_documents/' . $file_name,
-                'doc_type_id'=>$request->input('doc_type_id')
-            ];
-
-            $edocs->update($data);
 
             if ($edocs) {
                 //$result = 'New '.  $edocs->issue_date.' And '.$edocs->expiry_date. '  Updated';
