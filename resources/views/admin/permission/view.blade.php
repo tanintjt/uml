@@ -32,5 +32,6 @@
                 </table>
         </div>
     </div>
+    </div>
     {!! Form::close() !!}
 @endsection

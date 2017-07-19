@@ -58,13 +58,25 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     //Route::resource('/permission',  'PermissionController',['middleware' => ['role:super-administrator|administrator|manager']]);
 
 
-   /* Route::get('/permission', [
-        'as' => 'admin.permission.index', 'uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator']
-    ]);*/
+    Route::get('/permission',
+        ['as' => 'admin.permission.index', 'uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator|administrator|manager']
+    ]);
+
+    Route::get('/permission/create',
+        ['as'=>'permission-create','uses' => 'PermissionController@create', 'middleware' => ['role:super-administrator']]);
+
+    Route::post('/permission/store',
+        ['as' => 'permission-store','uses' => 'PermissionController@store', 'middleware' => ['role:super-administrator']]);
+
+
+    Route::get('/permission/{id}', [
+        'as' => 'admin.permission.show', 'uses' => 'PermissionController@show', 'middleware' => ['role:super-administrator|administrator|manager']
+    ]);
 
     Route::match(['get', 'post'], 'permission', ['uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/permission/store', ['as' => 'user-permission','uses' => 'PermissionController@store', 'middleware' => ['role:super-administrator']]);
+
+
 
     Route::any('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete', 'middleware' => ['role:super-administrator']]);
 

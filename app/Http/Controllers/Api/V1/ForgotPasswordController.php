@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -57,12 +58,19 @@ class ForgotPasswordController extends Controller
             return response()->json(['error' => true, 'result' => $result ], 400);
         }
 
+        $row = User::where('email',$request->input('email'))->first();
 
-        $this->broker()->sendResetLink(
-            $request->only('email')
-        );
+        if($row){
+            $this->broker()->sendResetLink(
+                $request->only('email')
+            );
+            $message = 'Found!';
+        }else{
+            $message = 'Not Found';
+        }
 
-        return response()->json('We have e-mailed your password reset link!', 201);
+
+        return response()->json(['message' => $message ], 201);
 
     }
 
