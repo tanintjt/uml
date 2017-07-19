@@ -11,6 +11,7 @@ use Validator;
 use DB;
 use File;
 use Carbon\Carbon;
+
 class EDocumentController extends Controller
 {
 
@@ -51,8 +52,8 @@ class EDocumentController extends Controller
 
         $rules = [
             'doc_type_id'   => 'required',
-            'issue_date' => 'required',
-            'expiry_date' => 'required',
+            //'issue_date' => 'required',
+            //'expiry_date' => 'required',
             'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
         ];
 
@@ -94,10 +95,12 @@ class EDocumentController extends Controller
              //$file = 'public/uploads/e_documents/' . $file_name;
 
              $data = [
-                 'issue_date' => Carbon::parse($request->input('issue_date')),
-                 'expiry_date' => Carbon::parse($request->input('expiry_date')),
+                 //'issue_date' =>$request->input('issue_date'),
+                // 'expiry_date' => $request->input('expiry_date'),
                  'file'=> 'public/uploads/e_documents/' . $file_name,
-                 'doc_type_id'=>$request->input('doc_type_id')
+                 'doc_type_id'=>$request->input('doc_type_id'),
+
+                 'date' =>$request->input('issue_date'),
              ];
 
              $doc = EDocument::create($data);
@@ -147,7 +150,7 @@ class EDocumentController extends Controller
 
             // Files destination
             $destinationPath = 'public/uploads/e_documents/';
-        
+
             $file = $request->file('file');
             //$file_original_name = $file->getClientOriginalName();
             //$file_name = rand(11111, 99999) . $file_original_name;

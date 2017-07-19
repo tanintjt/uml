@@ -11,7 +11,7 @@ class EDocument extends Model
 
 
     protected $fillable = [
-        'doc_type_id','issue_date','expiry_date','file'
+        'doc_type_id','issue_date','expiry_date','file','date'
     ];
 
     public function scopeEDoc($query, $type)

@@ -21,6 +21,8 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/api/user', function (Request $request) {
     return $request->user();
 });*/
+Route::get('date', [ 'as' => 'test', 'uses' => 'TestController@index']);
+
 
 
 Route::post('api/auth', 'Api\V1\LoginController@provider');
