@@ -51,14 +51,14 @@ class EDocumentController extends Controller
         $file = Input::file('file');
 
         $rules = [
-            'doc_type_id'   => 'required',
+            'type'   => 'required',
             //'issue_date' => 'required',
             //'expiry_date' => 'required',
             'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
         ];
 
         $messages = [
-            'doc_type_id.required'    => 'Type is required!',
+            'type.required'    => 'Type is required!',
             'issue_date.required' => ' Issue Date is required!',
             'expiry_date.required' => ' Expiry Date is required!',
             'file.required' => ' File is required!',
@@ -98,7 +98,7 @@ class EDocumentController extends Controller
                  //'issue_date' =>$request->input('issue_date'),
                 // 'expiry_date' => $request->input('expiry_date'),
                  'file'=> 'public/uploads/e_documents/' . $file_name,
-                 'doc_type_id'=>$request->input('doc_type_id'),
+                 'doc_type_id'=>$request->input('type'),
 
                  'date' =>$request->input('issue_date'),
              ];
