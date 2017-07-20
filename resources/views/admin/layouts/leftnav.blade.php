@@ -24,10 +24,6 @@
                     <li><a href="{!! url(Request::segment(1).'/user') !!}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
-            {{--<li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
-            <li><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
-            <li><a href=""><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
-            <li><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>--}}
 
             <li class="treeview{!!  in_array(Request::segment(2), ['service-center', 'service-package','service-request','service-history']) ? ' active': '' !!}">
                 <a href="#">
@@ -44,7 +40,7 @@
                 </ul>
             </li>
 
-            <li class="treeview{!!  in_array(Request::segment(2), ['vehicle-type', 'vehicle-model','vehicle','brand']) ? ' active': '' !!}">
+            <li class="treeview{!!  in_array(Request::segment(2), ['vehicle-type', 'vehicle-model','vehicle','brand','user-vehicle']) ? ' active': '' !!}">
                 <a href="#">
                     <i class="fa fa-car"></i>
                     <span>Vehicles</span>
@@ -57,6 +53,7 @@
                     <li><a href="{!! url(Request::segment(1).'/vehicle-model') !!}"><i class="fa fa-circle-o"></i> Vehicle Model</a></li>
                     <li><a href="{!! url(Request::segment(1).'/brand') !!}"><i class="fa fa-circle-o"></i> Brand</a></li>
                     <li><a href="{!! url(Request::segment(1).'/vehicle') !!}"><i class="fa fa-circle-o"></i> Vehicle</a></li>
+                    <li><a href="{!! url(Request::segment(1).'/user-vehicle') !!}"><i class="fa fa-circle-o"></i>Store Vehicle To User</a></li>
                 </ul>
             </li>
 

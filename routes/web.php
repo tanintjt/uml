@@ -80,10 +80,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     Route::match(['get', 'post'], 'permission', ['uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-
-
-
-    Route::get('/permission/delete/{id}', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::get('/permission/{id}/delete', [ 'as' => 'permission-delete', 'uses' => 'PermissionController@delete', 'middleware' => ['role:super-administrator']]);
 
 
     /*Role*/
@@ -271,8 +268,22 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     Route::match(['get', 'post'], 'service-request', ['uses' => 'ServiceRequestController@index', 'middleware' => ['role:super-administrator']]);
 
+    /*notification*/
 
     Route::get('/notification', ['as' => 'notification','uses' => 'PushNotificationController@index', 'middleware' => ['role:super-administrator']]);
+
+
+    /*user-vehicle*/
+
+    Route::get('/user-vehicle',
+        ['as' => 'user-vehicle', 'uses' => 'UserVehicleController@index', 'middleware' => ['role:super-administrator']
+        ]);
+
+    Route::get('/user-vehicle/create',
+        ['as'=>'user-vehicle-create','uses' => 'UserVehicleController@create', 'middleware' => ['role:super-administrator']]);
+
+    Route::post('/user-vehicle/store',
+        ['as' => 'user-vehicle-store','uses' => 'UserVehicleController@store', 'middleware' => ['role:super-administrator']]);
 
 
 });

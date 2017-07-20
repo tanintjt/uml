@@ -36,6 +36,7 @@
                         <th>E-mail</th>
                         <th>Roles</th>
                         <th width="5%">Status</th>
+                        <th width="5%">Refer To</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
@@ -52,6 +53,7 @@
                             <td class="text-center">
                                 <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
                             </td>
+                            <td></td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/user/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/user/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>

@@ -204,14 +204,16 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $id)
+
+
+    public function delete(Request $request, $id)
     {
+
         $permission = Permission::findOrFail($id);
 
-        $permission->delete();
         $message =  $permission->display_name.' permission deleted.';
-        $error = false;
-
+        $error = true;
+        $permission->delete();
 
         return redirect('admin/permission')->with(['message' => $message, 'error' => $error]);
     }

@@ -34,7 +34,7 @@ class User extends Authenticatable
      */
 
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_id', 'status','remember_token','api_token','device_id','image'
+        'name', 'email', 'password', 'provider', 'provider_id', 'status','remember_token','api_token','device_id','image','parent_id'
     ];
 
     /**
@@ -83,4 +83,6 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsToMany('App\Role','role_user', 'user_id');
     }
+
+
 }

@@ -68,6 +68,7 @@ class UserController extends Controller
         }
 
         $roles = $this->roleList();
+        $users = $this->userList();
 
             $rows = User::Role()->Search(Session::get('search'))->
             RoleId(Session::get('role_id'))->
@@ -76,8 +77,7 @@ class UserController extends Controller
             paginate(config('app.limit'));
 
 
-
-        return view('admin/user/index', compact('rows', 'title', 'roles', 'extrajs'));
+        return view('admin/user/index', compact('rows', 'title', 'roles','users', 'extrajs'));
     }
 
     /**
@@ -89,7 +89,9 @@ class UserController extends Controller
     {
         $title = 'Add User';
         $roles = $this->roleList(true);
-        return view('admin.user.create', compact('title', 'roles') );
+        $users = $this->userList(true);
+
+        return view('admin.user.create', compact('title', 'roles','users') );
 
         //return redirect()->route('login');
     }
@@ -133,7 +135,8 @@ class UserController extends Controller
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
-                'status'        => $request->input('status')
+                'status'        => $request->input('status'),
+                'parent_id'        => $request->input('parent_id'),
             ]
         );
 
@@ -174,10 +177,13 @@ class UserController extends Controller
         $row = User::findOrFail($id);
         $title = 'Edit '. $row->name . ' details';
         $roles = $this->roleList(true);
+        $users = $this->userList(true);
+
         $userRoles = DB::table("role_user")
             ->where("user_id",$id)
             ->pluck('role_id')->toArray();
-        return view('admin.user.edit',compact('title', 'row', 'roles', 'userRoles'));
+
+        return view('admin.user.edit',compact('title', 'row', 'roles','users', 'userRoles'));
     }
 
     /**
@@ -216,7 +222,8 @@ class UserController extends Controller
 
         $input = array(
             'name'          => $request->input('name'),
-            'status'        => $request->input('status')
+            'status'        => $request->input('status'),
+            'parent_id'        => $request->input('parent_id'),
         );
 
         //update password
@@ -251,7 +258,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $user->delete();
-        $message =  $user->name.' user failed to delete, user exists.';
+        $message =  $user->name.' user  delete.';
         $error = true ;
 
         return redirect('admin/user')->with(['message' => $message, 'error' => $error]);
@@ -273,6 +280,19 @@ class UserController extends Controller
         endforeach;
 
         return $rolelist;
+    }
+
+    private function userList($boolean = false)
+    {
+        $rows = User::where('status', 1)->orderBy('id', 'ASC')->get();
+
+        $userlist[0] = ($boolean == true ? 'Select a User' : 'All User');
+
+        foreach($rows as $row):
+            $userlist[$row->id] = $row->name;
+        endforeach;
+
+        return $userlist;
     }
 
 

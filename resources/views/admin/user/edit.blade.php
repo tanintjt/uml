@@ -41,6 +41,17 @@
 
                     </div>
                 </div>
+                <div class="form-group">
+                    {!! Form::label('status', 'Status :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        <label class="radio-inline">
+                            {!! Form::radio('status', '1', true, ['id' => 'statuson']) !!} Yes
+                        </label>
+                        <label class="radio-inline">
+                            {!! Form::radio('status', '2', false, ['id' => 'statusoff']) !!} No
+                        </label>
+                    </div>
+                </div>
 
             </div>
             <div class="col-xs-6">
@@ -65,17 +76,18 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('status', 'Status :', ['class' => 'col-xs-3 control-label']) !!}
+                <div class="form-group{{ $errors->has('parent_id') ? ' has-error' : '' }}">
+                    {!! Form::label('parent_id', 'Refer To  :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        <label class="radio-inline">
-                            {!! Form::radio('status', '1', true, ['id' => 'statuson']) !!} Yes
-                        </label>
-                        <label class="radio-inline">
-                            {!! Form::radio('status', '2', false, ['id' => 'statusoff']) !!} No
-                        </label>
+                        {!! Form::select('parent_id', $users, old('parent_id'), ['class' => 'form-control', 'id' => 'parent_id']) !!}
+                        @if ($errors->has('parent_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('parent_id') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
+
 
                 <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">

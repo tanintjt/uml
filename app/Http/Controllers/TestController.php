@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 class TestController extends Controller
@@ -15,6 +16,11 @@ class TestController extends Controller
 
         //json_decode($json)
         //json_decode($json)
-        dd($date);
+       // dd($date);
+
+        $parent_id = 26;
+
+        $row = User::where('id','=',$parent_id)->get();
+        print_r($row);exit;
     }
 }
