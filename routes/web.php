@@ -286,6 +286,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
         ['as' => 'user-vehicle-store','uses' => 'UserVehicleController@store', 'middleware' => ['role:super-administrator']]);
 
 
+
+    Route::get('/user-vehicle/{brandid}', 'UserVehicleController@brand');
 });
 
 

@@ -24,18 +24,6 @@
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
-                    {!! Form::label('model_id', 'Model :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::select('model_id', $model, old('model_id'), ['class' => 'form-control', 'id' => 'model_id']) !!}
-                        @if ($errors->has('model_id'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('model_id') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
                 <div class="form-group{{ $errors->has('brand_id') ? ' has-error' : '' }}">
                     {!! Form::label('brand_id', 'Brand :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -43,6 +31,18 @@
                         @if ($errors->has('brand_id'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('brand_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
+                    {!! Form::label('model_id', 'Vehicle :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::select('model_id', $model, old('model_id'), ['class' => 'form-control', 'id' => 'model_id']) !!}
+                        @if ($errors->has('model_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('model_id') }}</strong>
                             </span>
                         @endif
                     </div>

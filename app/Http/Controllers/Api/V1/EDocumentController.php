@@ -27,6 +27,7 @@ class EDocumentController extends Controller
 
         $rows = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
             ->EDoc($request->input('type'))
+            ->where('user_id',$request->user()->id)
             ->select('e_documents.id','e_documents.issue_date','e_documents.expiry_date','e_documents.file','e_doc_type.name')
             ->get();
 
@@ -197,7 +198,7 @@ class EDocumentController extends Controller
         $rules = [
             'issue_date'      => 'required',
             'expiry_date'      => 'required',
-            'file'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file'      => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
         $messages = [
@@ -205,6 +206,7 @@ class EDocumentController extends Controller
             'expiry_date.required'    => 'Expiry Date is required!',
             'file.required' => 'File is required!',
             'file.mimes' => 'Invalid File Format !',
+            'file.max' => 'Invalid File Size !',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -225,7 +227,7 @@ class EDocumentController extends Controller
             $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
             $file->move($destinationPath, $file_name);
         }
-
+//print_r($file_name);exit;
 
         $data = [
             'user_id'     =>     $request->user()->id,

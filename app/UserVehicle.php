@@ -13,7 +13,7 @@ class UserVehicle extends Model
      * @var string
      */
 
-    protected $table = 'user_vehicle';
+    protected $table = 'user_vehicles';
 
     /**
      * With fields are guarded from mass-assignment

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Brand;
 use App\User;
 use App\UserVehicle;
 use App\Vehicle;
+use App\VehicleModel;
+use App\VehicleType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -81,6 +84,57 @@ class UserVehicleController extends Controller
     }
 
 
+    public function create()
+    {
+        $title = 'Add User Vehicle';
+        $extrajs = "<script>
+            $(function() {
+                $('#outlet_id').select2();
+
+
+                $('#brand_id').bind('load change', function(e){
+                    var typeid =  $('#type_id').val();
+                    var brandid =  $(this).val();
+
+                    getBrand(typeid, brandid);
+                    getType(typeid, brandid);
+
+                });
+
+
+                $('#type_id').bind('load change', function(e){
+                    var typeid =  $(this).val();
+                    getBrand(typeid);
+
+                });
+
+
+                function getUser(id, cid) {
+                    $('#parent_id').empty();
+                    $.get('" . url('admin/user/users') . "/' + id + '/' + cid, function(data)
+                    {
+                        $.each(data, function(idx, el) {
+                            $('#parent_id').append('<option value=\"' + el.id + '\">' + el.name + '</option>');
+                        });
+                    });
+                }
+
+
+
+            });
+		</script>";
+        $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
+        $js .= '<script src="'.asset('public/themes/default/js/app.js').'"></script>';
+        //$js .= '<script src="'.asset('public/themes/default/js/moment.min.js').'"></script>';
+
+        $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';
+
+        $type = $this->typeList(true);
+        $model = $this->modelList(true);
+        $brand = $this->brandList(true);
+
+        return view('admin.user_vehicle.create', compact('title', 'roles', 'clients', 'brand', 'model', 'type', 'js', 'css', 'extrajs') );
+    }
 
 
     private function userList($boolean = false)
@@ -108,4 +162,62 @@ class UserVehicleController extends Controller
 
         return $vehiclelist;
     }
+
+
+
+
+    public function brand($brandid)
+    {
+        $rows = Brand::where('brand_id', $brandid)->
+        orderBy('name', 'ASC')->get();
+
+        $brandlist = [];
+        foreach($rows as $row):
+            $brandlist[$row->id] = ['id' => $row->id, 'name' => $row->name];
+        endforeach;
+
+        return response()->json($brandlist);
+    }
+
+
+    private function typeList($boolean = false)
+    {
+        $rows = VehicleType::orderBy('id', 'ASC')->get();
+
+        $typelist[0] = ($boolean == true ? 'Select a type' : 'All type');
+
+        foreach($rows as $row):
+            $typelist[$row->id] = $row->name;
+        endforeach;
+
+        return $typelist;
+    }
+
+    private function modelList($boolean = false)
+    {
+        $rows = VehicleModel::orderBy('id', 'ASC')->get();
+
+        $modellist[0] = ($boolean == true ? 'Select a model' : 'All model');
+
+        foreach($rows as $row):
+            $modellist[$row->id] = $row->name;
+        endforeach;
+
+        return $modellist;
+    }
+
+
+    private function brandList($boolean = false)
+    {
+        $rows = Brand::orderBy('id', 'ASC')->get();
+
+        $brandlist[0] = ($boolean == true ? 'Select a brand' : 'All brand');
+
+        foreach($rows as $row):
+            $brandlist[$row->id] = $row->name;
+        endforeach;
+
+        return $brandlist;
+    }
+
 }
