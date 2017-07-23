@@ -241,8 +241,9 @@ class EDocumentController extends Controller
 
         if ($eDoc) {
 
-            unlink($eDoc->file);
-
+           if($eDoc->file){
+               unlink($eDoc->file);
+           }
             $eDoc->update($data);
         }
         else{
