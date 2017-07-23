@@ -96,7 +96,7 @@ class UserVehicleController extends Controller
                     var typeid =  $('#type_id').val();
                     var brandid =  $(this).val();
 
-                    getBrand(typeid, brandid);
+                    getVehicle(typeid, brandid);
                     getType(typeid, brandid);
 
                 });
@@ -109,9 +109,9 @@ class UserVehicleController extends Controller
                 });
 
 
-                function getUser(id, cid) {
+                function getVehicle(id, cid) {
                     $('#parent_id').empty();
-                    $.get('" . url('admin/user/users') . "/' + id + '/' + cid, function(data)
+                    $.get('" . url('admin/user/vehicle') . "/' + id + '/' + cid, function(data)
                     {
                         $.each(data, function(idx, el) {
                             $('#parent_id').append('<option value=\"' + el.id + '\">' + el.name + '</option>');
@@ -162,9 +162,6 @@ class UserVehicleController extends Controller
 
         return $vehiclelist;
     }
-
-
-
 
     public function brand($brandid)
     {
@@ -218,6 +215,22 @@ class UserVehicleController extends Controller
         endforeach;
 
         return $brandlist;
+    }
+
+    public function vehicle($typeid, $brandid)
+    {
+        $rows = User::where('users.client_id', $clientid)
+            ->where('role_user.role_id', $roleid - 1)
+            ->where('users.status', 1)
+            ->leftjoin('role_user','role_user.user_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->get();
+
+        $userlist[0] = ['id' => 0, 'name' => 'None'];
+        foreach($rows as $row):
+            $userlist[$row->id] = ['id' => $row->id, 'name' => $row->name];
+        endforeach;
+
+        return response()->json($userlist);
     }
 
 }
