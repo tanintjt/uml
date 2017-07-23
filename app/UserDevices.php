@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserDevice extends Model
+class UserDevices extends Model
 {
-
-
-    protected $table = 'users_devices';
+    protected $table = 'user_devices';
 
     protected $fillable = [
         'user_id', 'device_id'

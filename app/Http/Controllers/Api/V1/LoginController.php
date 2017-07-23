@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\User;
 use App\UserDevice;
+use App\UserDevices;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -158,7 +159,7 @@ class LoginController extends Controller
                 'email'         =>    $request['email'],
                 'provider'      =>    $request['provider'],
                 'provider_id'   =>    $request['provider_id'],
-                'provider_id'   =>    $request['provider_id'],
+                //'device_id'   =>    $request['provider_id'],
                 'status'        =>   1
             ]);
 
@@ -176,29 +177,37 @@ class LoginController extends Controller
 
     public function device_info(Request $request){
 
-     //dd(Auth::user()->id);
-        $row = $request->user();
-        //print_r($row);exit;
 
-            $data_exists = DB::table('users_devices')->where('user_id', '=',$row->id)
-                ->where('device_id', '=', $request->device_id)
-                ->exists();
+        $data = [
+            'user_id'    =>  $request->user()->id,
+            'device_id'  =>  $request->input('device_id')
+        ];
 
-            if(!$data_exists){
 
-                UserDevice::create(
-                    [
-                        'user_id'  =>$row->id,
-                        'device_id'  =>$request->device_id,
-                    ]
-                );
-                return response()->json(['error' => false, 'message'=>'User created successfully'], 202);
-            }else{
-                return response()->json([
-                    'error'=>'Already Exists!!!'
-                ]);
-            }
+        $user_device = UserDevices::where('user_id',$request->user()->id)->first();
+
+        if($user_device){
+
+            $user_device->update($data);
+
+        }
+        else{
+
+            $user_device = UserDevices::create($data);
+        }
+
+        if ($user_device->id > 0) {
+
+            $message = 'Successfully  Added';
+            $http_code = 201;
+        } else {
+            $message =  'adding fail.';
+            $http_code = 500;
+        }
+
+        return response()->json($message, $http_code);
     }
+
 
 
     public function logout(){
