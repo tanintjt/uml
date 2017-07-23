@@ -287,7 +287,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
 
 
-    Route::get('/user-vehicle/{brandid}', 'UserVehicleController@brand');
+    Route::get('/user-vehicle/vehicle/{typeid}/{modelid}', 'UserVehicleController@vehicle');
 });
 
 
@@ -295,6 +295,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
 
 /*------test------*/
+
 
 
 

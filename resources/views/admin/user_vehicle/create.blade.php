@@ -1,3 +1,9 @@
+<link href="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.css') !!}" rel="stylesheet">
+<link href="{!! asset('public/themes/default/css/bootstrap.min.css') !!}" rel="stylesheet">
+<script src="{!! asset('public/themes/default/plugins/jQuery/jquery-2.2.3.min.js') !!}"></script>
+
+<script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.js') !!}"></script>
+
 
 @extends('admin.layouts.master')
 
@@ -24,8 +30,20 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
+                    {!! Form::label('model_id', 'Model :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::select('model_id', $model, old('model_id'), ['class' => 'form-control', 'id' => 'model_id']) !!}
+                        @if ($errors->has('model_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('model_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('brand_id') ? ' has-error' : '' }}">
-                    {!! Form::label('brand_id', 'Brand :', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('brand_id', 'Vehicle :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('brand_id', $brand, old('brand_id'), ['class' => 'form-control', 'id' => 'brand_id']) !!}
                         @if ($errors->has('brand_id'))
@@ -36,21 +54,33 @@
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
-                    {!! Form::label('model_id', 'Vehicle :', ['class' => 'col-xs-3 control-label']) !!}
+
+            </div>
+            <div class="col-xs-5">
+
+                <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
+                    {!! Form::label('user_id', 'User :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::select('model_id', $model, old('model_id'), ['class' => 'form-control', 'id' => 'model_id']) !!}
-                        @if ($errors->has('model_id'))
+                        {!! Form::select('user_id', $users, old('user_id'), ['class' => 'form-control', 'id' => 'user_id']) !!}
+                        @if ($errors->has('user_id'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('model_id') }}</strong>
+                                <strong>{{ $errors->first('user_id') }}</strong>
                             </span>
                         @endif
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-5">
 
-
+                <div class="form-group{{ $errors->has('purchase_date') ? ' has-error' : '' }}">
+                    {!! Form::label('purchase_date', 'Purchase Date :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('purchase_date',  old('purchase_date'),['class' => 'form-control datepicker', 'id' => 'purchase_date', 'placeholder' => 'purchase date']) !!}
+                        @if ($errors->has('purchase_date'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('purchase_date') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
 
 
                 <div class="form-group">
@@ -64,6 +94,13 @@
         </div>
     </div>
     {!! Form::close() !!}
+
+    <script>
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format:'yyyy-mm-dd'
+        })
+    </script>
 @endsection
 
 

@@ -15,7 +15,6 @@ use Validator;
 class UserVehicleController extends Controller
 {
 
-
     public function index(Request $request)
     {
         $title = 'User Vehicle';
@@ -89,32 +88,34 @@ class UserVehicleController extends Controller
         $title = 'Add User Vehicle';
         $extrajs = "<script>
             $(function() {
-                $('#outlet_id').select2();
+              //  $('#outlet_id').select2();
 
 
-                $('#brand_id').bind('load change', function(e){
+                $('#model_id').bind('load change', function(e){
                     var typeid =  $('#type_id').val();
-                    var brandid =  $(this).val();
+                    var modelid =  $(this).val();
 
-                    getVehicle(typeid, brandid);
-                    getType(typeid, brandid);
+                    getVehicle(typeid, modelid);
+
 
                 });
 
 
                 $('#type_id').bind('load change', function(e){
+                    var modelid =  $('#model_id').val();
                     var typeid =  $(this).val();
-                    getBrand(typeid);
+
+                    getVehicle(typeid, modelid);
 
                 });
 
 
                 function getVehicle(id, cid) {
-                    $('#parent_id').empty();
-                    $.get('" . url('admin/user/vehicle') . "/' + id + '/' + cid, function(data)
+                    $('#brand_id').empty();
+                    $.get('" . url('admin/user-vehicle/vehicle') . "/' + id + '/' + cid, function(data)
                     {
                         $.each(data, function(idx, el) {
-                            $('#parent_id').append('<option value=\"' + el.id + '\">' + el.name + '</option>');
+                            $('#brand_id').append('<option value=\"' + el.id + '\">' + el.name + '</option>');
                         });
                     });
                 }
@@ -124,22 +125,56 @@ class UserVehicleController extends Controller
             });
 		</script>";
         $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
-        $js .= '<script src="'.asset('public/themes/default/js/app.js').'"></script>';
-        //$js .= '<script src="'.asset('public/themes/default/js/moment.min.js').'"></script>';
-
         $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';
 
         $type = $this->typeList(true);
         $model = $this->modelList(true);
-        $brand = $this->brandList(true);
+        $brand = $this->brandList(0,0);
+        $users = $this->userList();
 
-        return view('admin.user_vehicle.create', compact('title', 'roles', 'clients', 'brand', 'model', 'type', 'js', 'css', 'extrajs') );
+        return view('admin.user_vehicle.create', compact('title', 'users', 'brand', 'model', 'type', 'js', 'css', 'extrajs') );
+    }
+
+    public function vehicle($typeid, $modelid)
+    {
+
+        $rows = Vehicle::where('vehicle.type_id', $typeid)
+            ->where('vehicle.model_id', $modelid)
+            ->join('vehicle_type', 'vehicle.type_id', '=', 'vehicle_type.id')
+            ->join('vehicle_model', 'vehicle.model_id', '=', 'vehicle_model.id')
+            ->join('brands', 'vehicle.brand_id', '=', 'brands.id')
+
+            ->select('vehicle.id',
+                 'vehicle_type.name as type',
+                 'vehicle_model.name as model',
+                 'brands.name as brand_name'
+            )->get();
+
+        if($rows){
+            foreach($rows as $row):
+                $vehiclelist[$row->brand_name] = ['id' => $row->id, 'name' => $row->brand_name];
+            endforeach;
+        }
+        else{
+            $vehiclelist[0] = ['id' => 0, 'name' => 'None'];
+        }
+        return response()->json($vehiclelist);
+    }
+
+
+    public function store(){
+
+
     }
 
 
     private function userList($boolean = false)
     {
-        $rows = User::where('status', 1)->orderBy('id', 'ASC')->get();
+$r= User::registeredUser();
+        print_r($r);exit;
+        $rows = User::join('role_user','role_user.user_id','=','users.id')->
+                      where('')->
+                      orderBy('id', 'ASC')->get();
 
         $userlist[0] = ($boolean == true ? 'Select a User' : 'All User');
 
@@ -162,6 +197,7 @@ class UserVehicleController extends Controller
 
         return $vehiclelist;
     }
+
 
     public function brand($brandid)
     {
@@ -208,7 +244,7 @@ class UserVehicleController extends Controller
     {
         $rows = Brand::orderBy('id', 'ASC')->get();
 
-        $brandlist[0] = ($boolean == true ? 'Select a brand' : 'All brand');
+        $brandlist[0] = ($boolean == true ? 'Select a brand' : 'All');
 
         foreach($rows as $row):
             $brandlist[$row->id] = $row->name;
@@ -217,20 +253,6 @@ class UserVehicleController extends Controller
         return $brandlist;
     }
 
-    public function vehicle($typeid, $brandid)
-    {
-        $rows = User::where('users.client_id', $clientid)
-            ->where('role_user.role_id', $roleid - 1)
-            ->where('users.status', 1)
-            ->leftjoin('role_user','role_user.user_id', '=', 'users.id')
-            ->orderBy('users.name', 'asc')->get();
 
-        $userlist[0] = ['id' => 0, 'name' => 'None'];
-        foreach($rows as $row):
-            $userlist[$row->id] = ['id' => $row->id, 'name' => $row->name];
-        endforeach;
-
-        return response()->json($userlist);
-    }
 
 }
