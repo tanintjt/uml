@@ -189,26 +189,32 @@ class UserVehicleController extends Controller
 
         if($request->input('model_id')){
 
-            $vehicle_id = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->get(array('vehicle.id'));
+            $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->get();
 
-            $user_vehicle = UserVehicle::create(
-                [
-                    'user_id'        => $request->input('user_id'),
-                    'vehicle_id'     => $vehicle_id,
-                    'purchase_date'  => $request->input('purchase_date'),
-                ]
-            );
+           //print_r($vehicle_id);exit;
 
-            if ($user_vehicle->id > 0) {
-                $message = 'Successfully added.';
-                $error = false;
-            } else {
-                $message = ' Adding fail.';
-                $error = true;
-            }
-        }else{
-            return redirect('admin/user-vehicle/create')->with(['message' => 'Selected Vehicle Model does not exists.Please try another one.']);
-        }
+          if($vehicle){
+
+              $user_vehicle = UserVehicle::create(
+                  [
+                      'user_id'        => $request->input('user_id'),
+                      'vehicle_id'     => $vehicle_id,
+                      'purchase_date'  => $request->input('purchase_date'),
+                  ]
+              );
+
+              if ($user_vehicle->id > 0) {
+                  $message = 'Successfully added.';
+                  $error = false;
+              } else {
+                  $message = ' Adding fail.';
+                  $error = true;
+              }
+          }else{
+              return redirect('admin/user-vehicle/create')->with(['message' => 'Selected Vehicle Model does not exists.Please try another one.']);
+          }
+
+          }
 
         return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
 
