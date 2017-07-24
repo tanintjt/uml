@@ -63,7 +63,7 @@ class UserController extends Controller
         }
 
         $data = [
-            'image'        =>     'public/uploads/profile/' . $file_name,
+            'image' => 'public/uploads/profile/' . $file_name,
         ];
 
         $user_profile = User::where('id',$request->user()->id)->first();
