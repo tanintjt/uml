@@ -64,7 +64,7 @@ class UserController extends Controller
         $user_profile = User::where('id',$request->user()->id)->first();
 
         if (isset($user_profile->image)) {
-            
+
                 unlink($user_profile->image);
         }
 
@@ -72,7 +72,7 @@ class UserController extends Controller
 
         if ($user_profile->id > 0) {
 
-            $message = 'Successfully  Added';
+            $message = 'Successfully  Added Profile Image :'.$user_profile->image;
             $http_code = 201;
         } else {
             $message =  'adding fail.';
