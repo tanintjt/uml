@@ -70,8 +70,7 @@ class UserController extends Controller
         $user_profile = User::where('id',$request->user()->id)->first();
 
         if (isset($user_profile->image)) {
-
-                unlink($user_profile->image);
+                //unlink($user_profile->image);
         }
 
         $user_profile->update($data);
