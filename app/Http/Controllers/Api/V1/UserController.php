@@ -55,7 +55,7 @@ class UserController extends Controller
 
             // Create folders if they don't exist
             if ( !file_exists($destinationPath) ) {
-                mkdir ($destinationPath, 0777);
+                mkdir ($destinationPath,777);
             }
 
             $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
