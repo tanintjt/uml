@@ -54,8 +54,8 @@ class UserController extends Controller
             $destinationPath = 'public/uploads/profile/';
 
             // Create folders if they don't exist
-            if ( !file_exists($destinationPath) ) {
-                mkdir ($destinationPath,777);
+            if( ! File::isDirectory(public_path('public/uploads/profile'))) {
+                File::makeDirectory(public_path('public/uploads/profile'), 493, true);
             }
 
             $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
