@@ -52,7 +52,9 @@
                             <td>{{ $row->fuel_system }}</td>
                             <td>
                                 @if( isset($row->vehicle_image))
-                                <img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%">
+                                <a href="{!!route('vehicle-image',$row->id)  !!}" data-toggle="modal" data-target="#image">
+                                    <img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%">
+                                </a>
                                 @else
                                     <img src="{{ URL::to('/img/default.jpg') }}" width="80px" height="80px">
                                 @endif
@@ -77,7 +79,7 @@
     {!! Form::close() !!}
 
     <div class="modal modan-danger" id="confirmDelete" user="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-        <div class="modal-dialog" >
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>
@@ -94,23 +96,14 @@
         </div>
     </div>
 
-
-
     <div class="modal fade" id="image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    {{--<h4 class="modal-title">{{$title}}</h4>--}}
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    {{--@include('admin.vehicle.vehicle_image')--}}
-                </div>
+
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
+
+
 
 @endsection

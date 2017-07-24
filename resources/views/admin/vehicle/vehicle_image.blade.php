@@ -1,11 +1,21 @@
 
-<div style="padding:60px;">
-    <table id="" class="table table-bordered table-hover">
+
+   {{-- <table id="" class="table table-bordered table-hover">
         <tr>
-            <td><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="50%" height="80%"></td>
+            <td><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}"></td>
         </tr>
-    </table>
-</div>
-<div class="modal-footer">
-    <a href="{!! url('admin/vehicle') !!}" class="btn btn-default" type="button"> Close </a>
-</div>
+    </table>--}}
+
+   <div class="modal-header">
+       <a href="{{ URL::previous() }}" class="close" type="button" title="click x button for close this entry form"> × </a>
+       <h4 class="modal-title" id="myModalLabel">{{'657567'}}</h4>
+   </div>
+
+
+   <div class="modal-body">
+       <table>
+           <tr>
+               <td><img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}"></td>
+           </tr>
+       </table>
+   </div>

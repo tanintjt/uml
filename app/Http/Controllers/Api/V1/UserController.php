@@ -85,7 +85,7 @@ class UserController extends Controller
             //$http_code = 500;
         }
 
-        return response()->json(['message' => $result]);
+        return response()->json($result);
     }
 
 }
