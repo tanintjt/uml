@@ -88,7 +88,7 @@ class UserVehicleController extends Controller
     public function create()
     {
         $title = 'Add User Vehicle';
-        $extrajs = "<script>
+        /*$extrajs = "<script>
             $(function() {
               //  $('#outlet_id').select2();
 
@@ -127,7 +127,7 @@ class UserVehicleController extends Controller
             });
 		</script>";
         $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
-        $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';
+        $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';*/
 
         $type = $this->typeList(true);
         $model = $this->modelList(true);
@@ -167,18 +167,15 @@ class UserVehicleController extends Controller
 
     public function store(Request $request){
 
+        //print_r($request->all());exit;
         $rules = [
-            'type_id'        => 'not_in:0',
             'model_id'       => 'not_in:0',
-            'brand_id'       => 'not_in:0',
             'user_id'        => 'not_in:0',
             'purchase_date'  => 'required',
         ];
 
         $messages = [
-            'type_id.required'        => 'Type is required!',
             'model_id.required'       => 'Model is required!',
-            'brand_id.required'       => 'Brand is required!',
             'user_id.required'        => 'User is required!',
             'purchase_date.required'  => 'Purchase Date is required!',
         ];
@@ -190,22 +187,30 @@ class UserVehicleController extends Controller
             return redirect('admin/user-vehicle/create')->withErrors($validator)->withInput();
         }
 
+        if($request->input('model_id')){
 
-        $user_vehicle = UserVehicle::create(
-            [
-                'user_id'        => $request->input('user_id'),
-                'vehicle_id'     => $request->input('brand_id'),
-                'purchase_date'  => $request->input('purchase_date'),
-            ]
-        );
-//print_r($user_vehicle);exit;
-        if ($user_vehicle->id > 0) {
-            $message = 'Successfully added.';
-            $error = false;
-        } else {
-            $message = ' Adding fail.';
-            $error = true;
+            $vehicle_id = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->get(array('vehicle.id'));
+
+            $user_vehicle = UserVehicle::create(
+                [
+                    'user_id'        => $request->input('user_id'),
+                    'vehicle_id'     => $vehicle_id,
+                    'purchase_date'  => $request->input('purchase_date'),
+                ]
+            );
+
+            if ($user_vehicle->id > 0) {
+                $message = 'Successfully added.';
+                $error = false;
+            } else {
+                $message = ' Adding fail.';
+                $error = true;
+            }
+        }else{
+            return redirect('admin/user-vehicle/create')->with(['message' => 'Selected Vehicle Model does not exists.Please try another one.']);
         }
+
+
 
         return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
 

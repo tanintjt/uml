@@ -17,7 +17,7 @@
 
         <div class="panel-body">
 
-            <div class="col-xs-5">
+            <div class="col-xs-8">
                 {{--<div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }}">
                     {!! Form::label('type_id', 'Type :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('brand_id') ? ' has-error' : '' }}">
+                {{--<div class="form-group{{ $errors->has('brand_id') ? ' has-error' : '' }}">
                     {!! Form::label('brand_id', 'Vehicle :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('brand_id', $brand, old('brand_id'), ['class' => 'form-control', 'id' => 'brand_id']) !!}
@@ -52,12 +52,7 @@
                             </span>
                         @endif
                     </div>
-                </div>
-
-
-            </div>
-            <div class="col-xs-7">
-
+                </div>--}}
                 <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
                     {!! Form::label('user_id', 'User :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -69,7 +64,6 @@
                         @endif
                     </div>
                 </div>
-
                 <div class="form-group{{ $errors->has('purchase_date') ? ' has-error' : '' }}">
                     {!! Form::label('purchase_date', 'Purchase Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -82,8 +76,10 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="col-xs-4">
 
-                <div class="form-group">
+                <div class="form-group" style="margin-top:40%">
                     <div class="col-xs-offset-3 col-xs-9">
                         <button class="btn btn-sm btn-primary" type="submit"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
                         <a href="{!! url('/user-vehicle') !!}" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-repeat"></span> Cancel</a>

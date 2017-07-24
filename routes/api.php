@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/api/user', function (Request $request) {
     return $request->user();
 });*/
+
 Route::get('date', [ 'as' => 'test', 'uses' => 'TestController@index']);
 
 
@@ -125,6 +126,8 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     /*user profile*/
     Route::get('/user-profile', [ 'as' => 'user-profile', 'uses' => 'UserController@user_profile']);
 
+    /*profile image*/
+    Route::post('/profile-image', [ 'as' => 'profile-image', 'uses' => 'UserController@profile_image']);
 
     /*feedback*/
     Route::post('/feedback', [ 'as' => 'feedback', 'uses' => 'FeedbackController@index']);
@@ -132,6 +135,8 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
 
    /*history*/
     Route::get('/service-history', [ 'as' => 'service-history', 'uses' => 'ServiceHistoryController@index']);
+
+
 
 });
 
