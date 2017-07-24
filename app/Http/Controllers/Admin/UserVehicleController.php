@@ -73,17 +73,22 @@ class UserVehicleController extends Controller
         //$users = $this->userList();
 
         $rows = UserVehicle::with('users')->
-       // TypeId(Session::get('type_id'))->
-       // ModelId(Session::get('model_id'))->
-        //BrandId(Session::get('brand_id'))->
+        orderBy('created_at', 'asc')->
+        paginate(config('app.limit'));
 
-        // Status(Session::get('status'))->
-        orderBy('created_at', 'asc')->get();
-        //paginate(config('app.limit'));
+        //$parent_data = $this->parentId();
 
-        return view('admin/user_vehicle/index', compact('rows', 'title', 'type','model','brand','users','extrajs'));
+        return view('admin/user_vehicle/index', compact('rows', 'title', 'type','model','brand','users','vehicle','parent_data','extrajs'));
     }
 
+
+
+    public function parentId(){
+
+        $query = User::where('parent_id','id')->get();
+
+        return $query;
+    }
 
     public function create()
     {
@@ -138,36 +143,12 @@ class UserVehicleController extends Controller
     }
 
 
-    public function vehicle($typeid, $modelid)
-    {
 
-        $rows = Vehicle::where('vehicle.type_id', $typeid)
-            ->where('vehicle.model_id', $modelid)
-            ->join('vehicle_type', 'vehicle.type_id', '=', 'vehicle_type.id')
-            ->join('vehicle_model', 'vehicle.model_id', '=', 'vehicle_model.id')
-            ->join('brands', 'vehicle.brand_id', '=', 'brands.id')
-
-            ->select('vehicle.id',
-                 'vehicle_type.name as type',
-                 'vehicle_model.name as model',
-                 'brands.name as brand_name'
-            )->get();
-
-        if($rows){
-            foreach($rows as $row):
-                $vehiclelist[$row->brand_name] = ['id' => $row->id, 'name' => $row->brand_name];
-            endforeach;
-        }
-        else{
-            $vehiclelist[0] = ['id' => 0, 'name' => 'None'];
-        }
-        return response()->json($vehiclelist);
-    }
 
 
     public function store(Request $request){
 
-        //print_r($request->all());exit;
+
         $rules = [
             'model_id'       => 'not_in:0',
             'user_id'        => 'not_in:0',
@@ -187,18 +168,14 @@ class UserVehicleController extends Controller
             return redirect('admin/user-vehicle/create')->withErrors($validator)->withInput();
         }
 
-        if($request->input('model_id')){
+         $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
 
-            $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->get();
-
-           //print_r($vehicle_id);exit;
-
-          if($vehicle){
+         if($vehicle){
 
               $user_vehicle = UserVehicle::create(
                   [
                       'user_id'        => $request->input('user_id'),
-                      'vehicle_id'     => $vehicle_id,
+                      'vehicle_id'     => $vehicle['id'],
                       'purchase_date'  => $request->input('purchase_date'),
                   ]
               );
@@ -210,11 +187,9 @@ class UserVehicleController extends Controller
                   $message = ' Adding fail.';
                   $error = true;
               }
-          }else{
-              return redirect('admin/user-vehicle/create')->with(['message' => 'Selected Vehicle Model does not exists.Please try another one.']);
-          }
-
-          }
+         }else{
+              return redirect('admin/user-vehicle/create')->with(['message' => 'Not exists.Please try another vehicle model.']);
+         }
 
         return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
 
