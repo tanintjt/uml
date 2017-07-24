@@ -33,37 +33,29 @@
                     <thead>
                     <tr class="active">
                         <th width="5%">#</th>
-                        <th width="5%">Brand</th>
-                        <th width="5%">Type</th>
-                        <th width="5%">Model</th>
-                        <th width="5%">Fuel System</th>
-                        <th width="10%" class="text-center">Image</th>
+                        <th width="5%">User Name</th>
+                        <th width="5%">Refer To</th>
+                        <th width="5%">Vehicle</th>
+                        <th width="5%">Purchase Date</th>
                         <th width="10%">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
-                    {{--@foreach ($rows as $row)
+                    @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td>{{ isset($row->brand->name)?$row->brand->name:''}}</td>
+                            <td>{{ isset($row->users->name)?$row->users->name:''}}</td>
                             <td>{{ isset($row->types->name)?$row->types->name:''}}</td>
                             <td>{{ isset($row->model->name)?$row->model->name:''}}</td>
-                            <td>{{ $row->fuel_system }}</td>
-                            <td>
-                                @if( isset($row->vehicle_image))
-                                    <img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%">
-                                @else
-                                    <img src="{{ URL::to('/img/default.jpg') }}" width="80px" height="80px">
-                                @endif
-                            </td>
+                            <td>{{ isset($row->purchase_date)?date('Y-m-d', strtotime($row->purchase_date)):''}}</td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                 <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
-                    @endforeach--}}
+                    @endforeach
                     </tbody>
                 </table>
             </div>

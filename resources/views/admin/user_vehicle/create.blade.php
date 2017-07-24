@@ -17,8 +17,8 @@
 
         <div class="panel-body">
 
-            <div class="col-xs-7">
-                <div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }}">
+            <div class="col-xs-5">
+                {{--<div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }}">
                     {!! Form::label('type_id', 'Type :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('type_id', $type, old('type_id'), ['class' => 'form-control', 'id' => 'type_id']) !!}
@@ -28,7 +28,7 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
                     {!! Form::label('model_id', 'Model :', ['class' => 'col-xs-3 control-label']) !!}
@@ -56,7 +56,7 @@
 
 
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-7">
 
                 <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
                     {!! Form::label('user_id', 'User :', ['class' => 'col-xs-3 control-label']) !!}

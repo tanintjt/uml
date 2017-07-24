@@ -85,9 +85,4 @@ class User extends Authenticatable
     }
 
 
-
-    public function registeredUser($query){
-
-        $query->leftjoin('role_user','role_user.user_id', '=', 'users.id') ->whereNotIn('role_user.role_id',4);
-    }
 }

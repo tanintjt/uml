@@ -17,6 +17,7 @@ class UserVehicleController extends Controller
 
     public function index(Request $request)
     {
+
         $title = 'User Vehicle';
         $extrajs = "<script>
 		$(function() {
@@ -66,20 +67,21 @@ class UserVehicleController extends Controller
             Session::put('brand_id', $request->input('brand_id'));
         }
 
-        $user = $this->userList();
-        $vehicle = $this->vehicleList();
+        $type = $this->typeList(true);
+        $model = $this->modelList(true);
+        $brand = $this->brandList(0,0);
+        //$users = $this->userList();
 
-
-        $rows = UserVehicle::with('users','vehicle')->
+        $rows = UserVehicle::with('users')->
        // TypeId(Session::get('type_id'))->
        // ModelId(Session::get('model_id'))->
         //BrandId(Session::get('brand_id'))->
 
         // Status(Session::get('status'))->
-        orderBy('created_at', 'asc')->
-        paginate(config('app.limit'));
+        orderBy('created_at', 'asc')->get();
+        //paginate(config('app.limit'));
 
-        return view('admin/user_vehicle/index', compact('rows', 'title', 'type','model','brand', 'extrajs'));
+        return view('admin/user_vehicle/index', compact('rows', 'title', 'type','model','brand','users','extrajs'));
     }
 
 
@@ -135,6 +137,7 @@ class UserVehicleController extends Controller
         return view('admin.user_vehicle.create', compact('title', 'users', 'brand', 'model', 'type', 'js', 'css', 'extrajs') );
     }
 
+
     public function vehicle($typeid, $modelid)
     {
 
@@ -162,19 +165,59 @@ class UserVehicleController extends Controller
     }
 
 
-    public function store(){
+    public function store(Request $request){
 
+        $rules = [
+            'type_id'        => 'not_in:0',
+            'model_id'       => 'not_in:0',
+            'brand_id'       => 'not_in:0',
+            'user_id'        => 'not_in:0',
+            'purchase_date'  => 'required',
+        ];
+
+        $messages = [
+            'type_id.required'        => 'Type is required!',
+            'model_id.required'       => 'Model is required!',
+            'brand_id.required'       => 'Brand is required!',
+            'user_id.required'        => 'User is required!',
+            'purchase_date.required'  => 'Purchase Date is required!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+
+            return redirect('admin/user-vehicle/create')->withErrors($validator)->withInput();
+        }
+
+
+        $user_vehicle = UserVehicle::create(
+            [
+                'user_id'        => $request->input('user_id'),
+                'vehicle_id'     => $request->input('brand_id'),
+                'purchase_date'  => $request->input('purchase_date'),
+            ]
+        );
+//print_r($user_vehicle);exit;
+        if ($user_vehicle->id > 0) {
+            $message = 'Successfully added.';
+            $error = false;
+        } else {
+            $message = ' Adding fail.';
+            $error = true;
+        }
+
+        return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
 
     }
 
 
     private function userList($boolean = false)
     {
-$r= User::registeredUser();
-        print_r($r);exit;
-        $rows = User::join('role_user','role_user.user_id','=','users.id')->
-                      where('')->
-                      orderBy('id', 'ASC')->get();
+        $rows = User::join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->where('role_id','=',4)
+            ->select('users.id',
+                'users.name')->get();
 
         $userlist[0] = ($boolean == true ? 'Select a User' : 'All User');
 
@@ -183,19 +226,6 @@ $r= User::registeredUser();
         endforeach;
 
         return $userlist;
-    }
-
-    private function vehicleList($boolean = false)
-    {
-        $rows = Vehicle::orderBy('id', 'ASC')->get();
-
-        $vehiclelist[0] = ($boolean == true ? 'Select a Vehicle' : 'All Vehicle');
-
-        foreach($rows as $row):
-            $vehiclelist[$row->id] = $row->name;
-        endforeach;
-
-        return $vehiclelist;
     }
 
 

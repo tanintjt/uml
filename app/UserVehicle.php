@@ -24,10 +24,13 @@ class UserVehicle extends Model
     protected $guarded = array('id');
 
 
+    public function users(){
+        return $this->belongsTo('App\User','user_id', 'id');
+    }
 
-
-
-
+    public function vehicles(){
+        return $this->belongsTo('App\Vehicle','vehicle_id', 'id');
+    }
 
 
 }
