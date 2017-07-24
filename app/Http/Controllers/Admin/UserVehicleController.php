@@ -210,8 +210,6 @@ class UserVehicleController extends Controller
             return redirect('admin/user-vehicle/create')->with(['message' => 'Selected Vehicle Model does not exists.Please try another one.']);
         }
 
-
-
         return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
 
     }

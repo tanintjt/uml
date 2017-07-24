@@ -29,13 +29,13 @@ class UserController extends Controller
     public function profile_image(Request $request){
 
         $rules = [
-            'image'      => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+            'file'      => 'required|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $messages = [
-            'image.required' => 'Profile Image is required!',
-            'image.mimes' => 'Invalid Image Format !',
-            'image.max' => 'Invalid Image Size !',
+            'file.required' => 'Profile Image is required!',
+            'file.mimes' => 'Invalid Image Format !',
+            'file.max' => 'Invalid Image Size !',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -46,7 +46,7 @@ class UserController extends Controller
             return response()->json(['error' => true, 'result' => $result ], 400);
         }
 
-        $file = $request->file('image');
+        $file = $request->file('file');
 
         if($file){
 
