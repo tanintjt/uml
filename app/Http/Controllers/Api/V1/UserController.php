@@ -77,14 +77,15 @@ class UserController extends Controller
 
         if ($user_profile->id > 0) {
 
-            $message = 'Successfully  Added Profile Image :'.$user_profile->image;
-            $http_code = 201;
+            $result['message'] = $user_profile->image;
+            //$http_code = 201;
+
         } else {
-            $message =  'adding fail.';
-            $http_code = 500;
+            $result['message'] =  'adding fail.';
+            //$http_code = 500;
         }
 
-        return response()->json($message, $http_code);
+        return response()->json(['result' => $result]);
     }
 
 }
