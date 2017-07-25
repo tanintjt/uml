@@ -97,7 +97,7 @@
     </div>
 
     <div class="modal fade" id="image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog"  style="width:65%;">
+        <div class="modal-dialog"  style="width:60%;">
             <div class="modal-content">
 
             </div>
