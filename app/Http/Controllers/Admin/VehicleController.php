@@ -348,9 +348,9 @@ class VehicleController extends Controller
             return redirect('admin/vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        if(count($file)>0){
+        if($file){
             //Delete previous image from folder
-            //unlink($model->file);
+            unlink($model->vehicle_image);
 
             // Files destination
             $destinationPath = 'public/uploads/vehicle/';
@@ -363,7 +363,6 @@ class VehicleController extends Controller
             $file_original_name = $file->getClientOriginalName();
             $file_name = rand(11111, 99999) . $file_original_name;
             $file->move($destinationPath, $file_name);
-            //$input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
             $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
         }
 
@@ -374,20 +373,24 @@ class VehicleController extends Controller
             $colors = Input::file('available_colors');
 
             if($colors){
+
+                $vehicle_colors = VehicleColor::where('vehicle_id',$model->id)->get();
+
+                foreach($vehicle_colors as $id) {
+
+                    unlink($id->available_colors);
+                    $id->delete();
+                }
                 foreach($colors as $color) {
 
                     $destinationPath = 'public/uploads/vehicle/';
-
-                    $file_original_name = $color->getClientOriginalName();
-                    $file_name = rand(11111, 99999) . $file_original_name;
+                    $file_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
                     $color->move($destinationPath, $file_name);
 
-                    $input['available_colors'] = 'public/uploads/vehicle/'.$file_name;
 
-
-                    VehicleColor::update([
-                        'vehicle_id' => $model->id,
-                        'available_colors' => $input['available_colors']
+                    VehicleColor::create([
+                        'vehicle_id'       =>   $model->id,
+                        'available_colors' =>   'public/uploads/vehicle/' . $file_name,
                     ]);
                 }
             }
