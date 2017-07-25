@@ -19,7 +19,7 @@
                     <?php $i = 1; ?>
                     @foreach ($rows as $row)
                         <tr>
-                            <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
+                            <td width="15%">{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td style="align-content: center">
                                 <img src="{!! asset(isset($row->available_colors)?$row->available_colors:'') !!}"style="align-content: center">
                             </td>
