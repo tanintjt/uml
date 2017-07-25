@@ -6,7 +6,7 @@
 
    <div class="modal-body">
 
-       <img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" class="text-center">
+       <img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}"style="margin-left: 10px">
 
    </div>
    <div class="modal-footer">
