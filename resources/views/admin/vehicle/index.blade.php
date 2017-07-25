@@ -60,9 +60,11 @@
                                 @endif
                             </td>
                             <td>
+
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                 <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="{!! route('vehicle-colors',$row->id) !!}" class="btn btn-xs btn-default">colors</a>
                             </td>
                         </tr>
                     @endforeach

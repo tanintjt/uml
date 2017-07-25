@@ -404,6 +404,21 @@ class VehicleController extends Controller
         return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
     }
 
+
+
+
+    public function vehicle_colors($id){
+
+        $rows = VehicleColor::where('vehicle_id',$id)->get();
+
+        $row = Vehicle::findOrFail($id);
+        //$title =  $row->model->name ;
+        $title =  "Available Colors" ;
+
+
+        return view('admin.vehicle.available_colors',compact('title', 'rows','row'));
+
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -163,6 +163,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::any('/vehicle-image/{id}', [ 'as' => 'vehicle-image', 'uses' => 'VehicleController@vehicle_image', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
+    Route::any('/vehicle-colors/{id}', [ 'as' => 'vehicle-colors', 'uses' => 'VehicleController@vehicle_colors', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
     /*Vehicle brands*/
 
     Route::resource('/brand',  'BrandController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
