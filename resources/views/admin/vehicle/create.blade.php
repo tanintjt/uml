@@ -60,10 +60,15 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{{ $errors->has('engine_details') ? ' has-error' : '' }}">
                     {!! Form::label('engine_details', 'Engine Details :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::textarea('engine_details', old('engine_details'), ['class' => 'form-control', 'id' => 'engine_details', 'placeholder' => 'Engine Details', 'rows' => 3]) !!}
+                        @if ($errors->has('engine_details'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('engine_details') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -81,10 +86,15 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{{ $errors->has('fuel_system') ? ' has-error' : '' }}">
                     {!! Form::label('fuel_system ', 'Fuel System :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::text('fuel_system',  old('fuel_system'),['class' => 'form-control', 'id' => 'fuel_system', 'placeholder' => 'fuel_system']) !!}
+                        @if ($errors->has('fuel_system'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('fuel_system') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 
@@ -103,7 +113,7 @@
                 <div class="form-group{{ $errors->has('available_colors') ? ' has-error' : '' }}">
                     {!! Form::label('available_colors', 'Available Colors:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
-                        {!! Form::file('available_colors[]', ['required','multiple'=>true]) !!}
+                        {!! Form::file('available_colors[]', ['multiple'=>true]) !!}
                         @if ($errors->has('available_colors'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('available_colors') }}</strong>

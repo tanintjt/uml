@@ -98,10 +98,15 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('color', 'Color :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('color', old('color', $row->color), ['class' => 'form-control color', 'id' => 'color']) !!}
+                <div class="form-group{{ $errors->has('available_colors') ? ' has-error' : '' }}">
+                    {!! Form::label('available_colors', 'Available Colors:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-3">
+                        {!! Form::file('available_colors[]', ['multiple'=>true]) !!}
+                        @if ($errors->has('available_colors'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('available_colors') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 

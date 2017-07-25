@@ -325,8 +325,7 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
-           // 'color'      => 'required',
-//            'vehicle_image'      => 'required',
+
         ];
 
         $messages = [
@@ -337,8 +336,6 @@ class VehicleController extends Controller
             'engine_displacement.required' => 'Engine Displacement is required!',
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
-           // 'color.required' => 'Vehicle Color is required!',
-//            'vehicle_image.required' => 'Vehicle Image is required!',
 
         ];
 
