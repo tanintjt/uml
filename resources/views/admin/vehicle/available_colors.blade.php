@@ -4,7 +4,8 @@
     {!! Form::open(array('url' => 'admin/vehicle/', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form', 'method' => 'get')) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <strong>Vehicle : {!! isset($row->model->name)?$row->model->name:''!!}</strong>&nbsp;
+            <strong>Vehicle : {!! isset($row->model->name)?$row->model->name:''!!} </strong>&nbsp;
+            <strong>(Colors :  {!! count($rows) !!} )</strong>&nbsp;
             <div class="input-group pull-right">
                 <span class="input-group-btn">
                     <a href="{!! url('admin/vehicle')!!}" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
