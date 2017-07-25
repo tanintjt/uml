@@ -76,18 +76,6 @@ class VehicleController extends Controller
         $model = $this->modelList();
         $brand = $this->brandList();
 
-
-        $rows = Vehicle::with('types','model','brand')->
-        orderBy('id', 'asc')->
-        paginate(config('app.limit'));
-
-
-        /*$rows = User::Role()->Search(Session::get('search'))->
-        RoleId(Session::get('role_id'))->
-        Status(Session::get('status'))->
-        orderBy('name', 'asc')->
-        paginate(config('app.limit'));*/
-
         $rows = Vehicle::with('types','model','brand')->
         TypeId(Session::get('type_id'))->
         ModelId(Session::get('model_id'))->
@@ -350,7 +338,9 @@ class VehicleController extends Controller
 
         if($file){
             //Delete previous image from folder
-            unlink($model->vehicle_image);
+            if($model->vehicle_image){
+                unlink($model->vehicle_image);
+            }
 
             // Files destination
             $destinationPath = 'public/uploads/vehicle/';

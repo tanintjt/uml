@@ -287,6 +287,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::post('/user-vehicle/store',
         ['as' => 'user-vehicle-store','uses' => 'UserVehicleController@store', 'middleware' => ['role:super-administrator']]);
 
+    Route::any('/user-vehicle/{id}/view', [ 'as' => 'user-vehicle.view', 'uses' => 'UserVehicleController@view', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+
+    Route::any('/user-vehicle/{id}/edit', [ 'as' => 'user-vehicle.edit', 'uses' => 'UserVehicleController@edit', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::any('/user-vehicle/{id}/update', [ 'as' => 'user-vehicle.update', 'uses' => 'UserVehicleController@update', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::any('/user-vehicle/{id}/delete', [ 'as' => 'user-vehicle.delete', 'uses' => 'UserVehicleController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::match(['get', 'post'], 'user-vehicle', ['uses' => 'UserVehicleController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     Route::get('/user-vehicle/vehicle/{typeid}/{modelid}', 'UserVehicleController@vehicle');

@@ -2,7 +2,7 @@
 
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/user-vehicle/store', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/user-vehicle', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
@@ -14,9 +14,8 @@
                 </span>
             </div>
             <div class="pull-right">
-                {{--{!! Form::select('type_id', $type, old('type_id', Session::get('type_id') ), ['class' => 'form-control input-sm', 'id' => 'type_id']) !!}--}}
+                {!! Form::select('user_id', $users, old('user_id', Session::get('user_id') ), ['class' => 'form-control input-sm', 'id' => 'user_id']) !!}
                 {{--{!! Form::select('model_id', $model, old('model_id', Session::get('model_id') ), ['class' => 'form-control input-sm', 'id' => 'model_id']) !!}--}}
-                {{--{!! Form::select('brand_id', $brand, old('brand_id', Session::get('brand_id') ), ['class' => 'form-control input-sm', 'id' => 'brand_id']) !!}--}}
             </div>
 
         </div>
@@ -51,9 +50,9 @@
                             <td>{{ $row->vehicles->model->name }}</td>
                             <td>{{ isset($row->purchase_date)?date('Y-m-d', strtotime($row->purchase_date)):''}}</td>
                             <td>
-                                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-                                <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="{!! url(Request::segment(1).'/user-vehicle/'.$row->id.'/view') !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a href="{!! url(Request::segment(1).'/user-vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{!! route('user-vehicle.delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     @endforeach

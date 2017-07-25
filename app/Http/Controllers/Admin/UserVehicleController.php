@@ -62,17 +62,16 @@ class UserVehicleController extends Controller
 
         if ($request->isMethod('post')) {
             Session::put('search', $request->input('search'));
-            Session::put('type_id', $request->input('type_id'));
-            Session::put('model_id', $request->input('model_id'));
-            Session::put('brand_id', $request->input('brand_id'));
+           // Session::put('model_id', $request->input('model_id'));
+            Session::put('user_id', $request->input('user_id'));
         }
 
-        $type = $this->typeList(true);
         $model = $this->modelList(true);
-        $brand = $this->brandList(0,0);
-        //$users = $this->userList();
+        $users = $this->userList();
 
         $rows = UserVehicle::with('users')->
+        UserId(Session::get('user_id'))->
+       // ModelId(Session::get('model_id'))->
         orderBy('created_at', 'asc')->
         paginate(config('app.limit'));
 
@@ -134,9 +133,9 @@ class UserVehicleController extends Controller
         $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
         $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';*/
 
-        $type = $this->typeList(true);
+//        $type = $this->typeList(true);
         $model = $this->modelList(true);
-        $brand = $this->brandList(0,0);
+//        $brand = $this->brandList(0,0);
         $users = $this->userList();
 
         return view('admin.user_vehicle.create', compact('title', 'users', 'brand', 'model', 'type', 'js', 'css', 'extrajs') );
@@ -225,6 +224,104 @@ class UserVehicleController extends Controller
 
         return response()->json($brandlist);
     }
+
+
+    public function view($id){
+
+        $row = UserVehicle::findOrFail($id);
+
+        $title =  $row->vehicles->model->name ;
+
+        return view('admin.user_vehicle.view',compact('title', 'row'));
+    }
+
+
+    public function edit($id)
+    {
+        $title = 'Edit details';
+
+        $row = UserVehicle::findOrFail($id);
+
+        $model = $this->modelList(true);
+        $users = $this->userList();
+
+        return view('admin.user_vehicle.edit',compact('title', 'row','model','users'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+
+        $input = $request->all();
+
+
+        $model = UserVehicle::findOrFail($id);
+
+        $rules = [
+            'model_id'       => 'not_in:0',
+            'user_id'        => 'not_in:0',
+            'purchase_date'  => 'required',
+        ];
+
+        $messages = [
+            'model_id.required'       => 'Model is required!',
+            'user_id.required'        => 'User is required!',
+            'purchase_date.required'  => 'Purchase Date is required!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+
+            return redirect('admin/user-vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
+        }
+
+        $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
+
+        if($vehicle){
+
+            $user_vehicle =
+                [
+                    'user_id'        => $request->input('user_id'),
+                    'vehicle_id'     => $vehicle['id'],
+                    'purchase_date'  => $request->input('purchase_date'),
+                ];
+
+            $model->update($user_vehicle);
+
+            if ($model->id > 0) {
+                $message = 'Successfully added.';
+                $error = false;
+            } else {
+                $message = ' Adding fail.';
+                $error = true;
+            }
+        }else{
+            return redirect('admin/user-vehicle/'.$id.'/edit')->with(['message' => 'Not exists.Please try another vehicle model.']);
+        }
+        return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
+    }
+
+
+    public function delete($id)
+    {
+
+        $user = UserVehicle::findOrFail($id);
+
+        $user->delete();
+        $message =  ' Successfully deleted.';
+        $error = true ;
+
+        return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
+    }
+
+
 
 
     private function typeList($boolean = false)
