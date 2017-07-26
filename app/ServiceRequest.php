@@ -33,7 +33,8 @@ class ServiceRequest extends Model
 
     public function users()
     {
-        return $this->belongsTo('App\User', 'user_id')->select(array('id','name','created_at as user creation date','image'));
+        return $this->belongsTo('App\User', 'user_id');
+
     }
 
     public function scopeStatus($query, $status)
@@ -76,8 +77,12 @@ class ServiceRequest extends Model
         }
     }
 
+    /*public function packages(){
+        return $this->hasMany('App\ServicePackage','id')->select('name as package_name');
+    }*/
+
     public function packages(){
-        return $this->belongsTo('App\ServicePackage','id')->select('name as package_name');
+        return $this->belongsTo('App\ServicePackage','service_package_id');
     }
 
 }
