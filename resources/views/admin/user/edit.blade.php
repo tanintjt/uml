@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::model($row,['method' => 'PUT','url' => Request::segment(1).'/user/'.$row->id,'class' => 'form-horizontal', 'id' => 'admin-form' ]) !!}
+    {!! Form::model($row,['method' => 'PUT','route'=>['user-update',$row->id],'class' => 'form-horizontal', 'id' => 'admin-form' ]) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="glyphicon glyphicon-plus"></span>&nbsp;{!! $title !!}

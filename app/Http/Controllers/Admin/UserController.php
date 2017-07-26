@@ -9,7 +9,7 @@ use App\User;
 use DB;
 use Validator;
 use Session;
-
+use Auth;
 class UserController extends Controller
 {
 
@@ -20,6 +20,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
         $title = 'Users';
         $extrajs = "<script>
 		$(function() {
@@ -90,6 +91,9 @@ class UserController extends Controller
         $title = 'Add User';
         $roles = $this->roleList(true);
         $users = $this->userList(true);
+
+        //user list : except super admin/admin...
+        //$user_list = $this->userAnotherList(true);
 
         return view('admin.user.create', compact('title', 'roles','users') );
 
@@ -179,11 +183,14 @@ class UserController extends Controller
         $roles = $this->roleList(true);
         $users = $this->userList(true);
 
+        //user list : except super admin/admin...
+        $user_list = $this->userAnotherList(true);
+
         $userRoles = DB::table("role_user")
             ->where("user_id",$id)
             ->pluck('role_id')->toArray();
 
-        return view('admin.user.edit',compact('title', 'row', 'roles','users', 'userRoles'));
+        return view('admin.user.edit',compact('title', 'row', 'roles','users', 'userRoles','user_list'));
     }
 
     /**
@@ -271,7 +278,17 @@ class UserController extends Controller
      */
     private function roleList($boolean = false)
     {
-        $rows = Role::where('status', 1)->orderBy('id', 'ASC')->get();
+
+        $UserRoles = DB::table('roles')->join('role_user','role_id', '=', 'roles.id')
+            ->where('user_id', '=', Auth::user()->id)->first();
+
+        if($UserRoles->name == 'manager'){
+
+            $rows = Role::where('status', 1)->whereNotIn('name',['super-administrator','administrator'])->orderBy('id', 'ASC')->get();
+
+        }else{
+            $rows = Role::where('status', 1)->orderBy('id', 'ASC')->get();
+        }
 
         $rolelist[0] = ($boolean == true ? 'Select a role' : 'All role');
 
@@ -281,6 +298,7 @@ class UserController extends Controller
 
         return $rolelist;
     }
+
 
     private function userList($boolean = false)
     {

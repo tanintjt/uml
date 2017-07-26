@@ -90,17 +90,10 @@
                                 <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                                 <td>{{ $row->service_package->name}}</td>
                                 <td>{{ date("jS F, Y", strtotime($row->updated_at))}}</td>
-                                {{--<td>{{ $row->latitude}}</td>--}}
                                 <td>
-                                    {{'Shofiqul Haque'}}
+                                    <a href="{!! url(Request::segment(1).'/service-request/'.$row->id.'/edit') !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-edit"></span>
+                                    </a>
                                 </td>
-                                {{--<td>
-                                    <a href="{!! url(Request::segment(1).'/service-center/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                    <a href="{!! url(Request::segment(1).'/service-center/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-
-                                    <a href="{!! url(Request::segment(1).'/permission/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" role="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <a href="{!! route('service-center-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete Service Center" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete  ?"><span class="glyphicon glyphicon-trash"></span></a>
-                                </td>--}}
                             </tr>
                         @endforeach
                         </tbody>

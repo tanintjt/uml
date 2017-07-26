@@ -28,5 +28,8 @@ class ServicePackage extends Model
         }
     }
 
+    public function packages(){
+        return $this->belongsTo('App\ServiceRequest','service_package_id','id')->select('name as package_name');
+    }
 
 }

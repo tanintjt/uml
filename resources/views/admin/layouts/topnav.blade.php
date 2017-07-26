@@ -20,7 +20,7 @@
                 <li class="dropdown user user-menu">
                     <a href="{!! url(Request::segment(1).'/profile') !!}" class="dropdown-toggle" data-toggle="dropdown">
                         @if (isset(Auth::user()->image))
-                            <img src="{!! asset(Auth::user()->image) !!}" class="user-image" alt="User Image">
+                            <img src="{!! asset(Auth::user()->image) !!}" class="user-image" alt="">
                         @else
                             <img src="{!! asset('public/themes/default/img/avatar5.png') !!}" class="user-image" alt="User Image">
                         @endif

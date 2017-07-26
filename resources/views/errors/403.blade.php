@@ -16,8 +16,9 @@
                 $uri = 'admin';
             }
             ?>
-            <a href="{!! url('/') !!}" class="btn btn-primary"><span class="glyphicon glyphicon-home"></span>
-                Take Me Home </a><a href="{!! url('support') !!}" class="btn btn-default "><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+            <a href="{!!URL::previous() !!}" class="btn btn-primary"><span class="glyphicon glyphicon-home"></span>
+                Take Me Back </a>
+                {{--<a href="{!! url('support') !!}" class="btn btn-default "><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>--}}
         </div>
     </div>
     </div>

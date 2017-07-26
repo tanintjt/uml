@@ -76,5 +76,8 @@ class ServiceRequest extends Model
         }
     }
 
+    public function packages(){
+        return $this->belongsTo('App\ServicePackage','id')->select('name as package_name');
+    }
 
 }

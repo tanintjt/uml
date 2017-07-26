@@ -55,6 +55,7 @@
                                 <a href="{!!route('vehicle-image',$row->id)  !!}" data-toggle="modal" data-target="#image">
                                     <img src="{!! asset(isset($row->vehicle_image)?$row->vehicle_image:'') !!}" width="60px" height="50px" style="margin-left: 26%">
                                 </a>
+
                                 @else
                                     <img src="{{ URL::to('/img/default.jpg') }}" width="80px" height="80px">
                                 @endif
@@ -64,7 +65,7 @@
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                 <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
-                                <a href="{!! route('vehicle-colors',$row->id) !!}" class="btn btn-xs btn-default">colors</a>
+                                <a href="{!! route('vehicle-colors',$row->id) !!}" class="btn btn-xs btn-info" title="available colors">Colors</a>
                             </td>
                         </tr>
                     @endforeach

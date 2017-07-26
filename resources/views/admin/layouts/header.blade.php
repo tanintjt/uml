@@ -26,6 +26,7 @@
     <!-- Color picker -->
     {{--<link href="{!! asset('public/themes/default/plugins/colorpicker/bootstrap-colorpicker.css') !!}" rel="stylesheet">--}}
     {{--<link href="{!! asset('public/themes/default/plugins/colorpicker/bootstrap-colorpicker.min.css') !!}" rel="stylesheet">--}}
+    <link href="{!! asset('public/themes/default/css/custom.css') !!}" rel="stylesheet">
 
     @if(isset($css))
         {!!  $css !!}

@@ -35,18 +35,18 @@
                                 @endif
                             </td>
                         </tr>
-                        <tr>
+                       {{-- <tr>
                             <th class="active">Client</th>
-                            {{--<td>{!! $row->dealers->clients->name !!}</td>--}}
-                        </tr>
-                        <tr>
+                            --}}{{--<td>{!! $row->dealers->clients->name !!}</td>--}}{{--
+                        </tr>--}}
+                        {{--<tr>
                             <th class="active">Dealer</th>
-                            {{--<td>{!! $row->dealers->name !!}</td>--}}
-                        </tr>
-                        <tr>
+                            --}}{{--<td>{!! $row->dealers->name !!}</td>--}}{{--
+                        </tr>--}}
+                        {{--<tr>
                             <th class="active">API Key</th>
                             <td>{!! $row->api_token !!}</td>
-                        </tr>
+                        </tr>--}}
                         <tr>
                             <th class="active">Status</th>
                             <td>{!! $row->status == 1 ? '<span class="label label-primary">Active</span>':'<span class="label label-danger">Inactive</span>' !!}</td>

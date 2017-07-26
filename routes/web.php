@@ -48,15 +48,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'], function()
 {
-
     /* Permission */
-    //Route::resource('/permission', 'PermissionController', ['middleware' => ['role:super-administrator|manager']]);
-    /*Route::get('/permission', [
-        'as' => 'admin.permission.index', 'uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator']
-    ]);*/
-
-    //Route::resource('/permission',  'PermissionController',['middleware' => ['role:super-administrator|administrator|manager']]);
-
 
     Route::get('/permission',
         ['as' => 'admin.permission.index', 'uses' => 'PermissionController@index', 'middleware' => ['role:super-administrator|administrator|manager']
@@ -84,27 +76,57 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
 
     /*Role*/
-    Route::resource('/role', 'RoleController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::get('/role',
+        ['as' => 'admin.role.index', 'uses' => 'RoleController@index', 'middleware' => ['role:super-administrator|administrator|manager']
+        ]);
 
-    Route::match(['get', 'post'], 'role', ['uses' => 'RoleController@index', 'middleware' => ['role:super-administrator']]);
+    Route::get('/role/create',
+        ['as'=>'role-create','uses' => 'RoleController@create', 'middleware' => ['role:super-administrator']]);
 
-    Route::post('/role/store', ['as' => 'user-role','uses' => 'RoleController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/role/store',
+        ['as' => 'role-store','uses' => 'RoleController@store', 'middleware' => ['role:super-administrator']]);
+
+    Route::get('/role/{id}', [
+        'as' => 'admin.role.show', 'uses' => 'RoleController@show', 'middleware' => ['role:super-administrator|administrator|manager']
+    ]);
+
+    Route::get('/role/{id}/edit', [ 'as' => 'role-edit', 'uses' => 'RoleController@edit', 'middleware' => ['role:super-administrator']]);
+
+    Route::put('/role/{id}/update', [ 'as' => 'role-update', 'uses' => 'RoleController@update', 'middleware' => ['role:super-administrator']]);
+
 
     Route::any('/role/delete/{id}', [ 'as' => 'role-delete', 'uses' => 'RoleController@delete', 'middleware' => ['role:super-administrator']]);
 
+    Route::match(['get', 'post'], 'role', ['uses' => 'RoleController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+
+
 
     /*User*/
-    Route::resource('/user', 'UserController', [ 'except' => ['index'] , 'middleware' => ['role:super-administrator']]);
+    //Route::resource('/user', 'UserController', [ 'except' => ['index'] , 'middleware' => ['role:super-administrator']]);
 
-    Route::match(['get', 'post'], 'user', ['uses' => 'UserController@index', 'middleware' => ['role:super-administrator']]);
+    Route::get('/user',
+        ['as' => 'admin.user.index', 'uses' => 'UserController@index', 'middleware' => ['role:super-administrator|administrator|manager']
+        ]);
+
+    Route::get('/user/create',
+        ['as'=>'user-create','uses' => 'UserController@create', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::post('/user/store',
+        ['as' => 'user-store','uses' => 'UserController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::get('/user/{id}', [
+        'as' => 'admin.user.show', 'uses' => 'UserController@show', 'middleware' => ['role:super-administrator|administrator|manager']
+    ]);
+
+    Route::get('/user/{id}/edit', [ 'as' => 'user-edit', 'uses' => 'UserController@edit', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::put('/user/{id}/update', [ 'as' => 'user-update', 'uses' => 'UserController@update', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
-    //Route::get('/user/create', ['as'=>'user-create','uses' => 'UserController@create', 'middleware' => ['role:super-administrator']]);
+    Route::any('/user/delete/{id}', [ 'as' => 'user-delete', 'uses' => 'UserController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('user/store', ['uses' => 'UserController@store', 'middleware' => ['role:super-administrator']]);
-
-
-    Route::any('/user/delete/{id}', [ 'as' => 'user-delete', 'uses' => 'UserController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'user', ['uses' => 'UserController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
 
@@ -300,6 +322,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
 
     Route::get('/user-vehicle/vehicle/{typeid}/{modelid}', 'UserVehicleController@vehicle');
+
+
 });
 
 

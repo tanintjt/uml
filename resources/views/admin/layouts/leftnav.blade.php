@@ -4,7 +4,7 @@
     <section class="sidebar">
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
+            {{--<li class="header">MAIN NAVIGATION</li>--}}
             <li{!!  in_array(Request::segment(2), ['dashboard']) ? ' class="active"': '' !!}>
                 <a href="{!! url(Request::segment(1).'/dashboard') !!}">
                     {{--<i class="fa fa-dashboard"></i> <span>Dashboard</span>--}}
