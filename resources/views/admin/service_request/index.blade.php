@@ -90,9 +90,12 @@
                                 <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                                 <td>{{ $row->service_package->name}}</td>
                                 <td>{{ date("jS F, Y", strtotime($row->updated_at))}}</td>
-                                <td>
+                                {{--<td>
                                     <a href="{!! url(Request::segment(1).'/service-request/'.$row->id.'/edit') !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-edit"></span>
                                     </a>
+                                </td>--}}
+                                <td>
+                                    {{'Shofiqul Haque'}}
                                 </td>
                             </tr>
                         @endforeach

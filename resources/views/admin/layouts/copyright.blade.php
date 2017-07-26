@@ -1,7 +1,9 @@
 <footer class="main-footer">
-    {{--<div class="pull-right hidden-xs">
-        <strong><a href="http://www.uttaramotorsltd.com/">UTTARA MOTORS</a></strong>
-    </div>--}}
-    <strong>Powered By <a href="http://shebatech.com.bd">Sheba Tech</a>.</strong>
+    <div class="pull-right">
+        <b style="margin-right: 3px">Powered By <a href="http://shebatech.com.bd"></a></b>
+        {{--<br>--}}
+            <img src="{!! asset('public/themes/default/img/STL_Logo.png') !!}"style="width:12%;margin-left:80%">
+    </div>
+    <p>&nbsp;</p>
 
 </footer>

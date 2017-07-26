@@ -3,9 +3,11 @@
 @section('content')
 
     <div class="login-box">
+        <img src="{!! asset('public/themes/default/img/UML-Color-03-04.svg') !!}" style="margin-left: 10%">
         <div class="login-logo">
             <a href="{{ url('/') }}"><b>{!! config('app.name') !!}</b></a>
         </div>
+
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
@@ -29,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" style="background-color:#f05283;border-color:#f05283 ">Sign In</button>
                     </div>
                 </div>
             {!! Form::close() !!}

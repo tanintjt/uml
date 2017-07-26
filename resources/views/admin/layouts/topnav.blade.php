@@ -1,11 +1,15 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{!! url(Request::segment(1).'/service-center') !!}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>U</b>M</span>
+        <span class="logo-mini"><img src="{!! asset('public/themes/default/img/UML-Icon-02.svg') !!}" style="width:90%"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>UTTARA</b> Motors</span>
+        {{--<span class="logo-lg"><b>UTTARA</b> Motors</span>--}}
+        <span class="logo-lg">
+            <img src="{!! asset('public/themes/default/img/UML-White-03.svg') !!}" style="width:100%;margin-left:-4%">
+        </span>
     </a>
+
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->

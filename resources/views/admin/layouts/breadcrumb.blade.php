@@ -2,7 +2,7 @@
 <section class="content-header">
     <h1>{!! isset($title)?$title:'' !!}</h1>
     <ol class="breadcrumb">
-        <li><a href="{!! url(Request::segment(1).'/dashboard') !!}"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-home"></i> Home</a></li>
     @if( !empty( Request::segment(4) ) )
         <li><a href="{!! url(Request::segment(1). '/' .Request::segment(2)) !!}">{!! title_case(Request::segment(2))!!}</a></li>
         <li class="active">{!! title_case(Request::segment(4) . ' ' . Request::segment(2))!!}</li>
