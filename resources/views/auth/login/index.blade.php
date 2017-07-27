@@ -36,8 +36,8 @@
             {!! Form::close() !!}
         </div>
 
-        <div>
-            <img src="{!! asset('public/themes/default/img/UML-Color-03-04.svg') !!}" style="margin-left: 10%">
+        <div class="text-center">
+            <img src="{!! asset('public/themes/default/img/UML-Color-03-04.svg') !!}"style="width:52%">
         </div>
     </div>
 

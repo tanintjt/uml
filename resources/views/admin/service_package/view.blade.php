@@ -17,7 +17,11 @@
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
-                        <th width="20%" class="active">Name</th>
+                        <th width="20%" class="active">Category Name</th>
+                        <td>{!!isset($row->service_package_type->name)?$row->service_package_type->name:'' !!}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%" class="active">Package Name</th>
                         <td>{!! $row->name !!}</td>
                     </tr>
                     <tr>

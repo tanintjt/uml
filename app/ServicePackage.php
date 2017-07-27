@@ -17,9 +17,17 @@ class ServicePackage extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'details', 'package_rate',
+        'name', 'details', 'package_rate','package_type_id'
     ];
 
+
+
+    public function scopePackageTypeId($query, $typeid)
+    {
+        if( $typeid > 0 ) {
+            return $query->where('service_package.package_type_id', $typeid);
+        }
+    }
 
     public function scopeSearch($query, $name)
     {
@@ -32,4 +40,7 @@ class ServicePackage extends Model
         return $this->belongsTo('App\ServiceRequest','service_package_id','id')->select('name as package_name');
     }
 
+    public function service_package_type(){
+        return $this->belongsTo('App\ServicePackageType','package_type_id', 'id');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\ServicePackage;
+use App\ServicePackageType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -54,23 +55,28 @@ class ServicePackageController extends Controller
 		</script>";
 
         if ($request->isMethod('post')) {
-            // Session::put('status', $request->input('status'));
+            Session::put('package_type_id', $request->input('package_type_id'));
             Session::put('search', $request->input('search'));
         }
 
-        $rows = ServicePackage::Search(Session::get('search'))->
-        // Status(Session::get('status'))->
-        orderBy('id', 'asc')->
-        paginate(config('app.limit'));
+        $rows = ServicePackage::with('service_package_type')->
+            Search(Session::get('search'))->
+            PackageTypeId(Session::get('package_type_id'))->
+            orderBy('id', 'asc')->
+            paginate(config('app.limit'));
 
-        return view('admin/service_package/index', compact('rows', 'title', 'extrajs'));
+        $package_type_id = $this->ServicePackageTypeList();
+
+        return view('admin/service_package/index', compact('rows', 'title','package_type_id', 'extrajs'));
     }
 
 
     public function create()
     {
         $title = 'Add Service Package';
-        return view('admin.service_package.create', compact('title') );
+        $package_type_id = $this->ServicePackageTypeList();
+
+        return view('admin.service_package.create', compact('title','package_type_id') );
     }
 
 
@@ -80,14 +86,16 @@ class ServicePackageController extends Controller
         $input = $request->all();
 
         $rules = [
+            'package_type_id'   => 'not_in:0',
             'name' => 'required',
-            'details' => 'required',
+//            'details' => 'required',
             'package_rate' => 'required',
         ];
 
         $messages = [
-            'name.required' => ' Latitude is required!',
-            'details.required' => ' Longitude is required!',
+            'package_type_id.not_in'    => 'Type is required!',
+            'name.required' => ' Name is required!',
+//            'details.required' => ' Details is required!',
             'package_rate.required' => ' Phone is required!',
         ];
 
@@ -116,7 +124,10 @@ class ServicePackageController extends Controller
     {
         $row = ServicePackage::findOrFail($id);
         $title = 'Edit details';
-        return view('admin.service_package.edit',compact('title', 'row'));
+
+        $package_type_id = $this->ServicePackageTypeList();
+
+        return view('admin.service_package.edit',compact('title', 'row','package_type_id'));
     }
 
     /**
@@ -133,14 +144,16 @@ class ServicePackageController extends Controller
         $model = ServicePackage::findOrFail($id);
 
         $rules = [
+            'package_type_id'   => 'not_in:0',
             'name' => 'required',
             'details' => 'required',
             'package_rate' => 'required',
         ];
 
         $messages = [
-            'name.required' => ' Latitude is required!',
-            'details.required' => ' Longitude is required!',
+            'package_type_id.not_in'    => 'Type is required!',
+            'name.required' => ' Name is required!',
+//            'details.required' => ' Details is required!',
             'package_rate.required' => ' Phone is required!',
         ];
 
@@ -188,5 +201,18 @@ class ServicePackageController extends Controller
 
         return redirect()->back()->with(['message' => $message, 'error' => $error]);
 
+    }
+
+    private function ServicePackageTypeList($boolean = false)
+    {
+        $rows = ServicePackageType::orderBy('id', 'ASC')->get();
+
+        $sp_cat_list[0] = ($boolean == true ? 'Select a Category' : 'All Category');
+
+        foreach($rows as $row):
+            $sp_cat_list[$row->id] = $row->name;
+        endforeach;
+
+        return $sp_cat_list;
     }
 }

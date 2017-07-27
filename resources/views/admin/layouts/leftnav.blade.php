@@ -34,6 +34,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li{!!  in_array(Request::segment(2), ['service-center']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
+                    <li{!!  in_array(Request::segment(2), ['service-package-type']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-package-type') !!}"><i class="fa fa-gg"></i> <span>Service Package Type</span></a></li>
                     <li{!!  in_array(Request::segment(2), ['service-package']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
                     <li{!!  in_array(Request::segment(2), ['service-request']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-request') !!}"><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
                     <li{!!  in_array(Request::segment(2), ['service-history']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>

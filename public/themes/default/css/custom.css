@@ -26,6 +26,20 @@
     border-color: #f05283;
 }
 
+.btn-success:active:hover,
+.btn-success.active:hover,
+.open > .dropdown-toggle.btn-success:hover,
+.btn-success:active:focus,
+.btn-success.active:focus,
+.open > .dropdown-toggle.btn-success:focus,
+.btn-success:active.focus,
+.btn-success.active.focus,
+.open > .dropdown-toggle.btn-success.focus {
+    color: #fff;
+    background-color: #f05283;
+    border-color: #f05283;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #f05283;
@@ -45,6 +59,20 @@
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #f05283;
+    border-color: #f05283;
+}
+
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
     color: #fff;
     background-color: #f05283;
     border-color: #f05283;
@@ -70,10 +98,22 @@
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
     color: #fff;
-    background-color: #F288A4;
-    border-color: #F288A4;
+    background-color: #f05283;
+    border-color: #f05283;
 }
-
+.btn-info:active:hover,
+.btn-info.active:hover,
+.open > .dropdown-toggle.btn-info:hover,
+.btn-info:active:focus,
+.btn-info.active:focus,
+.open > .dropdown-toggle.btn-info:focus,
+.btn-info:active.focus,
+.btn-info.active.focus,
+.open > .dropdown-toggle.btn-info.focus {
+    color: #fff;
+    background-color: #f05283;
+    border-color: #f05283;
+}
 
 .skin-blue .sidebar-menu > li > a {
     border-left: 3px solid transparent;
@@ -162,7 +202,13 @@ a:hover {
 
 /*login page*/
 
-
+.login-box-body, .register-box-body {
+    background: #fff;
+    padding: 19px;
+    border-top: 0;
+    color: #666;
+    width: 430px !important;
+}
 .bg {
 
     /* IE10+ */
@@ -187,6 +233,13 @@ a:hover {
 .auth-main-footer {
     padding:29% 39%;
     position: fixed;
+    width: 397px;
+    margin: 7% auto;
+}
+
+.login-box, .register-box {
+    width: 405px;
+    margin: 7% auto;
 }
 
 .bg-green, .callout.callout-success, .alert-success, .label-success, .modal-success .modal-body {
@@ -197,13 +250,49 @@ a:hover {
     border-color: #F288A4;
 }
 .bg-red-active, .modal-danger .modal-header, .modal-danger .modal-footer {
-     background-color:#ecf0f5!important;
+    background-color:#F288A4!important;
 }
+
+.bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
+    background-color:#F288A4 !important;
+}
+.btn-danger:hover {
+    color: #fff;
+    background-color: #F288A4;
+    border-color: #F288A4;
+}
+.btn-danger:active,
+.btn-danger.active,
+.open > .dropdown-toggle.btn-danger {
+    color: #fff;
+    background-color: #F288A4;
+    border-color: #F288A4;
+}
+
+.btn-danger:active:hover,
+.btn-danger.active:hover,
+.open > .dropdown-toggle.btn-danger:hover,
+.btn-danger:active:focus,
+.btn-danger.active:focus,
+.open > .dropdown-toggle.btn-danger:focus,
+.btn-danger:active.focus,
+.btn-danger.active.focus,
+.open > .dropdown-toggle.btn-danger.focus {
+    color: #fff;
+    background-color: #F288A4;
+    border-color: #F288A4;
+}
+
+
 body {
     font-family:"Roboto";
     font-weight: 400;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.bg-light-blue, .label-primary, .modal-primary .modal-body {
+    background-color: #F288A4 !important;
 }
 
 

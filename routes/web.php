@@ -152,6 +152,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::any('/service-package/delete/{id}', [ 'as' => 'service-package-delete', 'uses' => 'ServicePackageController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
+    /*service-package-type*/
+    Route::resource('/service-package-type',  'ServicePackageTypeController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::match(['get', 'post'], 'service-package-type', ['uses' => 'ServicePackageTypeController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::post('/service-package-type/store', ['as' => 'service-package-type-store','uses' => 'ServicePackageTypeController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::any('/service-package-type/delete/{id}', [ 'as' => 'service-package-type-delete', 'uses' => 'ServicePackageTypeController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+
+
     /*vehicle-type*/
     Route::resource('/vehicle-type',  'VehicleTypeController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
