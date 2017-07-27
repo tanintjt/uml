@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="login-box">
-        <img src="{!! asset('public/themes/default/img/UML-Color-03-04.svg') !!}" style="margin-left: 10%">
         <div class="login-logo">
             <a href="{{ url('/') }}"><b>{!! config('app.name') !!}</b></a>
         </div>
@@ -35,8 +34,10 @@
                     </div>
                 </div>
             {!! Form::close() !!}
+        </div>
 
-
+        <div style="margin-top:7%">
+            <img src="{!! asset('public/themes/default/img/UML-Color-03-04.svg') !!}" style="margin-left: 10%">
         </div>
     </div>
 
