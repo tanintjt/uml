@@ -183,9 +183,6 @@ class UserController extends Controller
         $roles = $this->roleList(true);
         $users = $this->userList(true);
 
-        //user list : except super admin/admin...
-        $user_list = $this->userAnotherList(true);
-
         $userRoles = DB::table("role_user")
             ->where("user_id",$id)
             ->pluck('role_id')->toArray();

@@ -36,7 +36,7 @@
             {!! Form::close() !!}
         </div>
 
-        <div style="margin-top:7%">
+        <div>
             <img src="{!! asset('public/themes/default/img/UML-Color-03-04.svg') !!}" style="margin-left: 10%">
         </div>
     </div>
