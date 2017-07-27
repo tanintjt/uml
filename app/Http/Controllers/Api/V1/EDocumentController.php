@@ -24,11 +24,13 @@ class EDocumentController extends Controller
             ->get();
 
         return response()->json($rows, 200);*/
-
+        //DB::enableQueryLog();
+        //return $request->user()->id;
         $rows = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
             ->EDoc($request->input('type'))
             ->where('user_id',$request->user()->id)
-            ->select('e_documents.id','e_documents.issue_date','e_documents.expiry_date','e_documents.file','e_doc_type.name')
+            ->select('e_documents.id','e_documents.issue_date',
+                'e_documents.expiry_date','e_documents.file','e_doc_type.name')
             ->get();
 
         $result = [];

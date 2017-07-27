@@ -16,8 +16,8 @@ class EDocument extends Model
 
     public function scopeEDoc($query, $type)
     {
-        if( trim($type) != '' ) {
-            return $query->where('e_doc_type.name', 'LIKE', '%' . trim($type) . '%');
+        if( $type > 0 ) {
+            return $query->where('doc_type_id', $type);
         }
 
     }

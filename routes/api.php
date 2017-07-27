@@ -107,6 +107,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     /*E Document*/
 
     Route::get('/docs', [ 'as' => 'docs', 'uses' => 'EDocumentController@index']);
+
     Route::post('/docs-store', [ 'as' => 'docs-store', 'uses' => 'EDocumentController@findOrCreateDocument']);
 
 
