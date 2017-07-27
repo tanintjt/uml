@@ -43,4 +43,11 @@ class ServicePackage extends Model
     public function service_package_type(){
         return $this->belongsTo('App\ServicePackageType','package_type_id', 'id');
     }
+
+    public function scopeSP($query, $spid)
+    {
+        if( $spid > 0 ) {
+            return $query->where('service_package.package_type_id',$spid);
+        }
+    }
 }

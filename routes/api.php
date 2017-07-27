@@ -36,7 +36,10 @@ Route::post('/api/password/email', 'Api\V1\ForgotPasswordController@sendResetLin
 /*brand*/
 Route::get('api/brand', [ 'as' => 'brand', 'uses' => 'Api\V1\BrandController@index']);
 
-Route::get('api/service-package', [ 'as' => 'service-package', 'uses' => 'Api\V1\ServicePackageController@index']);
+/*service package*/
+Route::get('api/service-package-type', [ 'as' => 'service-package-type', 'uses' => 'Api\V1\ServicePackageTypeController@index']);
+
+Route::post('api/service-package', [ 'as' => 'service-package', 'uses' => 'Api\V1\ServicePackageController@index']);
 
 Route::get('api/faqs', [ 'as' => 'service-request', 'uses' => 'Api\V1\FaqController@index']);
 //Route::post('/faq-store', [ 'as' => 'service-request', 'uses' => 'FaqController@store']);
