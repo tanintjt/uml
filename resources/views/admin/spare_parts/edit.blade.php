@@ -10,31 +10,7 @@
         <div class="panel-body">
 
             <div class="col-xs-7">
-                <div class="form-group{{ $errors->has('sp_cat_id') ? ' has-error' : '' }}">
-                    {!! Form::label('sp_cat_id', 'Spare Parts Category :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::select('sp_cat_id', $sp_cat_list, old('sp_cat_id'), ['class' => 'form-control', 'id' => 'sp_cat_id']) !!}
-                        @if ($errors->has('sp_cat_id'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('sp_cat_id') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
 
-                <div class="form-group{{ $errors->has('part_id') ? ' has-error' : '' }}">
-                    {!! Form::label('part_id', 'Part ID :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('part_id', old('part_id'), ['class' => 'form-control', 'id' => 'part id']) !!}
-                        @if ($errors->has('part_id'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('part_id') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-5">
 
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                     {!! Form::label('name', 'Name :', ['class' => 'col-xs-3 control-label']) !!}
@@ -47,6 +23,34 @@
                         @endif
                     </div>
                 </div>
+                {{--<div class="form-group{{ $errors->has('sp_cat_id') ? ' has-error' : '' }}">
+                    {!! Form::label('sp_cat_id', 'Spare Parts Category :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::select('sp_cat_id', $sp_cat_list, old('sp_cat_id'), ['class' => 'form-control', 'id' => 'sp_cat_id']) !!}
+                        @if ($errors->has('sp_cat_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('sp_cat_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>--}}
+
+                <div class="form-group{{ $errors->has('part_id') ? ' has-error' : '' }}">
+                    {!! Form::label('part_id', 'Part ID :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('part_id', old('part_id'), ['class' => 'form-control', 'id' => 'part id']) !!}
+                        @if ($errors->has('part_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('part_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-5">
+
+
 
                 <div class="form-group{{ $errors->has('rate') ? ' has-error' : '' }}">
                     {!! Form::label('rate', 'Rate :', ['class' => 'col-xs-3 control-label']) !!}
@@ -59,6 +63,19 @@
                         @endif
                     </div>
                 </div>
+
+                <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
+                    {!! Form::label('file', 'Image:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-3">
+                        {!! Form::file('file',['required','multiple'=>true]) !!}
+                        @if ($errors->has('file'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('file') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">
