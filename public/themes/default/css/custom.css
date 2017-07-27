@@ -2,6 +2,7 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+/*html,body{height:100%}*/
 .box.box-primary {
     border-top-color: #f05283;
 }
