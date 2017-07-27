@@ -39,7 +39,7 @@ class EDocumentController extends Controller
 
             $result[$i]['id'] = $rows[$i]->id;
             $result[$i]['name'] = $rows[$i]->name;
-            $result[$i]['file'] = asset($rows[$i]->file);
+            $result[$i]['file'] = $rows[$i]->file;
             $result[$i]['issue_date'] = date("jS F, Y", strtotime($rows[$i]->issue_date));
             $result[$i]['expiry_date'] = date("jS F, Y", strtotime($rows[$i]->expiry_date));
         }
