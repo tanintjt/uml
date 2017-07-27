@@ -1,5 +1,3 @@
 <footer class="auth-main-footer">
-{{--<div>--}}
-    <b>Powered By SHEBA TECHNOLOGIES LTD</b>
-{{--</div>--}}
+    <p class="text-center">Powered By SHEBA TECHNOLOGIES LTD</p>
 </footer>

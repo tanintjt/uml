@@ -17,7 +17,7 @@
     <link href="{!! asset('public/themes/default/plugins/iCheck/square/blue.css') !!}" rel="stylesheet">
 
 {{--custom--}}
-    <link href="{!! asset('public/themes/default/css/custom.css') !!}" rel="stylesheet">
+    <link href="{!! asset('public/themes/default/css/login.css') !!}" rel="stylesheet">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

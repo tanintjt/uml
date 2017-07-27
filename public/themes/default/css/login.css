@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.bg {
+
+    /* IE10+ */
+    background-image: -ms-linear-gradient(right, #ffbb5b 0%, #ffa1d6 100%);
+
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(right, #ffbb5b 0%, #ffa1d6 100%);
+
+    /* Opera */
+    background-image: -o-linear-gradient(right, #ffbb5b 0%, #ffa1d6 100%);
+
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, right top, left top, color-stop(0, #ffbb5b), color-stop(100, #ffa1d6));
+
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(right, #ffbb5b 0%, #ffa1d6 100%);
+
+    /* W3C Markup */
+    background-image: linear-gradient(to left, #ffbb5b 0%, #ffa1d6 100%);
+}
+
+.auth-main-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+
+
