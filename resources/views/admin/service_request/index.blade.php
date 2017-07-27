@@ -13,7 +13,7 @@
                 </span>
             </div>
             <div class="pull-right">
-                {!! Form::select('status', ['0' => 'All Status', '1' => 'Pending','2' => 'Accept','3'=>'Reject','4'=>'Rescheduled'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
+                {!! Form::select('status', ['0' => 'All Status', '1' => 'Pending','2' => 'Accept','3'=>'Reject','4'=>'Rescheduled','5'=>'Done'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
             </div>
 
         </div>

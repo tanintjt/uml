@@ -71,7 +71,7 @@ class ServiceRequestController extends Controller
          orderBy('id', 'asc')->paginate(config('app.limit'));
 
 
-        return view('admin/service_request/index', compact('rows', 'title', 'extrajs'));
+		return view('admin/service_request/index', compact('rows', 'title', 'extrajs'));
     }
 
 

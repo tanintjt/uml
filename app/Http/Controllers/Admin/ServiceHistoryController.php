@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\ServiceRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Session;
 class ServiceHistoryController extends Controller
 {
     public function index(Request $request){
@@ -49,10 +50,14 @@ class ServiceHistoryController extends Controller
 
 		</script>";
 
-        if ($request->isMethod('post')) {
-            // Session::put('status', $request->input('status'));
-            Session::put('search', $request->input('search'));
-        }
+		if ($request->isMethod('post')) {
+			Session::put('status', $request->input('status'));
+			Session::put('search', $request->input('search'));
+		}
+
+		$rows = ServiceRequest::Search(Session::get('search'))->
+		Status(Session::get('status'))->
+		orderBy('id', 'asc')->paginate(config('app.limit'));
 
 
         return view('admin/service_history/index', compact('rows', 'title', 'extrajs'));

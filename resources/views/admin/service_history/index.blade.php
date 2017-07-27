@@ -13,7 +13,7 @@
                 </span>
             </div>
             <div class="pull-right">
-                {!! Form::select('status', ['0' => 'All Status', '1' => 'Active','2' => 'Inactive'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
+                {!! Form::select('status', ['0' => 'All Status', '1' => 'Pending','2' => 'Accept','3'=>'Reject','4'=>'Rescheduled','5'=>'Done'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
             </div>
 
         </div>
@@ -26,38 +26,46 @@
                 </div>
             @endif
             <div class="table-responsive">
+                <p><strong> Requested Services :</strong></p>
                 <table class="table table-bordered">
                     <thead>
                     <tr class="active">
                         <th width="5%">#</th>
+                        <th width="10%">Customer Name</th>
                         <th width="10%">Service</th>
-                        <th width="8%">Vehicle Details</th>
-                        <th width="5%">Date</th>
-                        <th width="5%">Time</th>
+                        <th width="8%">Requested Date</th>
+                        <th width="8%">Requested Time</th>
+                        {{--<th width="5%">Servicing Date</th>--}}
+                        {{--<th width="5%">Time</th>--}}
                         <th width="10%">Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
-                    {{--@foreach ($rows as $row)
+                    @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td>{{ $row->address}}</td>
-                            <td>{{ $row->phone}}</td>
-                            <td>{{ $row->latitude}}</td>
-                            <td>{{ $row->longitude}}</td>
-                            --}}{{--<td class="text-center">
-                                <span class="glyphicon glyphicon-{{ $row->status == 1 ? 'ok text-primary':'remove text-danger' }}" aria-hidden="true"></span>
-                            </td>--}}{{--
+                            <td>{{ ucfirst($row->users->name)}}</td>
+                            <td>{{ $row->service_package->name}}</td>
+                            <td>{{ date("jS F, Y", strtotime($row->request_date))}}</td>
+                            <td>{{ $row->request_time}}</td>
                             <td>
-                                --}}{{--<a href="{!! url(Request::segment(1).'/service-center/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>--}}{{--
-                                --}}{{--<a href="{!! url(Request::segment(1).'/service-center/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>--}}{{--
-
-                                --}}{{--<a href="{!! url(Request::segment(1).'/permission/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" role="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>--}}{{--
-                                --}}{{--<a href="{!! route('service-center-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete Service Center" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete  ?"><span class="glyphicon glyphicon-trash"></span></a>--}}{{--
+                                {{--<a href="{!! url(Request::segment(1).'/service-request/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span>--}}
+                                    @if($row->status==1)
+                                        {{'Pending'}}
+                                    @elseif($row->status==2)
+                                        {{ 'Accept'}}
+                                    @elseif($row->status==3)
+                                        {{'Reject'}}
+                                    @elseif($row->status==4)
+                                        {{'Rescheduled'}}
+                                    @else
+                                        {{'Done'}}
+                                    @endif
+                                {{--</a>--}}
                             </td>
                         </tr>
-                    @endforeach--}}
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -86,5 +94,6 @@
             </div>
         </div>
     </div>
+
 @endsection
 
