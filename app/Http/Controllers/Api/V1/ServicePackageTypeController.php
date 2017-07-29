@@ -12,7 +12,13 @@ class ServicePackageTypeController extends Controller
     public function index(Request $request)
     {
         $rows = ServicePackageType::get();
+        $data = [];
+        for($i = 0; $i < count($rows); $i++) {
+            $data[$i]['id'] = $rows[$i]->id;
+            $data[$i]['name'] = $rows[$i]->name;
+            $data[$i]['packages'] = $rows[$i]->packages;
+        }
 
-        return response()->json($rows, 200);
+        return response()->json($data, 200);
     }
 }

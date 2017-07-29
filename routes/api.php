@@ -37,7 +37,8 @@ Route::post('/api/password/email', 'Api\V1\ForgotPasswordController@sendResetLin
 Route::get('api/brand', [ 'as' => 'brand', 'uses' => 'Api\V1\BrandController@index']);
 
 /*service package*/
-Route::get('api/service-package-type', [ 'as' => 'service-package-type', 'uses' => 'Api\V1\ServicePackageTypeController@index']);
+Route::get('api/service-package-type', [ 'as' => 'service-package-type',
+    'uses' => 'Api\V1\ServicePackageTypeController@index']);
 
 Route::post('api/service-package', [ 'as' => 'service-package', 'uses' => 'Api\V1\ServicePackageController@index']);
 

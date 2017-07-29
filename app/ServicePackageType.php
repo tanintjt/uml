@@ -27,4 +27,12 @@ class ServicePackageType extends Model
         }
     }
 
+    /**
+     * Get the packages.
+     */
+    public function packages()
+    {
+        return $this->hasMany('App\ServicePackage','package_type_id')->select('id', 'name');
+    }
+
 }
