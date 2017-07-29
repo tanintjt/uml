@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="login-logo">
-        <a href="http://localhost/uml"><b>Uttara Motors</b></a>
+        <a href="{{ url('/') }}"><b>{!! config('app.name') !!}</b></a>
     </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

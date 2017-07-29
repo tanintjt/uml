@@ -33,6 +33,8 @@ Route::group(['namespace' => 'Auth'], function()
     Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'ResetPasswordController@reset');
 
+    //Route::get('/activate/{token}', 'ActivateController@activate')->name('auth.activation');
+
     //Route::get('register', 'RegisterController@showRegistrationForm');
     //Route::post('register', 'RegisterController@register');
 
