@@ -106,9 +106,6 @@ class LoginController extends Controller
     /*---------------Basic authentication : end --------------*/
 
 
-
-
-
     /*-----------------Social authentication----------------*/
 
     public function provider(Request $request)
@@ -157,6 +154,7 @@ class LoginController extends Controller
             $newUser = User::create([
                 'name'          =>    $request['name'],
                 'email'         =>    $request['email'],
+                'password'      =>    bcrypt($request['uid']),
                 'provider'      =>    $request['provider'],
                 'provider_id'   =>    $request['provider_id'],
                 //'device_id'   =>    $request['provider_id'],

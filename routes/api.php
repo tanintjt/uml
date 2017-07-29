@@ -70,9 +70,6 @@ Route::get('api/service-center', [ 'as' => 'service-center', 'uses' => 'Api\V1\S
 Route::post('api/min-distance',[ 'as' => 'min-distance', 'uses' => 'Api\V1\ServiceCenterController@distanceCalculation']);
 
 
-
-
-
 Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basic'], function () {
 
     /*basic :auth */
