@@ -32,7 +32,7 @@ class LoginController extends Controller
 
         $rules = [
             'name' =>  'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'password' => 'required',
             'phone' => 'required',
             //'image' => 'required',
@@ -41,6 +41,7 @@ class LoginController extends Controller
         $messages = [
             'name.required' => 'Name is required!',
             'email.required' => 'Email is required!',
+            'email.unique' => 'This email already exists!',
             'password.required' => 'Password is required!',
             'phone.required' => 'Phone is required!',
             //'image.required' => 'Profile Picture is required!',
@@ -51,8 +52,7 @@ class LoginController extends Controller
         if ($validator->fails()) {
 
             $result = $validator->errors()->all();
-
-            return response()->json(['error' => true, 'result' => $result], 400);
+            return response()->json($result, 400);
         }
 
         /*// Files destination
