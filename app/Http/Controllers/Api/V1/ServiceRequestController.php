@@ -15,7 +15,7 @@ class ServiceRequestController extends Controller
 
     public function store(Request $request ){
 
-
+        return $request->all();
         $user = $request->user();
 
         $date = Carbon::parse($request->input('request_date'));

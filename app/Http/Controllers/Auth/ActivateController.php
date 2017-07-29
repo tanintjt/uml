@@ -11,32 +11,27 @@ class ActivateController extends Controller
 {
     public function activate($token)
     {
+        $title = 'Email Activation';
+
         $activation = Activation::where('token', $token)->first();
 
-        if($activation) {
+        if ($activation) {
+
             $user = User::where('id', $activation->user_id)->first();
-            if($user->status == 1) {
-                return redirect()->route('public.home')
-                    ->with('status', 'success')
-                    ->with('message', 'Your email is already activated.');
+
+            if ($user->status == 1) {
+                $data = ['status' => 'success', 'message' => 'Your email is already activated.'];
+            } else {
+                $user->status = 1;
+                $user->save();
+                $activation->delete();
+                $data = ['status' => 'success', 'message' => 'You successfully activated your email'];
             }
-
-            $user->status = 1;
-            $user->save();
-
-            $activation->delete();
-
-            return redirect()->route('public.home')
-                ->with('status', 'success')
-                ->with('message', 'You successfully activated your email!');
+        } else {
+            $data = ['status' => 'danger', 'message' => 'No such token in the system!'];
         }
 
-
-        return redirect()->route('public.home')
-            ->with('status', 'wrong')
-            ->with('message', 'No such token in the database!');
-
-
+        return view('auth/activation/index', compact('data', 'title'));
 
     }
 }
