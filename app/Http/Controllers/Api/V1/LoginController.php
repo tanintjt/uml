@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
 use Zizaco\Entrust\EntrustRole;
+use App\Traits\ActivationTrait;
 
 class LoginController extends Controller
 {
+    use ActivationTrait;
 
     /*private $user;
     public function __construct(User $user){
@@ -55,19 +57,6 @@ class LoginController extends Controller
             return response()->json($result, 400);
         }
 
-        /*// Files destination
-        $destinationPath = 'public/uploads/users/';
-
-        // Create folders if they don't exist
-        if ( !file_exists($destinationPath) ) {
-            mkdir ($destinationPath, 775);
-        }
-
-        $file_original_name = $file->getClientOriginalName();
-        $file_name = rand(11111, 99999) . $file_original_name;
-        $file->move($destinationPath, $file_name);
-        $input['image'] = 'public/uploads/users/' . $file_name;*/
-
         $user = User::create(
             [
                 'name'          => $request->input('name'),
@@ -82,7 +71,9 @@ class LoginController extends Controller
 
         if ($user->id > 0) {
             $user->attachRole(4);
+            $this->initiateEmailActivation($user);
         }
+
         return response()->json(['status'=>true,'message'=>'User created successfully','data'=>$user]);
     }
 

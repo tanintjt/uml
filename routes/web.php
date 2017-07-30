@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Auth'], function()
     Route::post('password/reset', 'ResetPasswordController@reset');
 
 
-    Route::get('/activate', 'ActivateController@activate')->name('auth.activation');
+//    Route::get('/activate', 'ActivateController@activate')->name('auth.activation');
 
     Route::get('/activate/{token}', 'ActivateController@activate')->name('auth.activation');
 

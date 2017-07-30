@@ -10,13 +10,13 @@ class ActivationRepository
     public function createTokenAndSendEmail(User $user)
     {
 
-        if ($user->status) { //if user changed activated email to new one
+        /*if ($user->status) { //if user changed activated email to new one
 
             $user->update([
                 'status' => 2
             ]);
 
-        }
+        }*/
 
         // Create new Activation record for this user/email
         $activation = new Activation;
