@@ -64,9 +64,9 @@ class ForgotPasswordController extends Controller
             $this->broker()->sendResetLink(
                 $request->only('email')
             );
-            $message = 'Found!';
+            $message = 'We have e-mailed your password reset link!';
         }else{
-            $message = 'Not Found';
+            $message = 'Sorry, you are not registered with us.';
         }
 
 
