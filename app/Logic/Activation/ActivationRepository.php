@@ -26,7 +26,7 @@ class ActivationRepository
 
         // Send activation email notification
 
-        SendActivationEmail::toMail();
+        //SendActivationEmail::toMail();
 
     }
 

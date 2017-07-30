@@ -2,25 +2,23 @@
 
 namespace App\Console\Commands;
 
-use Edujugon\PushNotification\Facades\PushNotification;
-use Edujugon\PushNotification\Providers\PushNotificationServiceProvider;
 use Illuminate\Console\Command;
 
-class ServiceRequestCommand extends Command
+class PushNotificationCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'service:request';
+    protected $signature = 'send:notification';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send Notification to User';
 
     /**
      * Create a new command instance.
@@ -30,6 +28,7 @@ class ServiceRequestCommand extends Command
     public function __construct()
     {
         parent::__construct();
+
     }
 
     /**
@@ -39,11 +38,6 @@ class ServiceRequestCommand extends Command
      */
     public function handle()
     {
-        //PushNotification::test();
-
-        /*DB::table('emp')->where('status',0)->delete();
-        $this->info('All  inactive info are deleted successfully!');*/
         echo "success";
-
     }
 }
