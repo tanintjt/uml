@@ -3,7 +3,7 @@ namespace App\Logic\Activation;
 
 use App\Activation;
 use App\User;
-
+use App\Notifications\SendActivationEmail;
 class ActivationRepository
 {
 
@@ -26,6 +26,7 @@ class ActivationRepository
 
         // Send activation email notification
 
+        SendActivationEmail::toMail();
 
     }
 
