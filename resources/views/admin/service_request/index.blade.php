@@ -96,8 +96,8 @@
                                 </td>--}}
                                 <td>
                                     {{--{!! Form::select('name', $employee, old('name', Session::get('name') ), ['class' => 'form-control input-sm', 'id' => 'name']) !!}--}}
-                                    <a href="{!! url(Request::segment(1).'/employee-assign/'.$row->id.'/create') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span>
-                                    </a>
+                                   {{-- <a href="{!! url(Request::segment(1).'/employee-assign/'.$row->id.'/create') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span>
+                                    </a>--}}
                                     {{isset($row->employee->name)?ucfirst($row->employee->name):''}}
                                 </td>
                             </tr>

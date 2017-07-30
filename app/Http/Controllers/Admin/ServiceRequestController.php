@@ -87,7 +87,9 @@ class ServiceRequestController extends Controller
 		$row = ServiceRequest::findOrFail($id);
 		$title = 'Edit Status';
 
-		return view('admin.service_request.status_form',compact('title', 'row', 'extrajs'));
+        $employee = $this->employeeList(true);
+
+		return view('admin.service_request.status_form',compact('title', 'row', 'extrajs','employee'));
 	}
 
 
@@ -116,6 +118,7 @@ class ServiceRequestController extends Controller
 		//$model->update($input);
 		$data = [
 			'status' => $request->input('status'),
+			'employee_id' => $request->input('employee_id'),
 			'updated_at' => $date,
 		];
 

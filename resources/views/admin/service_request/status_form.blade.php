@@ -40,6 +40,18 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('employee_id') ? ' has-error' : '' }}">
+                    {!! Form::label('employee_id', 'Employee :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::select('employee_id', $employee, old('employee_id'), ['class' => 'form-control', 'id' => 'employee_id']) !!}
+                        @if ($errors->has('employee_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('employee_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('updated_at', 'Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
