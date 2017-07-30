@@ -42,7 +42,7 @@
             <p>&nbsp;</p>
 
             <div class="row">
-                <div class="col-xs-8 ">
+                <div class="col-xs-8">
                     <button type="submit" class="btn btn-primary btn-block btn-flat" style="background-color:#f05283;border-color:#f05283;margin-left:50% ">Send Password Reset Link</button>
                 </div>
             </div>
