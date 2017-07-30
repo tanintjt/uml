@@ -342,6 +342,44 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::get('/user-vehicle/vehicle/{typeid}/{modelid}', 'UserVehicleController@vehicle');
 
 
+
+
+    /*employee*/
+
+    Route::get('/employee',
+        ['as' => 'admin.employee.index', 'uses' => 'EmployeeController@index', 'middleware' => ['role:super-administrator|administrator|manager']
+        ]);
+
+    Route::get('/employee/create',
+        ['as'=>'employee-create','uses' => 'EmployeeController@create', 'middleware' => ['role:super-administrator']]);
+
+    Route::post('/employee/store',
+        ['as' => 'employee-store','uses' => 'EmployeeController@store', 'middleware' => ['role:super-administrator']]);
+
+
+    Route::get('/employee/{id}', [
+        'as' => 'admin.employee.show', 'uses' => 'EmployeeController@show', 'middleware' => ['role:super-administrator|administrator|manager']
+    ]);
+
+    Route::get('/employee/{id}/edit', [ 'as' => 'employee-edit', 'uses' => 'EmployeeController@edit', 'middleware' => ['role:super-administrator']]);
+
+    Route::put('/employee/{id}/update', [ 'as' => 'employee-update', 'uses' => 'EmployeeController@update', 'middleware' => ['role:super-administrator']]);
+
+
+    Route::match(['get', 'post'], 'employee', ['uses' => 'EmployeeController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::get('/employee/{id}/delete', [ 'as' => 'employee-delete', 'uses' => 'EmployeeController@delete', 'middleware' => ['role:super-administrator']]);
+
+
+
+
+    Route::get('/employee-assign/{id}/create',
+        ['as'=>'employee-assign-create','uses' => 'ServiceRequestController@create', 'middleware' => ['role:super-administrator']]);
+
+
+    Route::put('/employee/{id}/assign',
+        ['as' => 'employee-assign','uses' => 'ServiceRequestController@assign', 'middleware' => ['role:super-administrator']]);
+
 });
 
 

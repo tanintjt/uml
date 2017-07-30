@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Employee;
 use App\ServiceRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -61,6 +62,8 @@ class ServiceRequestController extends Controller
 
 		</script>";
 
+        $employee = $this->employeeList(true);
+
         if ($request->isMethod('post')) {
              Session::put('status', $request->input('status'));
              Session::put('search', $request->input('search'));
@@ -71,7 +74,7 @@ class ServiceRequestController extends Controller
          orderBy('id', 'asc')->paginate(config('app.limit'));
 
 
-		return view('admin/service_request/index', compact('rows', 'title', 'extrajs'));
+		return view('admin/service_request/index', compact('rows', 'title','employee', 'extrajs'));
     }
 
 
@@ -131,4 +134,72 @@ class ServiceRequestController extends Controller
 		return redirect('admin/service-request')->with(['message' => $message, 'error' => $error]);
 	}
 
+
+    private function employeeList($boolean = false)
+    {
+        $rows = Employee::orderBy('id', 'ASC')->get();
+
+        $list[0] = ($boolean == true ? 'Select Employee' : 'All Employee');
+
+        foreach($rows as $row):
+            $list[$row->id] = $row->name;
+        endforeach;
+
+        return $list;
+    }
+
+
+    public function create($id)
+    {
+        $title = 'Assign Employee';
+
+        $row = ServiceRequest::findOrFail($id);
+
+        $employee = $this->employeeList(true);
+
+        return view('admin.service_request.assign_form', compact('title', 'employee','row') );
+    }
+
+
+    public function assign(Request $request,$id){
+
+        $model = ServiceRequest::findOrFail($id);
+
+        //print_r($request->all());exit;
+        $rules = [
+            'employee_id'   => 'not_in:0',
+        ];
+
+        $messages = [
+            'employee_id.not_in'    => 'Employee is required!',
+        ];
+
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+
+            return redirect('admin/employee-assign/create')->withErrors($validator)->withInput();
+        }
+
+
+        $data = [
+            'employee_id' => $request->input('employee_id'),
+
+        ];
+
+        //print_r($data);exit;
+
+        $model->update($data);
+
+        if ($model->id > 0) {
+            $message = ' Successfully added.';
+            $error = false;
+        } else {
+            $message =  ' adding fail.';
+            $error = true;
+        }
+
+        return redirect('admin/service-request')->with(['message' => $message, 'error' => $error]);
+    }
 }

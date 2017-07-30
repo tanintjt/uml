@@ -78,6 +78,7 @@
                 </ul>
             </li>
 
+            <li{!!  in_array(Request::segment(2), ['employee']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/employee') !!}"><i class="fa fa-user"></i> <span>Employee</span></a></li>
 
 
         </ul>

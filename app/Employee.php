@@ -31,4 +31,12 @@ class Employee extends Model
     protected $fillable = [
         'name', 'designation', 'phone'
     ];
+
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('name', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
 }

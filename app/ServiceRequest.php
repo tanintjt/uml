@@ -19,7 +19,7 @@ class ServiceRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'service_center_id', 'service_package_id','status','request_time','request_date','updated_at','special_request'
+        'user_id', 'service_center_id', 'service_package_id','status','request_time','request_date','updated_at','special_request','employee_id'
     ];
 
 
@@ -44,10 +44,16 @@ class ServiceRequest extends Model
         }
     }
 
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee', 'employee_id');
+    }
+
     public function service_center()
     {
         return $this->belongsTo('App\ServiceCenter', 'service_center_id');
     }
+
 
 
     public function service_package()
