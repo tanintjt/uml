@@ -44,7 +44,7 @@ class PushNotificationCommand extends Command
      */
     public function handle()
     {
-       // echo "success";
+       echo "success";exit;
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
@@ -69,7 +69,7 @@ class PushNotificationCommand extends Command
         }else{
             return 'failed';
         }
-        return $downstreamResponse->numberSuccess();
+        //return $downstreamResponse->numberSuccess();
 
         //PushNotificationController::index();
     }
