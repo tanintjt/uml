@@ -38,10 +38,12 @@ class PushNotificationController extends Controller
         $downstreamResponse->numberFailure();
         $downstreamResponse->numberModification();*/
 
-        return response()->json(['fail' => $downstreamResponse->numberFailure(),
-                                 'sucess' => $downstreamResponse->numberSuccess(),
-                                 'msg' =>$downstreamResponse->tokensWithError()],
-                                 200);
+        return response()->json([
+                                    'fail' => $downstreamResponse->numberFailure(),
+                                    'sucess' => $downstreamResponse->numberSuccess(),
+                                    'msg' =>$downstreamResponse->tokensWithError()
+                                 ],200);
+
 
 
     }
