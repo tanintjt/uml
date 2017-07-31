@@ -130,15 +130,33 @@ class ServiceRequestController extends Controller
 
 		$model->update($data);
 
-        //print_r($model->status);exit;
+        $date1 = date("jS F, Y", strtotime($model->request_date));
+        $time1 = date("jS F, Y", strtotime($model->request_time));
+        $date2 = date("jS F, Y", strtotime($model->updated_at));
+//        date("jS F, Y", strtotime($rows[$i]->issue_date));
 
-		//$message = "Your Service request is".$model->;
+
+		if($model->status==2){
+		    $status = 'Accepted';
+            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Scheduled Date :'. $date1.'.'.'<br>'. ' Time :'.$time1, false);
+        }elseif ($model->status==3){
+            $status = 'Reject';
+            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Please Try Again.',false);
+        }elseif ($model->status==4){
+            $status = 'Rescheduled';
+            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Scheduled Date :'. $date2.'.'.'<br>'. ' Time :'.date("h:m:s", strtotime($model->updated_at)), false);
+        }else{
+            $status = 'Done';
+            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Thank You.',false);
+        }
+
+//print_r($message);exit;
 
         $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
 		//print_r($token);exit;
 
 
-        $this->sendNotification($token);
+        $this->sendNotification($token,$message);
 
 		if ($model->id > 0) {
 
@@ -221,22 +239,22 @@ class ServiceRequestController extends Controller
     }
 
 
-   public function sendNotification($token){
+   public function sendNotification($token,$message){
 
 
        $optionBuilder = new OptionsBuilder();
        $optionBuilder->setTimeToLive(60*20);
 
-       $notificationBuilder = new PayloadNotificationBuilder('Service Request');
+       $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
        $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
-           ->setBody('Thank You. Request Accepted !!!')
+           ->setBody($message)
            ->setSound('default');
 
        $dataBuilder = new PayloadDataBuilder();
 
        $dataBuilder
-           ->addData(['title' => 'Service Request'])
-           ->addData(['body' => 'Thank You. Request Accepted !!!']);
+           ->addData(['title' => 'Uttara Motors'])
+           ->addData(['body' => $message]);
 
 
        $option = $optionBuilder->build();
