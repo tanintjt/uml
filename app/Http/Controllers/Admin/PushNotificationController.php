@@ -27,8 +27,9 @@ class PushNotificationController extends Controller
 
         $dataBuilder = new PayloadDataBuilder();
 
-        $dataBuilder->addTitle(['title' => 'Service Request'])
-                    ->addBody(['body' => 'Thank You. Request Accepted !!!'])
+        $dataBuilder
+//            ->addTitle(['title' => 'Service Request'])
+//                    ->addBody(['body' => 'Thank You. Request Accepted !!!'])
                     ->addData(['a_data' => 'Uml']);
 
         $option = $optionBuilder->build();
