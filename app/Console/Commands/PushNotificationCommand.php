@@ -45,7 +45,6 @@ class PushNotificationCommand extends Command
     public function handle()
     {
        //echo "success";exit;
-        $
 
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);

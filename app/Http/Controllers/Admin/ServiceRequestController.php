@@ -125,7 +125,7 @@ class ServiceRequestController extends Controller
 
 		$model->update($data);
 
-		//PushNotificationController::index();
+		PushNotificationController::index();
 
 		if ($model->id > 0) {
 
