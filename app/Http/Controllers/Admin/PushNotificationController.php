@@ -29,7 +29,7 @@ class PushNotificationController extends Controller
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        $token = "fd-6dZ95-QQ:APA91bGBgZBxTxeFc-5oPa_kqkI6c_aVgqNhs39BSLKqlTkiSLPi5cOeFOqLhbU4Ej1Ha4aSlDj9lXfrG7X-Hki5rstPMMOU8bODfKUcy-wjvUYacGvt-_Dd-0qqS8si6co_HjNyfo5-";
+        $token = "fpzriQE4rao:APA91bHWl5-yAgyfX4JOQUVV5pRZktGSulelUluRAl1TTBr_G5-unnxrIMMHP59cFb2WuJEWnAOBvQBvgcTR7dcGGVA35AnY3giaK3MWC3cXZh1r6akAKvE9QubrGl38I3YLsOrDdwrY";
 //        $token = "861105030067461";
 
         $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
