@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Employee;
 use App\ServiceRequest;
+use App\UserDevices;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
 use Validator;
 use Carbon\Carbon;
 use App\Http\Controllers\Admin\PushNotificationController;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use FCM;
 class ServiceRequestController extends Controller
 {
 
@@ -125,7 +130,13 @@ class ServiceRequestController extends Controller
 
 		$model->update($data);
 
-		PushNotificationController::index();
+		//$message = "Your Service request is .";
+
+        $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
+		//print_r($token);exit;
+
+
+        $this->sendNotification($token);
 
 		if ($model->id > 0) {
 
@@ -207,4 +218,33 @@ class ServiceRequestController extends Controller
 
         return redirect('admin/service-request')->with(['message' => $message, 'error' => $error]);
     }
+
+
+   public function sendNotification($token){
+
+
+       $optionBuilder = new OptionsBuilder();
+       $optionBuilder->setTimeToLive(60*20);
+
+       $notificationBuilder = new PayloadNotificationBuilder('Service Request');
+       $notificationBuilder->setBody('Thank You. Request Accepted !!!')
+           ->setSound('default');
+
+       $dataBuilder = new PayloadDataBuilder();
+       $dataBuilder->addData(['a_data' => 'Uml']);
+
+       $option = $optionBuilder->build();
+       $notification = $notificationBuilder->build();
+       $data = $dataBuilder->build();
+
+       //$token = "dtZIjFb32zE:APA91bGmAonLp_U7iNM0t1Vzd8loFYr_16CL-CLOK0T958GpQZVR0gmoC_EEOy4uuSQhzHRQSbEYL6_KbZzzQSJYTiV-ft8KWITxHfy2p0LjP8mcvWcCvvqZxS3iyWQZ4pc9yrSn1ao-";
+//        $token = "861105030067461";
+
+       $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+
+       /*$downstreamResponse->numberSuccess();
+       $downstreamResponse->numberFailure();
+       $downstreamResponse->numberModification();*/
+       return $downstreamResponse->numberSuccess();
+   }
 }
