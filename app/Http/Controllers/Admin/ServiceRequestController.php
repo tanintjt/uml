@@ -130,7 +130,9 @@ class ServiceRequestController extends Controller
 
 		$model->update($data);
 
-		//$message = "Your Service request is .";
+        //print_r($model->status);exit;
+
+		//$message = "Your Service request is".$model->;
 
         $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
 		//print_r($token);exit;
@@ -181,7 +183,6 @@ class ServiceRequestController extends Controller
 
         $model = ServiceRequest::findOrFail($id);
 
-        //print_r($request->all());exit;
         $rules = [
             'employee_id'   => 'not_in:0',
         ];
@@ -230,29 +231,22 @@ class ServiceRequestController extends Controller
        $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
            ->setBody('Thank You. Request Accepted !!!')
            ->setSound('default');
-       // ->setClickAction('FCM_PLUGIN_ACTIVITY');
 
        $dataBuilder = new PayloadDataBuilder();
 
        $dataBuilder
            ->addData(['title' => 'Service Request'])
-           //->addData(['click_action' => 'FCM_PLUGIN_ACTIVITY'])
            ->addData(['body' => 'Thank You. Request Accepted !!!']);
-       //->addData(['a_data' => 'Uml']);
+
 
        $option = $optionBuilder->build();
        $notification = $notificationBuilder->build();
-       //print_r($notification);exit;
        $data = $dataBuilder->build();
 
-       //$token = "dtZIjFb32zE:APA91bGmAonLp_U7iNM0t1Vzd8loFYr_16CL-CLOK0T958GpQZVR0gmoC_EEOy4uuSQhzHRQSbEYL6_KbZzzQSJYTiV-ft8KWITxHfy2p0LjP8mcvWcCvvqZxS3iyWQZ4pc9yrSn1ao-";
-//        $token = "861105030067461";
 
        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
 
-       /*$downstreamResponse->numberSuccess();
-       $downstreamResponse->numberFailure();
-       $downstreamResponse->numberModification();*/
+
        return $downstreamResponse->numberSuccess();
    }
 }
