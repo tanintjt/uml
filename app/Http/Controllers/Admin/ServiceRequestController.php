@@ -138,26 +138,27 @@ class ServiceRequestController extends Controller
 
 		if($model->status==2){
 		    $status = 'Accepted';
-            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Scheduled Date :'. $date1.'.'.'<br>'. ' Time :'.$time1, false);
+            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date1.'.'.' '. ' Time :'.$time1, false);
         }elseif ($model->status==3){
             $status = 'Reject';
-            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Please Try Again.',false);
+            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Please Try Again.',false);
         }elseif ($model->status==4){
             $status = 'Rescheduled';
-            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Scheduled Date :'. $date2.'.'.'<br>'. ' Time :'.date("h:m:s", strtotime($model->updated_at)), false);
+            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date2.'.'.' '. ' Time :'.date("h:m:s", strtotime($model->updated_at)), false);
         }else{
             $status = 'Done';
-            $message =  nl2br('Your Service request is '.$status.'.'.'<br>'. 'Thank You.',false);
+            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Thank You.',false);
         }
 
 //print_r($message);exit;
 
-        $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
+        $token = UserDevices::where('user_id',$model->user_id)->first();
 		//print_r($token);exit;
-
-
-        $this->sendNotification($token,$message);
-
+        if($token){
+            
+            $token=$token->id;
+            $this->sendNotification($token,$message);
+        }
 		if ($model->id > 0) {
 
 			$message = ' Status Successfully updated.';
