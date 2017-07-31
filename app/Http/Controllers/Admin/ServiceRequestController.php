@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 use Session;
 use Validator;
 use Carbon\Carbon;
+use App\Http\Controllers\Admin\PushNotificationController;
 class ServiceRequestController extends Controller
 {
-
 
     public function index(Request $request){
 
@@ -122,11 +122,13 @@ class ServiceRequestController extends Controller
 			'updated_at' => $date,
 		];
 
-		//print_r($data);exit;
 
 		$model->update($data);
 
+		PushNotificationController::index();
+
 		if ($model->id > 0) {
+
 			$message = ' Status Successfully updated.';
 			$error = false;
 		} else {

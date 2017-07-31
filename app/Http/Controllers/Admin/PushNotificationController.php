@@ -12,14 +12,14 @@ use FCM;
 
 class PushNotificationController extends Controller
 {
-    public function index(Request $request) {
+    public static function index() {
 
 
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
-        $notificationBuilder = new PayloadNotificationBuilder('my title');
-        $notificationBuilder->setBody('Hello world 2')
+        $notificationBuilder = new PayloadNotificationBuilder('Service Request');
+        $notificationBuilder->setBody('Accepted your Request!!')
             ->setSound('default');
 
         $dataBuilder = new PayloadDataBuilder();
