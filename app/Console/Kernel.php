@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
 
         \App\Console\Commands\ServiceRequestCommand::class,
+        \App\Console\Commands\PushNotificationCommand::class,
     ];
 
     /**
@@ -28,7 +29,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 
-        $schedule->command('service:request')->everyTenMinutes();
+        //$schedule->command('service:request')->everyTenMinutes();
+
+        $schedule->command('send:notification')->everyTenMinutes();
     }
 
     /**
