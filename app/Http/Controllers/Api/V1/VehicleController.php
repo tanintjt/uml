@@ -21,6 +21,7 @@ class VehicleController extends Controller
             ->select('vehicle.id','vehicle.production_year','vehicle.engine_displacement','vehicle.engine_details',
                 'vehicle.fuel_system', 'vehicle_type.name as type', 'vehicle_model.name as model',
                 'vehicle.vehicle_image')
+            ->orderBy('id', 'desc')
             ->get();
         $data = [];
         $colors =[];
