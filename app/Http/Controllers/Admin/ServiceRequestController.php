@@ -120,7 +120,7 @@ class ServiceRequestController extends Controller
 			'status' => $request->input('status'),
 			'employee_id' => $request->input('employee_id'),
 			'updated_at' => $date,
-			'accepted_time' => $date,
+			//'accepted_time' => $date,
 		];
 
 
