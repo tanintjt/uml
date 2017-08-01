@@ -150,7 +150,7 @@ class VehicleController extends Controller
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
-           // 'color'      => 'required',
+            'features'      => 'required',
         ];
 
         $messages = [
@@ -162,11 +162,12 @@ class VehicleController extends Controller
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
-           // 'color.required' => 'Vehicle Color is required!',
+            'features.required' => 'Features is required!',
 
         ];
 
         $file = Input::file('vehicle_image');
+        $features = Input::file('features');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -204,7 +205,6 @@ class VehicleController extends Controller
                     $color->move($destinationPath, $file_name);
 
                     $input['available_colors'] = 'public/uploads/vehicle/'.$file_name;
-
 
                     VehicleColor::create([
                         'vehicle_id' => $vehicle->id,

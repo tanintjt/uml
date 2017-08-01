@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use FCM;
 class ServiceRequest extends Model
 {
 
@@ -19,7 +23,9 @@ class ServiceRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'service_center_id', 'service_package_id','status','request_time','request_date','updated_at','special_request','employee_id'
+        'user_id', 'service_center_id', 'service_package_id','status',
+        'request_time','request_date','updated_at','special_request','employee_id',
+        'accepted_date','accepted_time'
     ];
 
 
@@ -89,6 +95,38 @@ class ServiceRequest extends Model
 
     public function packages(){
         return $this->belongsTo('App\ServicePackage','service_package_id');
+    }
+
+
+
+
+    public static function sendNotification($token,$message){
+
+
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+
+        $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
+        $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
+            ->setBody($message)
+            ->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+
+        $dataBuilder
+            ->addData(['title' => 'Uttara Motors'])
+            ->addData(['body' => $message]);
+
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+
+        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+
+
+        return $downstreamResponse->numberSuccess();
     }
 
 }

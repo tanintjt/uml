@@ -41,8 +41,6 @@ class ServiceRequestCommand extends Command
     {
         //PushNotification::test();
 
-        /*DB::table('emp')->where('status',0)->delete();
-        $this->info('All  inactive info are deleted successfully!');*/
         echo "success";
 
     }

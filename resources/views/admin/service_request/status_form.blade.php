@@ -55,7 +55,7 @@
                 <div class="form-group">
                     {!! Form::label('updated_at', 'Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
-                        {!! Form::text('updated_at',  old('updated_at',date('Y-m-d', strtotime($row->updated_at))),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
+                        {!! Form::text('updated_at',  old('updated_at',date('Y-m-d h:i:s a', strtotime($row->request_date.' '.$row->request_time))),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
                     </div>
                 </div>
 
@@ -71,7 +71,7 @@
                  <div class="form-group">
                      {!! Form::label('request_time', 'Requested Time :', ['class' => 'col-xs-3 control-label']) !!}
                      <div class="col-xs-6">
-                         {!! Form::text('request_time',  old('request_time'),['class' => 'form-control datepicker', 'id' => 'request_time', 'readonly']) !!}
+                         {!! Form::text('request_time',  old('request_time',date('h:i:s a', strtotime($row->request_time))),['class' => 'form-control datepicker', 'id' => 'request_time', 'readonly']) !!}
                      </div>
                  </div>
 

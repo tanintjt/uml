@@ -122,10 +122,15 @@
                     </div>
                 </div>
 
-                {{--<div class="form-group">
-                    {!! Form::label('color', 'Color :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('color', old('color', '#2fccad'), ['class' => 'form-control color', 'id' => 'color']) !!}
+                {{--<div class="form-group{{ $errors->has('features') ? ' has-error' : '' }}">
+                    {!! Form::label('features', 'Features:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-3">
+                        {!! Form::file('features') !!}
+                        @if ($errors->has('features'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('features') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>--}}
 

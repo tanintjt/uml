@@ -11,10 +11,7 @@ use Session;
 use Validator;
 use Carbon\Carbon;
 use App\Http\Controllers\Admin\PushNotificationController;
-use LaravelFCM\Message\OptionsBuilder;
-use LaravelFCM\Message\PayloadDataBuilder;
-use LaravelFCM\Message\PayloadNotificationBuilder;
-use FCM;
+
 class ServiceRequestController extends Controller
 {
 
@@ -83,8 +80,6 @@ class ServiceRequestController extends Controller
     }
 
 
-
-
 	public function edit($id)
 	{
 
@@ -100,6 +95,7 @@ class ServiceRequestController extends Controller
 
 	public function update(Request $request, $id)
 	{
+
 
 		$model = ServiceRequest::findOrFail($id);
 
@@ -120,7 +116,6 @@ class ServiceRequestController extends Controller
 			return redirect('admin/service-request/'.$id.'/edit')->withErrors($validator)->withInput();
 		}
 
-		//$model->update($input);
 		$data = [
 			'status' => $request->input('status'),
 			'employee_id' => $request->input('employee_id'),
@@ -131,30 +126,27 @@ class ServiceRequestController extends Controller
 		$model->update($data);
 
         $date1 = date("jS F, Y", strtotime($model->request_date));
-        $time1 = date("jS F, Y", strtotime($model->request_time));
         $date2 = date("jS F, Y", strtotime($model->updated_at));
-//        date("jS F, Y", strtotime($rows[$i]->issue_date));
 
 
 		if($model->status==2){
 		    $status = 'Accepted';
-            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date1.'.'.' '. ' Time :'.$time1, false);
+            $message = ('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date1.'.'.' '. ' Time :'.date('h:i:s a', strtotime($model->request_time)));
         }elseif ($model->status==3){
             $status = 'Reject';
-            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Please Try Again.',false);
+            $message =  ('Your Service request is '.$status.'.'.' '. 'Please Try Again.');
         }elseif ($model->status==4){
             $status = 'Rescheduled';
-            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date2.'.'.' '. ' Time :'.date("h:m:s", strtotime($model->updated_at)), false);
+            $message =  ('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date2.'.'.' '. ' Time :'.date("h:i:s a", strtotime($model->updated_at)));
         }else{
             $status = 'Done';
-            $message =  nl2br('Your Service request is '.$status.'.'.' '. 'Thank You.',false);
+            $message =  ('Your Service is '.$status.'.'.' '. 'Thank You.');
         }
 
-//print_r($message);exit;
 
         $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
 
-        $this->sendNotification($token,$message);
+        ServiceRequest::sendNotification($token,$message);
 
 		if ($model->id > 0) {
 
@@ -237,32 +229,5 @@ class ServiceRequestController extends Controller
     }
 
 
-   public function sendNotification($token,$message){
 
-
-       $optionBuilder = new OptionsBuilder();
-       $optionBuilder->setTimeToLive(60*20);
-
-       $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
-       $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
-           ->setBody($message)
-           ->setSound('default');
-
-       $dataBuilder = new PayloadDataBuilder();
-
-       $dataBuilder
-           ->addData(['title' => 'Uttara Motors'])
-           ->addData(['body' => $message]);
-
-
-       $option = $optionBuilder->build();
-       $notification = $notificationBuilder->build();
-       $data = $dataBuilder->build();
-
-
-       $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
-
-
-       return $downstreamResponse->numberSuccess();
-   }
 }
