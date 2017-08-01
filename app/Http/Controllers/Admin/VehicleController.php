@@ -429,7 +429,7 @@ class VehicleController extends Controller
                 foreach($features as $feature) {
 
                     $destinationPath = 'public/uploads/vehicle/features/';
-                    
+
                     // Create folders if they don't exist
                     if ( !file_exists($destinationPath) ) {
                         mkdir ($destinationPath, 0777);
