@@ -38,13 +38,17 @@ class ServiceHistoryController extends Controller
             $data[$i]['status'] = $status;
         }
 
-        if ($data) {
+        if (count($rows) > 0) {
             $result = $data;
-            //$http_code = 201;
-
         } else {
-            $result =  'No Data Found';
+            $data[0]['username'] = $request->user()->name;
+            $data[0]['registration_date'] = date("jS F, Y", strtotime($request->user()->created_at));
+            $data[0]['packages'] = 'No history found';
+            $data[$i]['request_date'] = date("jS F, Y", strtotime(Carbon::now()));
+            $data[$i]['status'] = 5;
+
             //$http_code = 500;
+            $result = $data;
         }
 
         return response()->json($result, 202);
