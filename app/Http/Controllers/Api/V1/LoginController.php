@@ -34,7 +34,7 @@ class LoginController extends Controller
 
         $rules = [
             'name' =>  'required',
-            'email' => 'required|unique:users,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'phone' => 'required',
             //'image' => 'required',
@@ -43,6 +43,7 @@ class LoginController extends Controller
         $messages = [
             'name.required' => 'Name is required!',
             'email.required' => 'Email is required!',
+            'email.email' => 'Not a valid email address!',
             'email.unique' => 'This email already exists!',
             'password.required' => 'Password is required!',
             'phone.required' => 'Phone is required!',
