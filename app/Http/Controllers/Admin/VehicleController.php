@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Brand;
 use App\Vehicle;
 use App\VehicleColor;
+use App\VehicleFeature;
 use App\VehicleModel;
 use App\VehicleType;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use Session;
+use File;
 class VehicleController extends Controller
 {
 
@@ -168,7 +170,6 @@ class VehicleController extends Controller
 
         $file = Input::file('vehicle_image');
 
-        $features = Input::file('features');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -190,14 +191,14 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::create($input);
 
-        if ($vehicle->id > 0) {
+//
 
             $colors = Input::file('available_colors');
 
             if($colors){
                 foreach($colors as $color) {
 
-                    $destinationPath = 'public/uploads/vehicle/colors';
+                    $destinationPath = 'public/uploads/vehicle/';
 
                     $file_original_name = $color->getClientOriginalName();
                     $file_name = rand(11111, 99999) . $file_original_name;
@@ -211,23 +212,31 @@ class VehicleController extends Controller
                     ]);
                 }
             }
-            /*if($features){
-                foreach($colors as $feature) {
 
-                    $destinationPath = 'public/uploads/vehicle/features';
+            $features = Input::file('features');
 
+            if($features){
+                foreach($features as $feature) {
+
+                    $destinationPath = 'public/uploads/vehicle/features/';
+
+                    // Create folders if they don't exist
+                    if( ! File::isDirectory(public_path('public/uploads/vehicle/features/'))) {
+                        File::makeDirectory(public_path('public/uploads/vehicle/features/'), 493, true);
+                    }
                     $file_original_name = $feature->getClientOriginalName();
                     $file_name = rand(11111, 99999) . $file_original_name;
                     $feature->move($destinationPath, $file_name);
 
-                    $input['feature'] = 'public/uploads/vehicle/features'.$file_name;
+                    //$input['feature'] = 'public/uploads/vehicle/features/'.$file_name;
 
-                    VehicleColor::update([
+                    VehicleFeature::create([
                         'vehicle_id' => $vehicle->id,
-                        'available_colors' => $input['available_colors']
+                        'features' => 'public/uploads/vehicle/features/' . $file_name,
                     ]);
                 }
-            }*/
+            }
+        if ($vehicle->id > 0) {
             $message = 'Successfully Added';
             $error = false;
         } else {
@@ -383,7 +392,9 @@ class VehicleController extends Controller
 
                 foreach($vehicle_colors as $id) {
 
-                    unlink($id->available_colors);
+                    if($model->available_colors){
+                        unlink($model->available_colors);
+                    }
                     $id->delete();
                 }
                 foreach($colors as $color) {

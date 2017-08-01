@@ -46,6 +46,8 @@ class PushNotificationCommand extends Command
      */
     public function handle()
     {
-        $this->ServiceRequest->sendNotification();
+        //$this->ServiceRequest->sendNotification();
+
+        $service_request = ServiceRequest::whereIn('status',[2,4])->get();
     }
 }

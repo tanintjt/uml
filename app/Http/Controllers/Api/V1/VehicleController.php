@@ -36,6 +36,7 @@ class VehicleController extends Controller
             $data[$i]['vehicle_image'] = $rows[$i]->vehicle_image;
 
             $data[$i]['colors'] = $rows[$i]->colors;
+            $data[$i]['features'] = $rows[$i]->features;
 
         }
 

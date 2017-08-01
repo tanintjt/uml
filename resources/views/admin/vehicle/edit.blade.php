@@ -110,17 +110,17 @@
                     </div>
                 </div>
 
-                {{--<div class="form-group{{ $errors->has('features') ? ' has-error' : '' }}">
+                <div class="form-group{{ $errors->has('features') ? ' has-error' : '' }}">
                     {!! Form::label('features', 'Features:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
-                        {!! Form::file('features') !!}
+                        {!! Form::file('features[]', ['multiple'=>true]) !!}
                         @if ($errors->has('features'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('features') }}</strong>
                             </span>
                         @endif
                     </div>
-                </div>--}}
+                </div>
 
                 <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">

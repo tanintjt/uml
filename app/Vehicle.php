@@ -51,7 +51,9 @@ class Vehicle extends Model
         return $this->hasMany('App\VehicleColor','vehicle_id', 'id')->select('available_colors as image');
     }
 
-
+    public function features(){
+        return $this->hasMany('App\VehicleFeature','vehicle_id', 'id')->select('features as feature_images');
+    }
 
     public function scopeSearch($query, $name)
     {
