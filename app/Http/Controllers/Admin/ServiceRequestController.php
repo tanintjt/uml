@@ -120,6 +120,7 @@ class ServiceRequestController extends Controller
 			'status' => $request->input('status'),
 			'employee_id' => $request->input('employee_id'),
 			'updated_at' => $date,
+			'accepted_time' => $date,
 		];
 
 
@@ -130,17 +131,17 @@ class ServiceRequestController extends Controller
 
 
 		if($model->status==2){
-		    $status = 'Accepted';
-            $message = ('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date1.'.'.' '. ' Time :'.date('h:i:s a', strtotime($model->request_time)));
+		    $status = 'accepted';
+            $message = ('Your Service request has been '.$status.'.'.' to '. 'Scheduled Date :'. $date1.'.'.' '. ' Time :'.date('h:i:s a', strtotime($model->request_time)));
         }elseif ($model->status==3){
-            $status = 'Reject';
-            $message =  ('Your Service request is '.$status.'.'.' '. 'Please Try Again.');
+            $status = 'rejected';
+            $message =  ('Your Service request has been '.$status.'.'.' '. 'Please book another service time as per convenience.');
         }elseif ($model->status==4){
-            $status = 'Rescheduled';
-            $message =  ('Your Service request is '.$status.'.'.' '. 'Scheduled Date :'. $date2.'.'.' '. ' Time :'.date("h:i:s a", strtotime($model->updated_at)));
+            $status = 'rescheduled';
+            $message =  ('Your Service request has been '.$status.'.'.' to '. 'Scheduled Date/Time :'. $date2.'.'.' '. date("h:i:s a", strtotime($model->updated_at)));
         }else{
-            $status = 'Done';
-            $message =  ('Your Service is '.$status.'.'.' '. 'Thank You.');
+            $status = 'completed';
+            $message =  ('Your Service has been '.$status.'.'.' '. 'Thank you for being with Uttara Motors.');
         }
 
 
