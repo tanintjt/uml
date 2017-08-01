@@ -153,12 +153,9 @@ class ServiceRequestController extends Controller
 //print_r($message);exit;
 
         $token = UserDevices::where('user_id',$model->user_id)->first();
-		//print_r($token);exit;
-        if($token){
-            
-            $token=$token->id;
-            $this->sendNotification($token,$message);
-        }
+
+        $this->sendNotification($token,$message);
+
 		if ($model->id > 0) {
 
 			$message = ' Status Successfully updated.';
