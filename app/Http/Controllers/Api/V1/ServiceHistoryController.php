@@ -14,11 +14,22 @@ class ServiceHistoryController extends Controller
     public  function index(Request $request){
 
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
-//print_r($rows);exit;
 
         $data = [];
 
         for($i=0; $i < count($rows); $i++) {
+
+            if($rows[$i]->status ==1){
+                $status = 'Pending';
+            }elseif ($rows[$i]->status ==2){
+                $status = 'Accepted';
+            }elseif ($rows[$i]->status ==3){
+                $status = 'Reject';
+            }elseif ($rows[$i]->status ==4){
+                $status = 'Rescheduled';
+            }else{
+                $status = 'Done';
+            }
 
             $data[$i]['username'] = $rows[$i]->users->name;
             $data[$i]['registration_date'] = date("jS F, Y", strtotime($rows[$i]->users->created_at));

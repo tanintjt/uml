@@ -185,7 +185,7 @@ class ServiceCenterController extends Controller
             if(($model->file)){
                 unlink($model->file);
             }
-            
+
             // Files destination
             $destinationPath = 'public/uploads/service_center/';
 
