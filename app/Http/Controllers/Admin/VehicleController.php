@@ -220,8 +220,8 @@ class VehicleController extends Controller
                     $destinationPath = 'public/uploads/vehicle/features/';
 
                     // Create folders if they don't exist
-                    if( ! File::isDirectory(public_path('public/uploads/vehicle/features/'))) {
-                        File::makeDirectory(public_path('public/uploads/vehicle/features/'), 493, true);
+                    if ( !file_exists($destinationPath) ) {
+                        mkdir ($destinationPath, 775);
                     }
                     $file_original_name = $feature->getClientOriginalName();
                     $file_name = rand(11111, 99999) . $file_original_name;
@@ -398,6 +398,12 @@ class VehicleController extends Controller
                 foreach($colors as $color) {
 
                     $destinationPath = 'public/uploads/vehicle/';
+
+                    // Create folders if they don't exist
+                    if ( !file_exists($destinationPath) ) {
+                        mkdir ($destinationPath, 0777);
+                    }
+
                     $file_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
                     $color->move($destinationPath, $file_name);
 
@@ -423,6 +429,12 @@ class VehicleController extends Controller
                 foreach($features as $feature) {
 
                     $destinationPath = 'public/uploads/vehicle/features/';
+                    
+                    // Create folders if they don't exist
+                    if ( !file_exists($destinationPath) ) {
+                        mkdir ($destinationPath, 0777);
+                    }
+
                     $file_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
                     $feature->move($destinationPath, $file_name);
 
