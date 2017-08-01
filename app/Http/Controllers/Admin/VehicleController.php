@@ -167,6 +167,7 @@ class VehicleController extends Controller
         ];
 
         $file = Input::file('vehicle_image');
+
         $features = Input::file('features');
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -185,11 +186,9 @@ class VehicleController extends Controller
         $file_original_name = $file->getClientOriginalName();
         $file_name = rand(11111, 99999) . $file_original_name;
         $file->move($destinationPath, $file_name);
-//        $input['vehicle_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
         $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
 
         $vehicle = Vehicle::create($input);
-
 
         if ($vehicle->id > 0) {
 
@@ -198,7 +197,7 @@ class VehicleController extends Controller
             if($colors){
                 foreach($colors as $color) {
 
-                    $destinationPath = 'public/uploads/vehicle/';
+                    $destinationPath = 'public/uploads/vehicle/colors';
 
                     $file_original_name = $color->getClientOriginalName();
                     $file_name = rand(11111, 99999) . $file_original_name;
@@ -211,8 +210,24 @@ class VehicleController extends Controller
                         'available_colors' => $input['available_colors']
                     ]);
                 }
-
             }
+            /*if($features){
+                foreach($colors as $feature) {
+
+                    $destinationPath = 'public/uploads/vehicle/features';
+
+                    $file_original_name = $feature->getClientOriginalName();
+                    $file_name = rand(11111, 99999) . $file_original_name;
+                    $feature->move($destinationPath, $file_name);
+
+                    $input['feature'] = 'public/uploads/vehicle/features'.$file_name;
+
+                    VehicleColor::update([
+                        'vehicle_id' => $vehicle->id,
+                        'available_colors' => $input['available_colors']
+                    ]);
+                }
+            }*/
             $message = 'Successfully Added';
             $error = false;
         } else {
