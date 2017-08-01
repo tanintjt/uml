@@ -38,6 +38,15 @@ class ServiceHistoryController extends Controller
             $data[$i]['status'] = $status;
         }
 
-        return response()->json($data, 202);
+        if ($data) {
+            $result = $data;
+            //$http_code = 201;
+
+        } else {
+            $result =  'No Data Found';
+            //$http_code = 500;
+        }
+
+        return response()->json($result, 202);
     }
 }
