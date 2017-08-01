@@ -36,7 +36,7 @@ class LoginController extends Controller
             'name' =>  'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|regex:/(01)[0-9]{9}/',
             //'image' => 'required',
         ];
 
@@ -47,6 +47,7 @@ class LoginController extends Controller
             'email.unique' => 'This email already exists!',
             'password.required' => 'Password is required!',
             'phone.required' => 'Phone is required!',
+            'phone.regex' => 'Not a valid mobile number!',
             //'image.required' => 'Profile Picture is required!',
         ];
 
