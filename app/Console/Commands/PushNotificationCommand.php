@@ -48,6 +48,36 @@ class PushNotificationCommand extends Command
     {
         //$this->ServiceRequest->sendNotification();
 
-        $service_request = ServiceRequest::whereIn('status',[2,4])->get();
+       // $service_request = ServiceRequest::whereIn('status',[2,4])->get();
+
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+
+        $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
+        $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
+            //->setBody($message)
+            ->setBody('Test Message')
+            ->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+
+        $dataBuilder
+            ->addData(['title' => 'Uttara Motors'])
+            ->addData(['body' => 'Test Message']);
+
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $token = "e7CsPqg8-Nk:APA91bHp0xx4Yi2060N6A6eeergff2Uq8JJOYNUP4LRkpZjK38FvALtPMhZ3IoR5c1F8NxISGJr9G3cHzVctBgNy0M1GM-gOgEhmrgfjM3CMUTDeR4qV5oqKd1WQIYBVRkU2rSQtM54G";
+
+        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+
+
+        return $downstreamResponse->numberSuccess();
+
+
+
     }
 }

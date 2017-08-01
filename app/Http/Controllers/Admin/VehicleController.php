@@ -191,7 +191,6 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::create($input);
 
-//
 
             $colors = Input::file('available_colors');
 
@@ -227,8 +226,6 @@ class VehicleController extends Controller
                     $file_original_name = $feature->getClientOriginalName();
                     $file_name = rand(11111, 99999) . $file_original_name;
                     $feature->move($destinationPath, $file_name);
-
-                    //$input['feature'] = 'public/uploads/vehicle/features/'.$file_name;
 
                     VehicleFeature::create([
                         'vehicle_id' => $vehicle->id,
@@ -385,6 +382,7 @@ class VehicleController extends Controller
         if ($model->id > 0) {
 
             $colors = Input::file('available_colors');
+            $features = Input::file('features');
 
             if($colors){
 
@@ -392,8 +390,8 @@ class VehicleController extends Controller
 
                 foreach($vehicle_colors as $id) {
 
-                    if($model->available_colors){
-                        unlink($model->available_colors);
+                    if($id->available_colors){
+                        unlink($id->available_colors);
                     }
                     $id->delete();
                 }
@@ -407,6 +405,31 @@ class VehicleController extends Controller
                     VehicleColor::create([
                         'vehicle_id'       =>   $model->id,
                         'available_colors' =>   'public/uploads/vehicle/' . $file_name,
+                    ]);
+                }
+            }
+
+            if($features){
+
+                $vehicle_features = VehicleFeature::where('vehicle_id',$model->id)->get();
+
+                foreach($vehicle_features as $id) {
+
+                    if($id->features){
+                        unlink($id->features);
+                    }
+                    $id->delete();
+                }
+                foreach($features as $feature) {
+
+                    $destinationPath = 'public/uploads/vehicle/features/';
+                    $file_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
+                    $feature->move($destinationPath, $file_name);
+
+
+                    VehicleFeature::create([
+                        'vehicle_id'       =>   $model->id,
+                        'features' =>   'public/uploads/vehicle/features/' . $file_name,
                     ]);
                 }
             }
