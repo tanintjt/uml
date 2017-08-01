@@ -152,7 +152,7 @@ class ServiceRequestController extends Controller
 
 //print_r($message);exit;
 
-        $token = UserDevices::where('user_id',$model->user_id)->first();
+        $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
 
         $this->sendNotification($token,$message);
 
