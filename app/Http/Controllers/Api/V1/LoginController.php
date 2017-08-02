@@ -37,7 +37,8 @@ class LoginController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             //'phone' => 'required|regex:/(01)[0-9]{9}/',
-            'phone' => 'required|regex:/^[0-1]{2}\d{9}$/',
+            //'phone' => 'required|regex:/^[0-1]{2}\d{9}$/',
+            'phone' => 'required|regex:/^[0]{1}[1]{1}[5-9]{1}\d{8}$/',
 
             //'image' => 'required',
         ];
