@@ -26,6 +26,10 @@
                             <td>{!! $row->email !!}</td>
                         </tr>
                         <tr>
+                            <th class="active">Phone</th>
+                            <td>{!! $row->phone !!}</td>
+                        </tr>
+                        <tr>
                             <th class="active">Roles</th>
                             <td>
                                 @if(!empty($row->roles))

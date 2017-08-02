@@ -34,6 +34,7 @@
                         <th width="5%">#</th>
                         <th>Name</th>
                         <th>E-mail</th>
+                        <th>Phone</th>
                         <th>Roles</th>
                         <th width="5%">Status</th>
                         {{--<th width="5%">Refer To</th>--}}
@@ -47,6 +48,7 @@
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ $row->name }}</td>
                             <td>{{ $row->email }}</td>
+                            <td>{{ $row->phone }}</td>
                             <td>
                                 {{ isset($row->roles[0])?$row->roles[0]->display_name:''}}
                             </td>
