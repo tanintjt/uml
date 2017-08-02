@@ -227,112 +227,112 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     Route::resource('/spare-parts',  'SparePartsController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'spare-parts', ['uses' => 'SparePartsController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'spare-parts', ['uses' => 'SparePartsController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/spare-parts/store', ['as' => 'spare-parts','uses' => 'SparePartsController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/spare-parts/store', ['as' => 'spare-parts','uses' => 'SparePartsController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/spare-parts/delete/{id}', [ 'as' => 'spare-parts-delete', 'uses' => 'SparePartsController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/spare-parts/delete/{id}', [ 'as' => 'spare-parts-delete', 'uses' => 'SparePartsController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     /*Brochure*/
 
-    Route::resource('/brochure',  'BrochureController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/brochure',  'BrochureController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'brochure', ['uses' => 'BrochureController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'brochure', ['uses' => 'BrochureController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/brochure/store', ['as' => 'brochure','uses' => 'BrochureController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/brochure/store', ['as' => 'brochure','uses' => 'BrochureController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/brochure/delete/{id}', [ 'as' => 'brochure-delete', 'uses' => 'BrochureController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/brochure/delete/{id}', [ 'as' => 'brochure-delete', 'uses' => 'BrochureController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     /*EDoc Type*/
 
-    Route::resource('/e-doc-type',  'EDocTypeController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/e-doc-type',  'EDocTypeController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'e-doc-type', ['uses' => 'EDocTypeController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'e-doc-type', ['uses' => 'EDocTypeController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/e-doc-type/store', ['as' => 'e-doc-type','uses' => 'EDocTypeController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/e-doc-type/store', ['as' => 'e-doc-type','uses' => 'EDocTypeController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/e-doc-type/delete/{id}', [ 'as' => 'e-doc-type-delete', 'uses' => 'EDocTypeController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/e-doc-type/delete/{id}', [ 'as' => 'e-doc-type-delete', 'uses' => 'EDocTypeController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
     /*E Documents*/
 
-    Route::resource('/e-documents',  'EDocumentController',['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/e-documents',  'EDocumentController',['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'e-documents', ['uses' => 'EDocumentController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'e-documents', ['uses' => 'EDocumentController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/e-documents/store', ['as' => 'e-documents','uses' => 'EDocumentController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/e-documents/store', ['as' => 'e-documents','uses' => 'EDocumentController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/e-documents/delete/{id}', [ 'as' => 'e-documents-delete', 'uses' => 'EDocumentController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/e-documents/delete/{id}', [ 'as' => 'e-documents-delete', 'uses' => 'EDocumentController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     /*Faq*/
 
-    Route::resource('/faq',  'FaqController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/faq',  'FaqController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'faq', ['uses' => 'FaqController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'faq', ['uses' => 'FaqController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/faq/store', ['as' => 'faq','uses' => 'FaqController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/faq/store', ['as' => 'faq','uses' => 'FaqController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/faq/delete/{id}', [ 'as' => 'faq-delete', 'uses' => 'FaqController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/faq/delete/{id}', [ 'as' => 'faq-delete', 'uses' => 'FaqController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
    /*News Events*/
 
-    Route::resource('/news-events',  'NewsEventsController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/news-events',  'NewsEventsController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'news-events', ['uses' => 'NewsEventsController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'news-events', ['uses' => 'NewsEventsController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/news-events/store', ['as' => 'news-events','uses' => 'NewsEventsController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/news-events/store', ['as' => 'news-events','uses' => 'NewsEventsController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/news-events/delete/{id}', [ 'as' => 'news-events-delete', 'uses' => 'NewsEventsController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/news-events/delete/{id}', [ 'as' => 'news-events-delete', 'uses' => 'NewsEventsController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     /*Promotions*/
-    Route::resource('/promotions',  'PromotionController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/promotions',  'PromotionController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'promotions', ['uses' => 'PromotionController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'promotions', ['uses' => 'PromotionController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::post('/promotions/store', ['as' => 'promotions','uses' => 'PromotionController@store', 'middleware' => ['role:super-administrator']]);
+    Route::post('/promotions/store', ['as' => 'promotions','uses' => 'PromotionController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/promotions/delete/{id}', [ 'as' => 'promotions-delete', 'uses' => 'PromotionController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/promotions/delete/{id}', [ 'as' => 'promotions-delete', 'uses' => 'PromotionController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     /*Service History*/
 
-    Route::resource('/service-history',  'ServiceHistoryController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/service-history',  'ServiceHistoryController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'service-history', ['uses' => 'ServiceHistoryController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'service-history', ['uses' => 'ServiceHistoryController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
     /*feedback*/
-    Route::resource('/feedback',  'FeedbackController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/feedback',  'FeedbackController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'feedback', ['uses' => 'FeedbackController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'feedback', ['uses' => 'FeedbackController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::any('/feedback/delete/{id}', [ 'as' => 'feedback-delete', 'uses' => 'FeedbackController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::any('/feedback/delete/{id}', [ 'as' => 'feedback-delete', 'uses' => 'FeedbackController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     /*service_request*/
 
-    Route::resource('/service-request', 'ServiceRequestController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
+    Route::resource('/service-request', 'ServiceRequestController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'service-request', ['uses' => 'ServiceRequestController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], 'service-request', ['uses' => 'ServiceRequestController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
     /*notification*/
 
-    Route::get('/notification', ['as' => 'notification','uses' => 'PushNotificationController@index', 'middleware' => ['role:super-administrator']]);
+    Route::get('/notification', ['as' => 'notification','uses' => 'PushNotificationController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     /*user-vehicle*/
 
     Route::get('/user-vehicle',
-        ['as' => 'user-vehicle', 'uses' => 'UserVehicleController@index', 'middleware' => ['role:super-administrator']
+        ['as' => 'user-vehicle', 'uses' => 'UserVehicleController@index', 'middleware' => ['role:super-administrator|administrator|manager']
         ]);
 
     Route::get('/user-vehicle/create',
-        ['as'=>'user-vehicle-create','uses' => 'UserVehicleController@create', 'middleware' => ['role:super-administrator']]);
+        ['as'=>'user-vehicle-create','uses' => 'UserVehicleController@create', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
     Route::post('/user-vehicle/store',
-        ['as' => 'user-vehicle-store','uses' => 'UserVehicleController@store', 'middleware' => ['role:super-administrator']]);
+        ['as' => 'user-vehicle-store','uses' => 'UserVehicleController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
     Route::any('/user-vehicle/{id}/view', [ 'as' => 'user-vehicle.view', 'uses' => 'UserVehicleController@view', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
@@ -358,34 +358,34 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
         ]);
 
     Route::get('/employee/create',
-        ['as'=>'employee-create','uses' => 'EmployeeController@create', 'middleware' => ['role:super-administrator']]);
+        ['as'=>'employee-create','uses' => 'EmployeeController@create', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
     Route::post('/employee/store',
-        ['as' => 'employee-store','uses' => 'EmployeeController@store', 'middleware' => ['role:super-administrator']]);
+        ['as' => 'employee-store','uses' => 'EmployeeController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     Route::get('/employee/{id}', [
         'as' => 'admin.employee.show', 'uses' => 'EmployeeController@show', 'middleware' => ['role:super-administrator|administrator|manager']
     ]);
 
-    Route::get('/employee/{id}/edit', [ 'as' => 'employee-edit', 'uses' => 'EmployeeController@edit', 'middleware' => ['role:super-administrator']]);
+    Route::get('/employee/{id}/edit', [ 'as' => 'employee-edit', 'uses' => 'EmployeeController@edit', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::put('/employee/{id}/update', [ 'as' => 'employee-update', 'uses' => 'EmployeeController@update', 'middleware' => ['role:super-administrator']]);
+    Route::put('/employee/{id}/update', [ 'as' => 'employee-update', 'uses' => 'EmployeeController@update', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     Route::match(['get', 'post'], 'employee', ['uses' => 'EmployeeController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::get('/employee/{id}/delete', [ 'as' => 'employee-delete', 'uses' => 'EmployeeController@delete', 'middleware' => ['role:super-administrator']]);
+    Route::get('/employee/{id}/delete', [ 'as' => 'employee-delete', 'uses' => 'EmployeeController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
 
 
     Route::get('/employee-assign/{id}/create',
-        ['as'=>'employee-assign-create','uses' => 'ServiceRequestController@create', 'middleware' => ['role:super-administrator']]);
+        ['as'=>'employee-assign-create','uses' => 'ServiceRequestController@create', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 
     Route::put('/employee/{id}/assign',
-        ['as' => 'employee-assign','uses' => 'ServiceRequestController@assign', 'middleware' => ['role:super-administrator']]);
+        ['as' => 'employee-assign','uses' => 'ServiceRequestController@assign', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
 });
 
