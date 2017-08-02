@@ -278,9 +278,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
    /*News Events*/
 
-    Route::resource('/news-events',  'NewsEventsController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::resource('/news-events',  'NewsEventsController',
+        ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
 
-    Route::match(['get', 'post'], 'news-events', ['uses' => 'NewsEventsController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::match(['get', 'post'], 'news-events', ['uses' => 'NewsEventsController@index',
+        'middleware' => ['role:super-administrator|administrator|manager']]);
 
     Route::post('/news-events/store', ['as' => 'news-events','uses' => 'NewsEventsController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
 

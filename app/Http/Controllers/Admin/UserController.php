@@ -77,6 +77,8 @@ class UserController extends Controller
             orderBy('name', 'asc')->
             paginate(config('app.limit'));
 
+       /* $role = Auth::user()->roles()->pluck('id');
+        print_r($role);exit;*/
 
         return view('admin/user/index', compact('rows', 'title', 'roles','users', 'extrajs'));
     }

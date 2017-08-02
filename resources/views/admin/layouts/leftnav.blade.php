@@ -19,9 +19,12 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li{!!  in_array(Request::segment(2), ['permission']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/permission') !!}"><i class="fa fa-circle-o"></i> Permissions</a></li>
-                    <li{!!  in_array(Request::segment(2), ['role']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/role') !!}"><i class="fa fa-circle-o"></i> Roles</a></li>
-                    <li{!!  in_array(Request::segment(2), ['user']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/user') !!}"><i class="fa fa-circle-o"></i> Users</a></li>
+                    @if(Auth::user()->hasRole(['super-administrator', 'administrator']))
+                        <li{!!  in_array(Request::segment(2), ['permission']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/permission') !!}"><i class="fa fa-circle-o"></i> Permissions</a></li>
+                        <li{!!  in_array(Request::segment(2), ['role']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/role') !!}"><i class="fa fa-circle-o"></i> Roles</a></li>
+                    @endif
+                        <li{!!  in_array(Request::segment(2), ['user']) ? ' class="active"': '' !!}>
+                            <a href="{!! url(Request::segment(1).'/user') !!}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
 
