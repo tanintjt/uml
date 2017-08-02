@@ -33,6 +33,12 @@
                     <button type="submit" class="btn btn-primary btn-block btn-flat" style="background-color:#f05283;border-color:#f05283 ">Sign In</button>
                 </div>
             </div>
+
+            @if($errors->has('error'))
+                <div class="alert alert-warning" role="alert">
+                    {{ $errors->first('error') }}
+                </div>
+            @endif
             {!! Form::close() !!}
         </div>
 
