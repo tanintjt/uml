@@ -61,6 +61,9 @@
                 </table>
             </div>
         </div>
+        <div class="box-footer">
+            {{ $rows->links() }}
+        </div>
 
         <div class="box-footer">
         </div>

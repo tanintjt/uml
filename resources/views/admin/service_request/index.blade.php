@@ -108,7 +108,7 @@
         </div>
 
         <div class="box-footer">
-            {{--{{ $rows->links() }}--}}
+            {{ $rows->links() }}
         </div>
     </div>
     {!! Form::close() !!}

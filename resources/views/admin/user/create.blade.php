@@ -45,6 +45,17 @@
                         @endif
                     </div>
                 </div>
+                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                    {!! Form::label('phone', 'Phone :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('phone', old('phone'), ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Phone']) !!}
+                        @if ($errors->has('phone'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="form-group">
                     {!! Form::label('status', 'Status :', ['class' => 'col-xs-3 control-label']) !!}

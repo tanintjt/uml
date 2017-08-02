@@ -74,7 +74,7 @@ class UserController extends Controller
             $rows = User::Role()->Search(Session::get('search'))->
             RoleId(Session::get('role_id'))->
             Status(Session::get('status'))->
-            orderBy('name', 'asc')->
+            orderBy('id', 'desc')->
             paginate(config('app.limit'));
 
        /* $role = Auth::user()->roles()->pluck('id');
@@ -114,6 +114,7 @@ class UserController extends Controller
         $rules = [
             'role_id'   => 'not_in:0',
             'name'      => 'required',
+            'phone' => 'required|regex:/^[0]{1}[1]{1}[5-9]{1}\d{8}$/',
             'email'     => 'required|email|unique:users,email',
             'password'  => 'required|min:4|confirmed',
         ];
@@ -124,9 +125,12 @@ class UserController extends Controller
             'email.required'    => 'Email is required!',
             'email.email'       => 'Not a valid e-mail address!',
             'email.unique'      => 'Email is already registered!',
+            'phone.required' => 'Phone is required!',
+            'phone.regex' => 'Not a valid mobile number!',
             'password.required' => 'Your password is required!',
             'password.min'      => 'Password should be min 4 characters long',
             'password.confirmed'=> 'Your password didn\'t match!',
+
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -138,6 +142,7 @@ class UserController extends Controller
             [
                 'name'          => $request->input('name'),
                 'email'         => $request->input('email'),
+                'phone'         => $request->input('phone'),
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
@@ -206,11 +211,14 @@ class UserController extends Controller
         $rules = [
             'role_id'   => 'not_in:0',
             'name'      => 'required',
+            'phone' => 'required|regex:/^[0]{1}[1]{1}[5-9]{1}\d{8}$/',
         ];
 
         $messages = [
             'role_id.not_in'    => 'Role is required!',
             'name.required'     => 'Name is required!',
+            'phone.required' => 'Phone is required!',
+            'phone.regex' => 'Not a valid mobile number!',
         ];
 
         if ($request->has('password')) {
@@ -229,6 +237,7 @@ class UserController extends Controller
         $input = array(
             'name'          => $request->input('name'),
             'status'        => $request->input('status'),
+            'phone'        => $request->input('phone'),
             'parent_id'        => $request->input('parent_id'),
         );
 

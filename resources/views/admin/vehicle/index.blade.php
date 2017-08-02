@@ -75,7 +75,7 @@
         </div>
 
         <div class="box-footer">
-
+            {{ $rows->links() }}
         </div>
 
     </div>
