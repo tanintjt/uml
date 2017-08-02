@@ -26,4 +26,11 @@ class FeedBack extends Model
             return $query->where('feedback.subject', 'LIKE', '%' . trim($name) . '%');
         }
     }
+
+    public function scopeUserId($query, $userid)
+    {
+        if( $userid > 0 ) {
+            return $query->where('feedback.user_id', $userid);
+        }
+    }
 }

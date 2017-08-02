@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\FeedBack;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -53,14 +54,17 @@ class FeedbackController extends Controller
         if ($request->isMethod('post')) {
 //            Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
+            Session::put('user_id', $request->input('user_id'));
         }
 
+        $users = $this->userList();
+
         $rows = FeedBack::Search(Session::get('search'))->
-        //Status(Session::get('status'))->
+        UserId(Session::get('user_id'))->
         orderBy('id', 'asc')->paginate(config('app.limit'));
 
 
-        return view('admin/feedback/index', compact('rows', 'title', 'extrajs'));
+        return view('admin/feedback/index', compact('rows', 'title','users', 'extrajs'));
     }
 
 
@@ -84,5 +88,22 @@ class FeedbackController extends Controller
 
         return redirect()->back()->with(['message' => $message, 'error' => $error]);
 
+    }
+
+
+    private function userList($boolean = false)
+    {
+        $rows = User::join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->where('role_id','=',4)
+            ->select('users.id',
+                'users.name')->get();
+
+        $userlist[0] = ($boolean == true ? 'Select a User' : 'All User');
+
+        foreach($rows as $row):
+            $userlist[$row->id] = $row->name;
+        endforeach;
+
+        return $userlist;
     }
 }

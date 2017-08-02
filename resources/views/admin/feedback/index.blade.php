@@ -12,9 +12,11 @@
                     {{--<a href="{!! url(Request::segment(1).'/service-center/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>--}}
                 </span>
             </div>
-            {{--<div class="pull-right">
-                {!! Form::select('status', ['0' => 'All Status', '1' => 'Pending','2' => 'Accept','3'=>'Reject','4'=>'Rescheduled','5'=>'Done'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
-            </div>--}}
+            <div class="pull-right">
+                {{--{!! Form::select('type_id', $type, old('type_id', Session::get('type_id') ), ['class' => 'form-control input-sm', 'id' => 'type_id']) !!}--}}
+                {{--{!! Form::select('model_id', $model, old('model_id', Session::get('model_id') ), ['class' => 'form-control input-sm', 'id' => 'model_id']) !!}--}}
+                {!! Form::select('user_id', $users, old('user_id', Session::get('user_id') ), ['class' => 'form-control input-sm', 'id' => 'user_id']) !!}
+            </div>
 
         </div>
         <div class="box-body">
