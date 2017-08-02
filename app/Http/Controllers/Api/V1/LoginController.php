@@ -63,6 +63,7 @@ class LoginController extends Controller
             [
                 'name'          => $request->input('name'),
                 'email'         => $request->input('email'),
+                'phone'         => $request->input('phone'),
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
