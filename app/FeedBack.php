@@ -19,4 +19,11 @@ class FeedBack extends Model
         return $this->belongsTo('App\User', 'user_id');
 
     }
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('feedback.subject', 'LIKE', '%' . trim($name) . '%');
+        }
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\FeedBack;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Session;
 class FeedbackController extends Controller
 {
     public function index(Request $request){
@@ -51,7 +51,7 @@ class FeedbackController extends Controller
 		</script>";
 
         if ($request->isMethod('post')) {
-            Session::put('status', $request->input('status'));
+//            Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
         }
 
@@ -61,5 +61,28 @@ class FeedbackController extends Controller
 
 
         return view('admin/feedback/index', compact('rows', 'title', 'extrajs'));
+    }
+
+
+    public function show($id){
+
+        $row = FeedBack::findOrFail($id);
+
+        $title = 'FeedBack details';
+        return view('admin.feedback.view',compact('title', 'row'));
+    }
+
+    public function delete($id)
+    {
+
+        $model = FeedBack::where('id',$id)->first();
+
+        $message =  $model->subject.'  deleted.';
+        $error = false;
+
+        $model->delete();
+
+        return redirect()->back()->with(['message' => $message, 'error' => $error]);
+
     }
 }

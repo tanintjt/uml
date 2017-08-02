@@ -26,7 +26,6 @@
                 </div>
             @endif
             <div class="table-responsive">
-                <p><strong> Requested Services :</strong></p>
                 <table class="table table-bordered">
                     <thead>
                     <tr class="active">
@@ -34,6 +33,7 @@
                         <th width="10%">Customer Name</th>
                         <th width="10%">Subject</th>
                         <th width="8%">Feedback Details</th>
+                        <th width="10%">Actions</th>
 
                     </tr>
                     </thead>
@@ -45,7 +45,12 @@
                             <td>{{ ucfirst($row->users->name)}}</td>
                             <td>{{ $row->subject}}</td>
                             <td>{{ $row->feedback_details}}</td>
+                            <td>
+                                <a href="{!! url(Request::segment(1).'/feedback/'.$row->id) !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                {{--<a href="{!! url(Request::segment(1).'/news-events/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>--}}
 
+                                <a href="{!! route('feedback-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

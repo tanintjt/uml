@@ -306,6 +306,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     /*feedback*/
     Route::resource('/feedback',  'FeedbackController', ['except' => ['index'], 'middleware' => ['role:super-administrator']]);
 
+    Route::match(['get', 'post'], 'feedback', ['uses' => 'FeedbackController@index', 'middleware' => ['role:super-administrator']]);
+
+    Route::any('/feedback/delete/{id}', [ 'as' => 'feedback-delete', 'uses' => 'FeedbackController@delete', 'middleware' => ['role:super-administrator']]);
+
 
     /*service_request*/
 
