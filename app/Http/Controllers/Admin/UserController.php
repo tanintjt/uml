@@ -122,7 +122,7 @@ class UserController extends Controller
             'email.required'    => 'Email is required!',
             'email.email'       => 'Not a valid e-mail address!',
             'email.unique'      => 'Email is already registered!',
-            'password.required' => 'Your passowr is reuired!',
+            'password.required' => 'Your password is required!',
             'password.min'      => 'Password should be min 4 characters long',
             'password.confirmed'=> 'Your password didn\'t match!',
         ];

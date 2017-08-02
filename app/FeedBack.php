@@ -13,4 +13,10 @@ class FeedBack extends Model
     protected $fillable = [
         'user_id','subject','feedback_details'
     ];
+
+    public function users()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+
+    }
 }

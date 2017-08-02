@@ -79,6 +79,7 @@
             </li>
 
             <li{!!  in_array(Request::segment(2), ['employee']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/employee') !!}"><i class="fa fa-user"></i> <span>Employee</span></a></li>
+            <li{!!  in_array(Request::segment(2), ['feedback']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/feedback') !!}"><i class="fa fa-feed"></i> <span>Feedback</span></a></li>
 
 
         </ul>

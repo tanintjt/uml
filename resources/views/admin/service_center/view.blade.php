@@ -49,7 +49,7 @@
                                     <tbody>
                                     <tr>
                                         @if(isset($row->store_image))
-                                             <td><img src="{!! asset(isset($row->store_image)?$row->store_image:'') !!}" width="90%" height="60%" style="margin-left:5%"></td>
+                                             <td><img src="{!! asset(isset($row->store_image)?$row->store_image:'') !!}" width="100%" height="60%"></td>
                                         @else
                                         @endif
                                     </tr>
