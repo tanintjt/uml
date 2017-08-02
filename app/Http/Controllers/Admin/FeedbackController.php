@@ -77,14 +77,19 @@ class FeedbackController extends Controller
     }
 
 
-    public function edit($id)
+    public function reply($id)
     {
+
         $row = FeedBack::findOrFail($id);
         $title = 'Feedback Reply';
-exit($title);
-        //$employee = $this->employeeList(true);
 
         return view('admin.feedback.reply',compact('title', 'row', 'extrajs'));
+    }
+
+
+    public function store_reply($id){
+
+
     }
 
 

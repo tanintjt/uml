@@ -50,7 +50,7 @@
                                 <a href="{!! url(Request::segment(1).'/feedback/'.$row->id) !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! route('feedback-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                                 {{--<a href="{!! route('reply-feedback',$row->id) !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>--}}
-                                {{--<a href="{!! url(Request::segment(1).'/feedback/'.$row->id.'/reply') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>--}}
+                                <a href="{!! route('reply-feedback',$row->id) !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                             </td>
                         </tr>
                     @endforeach

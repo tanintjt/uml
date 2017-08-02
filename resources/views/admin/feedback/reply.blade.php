@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::model($row,['method' => 'PUT','url' => Request::segment(1).'/feedback/'.$row->id,'class' => 'form-horizontal', 'id' => 'admin-form' ]) !!}
+    {!! Form::model($row,['method' => 'PUT','route'=>['store-reply',$row->id],'class' => 'form-horizontal', 'id' => 'admin-form' ]) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
@@ -13,45 +13,35 @@
             </div>
         </div>
         <div class="box-body">
-            <div class="col-xs-6">
-                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    {!! Form::label('status', 'Status:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-6">
-                        {!! Form::Select('status',array(
-                                       '1'=>'Pending',
-                                       '2'=>'Accept',
-                                       '3'=>'Reject',
-                                       '4'=>'Rescheduled',
-                                       '5'=>'Done',
-
-                                       ),
-        old('status', $row->status),['class'=>'form-control ','placeholder'=>'Select One']) !!}
-                        @if ($errors->has('status'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('status') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-
-
-            </div>
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <div class="form-group">
-                    {!! Form::label('request_date', 'Requested Date :', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('subject', 'Subject :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
-                        {!! Form::text('request_date',  old('request_date'),['class' => 'form-control datepicker', 'id' => 'request_date','readonly']) !!}
+                        {!! Form::text('subject',  old('subject'),['class' => 'form-control', 'id' => 'subject','readonly']) !!}
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('request_time', 'Requested Time :', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('feedback_details', 'Feedback Details :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
-                        {!! Form::text('request_time',  old('request_time'),['class' => 'form-control datepicker', 'id' => 'request_time', 'readonly']) !!}
+                        {!! Form::textarea('feedback_details',  old('feedback_details'),['class' => 'form-control ','rows'=>'6', 'id' => 'feedback_details', 'readonly']) !!}
                     </div>
                 </div>
-
+                <div class="form-group">
+                    {!! Form::label('reply_message', 'Message :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::textarea('reply_message',  old('reply_message'),['class' => 'form-control ','rows'=>'6',  'id' => 'reply_message','placeholder'=>'Write your reply.....']) !!}
+                    </div>
+                </div>
             </div>
+            {{--<div class="col-xs-6">
+
+                <div class="form-group">
+                    {!! Form::label('reply_message', 'Reply :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::textarea('reply_message',  old('reply_message'),['class' => 'form-control ', 'id' => 'reply_message']) !!}
+                    </div>
+                </div>
+            </div>--}}
         </div>
     </div>
     {!! Form::close() !!}

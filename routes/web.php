@@ -312,6 +312,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     Route::any('/feedback/delete/{id}', [ 'as' => 'feedback-delete', 'uses' => 'FeedbackController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
+    Route::any('/feedback/reply/{id}', [ 'as' => 'reply-feedback', 'uses' => 'FeedbackController@reply', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
+    Route::any('/feedback/store-reply/{id}', [ 'as' => 'store-reply', 'uses' => 'FeedbackController@store_reply', 'middleware' => ['role:super-administrator|administrator|manager']]);
+
 
     /*service_request*/
 
