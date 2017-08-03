@@ -197,13 +197,13 @@ class VehicleController extends Controller
             if($colors){
                 foreach($colors as $color) {
 
-                    $destinationPath = 'public/uploads/vehicle/';
+                    $destinationPath = 'public/uploads/vehicle/colors';
 
                     $file_original_name = $color->getClientOriginalName();
                     $file_name = rand(11111, 99999) . $file_original_name;
                     $color->move($destinationPath, $file_name);
 
-                    $input['available_colors'] = 'public/uploads/vehicle/'.$file_name;
+                    $input['available_colors'] = 'public/uploads/vehicle/colors'.$file_name;
 
                     VehicleColor::create([
                         'vehicle_id' => $vehicle->id,
@@ -280,31 +280,6 @@ class VehicleController extends Controller
     {
         $row = Vehicle::findOrFail($id);
         $title = 'Edit details';
-
-        /*$extrajs = "<script>
-            $(function() {
-                var colpick = $('.color').each( function() {
-                    $(this).minicolors({
-                      control: $(this).attr('data-control') || 'hue',
-                      inline: $(this).attr('data-inline') === 'true',
-                      letterCase: 'lowercase',
-                      opacity: false,
-                      change: function(hex, opacity) {
-                        if(!hex) return;
-                        if(opacity) hex += ', ' + opacity;
-                        try {
-                          console.log(hex);
-                        } catch(e) {}
-                        $(this).select();
-                      },
-                      theme: 'bootstrap'
-                    });
-                });
-            });
-		</script>";
-
-        $css = '<link href="'.asset('public/themes/default/css/colors.css').'" rel="stylesheet" type="text/css" media="screen">';
-        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';*/
 
         $type = $this->typeList(true);
         $model = $this->modelList(true);
@@ -390,14 +365,14 @@ class VehicleController extends Controller
 
                 foreach($vehicle_colors as $id) {
 
-                    /*if($id->available_colors){
+                    if($id->available_colors){
                         unlink($id->available_colors);
-                    }*/
+                    }
                     $id->delete();
                 }
                 foreach($colors as $color) {
 
-                    $destinationPath = 'public/uploads/vehicle/';
+                    $destinationPath = 'public/uploads/vehicle/colors';
 
                     // Create folders if they don't exist
                     if ( !file_exists($destinationPath) ) {
@@ -410,7 +385,7 @@ class VehicleController extends Controller
 
                     VehicleColor::create([
                         'vehicle_id'       =>   $model->id,
-                        'available_colors' =>   'public/uploads/vehicle/' . $file_name,
+                        'available_colors' =>   'public/uploads/vehicle/colors' . $file_name,
                     ]);
                 }
             }
@@ -421,9 +396,9 @@ class VehicleController extends Controller
 
                 foreach($vehicle_features as $id) {
 
-                    /*if($id->features){
+                    if($id->features){
                         unlink($id->features);
-                    }*/
+                    }
                     $id->delete();
                 }
                 foreach($features as $feature) {
