@@ -57,7 +57,7 @@
                     <li{!!  in_array(Request::segment(2), ['vehicle-model']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/vehicle-model') !!}"><i class="fa fa-circle-o"></i> Vehicle Model</a></li>
                     <li{!!  in_array(Request::segment(2), ['brand']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/brand') !!}"><i class="fa fa-circle-o"></i> Brand</a></li>
                     <li{!!  in_array(Request::segment(2), ['vehicle']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/vehicle') !!}"><i class="fa fa-circle-o"></i> Vehicle</a></li>
-                    <li{!!  in_array(Request::segment(2), ['user-vehicle']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/user-vehicle') !!}"><i class="fa fa-circle-o"></i>Store Vehicle To User</a></li>
+                    <li{!!  in_array(Request::segment(2), ['user-vehicle']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/user-vehicle') !!}"><i class="fa fa-circle-o"></i>New Customer On Sell</a></li>
                 </ul>
             </li>
 

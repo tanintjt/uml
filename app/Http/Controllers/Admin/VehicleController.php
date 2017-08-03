@@ -390,9 +390,9 @@ class VehicleController extends Controller
 
                 foreach($vehicle_colors as $id) {
 
-                    if($id->available_colors){
+                    /*if($id->available_colors){
                         unlink($id->available_colors);
-                    }
+                    }*/
                     $id->delete();
                 }
                 foreach($colors as $color) {
@@ -421,9 +421,9 @@ class VehicleController extends Controller
 
                 foreach($vehicle_features as $id) {
 
-                    if($id->features){
+                    /*if($id->features){
                         unlink($id->features);
-                    }
+                    }*/
                     $id->delete();
                 }
                 foreach($features as $feature) {

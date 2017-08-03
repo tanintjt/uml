@@ -393,10 +393,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::put('/employee/{id}/assign',
         ['as' => 'employee-assign','uses' => 'ServiceRequestController@assign', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
+
+
+
+
 });
 
 
-
+Route::get('test', [ 'as' => 'test', 'uses' => 'TestController@index']);
 
 
 /*------test------*/

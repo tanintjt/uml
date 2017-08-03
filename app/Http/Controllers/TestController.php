@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\ServiceRequest;
 use App\User;
+use App\UserVehicle;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 class TestController extends Controller
@@ -10,17 +12,16 @@ class TestController extends Controller
 
 
 
-    public function index(){
+    public function index(Request $request){
 
-        $date = Carbon::parse(json_decode('2017-07-18T18:00:00.000Z'))->format('Y-m-d H:i:s');
+        $user = UserVehicle::where('user_id',$request->user()->id)->get();
 
-        //json_decode($json)
-        //json_decode($json)
-       // dd($date);
+        if($user){
+            $service = ServiceRequest::where('user_id',$request->user()->id)->count();
 
-        $parent_id = 26;
+            print_r($service);exit;
 
-        $row = User::where('id','=',$parent_id)->get();
-        print_r($row);exit;
+
+        }
     }
 }
