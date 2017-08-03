@@ -92,51 +92,9 @@ class UserVehicleController extends Controller
     public function create()
     {
         $title = 'Add User Vehicle';
-        /*$extrajs = "<script>
-            $(function() {
-              //  $('#outlet_id').select2();
 
-
-                $('#model_id').bind('load change', function(e){
-                    var typeid =  $('#type_id').val();
-                    var modelid =  $(this).val();
-
-                    getVehicle(typeid, modelid);
-
-
-                });
-
-
-                $('#type_id').bind('load change', function(e){
-                    var modelid =  $('#model_id').val();
-                    var typeid =  $(this).val();
-
-                    getVehicle(typeid, modelid);
-
-                });
-
-
-                function getVehicle(id, cid) {
-                    $('#brand_id').empty();
-                    $.get('" . url('admin/user-vehicle/vehicle') . "/' + id + '/' + cid, function(data)
-                    {
-                        $.each(data, function(idx, el) {
-                            $('#brand_id').append('<option value=\"' + el.id + '\">' + el.name + '</option>');
-                        });
-                    });
-                }
-
-
-
-            });
-		</script>";
-        $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
-        $css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';*/
-
-//        $type = $this->typeList(true);
         $model = $this->modelList(true);
-//        $brand = $this->brandList(0,0);
-        $users = $this->userList();
+        $users = $this->userList(true);
 
         return view('admin.user_vehicle.create', compact('title', 'users', 'brand', 'model', 'type', 'js', 'css', 'extrajs') );
     }
@@ -198,7 +156,7 @@ class UserVehicleController extends Controller
     private function userList($boolean = false)
     {
         $rows = User::join('role_user', 'role_user.user_id', '=', 'users.id')
-            ->where('role_id','=',4)
+            //->where('role_id','=',4)
             ->select('users.id',
                 'users.name')->get();
 
@@ -243,7 +201,7 @@ class UserVehicleController extends Controller
         $row = UserVehicle::findOrFail($id);
 
         $model = $this->modelList(true);
-        $users = $this->userList();
+        $users = $this->userList(true);
 
         return view('admin.user_vehicle.edit',compact('title', 'row','model','users'));
     }

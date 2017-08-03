@@ -38,7 +38,7 @@
                 <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
                     {!! Form::label('user_id', 'User :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::select('user_id', $users, old('user_id'), ['class' => 'form-control', 'id' => 'user_id']) !!}
+                        {!! Form::select('user_id', $users, old('user_id',$row->user_id), ['class' => 'form-control', 'id' => 'user_id']) !!}
                         @if ($errors->has('user_id'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('user_id') }}</strong>

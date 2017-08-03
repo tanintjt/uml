@@ -2,10 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\ServiceRequest;
+use App\UserVehicle;
 use Edujugon\PushNotification\Facades\PushNotification;
 use Edujugon\PushNotification\Providers\PushNotificationServiceProvider;
 use Illuminate\Console\Command;
-
+use Illuminate\Http\Request;
+use Symfony\Component\CssSelector\Parser\Reader;
+use Auth;
+use Carbon\Carbon;
 class ServiceRequestCommand extends Command
 {
     /**
@@ -13,14 +18,14 @@ class ServiceRequestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'service:request';
+    protected $signature = 'command:free_service';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Notification for free services';
 
     /**
      * Create a new command instance.
@@ -39,9 +44,22 @@ class ServiceRequestCommand extends Command
      */
     public function handle()
     {
-        //PushNotification::test();
+        $user_vehicle = UserVehicle::where('user_id',49)->first();
 
-        echo "success";
+        if($user_vehicle){
+            $service = ServiceRequest::where('user_id',49)->count();
+
+            $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+            $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+
+            $interval = $purchase_date->diffInDays($current_date, false);
+
+            //dd($interval);
+            if($service<4 && $service>0){
+                dd($interval);
+            }
+        }
 
     }
+
 }

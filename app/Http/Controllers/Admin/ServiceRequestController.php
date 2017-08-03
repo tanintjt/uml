@@ -141,7 +141,7 @@ class ServiceRequestController extends Controller
             $message =  ('Your Service request has been '.$status.' to '. 'scheduled date/time :'. $date2.'.'.' '. date("h:i:s a", strtotime($model->updated_at)));
         }else{
             $status = 'completed';
-            $message =  ('Your Service has been '.$status.' '. 'Thank you for being with Uttara Motors.');
+            $message =  ('Your Service has been '.$status.' . '. 'Thank you for being with Uttara Motors.');
         }
 
 

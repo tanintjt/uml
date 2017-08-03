@@ -46,16 +46,11 @@ class PushNotificationCommand extends Command
      */
     public function handle()
     {
-        //$this->ServiceRequest->sendNotification();
-
-       // $service_request = ServiceRequest::whereIn('status',[2,4])->get();
-
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
 
         $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
         $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
-            //->setBody($message)
             ->setBody('Test Message')
             ->setSound('default');
 
@@ -74,10 +69,6 @@ class PushNotificationCommand extends Command
 
         $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
 
-
         return $downstreamResponse->numberSuccess();
-
-
-
     }
 }
