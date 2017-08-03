@@ -11,7 +11,7 @@ class ServicePackageTypeController extends Controller
 
     public function index(Request $request)
     {
-        $rows = ServicePackageType::get();
+        $rows = ServicePackageType::where('status',1)->get();
         $data = [];
         for($i = 0; $i < count($rows); $i++) {
             $data[$i]['id'] = $rows[$i]->id;
