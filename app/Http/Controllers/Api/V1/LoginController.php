@@ -80,7 +80,13 @@ class LoginController extends Controller
             $this->initiateEmailActivation($user);
         }
 
-        return response()->json(['status'=>true,'message'=>'User created successfully','data'=>$user]);
+        return response()->json(
+            [
+                'status'=>true,
+                'message'=>'User created successfully',
+                'data'=> $user
+            ]
+        );
     }
 
 

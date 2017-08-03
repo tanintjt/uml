@@ -70,7 +70,12 @@ class ForgotPasswordController extends Controller
         }
 
 
-        return response()->json($message, 201);
+        return response()->json(
+            [
+                'status' => false,
+                'message' => $message
+            ]
+            , 201);
 
     }
 
