@@ -159,7 +159,7 @@ class EDocumentController extends Controller
             $result = 'Successfully Updated';
             $http_code = 201;
         } else {
-            $result =  'Soryy we are unable to process your request, try again.';
+            $result =  'Sorry we are unable to process your request, try again.';
             $http_code = 500;
         }
 
