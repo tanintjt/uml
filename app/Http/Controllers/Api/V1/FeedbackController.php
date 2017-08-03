@@ -14,13 +14,11 @@ class FeedbackController extends Controller
         $user = $request->user();
 
         $rules = [
-            //'user_id'   => 'not_in:0',
             'subject' => 'required',
             'feedback_details' => 'required',
         ];
 
         $messages = [
-            //'user_id.not_in'    => 'User is required!',
             'subject.required' => 'Subject is required!',
             'feedback_details.required' => 'Message is required!',
         ];
@@ -31,16 +29,22 @@ class FeedbackController extends Controller
 
             $result = $validator->errors()->all();
 
-            return response()->json(['error' => true, 'result' => $result], 400);
+            return response()->json($result, 400);
         }
 
-         FeedBack::create(
+        FeedBack::create(
             [
                 'user_id'            => $user->id,
                 'subject'            => $request->input('subject'),
                 'feedback_details'   =>$request->input('feedback_details'),
             ]
         );
-        return response()->json('Successfully added');
+
+        return response()->json(
+            [
+                'status' => false,
+                'message' => 'Thank you for your feedback.'
+            ]
+            , 201);
     }
 }

@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 class SparePartsCategoryController extends Controller
 {
 
-
     public function index(Request $request)
     {
         $rows = SparePartsCategory::get();

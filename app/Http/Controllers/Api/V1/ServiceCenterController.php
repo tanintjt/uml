@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Validator;
+
 class ServiceCenterController extends Controller
 {
 
@@ -14,9 +15,6 @@ class ServiceCenterController extends Controller
     public function index(){
 
         $rows = ServiceCenter::get();
-        /*$result['Service Center'] = $rows;
-
-        return response()->json(['error' => false, 'result' => $result ], 200);*/
         return response()->json($rows, 200);
     }
 
@@ -38,22 +36,18 @@ class ServiceCenterController extends Controller
 
         if ($validator->fails()) {
             $result = $validator->errors()->all();
-            return response()->json(['error' => true, 'result' => $result ], 400);
+            return response()->json($result , 400);
         }
 
         //user coordinates ...
         $point1_lat = $request->latitude;
         $point1_long = $request->longitude;
 
-        $unit = 'km';
-
         // service centre location ......
         $location_centers = $users = DB::table('service_center')->get();
 
         /* get distance from user to service center location coordinates....*/
         $lcs = array();
-
-        //$lcs1 = [ 'degree' => 1.31, 'id' => 1, 'degree' => 1.31, 'id' => 2 ];
 
         if($location_centers){
 

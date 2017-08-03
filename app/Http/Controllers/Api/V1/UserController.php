@@ -25,8 +25,6 @@ class UserController extends Controller
     }
 
 
-
-
     public function profile_image(Request $request){
 
         $rules = [
@@ -44,7 +42,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             $result = $validator->errors()->all();
-            return response()->json(['error' => true, 'result' => $result ], 400);
+            return response()->json($result, 400);
         }
 
         $file = $request->file('file');
@@ -78,14 +76,14 @@ class UserController extends Controller
         if ($user_profile->id > 0) {
 
             $result = $user_profile->image;
-            //$http_code = 201;
+            $http_code = 201;
 
         } else {
             $result =  'adding fail.';
-            //$http_code = 500;
+            $http_code = 500;
         }
 
-        return response()->json($result);
+        return response()->json($result, $http_code);
     }
 
 }

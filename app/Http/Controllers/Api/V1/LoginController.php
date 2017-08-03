@@ -97,13 +97,18 @@ class LoginController extends Controller
         $row = $request->user();
         //print_r($row);exit;
         if ($row) {
-             return response()->json(['error' => false, 'result' => $row ], 202);
+             //return response()->json(['error' => false, 'result' => $row ], 202);
+            return response()->json(
+                [
+                    'status' => false,
+                    'result' => $row
+                ]
+                , 201);
         }
         else
          {
-            return response()->json([
-                'error'=>'Authorization error'
-            ]);
+            return response()->json(
+                'Authorization error');
          }
     }
     /*---------------Basic authentication : end --------------*/
@@ -134,7 +139,7 @@ class LoginController extends Controller
 
             $result = $validator->errors()->all();
 
-            return response()->json(['error' => true, 'result' => $result], 400);
+            return response()->json( $result, 400);
         }
 
         $authUser = $this->findOrCreateUser($request->all());

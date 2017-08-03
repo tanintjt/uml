@@ -29,7 +29,7 @@ class VehicleCatalogController extends Controller
 
         $result['Vehicle Catalog'] = $rows;
 
-        return response()->json(['error' => false, 'result' => $result ], 200);
+        return response()->json($result , 200);
     }
 
 
@@ -41,36 +41,45 @@ class VehicleCatalogController extends Controller
 
         $file = Input::file('vehicle_image');
 
-        $rules = array('vehicle_image' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub');
+        $rules = [
+            'vehicle_image' => 'required|mimes:png,gif,jpeg,pdf,jpg'
+        ];
 
-        $validator = Validator::make(array('vehicle_image' => $file), $rules);
+        $messages = [
+            'vehicle_image.required' => 'Image is required!',
+            'vehicle_image.mimes' => 'File type not a valid format!'
+        ];
 
-        if ($validator->passes()) {
+        $validator = Validator::make($request->all(),$rules, $messages);
 
-            $img_data = file_get_contents($file);
-            pathinfo($file, PATHINFO_EXTENSION);
-            $base64 = base64_encode($img_data);
+        if ($validator->fails()) {
 
+            $result = $validator->errors()->all();
 
-            $faq = VehicleCatalog::create([
-                'vehicle_image' => $base64,
-                'vehicle_type' => $request->vehicle_type,
-                'vehicle_id' => $request->vehicle_id,
-                'brand_id' => $request->brand_id,
-                'vehicle_model' => $request->brand_id,
-            ]);
-
-            if ($faq) {
-                $result = 'Successfully Saved';
-                $error = false;
-                $http_code = 201;
-            } else {
-                $result = 'Request failed.';
-                $http_code = 500;
-                $error = true;
-            }
-            return response()->json(['error' => $error, 'result' => $result], $http_code);
+            return response()->json( $result, 400);
         }
+
+        $img_data = file_get_contents($file);
+        pathinfo($file, PATHINFO_EXTENSION);
+        $base64 = base64_encode($img_data);
+
+
+        $faq = VehicleCatalog::create([
+            'vehicle_image' => $base64,
+            'vehicle_type' => $request->vehicle_type,
+            'vehicle_id' => $request->vehicle_id,
+            'brand_id' => $request->brand_id,
+            'vehicle_model' => $request->brand_id,
+        ]);
+
+        if ($faq) {
+            $result = 'Successfully Saved';
+            $http_code = 201;
+        } else {
+            $result = 'Request failed.';
+            $http_code = 500;
+        }
+        return response()->json( $result, $http_code);
      }
 
 }
