@@ -55,7 +55,7 @@ class ForgotPasswordController extends Controller
 
         if ($validator->fails()) {
             $result = $validator->errors()->all();
-            return response()->json(['error' => true, 'result' => $result ], 400);
+            return response()->json($result, 400);
         }
 
         $row = User::where('email',$request->input('email'))->first();
@@ -70,7 +70,7 @@ class ForgotPasswordController extends Controller
         }
 
 
-        return response()->json(['message' => $message ], 201);
+        return response()->json($message, 201);
 
     }
 
