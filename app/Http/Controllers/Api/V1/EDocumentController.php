@@ -148,6 +148,10 @@ class EDocumentController extends Controller
             'doc_type_id' => $request->input('doc_type_id')
         ];
 
+        if (isset($model->file)) {
+            unlink($model->file);
+        }
+
         $model->update($data);
 
 
