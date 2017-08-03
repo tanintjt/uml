@@ -363,12 +363,15 @@ class VehicleController extends Controller
 
                 $vehicle_colors = VehicleColor::where('vehicle_id',$model->id)->get();
 
-                foreach($vehicle_colors as $id) {
+                foreach($vehicle_colors as $vehicle_color) {
 
-                    if($id->available_colors){
-                        unlink($id->available_colors);
+                    if (File::exists('public/uploads/vehicle/colors/'.$vehicle_color->available_colors)) {
+                        File::delete('public/uploads/vehicle/colors/'.$vehicle_color->available_colors);
                     }
-                    $id->delete();
+                    /*if($id->available_colors){
+                        unlink($id->available_colors);
+                    }*/
+                    $vehicle_color->delete();
                 }
                 foreach($colors as $color) {
 

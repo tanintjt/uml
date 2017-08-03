@@ -198,7 +198,7 @@ class UserVehicleController extends Controller
     private function userList($boolean = false)
     {
         $rows = User::join('role_user', 'role_user.user_id', '=', 'users.id')
-            //->where('role_id','=',4)
+            ->where('role_id','=',4)
             ->select('users.id',
                 'users.name')->get();
 
