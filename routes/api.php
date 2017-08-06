@@ -130,7 +130,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     Route::get('/user-profile', [ 'as' => 'user-profile', 'uses' => 'UserController@user_profile']);
 
     /*profile image*/
-    Route::post('/profile-image', [ 'as' => 'profile-image', 'uses' => 'UserController@profile_image']);
+    Route::post('/update-profile', [ 'as' => 'profile-image', 'uses' => 'UserController@update_profile']);
 
     /*feedback*/
     Route::post('/feedback', [ 'as' => 'feedback', 'uses' => 'FeedbackController@index']);

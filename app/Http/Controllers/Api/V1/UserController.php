@@ -6,6 +6,7 @@ use App\User;
 use File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
 class UserController extends Controller
@@ -25,17 +26,24 @@ class UserController extends Controller
     }
 
 
-    public function profile_image(Request $request){
+    public function update_profile(Request $request)
+    {
+
+        $model = User::findOrFail($request->user()->id);
 
         $rules = [
-            'file'      => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+            'phone'     =>  'regex:/^[0]{1}[1]{1}[5-9]{1}\d{8}$/',
+            'file'      => '|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $messages = [
-            'file.required' => 'Profile Image is required!',
+            'phone.regex' => 'Not a valid mobile number!',
             'file.mimes' => 'Invalid Image Format !',
             'file.max' => 'Invalid Image Size !',
         ];
+
+
+
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -45,45 +53,45 @@ class UserController extends Controller
             return response()->json($result, 400);
         }
 
-        $file = $request->file('file');
+        //update password
+        if ($request->has('password')) {
+            $input['password'] = bcrypt($request->input('password'));
+        }
 
-        if($file){
+        if ($request->has('name')) {
+            $input['name'] = $request->input('name');
+        }
+
+        if ($request->has('phone')) {
+            $input['phone'] = $request->input('phone');
+        }
+
+
+        if($request->hasFile('file')){
+            $image = Input::file('file');
+            //Delete previous image from folder
+            if (File::exists('public/uploads/profile/'.$model->image)) {
+                File::delete('public/uploads/profile/'.$model->image);
+            }
 
             // Files destination
             $destinationPath = 'public/uploads/profile/';
-
-            // Create folders if they don't exist
-            if( ! File::isDirectory(public_path('public/uploads/profile'))) {
-                File::makeDirectory(public_path('public/uploads/profile'), 493, true);
-            }
-
-            $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
-            $file->move($destinationPath, $file_name);
+            $file_name = time(). '_'. str_random(4).'.'.$image->getClientOriginalExtension();
+            $image->move($destinationPath, $file_name);
+            $input['image'] = 'public/uploads/profile/' . $file_name;
         }
 
-        $data = [
-            'image' => 'public/uploads/profile/' . $file_name,
-        ];
+        ;
 
-        $user_profile = User::where('id',$request->user()->id)->first();
-
-        if (isset($user_profile->image)) {
-                unlink($user_profile->image);
-        }
-
-        $user_profile->update($data);
-
-        if ($user_profile->id > 0) {
-
-            $result = $user_profile->image;
+        if ($model->update($input)) {
+            $message = 'Successfully  updated';
             $http_code = 201;
-
         } else {
-            $result =  'adding fail.';
+            $message =  'update failed.';
             $http_code = 500;
         }
 
-        return response()->json($result, $http_code);
+        return response()->json($message, $http_code);
     }
 
 }
