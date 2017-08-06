@@ -21,6 +21,20 @@
             @endif
             <input type="hidden" name="token" value="{{ $token }}">
 
+            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <label for="name" class=" control-label">Name</label>
+
+                <div class="">
+                    <input id="name" type="name" class="form-control" name="name" value="{{ $email or old('name') }}" required>
+
+                    @if ($errors->has('name'))
+                        <span class="help-block">
+                              <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" class=" control-label">E-Mail Address</label>
 

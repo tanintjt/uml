@@ -69,14 +69,12 @@ class ForgotPasswordController extends Controller
             $message = 'Sorry, you are not registered with us.';
         }
 
-
         return response()->json(
             [
                 'status' => false,
                 'message' => $message
             ]
             , 201);
-
     }
 
     /**

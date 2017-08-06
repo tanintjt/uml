@@ -15,49 +15,35 @@ class TestController extends Controller
     public function index(Request $request){
 
 
-        $users1 = DB::select('select count(id) as cnt, user_id from tbl_service_request
+        $service_requests = DB::select('select count(id) as cnt, user_id from tbl_service_request
                               where user_id in (select user_id from tbl_user_vehicles)
                               and status = 5
                               group by user_id');
 
-        
+        foreach ($service_requests as $service_request){
 
-        if($users1){
-            return true;
-        }else{
-            $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
-            $current_date  = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+            $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
 
-        }
-
-
-
-
-
-
-
-
-        if($user_vehicles){
             foreach ($user_vehicles as $user_vehicle){
 
-                //print_r($user_vehicle);
-                $service = ServiceRequest::where('user_id',$user_vehicle->id)->count('status');
+                $purchase_date = Carbon::parse($user_vehicle->purchase_date)->format('Y-m-d');
+                $current_date  = Carbon::now()->format('Y-m-d');
 
+                if($service_request->cnt<5 && $service_request->cnt>0){
+                    echo 'ok';
 
-                print_r($service);
-
-
-
-                $interval = $purchase_date->diffInDays($current_date, false);
-
-                //dd($interval);
-                if($service<4 && $service>0){
-                    //print_r($interval);
+                }else{
+                    echo 'exit';
                 }
-
             }
-         exit;
+            // print_r($user_vehicle);
+
+
+
 
         }
+
+        exit;
+
     }
 }

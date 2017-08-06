@@ -21,7 +21,7 @@ class EDocumentController extends Controller
         $rows = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
             ->EDoc($request->input('type'))
             ->where('user_id',$request->user()->id)
-            ->select('e_documents.id','e_documents.issue_date',
+            ->select('e_documents.id',
                 'e_documents.expiry_date','e_documents.file','e_doc_type.name')
             ->get();
 
@@ -32,7 +32,6 @@ class EDocumentController extends Controller
             $result[$i]['id'] = $rows[$i]->id;
             $result[$i]['name'] = $rows[$i]->name;
             $result[$i]['file'] = $rows[$i]->file;
-            $result[$i]['issue_date'] = date("jS F, Y", strtotime($rows[$i]->issue_date));
             $result[$i]['expiry_date'] = date("jS F, Y", strtotime($rows[$i]->expiry_date));
         }
 
@@ -44,13 +43,11 @@ class EDocumentController extends Controller
     {
 
         $rules = [
-            'issue_date'      => 'required',
             'expiry_date'      => 'required',
             'file'      => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
 
         $messages = [
-            'issue_date.required'     => 'Issue Date is required!',
             'expiry_date.required'    => 'Expiry Date is required!',
             'file.required' => 'File is required!',
             'file.mimes' => 'Invalid File Format !',
@@ -78,7 +75,6 @@ class EDocumentController extends Controller
 
         $data = [
             'user_id'     =>     $request->user()->id,
-            'issue_date'  =>     Carbon::parse($request->input('issue_date'))->format('Y/m/d'),
             'expiry_date' =>     Carbon::parse($request->input('expiry_date'))->format('Y/m/d'),
             'file'        =>     'public/uploads/e_documents/' . $file_name,
             'doc_type_id' =>     $request->input('type')
