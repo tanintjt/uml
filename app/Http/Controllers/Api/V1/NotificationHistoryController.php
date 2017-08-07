@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 class NotificationHistoryController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $rows = NotificationHistory::get();
+        $rows = NotificationHistory::where('user_id',$request->user()->id)->get();
 
         $result = [];
         for( $i = 0; $i< count($rows); $i++) {
