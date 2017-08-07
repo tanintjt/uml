@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
 
-        $schedule->command('send:notification')->everyTenMinutes();
+        $schedule->command('command:free_service')->dailyAt('09:00');
     }
 
     /**

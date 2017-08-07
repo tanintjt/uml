@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\ServiceRequest;
+use App\UserDevices;
 use App\UserVehicle;
 use Edujugon\PushNotification\Facades\PushNotification;
 use Edujugon\PushNotification\Providers\PushNotificationServiceProvider;
@@ -11,6 +12,11 @@ use Illuminate\Http\Request;
 use Symfony\Component\CssSelector\Parser\Reader;
 use Auth;
 use Carbon\Carbon;
+use DB;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use FCM;
 class ServiceRequestCommand extends Command
 {
     /**
@@ -44,22 +50,74 @@ class ServiceRequestCommand extends Command
      */
     public function handle()
     {
-        $user_vehicle = UserVehicle::where('user_id',49)->first();
+        $service_requests = DB::select('select count(id) as cnt, user_id from tbl_service_request
+                              where user_id in (select user_id from tbl_user_vehicles)
+                              and status = 5
+                              group by user_id');
 
-        if($user_vehicle){
-            $service = ServiceRequest::where('user_id',49)->count();
+        foreach ($service_requests as $service_request){
 
-            $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
-            $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+            $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
 
-            $interval = $purchase_date->diffInDays($current_date, false);
+            foreach ($user_vehicles as $user_vehicle){
 
-            //dd($interval);
-            if($service<4 && $service>0){
-                dd($interval);
+                // user_device_id....
+                $device_ids = UserDevices::where('user_id',$user_vehicle->user_id)->pluck('device_id')->toArray();
+
+                $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+                $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+
+                $interval = $purchase_date->diffInDays($current_date, false);
+
+
+                if($service_request->cnt<5 && $service_request->cnt>0){
+
+                    if($interval=89 || $interval=179 || $interval=359){
+
+                        $sendMsg = $this->sendNotification($device_ids);
+
+                        if($sendMsg){
+                            return 'success';
+                        }else{
+                            return 'failed';
+                        }
+                    }
+
+                }else{
+
+                }
             }
+
         }
 
+    }
+
+    public function sendNotification($device_ids)
+    {
+
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+
+        $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
+        $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
+            ->setBody('Free Services.....')
+            ->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+
+        $dataBuilder
+            ->addData(['title' => 'Uttara Motors'])
+            ->addData(['body' => 'Free Services.....']);
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $tokens = $device_ids ;
+
+        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
+
+        return $downstreamResponse->numberSuccess();
     }
 
 }
