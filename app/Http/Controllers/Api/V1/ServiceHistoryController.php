@@ -23,7 +23,7 @@ class ServiceHistoryController extends Controller
         if($user){
             $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->count();
 
-            $user->purchase_date
+            //$user->purchase_date
             if($service_count==0){
 
 
