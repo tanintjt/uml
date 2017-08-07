@@ -42,6 +42,7 @@ Route::get('api/service-package-type', [ 'as' => 'service-package-type',
 
 Route::post('api/service-package', [ 'as' => 'service-package', 'uses' => 'Api\V1\ServicePackageController@index']);
 
+
 Route::get('api/faqs', [ 'as' => 'service-request', 'uses' => 'Api\V1\FaqController@index']);
 //Route::post('/faq-store', [ 'as' => 'service-request', 'uses' => 'FaqController@store']);
 

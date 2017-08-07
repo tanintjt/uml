@@ -8,11 +8,10 @@ use App\UserDevices;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Illuminate\Support\Facades\DB;
+use DB;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
-use Zizaco\Entrust\EntrustRole;
 use App\Traits\ActivationTrait;
 
 class LoginController extends Controller
@@ -70,10 +69,10 @@ class LoginController extends Controller
                 'password'      => bcrypt($request->input('password')),
                 'provider'      => 'uml',
                 'provider_id'   => bcrypt($request->input('password')),
-                'status'        => 1,
-               // 'image'         => $input['image']
             ]
         );
+
+        //return $user;
 
         if ($user->id > 0) {
             $user->attachRole(4);

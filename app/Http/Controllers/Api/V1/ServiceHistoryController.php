@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Auth;
+use DB;
 class ServiceHistoryController extends Controller
 {
 
@@ -14,6 +15,13 @@ class ServiceHistoryController extends Controller
     public  function index(Request $request){
 
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
+
+        $service_requests = DB::select('select count(id) as cnt, user_id from tbl_service_request
+                              where user_id in (select user_id from tbl_user_vehicles)
+                              and status = 5
+                              group by user_id');
+
+        print_r($service_requests);exit;
 
         $data = [];
 
@@ -39,7 +47,8 @@ class ServiceHistoryController extends Controller
                 $data[$i]['status'] = $status;
             }
             $result = $data;
-        } else {
+        }
+        else {
             $data[0]['username'] = $request->user()->name;
             $data[0]['registration_date'] = date("jS F, Y", strtotime($request->user()->created_at));
             $data[0]['packages'] = 'No history found';

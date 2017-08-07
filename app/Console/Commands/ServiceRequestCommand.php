@@ -68,11 +68,11 @@ class ServiceRequestCommand extends Command
                 $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
                 $interval = $purchase_date->diffInDays($current_date, false);
-
+                print_r($interval);
 
                 if($service_request->cnt<5 && $service_request->cnt>0){
 
-                    if($interval=89 || $interval=179 || $interval=359){
+                    if($interval==179){
 
                         $sendMsg = $this->sendNotification($device_ids);
 

@@ -25,8 +25,10 @@ class ActivationRepository
         $activation->save();
 
         // Send activation email notification
+        //SendActivationEmail($activation->token);
+        $sendMail = new SendActivationEmail($activation->token);
 
-        //SendActivationEmail::toMail();
+        $sendMail->toMail(true);
 
     }
 

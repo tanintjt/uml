@@ -11,7 +11,7 @@ class SendActivationEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $token;
+    public $token;
     /**
      * Create a new notification instance.
      *
@@ -42,11 +42,13 @@ class SendActivationEmail extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            //->to($this->user())
             ->subject('Activation email')
             ->greeting('Hello!')
             ->line('You need to activate your email before you can start using all of our services.')
             ->action('Activate Email', route('auth.activation', ['token' => $this->token]))
             ->line('Thank you for using our application!');
+
     }
 
     /**

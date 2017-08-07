@@ -39,7 +39,6 @@ Route::group(['namespace' => 'Auth'], function()
     Route::get('/activate/{token}', 'ActivateController@activate')->name('auth.activation');
 
 
-
     //Route::get('register', 'RegisterController@showRegistrationForm');
     //Route::post('register', 'RegisterController@register');
 
