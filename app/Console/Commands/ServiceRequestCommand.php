@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\NotificationHistory;
 use App\ServiceRequest;
 use App\UserDevices;
 use App\UserVehicle;
@@ -55,7 +56,6 @@ class ServiceRequestCommand extends Command
                               and status = 5
                               group by user_id');
 
-
         foreach ($service_requests as $service_request){
 
             $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
@@ -71,11 +71,15 @@ class ServiceRequestCommand extends Command
                 $interval = $purchase_date->diffInDays($current_date, false);
 
                 if($service_request->cnt < 4 ){
-
-                    if($interval== 89 || $interval == 179 || $interval == 359){
+                    if($interval == 89 || $interval == 179 || $interval == 359){
 
                         $this->sendNotification($device_ids);
                     }
+                    $data = [
+                        'user_id'     => $user_vehicle->user_id,
+                        'message'     => 'You are entitled for free services. Please book your availed free service(s).',
+                    ];
+                    NotificationHistory::create($data);
                 }
             }
 
@@ -91,14 +95,14 @@ class ServiceRequestCommand extends Command
 
         $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
         $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
-            ->setBody('You are entitled for free service. Please book a free service')
+            ->setBody('You are entitled for free services. Please book your availed free service(s).')
             ->setSound('default');
 
         $dataBuilder = new PayloadDataBuilder();
 
         $dataBuilder
             ->addData(['title' => 'Uttara Motors'])
-            ->addData(['body' => 'You are entitled for free service. Please book a free service']);
+            ->addData(['body' => 'You are entitled for free services. Please book your availed free service(s).']);
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();

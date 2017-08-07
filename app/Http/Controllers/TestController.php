@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\NotificationHistory;
 use App\ServiceRequest;
 use App\User;
 use App\UserDevices;
@@ -26,6 +27,7 @@ class TestController extends Controller
                               group by user_id');
 
         if($service_requests){
+
             foreach ($service_requests as $service_request){
 
                 $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
@@ -46,8 +48,39 @@ class TestController extends Controller
 
                             $this->sendNotification($device_ids);
                         }
+                        $data = [
+                            'user_id'     => $user_vehicle->user_id,
+                            'message'     => 'You are entitled for free services. Please book your availed free service(s)',
+
+                        ];
+                        NotificationHistory::create($data);
                     }
                 }
+            }
+        }else{
+
+            $user_vehicles = UserVehicle::get();
+
+            foreach ($user_vehicles as $user_vehicle){
+
+                // user_device_id....
+                $device_ids = UserDevices::pluck('device_id')->toArray();
+
+                $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+                $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+
+                $interval = $purchase_date->diffInDays($current_date, false);
+
+                    if($interval== 89 || $interval == 179 || $interval == 359){
+
+                        $this->sendNotification($device_ids);
+                    }
+                $data = [
+                    'user_id'     => $user_vehicle->user_id,
+                    'message'     => 'You are entitled for free services. Please book your availed free service(s)',
+
+                ];
+                NotificationHistory::create($data);
             }
         }
 
@@ -77,7 +110,7 @@ class TestController extends Controller
         $data = $dataBuilder->build();
 
         $tokens = $device_ids ;
-//print_r($tokens);exit;
+
         $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
         return $downstreamResponse->numberSuccess();
