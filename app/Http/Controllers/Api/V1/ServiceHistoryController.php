@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\ServiceRequest;
+use App\UserVehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -16,12 +17,12 @@ class ServiceHistoryController extends Controller
 
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
 
-        /*$service_requests = DB::select('select count(id) as cnt, user_id from tbl_service_request
-                              where user_id in (select user_id from tbl_user_vehicles)
-                              and status = 5
-                              group by user_id');
+        //free services .......
+        $user = UserVehicle::where('user_id',$request->user()->id)->get();
 
-        print_r($service_requests);exit;*/
+        if($user){
+            $service = ServiceRequest::where('user_id',$request->user()->id)->where('status',5)->count();
+        }
 
         $data = [];
 
@@ -57,8 +58,19 @@ class ServiceHistoryController extends Controller
 
             $result = $data;
         }
+        if($service){
+            $free_services = $service;
+        }else{
+            $free_services = 0;
+        }
 
-        return response()->json($result, 202);
+        //return response()->json($result,$free_services, 202);
+        return response()->json(
+            [
+                'result'=>$result,
+                'free_services'=>$free_services,
+            ]
+        );
     }
 
 

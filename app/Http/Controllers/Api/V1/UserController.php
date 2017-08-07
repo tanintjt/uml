@@ -81,8 +81,6 @@ class UserController extends Controller
             $input['image'] = 'public/uploads/profile/' . $file_name;
         }
 
-        ;
-
         if ($model->update($input)) {
             $message = 'Successfully  updated';
             $http_code = 201;
@@ -93,5 +91,7 @@ class UserController extends Controller
 
         return response()->json($message, $http_code);
     }
+
+
 
 }
