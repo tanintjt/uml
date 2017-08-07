@@ -28,9 +28,9 @@ class ServiceHistoryController extends Controller
             $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
             $interval = $purchase_date->diffInDays($current_date, false);
-//print_r($interval);exit;
+
             if($interval==360){
-                $total_free_services = 'Date Expired';
+                $total_free_services = 0;
             }else{
                 if($service_count>0){
                     $total_free_services =(4 - $service_count) ;
@@ -39,7 +39,7 @@ class ServiceHistoryController extends Controller
                 }
             }
         }else{
-            $total_free_services = 'Not Applicable';
+            $total_free_services = 0;
         }
 
         $data = [];
