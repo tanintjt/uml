@@ -55,7 +55,7 @@ class ServiceRequestCommand extends Command
                               and status = 5
                               group by user_id');
 
-        
+
         foreach ($service_requests as $service_request){
 
             $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();

@@ -25,35 +25,34 @@ class TestController extends Controller
                               and status = 5
                               group by user_id');
 
-        foreach ($service_requests as $service_request){
+        if($service_requests){
+            foreach ($service_requests as $service_request){
 
-            $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
+                $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
 
-            foreach ($user_vehicles as $user_vehicle){
+                foreach ($user_vehicles as $user_vehicle){
 
-                // user_device_id....
-                $device_ids = UserDevices::where('user_id',$user_vehicle->user_id)->pluck('device_id')->toArray();
+                    // user_device_id....
+                    $device_ids = UserDevices::where('user_id',$user_vehicle->user_id)->pluck('device_id')->toArray();
 
-                //print_r($device_ids);exit;
-                $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
-                $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+                    $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+                    $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
-                $interval = $purchase_date->diffInDays($current_date, false);
+                    $interval = $purchase_date->diffInDays($current_date, false);
 
-                if($service_request->cnt < 4 ){
+                    if($service_request->cnt < 4 ){
 
-                    if($interval==89 || $interval==179){
+                        if($interval== 89 || $interval == 179 || $interval == 359){
 
-                    $this->sendNotification($device_ids);
-
+                            $this->sendNotification($device_ids);
+                        }
                     }
-
-                } else{
-
                 }
             }
+        }else{
 
-        }exit;
+        }
+
     }
 
 
