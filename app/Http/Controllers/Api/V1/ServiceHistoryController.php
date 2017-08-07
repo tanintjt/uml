@@ -24,15 +24,19 @@ class ServiceHistoryController extends Controller
             $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->count();
 
 
-            //$purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user->purchase_date);
-            //$current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+            $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user->purchase_date);
+            $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
-            //$interval = $purchase_date->diffInDays($current_date, false);
-
-            if($service_count==0){
-                $total_free_services = 4;
+            $interval = $purchase_date->diffInDays($current_date, false);
+//print_r($interval);exit;
+            if($interval==360){
+                $total_free_services = 'Date Expired';
             }else{
-                $total_free_services =(4 - $service_count) ;
+                if($service_count==0){
+                    $total_free_services = 4;
+                }else{
+                    $total_free_services =(4 - $service_count) ;
+                }
             }
         }
 
@@ -58,7 +62,7 @@ class ServiceHistoryController extends Controller
                 $data[$i]['packages'] = $rows[$i]->packages->name;
                 $data[$i]['request_date'] = date("jS F, Y", strtotime($rows[$i]->request_date));
                 $data[$i]['status'] = $status;
-                $data[$i]['freeservice'] = $total_free_services;
+                $data[$i]['freeservice'] = isset($total_free_services)?$total_free_services:'';
             }
             $result = $data;
         }
@@ -68,7 +72,7 @@ class ServiceHistoryController extends Controller
             $data[0]['packages'] = 'No history found';
             $data[0]['request_date'] = date("jS F, Y", strtotime(Carbon::now()));
             $data[0]['status'] = 5;
-            $data[0]['freeservice'] = $total_free_services;
+            $data[0]['freeservice'] = isset($total_free_services)?$total_free_services:'';
 
             $result = $data;
         }
