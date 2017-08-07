@@ -16,12 +16,12 @@ class ServiceHistoryController extends Controller
 
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
 
-        $service_requests = DB::select('select count(id) as cnt, user_id from tbl_service_request
+        /*$service_requests = DB::select('select count(id) as cnt, user_id from tbl_service_request
                               where user_id in (select user_id from tbl_user_vehicles)
                               and status = 5
                               group by user_id');
 
-        print_r($service_requests);exit;
+        print_r($service_requests);exit;*/
 
         $data = [];
 

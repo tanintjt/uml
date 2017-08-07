@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Employee;
+use App\NotificationHistory;
 use App\ServiceRequest;
 use App\UserDevices;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use Session;
 use Validator;
 use Carbon\Carbon;
 use App\Http\Controllers\Admin\PushNotificationController;
-
+use DB;
 class ServiceRequestController extends Controller
 {
 
@@ -148,6 +149,13 @@ class ServiceRequestController extends Controller
         $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
 
         ServiceRequest::sendNotification($token,$message);
+
+        $data = [
+            'user_id'     => $model->user_id,
+            'message'     => $message,
+
+        ];
+        NotificationHistory::create($data);
 
 		if ($model->id > 0) {
 
