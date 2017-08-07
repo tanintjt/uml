@@ -40,14 +40,18 @@ class TestController extends Controller
                 $interval = $purchase_date->diffInDays($current_date, false);
 
 
-                if($service_request->cnt<5 && $service_request->cnt>0 && $interval>30){
+                if($service_request->cnt<5 && $service_request->cnt>0){
 
-                $sendMsg = $this->sendNotification($device_ids);
+                    if($interval=89 || $interval=179 || $interval=359){
 
-                  if($sendMsg){
+                        $sendMsg = $this->sendNotification($device_ids);
 
-
-                  }
+                        if($sendMsg){
+                            return 'success';
+                        }else{
+                            return 'failed';
+                        }
+                    }
 
                 }else{
 
