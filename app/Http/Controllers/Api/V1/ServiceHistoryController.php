@@ -22,7 +22,7 @@ class ServiceHistoryController extends Controller
 
         if($user){
             $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->count();
-           
+
             $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user->purchase_date);
             $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 

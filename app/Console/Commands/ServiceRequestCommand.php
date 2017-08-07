@@ -100,14 +100,14 @@ class ServiceRequestCommand extends Command
 
         $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
         $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
-            ->setBody('Free Services.....')
+            ->setBody('You are entitled for free service. Please book a free service')
             ->setSound('default');
 
         $dataBuilder = new PayloadDataBuilder();
 
         $dataBuilder
             ->addData(['title' => 'Uttara Motors'])
-            ->addData(['body' => 'Free Services.....']);
+            ->addData(['body' => 'You are entitled for free service. Please book a free service']);
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
