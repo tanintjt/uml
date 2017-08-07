@@ -18,10 +18,19 @@ class ServiceHistoryController extends Controller
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
 
         //free services .......
-        $user = UserVehicle::where('user_id',$request->user()->id)->get();
+        $user = UserVehicle::where('user_id',$request->user()->id)->first();
 
         if($user){
-            $service = ServiceRequest::where('user_id',$request->user()->id)->where('status',5)->count();
+            $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->count();
+
+            $user->purchase_date
+            if($service_count==0){
+
+
+                $total_free_services = 4;
+            }else{
+                $total_free_services =(4 - $service_count) ;
+            }
         }
 
         $data = [];
@@ -58,19 +67,14 @@ class ServiceHistoryController extends Controller
 
             $result = $data;
         }
-        if($service){
-            $free_services = $service;
-        }else{
-            $free_services = 0;
-        }
 
-        //return response()->json($result,$free_services, 202);
-        return response()->json(
+        return response()->json($result, 202);
+        /*return response()->json(
             [
                 'result'=>$result,
-                'free_services'=>$free_services,
+                'free_services'=>$total_free_services,
             ]
-        );
+        );*/
     }
 
 
