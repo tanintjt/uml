@@ -55,6 +55,7 @@ class ServiceRequestCommand extends Command
                               and status = 5
                               group by user_id');
 
+        
         foreach ($service_requests as $service_request){
 
             $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
@@ -68,23 +69,13 @@ class ServiceRequestCommand extends Command
                 $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
                 $interval = $purchase_date->diffInDays($current_date, false);
-                print_r($interval);
 
-                if($service_request->cnt<5 && $service_request->cnt>0){
+                if($service_request->cnt < 4 ){
 
-                    if($interval==179){
+                    if($interval== 89 || $interval == 179 || $interval == 359){
 
-                        $sendMsg = $this->sendNotification($device_ids);
-
-                        if($sendMsg){
-                            return 'success';
-                        }else{
-                            return 'failed';
-                        }
+                        $this->sendNotification($device_ids);
                     }
-
-                }else{
-
                 }
             }
 
