@@ -239,7 +239,12 @@ a:hover {
     width: 397px;
     margin: 7% auto;
 }
-
+.main-footer {
+    background: #fff;
+    padding: 10px;
+    color: #444;
+    border-top: 1px solid #d2d6de;
+}
 .login-box, .register-box {
     width: 405px;
     margin: 7% auto;
