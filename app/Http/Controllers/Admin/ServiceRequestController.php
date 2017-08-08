@@ -18,13 +18,6 @@ class ServiceRequestController extends Controller
 
     public function index(Request $request){
 
-       /* $title = "Service Request";
-        $user = $request->user();
-
-        $rows = ServiceRequest::with('users','service_center','service_package')->get();
-
-        return view('admin/service_request/index', compact('rows','title'));*/
-
         $title = 'Service Request';
         $extrajs = "<script>
 		$(function() {
@@ -35,7 +28,7 @@ class ServiceRequestController extends Controller
 
 			$('.clear').click(function(){
 				$('#search').val('');
-//				$('#status option:selected').val('0');
+				$('#status option:selected').val('0');
 				$('#admin-form').submit();
 			});
 

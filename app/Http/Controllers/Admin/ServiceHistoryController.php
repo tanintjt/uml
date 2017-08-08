@@ -20,7 +20,7 @@ class ServiceHistoryController extends Controller
 
 			$('.clear').click(function(){
 				$('#search').val('');
-//				$('#status option:selected').val('0');
+				$('#status option:selected').val('0');
 				$('#admin-form').submit();
 			});
 

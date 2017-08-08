@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Promotion;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
+use File;
 class PromotionController extends Controller
 {
 
@@ -180,21 +180,17 @@ class PromotionController extends Controller
             return redirect('admin/promotions/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        if(count($file)>0){
+        if($request->hasFile('file')){
+            $image = Input::file('file');
             //Delete previous image from folder
-            unlink($model->file);
+            if (File::exists('public/uploads/promotions/'.$model->file)) {
+                File::delete('public/uploads/promotions/'.$model->file);
+            }
 
             // Files destination
             $destinationPath = 'public/uploads/promotions/';
-
-            // Create folders if they don't exist
-            if ( !file_exists($destinationPath) ) {
-                mkdir ($destinationPath, 0777);
-            }
-
-            $file_original_name = $file->getClientOriginalName();
-            $file_name = rand(11111, 99999) . $file_original_name;
-            $file->move($destinationPath, $file_name);
+            $file_name = time(). '_'. str_random(4).'.'.$image->getClientOriginalExtension();
+            $image->move($destinationPath, $file_name);
             $input['file'] = 'public/uploads/promotions/' . $file_name;
         }
 
