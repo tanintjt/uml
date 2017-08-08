@@ -180,20 +180,16 @@ class NewsEventsController extends Controller
             return redirect('admin/news-events/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        if(count($file)>0){
+        if($request->hasFile('file')){
+            $file = Input::file('file');
             //Delete previous image from folder
-            unlink($model->file);
+            if (File::exists('public/uploads/news_events/'.$model->file)) {
+                File::delete('public/uploads/news_events/'.$model->file);
+            }
 
             // Files destination
             $destinationPath = 'public/uploads/news_events/';
-
-            // Create folders if they don't exist
-            if ( !file_exists($destinationPath) ) {
-                mkdir ($destinationPath, 0777);
-            }
-
-            $file_original_name = $file->getClientOriginalName();
-            $file_name = rand(11111, 99999) . $file_original_name;
+            $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
             $file->move($destinationPath, $file_name);
             $input['file'] = 'public/uploads/news_events/' . $file_name;
         }
