@@ -56,35 +56,72 @@ class ServiceRequestCommand extends Command
                               and status = 5
                               group by user_id');
 
-        foreach ($service_requests as $service_request){
+        if($service_requests){
 
-            $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
+            foreach ($service_requests as $service_request){
 
-            foreach ($user_vehicles as $user_vehicle){
+                $user_vehicles = UserVehicle::where('user_id',$service_request->user_id)->get();
 
-                // user_device_id....
-                $device_ids = UserDevices::where('user_id',$user_vehicle->user_id)->pluck('device_id')->toArray();
+                foreach ($user_vehicles as $user_vehicle){
 
-                $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
-                $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+                    // user_device_id....
+                    $device_ids = UserDevices::where('user_id',$user_vehicle->user_id)->pluck('device_id')->toArray();
 
-                $interval = $purchase_date->diffInDays($current_date, false);
+                    $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+                    $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
-                if($service_request->cnt < 4 ){
+                    $interval = $purchase_date->diffInDays($current_date, false);
+
+                    if($service_request->cnt < 4 ){
+                        if($interval == 89 || $interval == 179 || $interval == 359){
+
+                            $this->sendNotification($device_ids);
+                        }
+                        $data = [
+                            'user_id'     => $user_vehicle->user_id,
+                            'message'     => 'You are entitled for free services. Please book your availed free service(s).',
+                        ];
+                        NotificationHistory::create($data);
+                    }
+                }
+
+            }
+        }
+
+        $only_car_purchased_users = DB::select('select user_id from tbl_user_vehicles
+                              where user_id not in (select user_id from tbl_service_request)
+                              group by user_id');
+
+        if($only_car_purchased_users){
+
+            foreach ($only_car_purchased_users as $purchased_user){
+
+                $user_vehicles = UserVehicle::where('user_id',$purchased_user->user_id)->get();
+
+                foreach ($user_vehicles as $user_vehicle){
+
+                    // user_device_id....
+                    $device_ids = UserDevices::where('user_id',$user_vehicle->user_id)->pluck('device_id')->toArray();
+
+                    $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+                    $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+
+                    $interval = $purchase_date->diffInDays($current_date, false);
+
                     if($interval == 89 || $interval == 179 || $interval == 359){
 
                         $this->sendNotification($device_ids);
                     }
                     $data = [
                         'user_id'     => $user_vehicle->user_id,
-                        'message'     => 'You are entitled for free services. Please book your availed free service(s).',
+                        'message'     => 'You are entitled for free services. Please book your next service to avail your quota.',
                     ];
                     NotificationHistory::create($data);
+
                 }
+
             }
-
         }
-
     }
 
     public function sendNotification($device_ids)
@@ -95,14 +132,14 @@ class ServiceRequestCommand extends Command
 
         $notificationBuilder = new PayloadNotificationBuilder('Uttara Motors');
         $notificationBuilder->setClickAction('FCM_PLUGIN_ACTIVITY')
-            ->setBody('You are entitled for free services. Please book your availed free service(s).')
+            ->setBody('You are entitled for free services. Please book your next service to avail your quota.')
             ->setSound('default');
 
         $dataBuilder = new PayloadDataBuilder();
 
         $dataBuilder
             ->addData(['title' => 'Uttara Motors'])
-            ->addData(['body' => 'You are entitled for free services. Please book your availed free service(s).']);
+            ->addData(['body' => 'You are entitled for free services. Please book your next service to avail your quota.']);
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
