@@ -94,7 +94,7 @@ class LoginController extends Controller
 
         }
 
-        return response()->json('Thanks for signing up! An email is sent to you for verification.', 401);
+        return response()->json('Thanks for signing up! An email is sent to you for verification.', 200);
     }
 
 
