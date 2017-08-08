@@ -29,22 +29,6 @@
                         @endif
                     </div>
                 </div>
-
-                <div class="form-group{{ $errors->has('issue_date') ? ' has-error' : '' }}">
-                    {!! Form::label('issue_date', 'Issue Date :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('issue_date',  old('issue_date'),['class' => 'form-control datepicker', 'id' => 'issue_date', 'placeholder' => 'issue date']) !!}
-                        @if ($errors->has('issue_date'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('issue_date') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-xs-6">
-
                 <div class="form-group{{ $errors->has('expiry_date') ? ' has-error' : '' }}">
                     {!! Form::label('expiry_date', 'Expiry Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -56,6 +40,11 @@
                         @endif
                     </div>
                 </div>
+
+            </div>
+            <div class="col-xs-6">
+
+
                 <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
                     {!! Form::label('file', 'File:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">

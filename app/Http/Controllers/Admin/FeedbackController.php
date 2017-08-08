@@ -21,7 +21,7 @@ class FeedbackController extends Controller
 
 			$('.clear').click(function(){
 				$('#search').val('');
-//				$('#status option:selected').val('0');
+				$('#user_id option:selected').val('0');
 				$('#admin-form').submit();
 			});
 

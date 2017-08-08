@@ -25,9 +25,7 @@ class EDocumentController extends Controller
 
 			$('.clear').click(function(){
 				$('#search').val('');
-				$('#type_id option:selected').val('0');
-				$('#model_id option:selected').val('0');
-				$('#brand_id option:selected').val('0');
+				$('#doc_type_id option:selected').val('0');
 				$('#admin-form').submit();
 			});
 
@@ -66,6 +64,7 @@ class EDocumentController extends Controller
         //print_r($doc_type);exit;
 
         $rows = EDocument::with('doc_type')->
+        EDoc(Session::get('doc_type_id'))->
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
@@ -91,14 +90,12 @@ class EDocumentController extends Controller
 
 		$rules = [
 			'doc_type_id'   => 'not_in:0',
-			'issue_date'      => 'required',
 			'expiry_date'      => 'required',
 			'file'      => 'required',
 		];
 
 		$messages = [
 			'doc_type_id.not_in'    => 'Type is required!',
-			'issue_date.required'     => 'Issue Date is required!',
 			'expiry_date.required'    => 'Expiry Date is required!',
 			'file.required' => 'File is required!',
 		];
@@ -175,14 +172,12 @@ class EDocumentController extends Controller
 
 		$rules = [
 			'doc_type_id'   => 'not_in:0',
-			'issue_date'      => 'required',
 			'expiry_date'      => 'required',
 			'file'      => 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub',
 		];
 
 		$messages = [
 			'doc_type_id.not_in'    => 'Type is required!',
-			'issue_date.required'     => 'Issue Date is required!',
 			'expiry_date.required'    => 'Expiry Date is required!',
 			//'file.required' => 'File is required!',
 		];

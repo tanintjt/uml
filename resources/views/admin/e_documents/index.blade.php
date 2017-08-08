@@ -15,7 +15,7 @@
             </div>
             <div class="pull-right">
                 {{--{!! Form::select('status', ['0' => 'All Status', '1' => 'Active','2' => 'Inactive'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}--}}
-                {{--{!! Form::select('role_id', $roles, old('role_id', Session::get('role_id') ), ['class' => 'form-control input-sm', 'id' => 'role_id']) !!}--}}
+                {!! Form::select('doc_type_id', $doc_type, old('doc_type_id', Session::get('doc_type_id') ), ['class' => 'form-control input-sm', 'id' => 'doc_type_id']) !!}
             </div>
 
         </div>
@@ -33,7 +33,6 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th width="5%">E Doc Type</th>
-                        <th width="5%">Issue Date</th>
                         <th width="5%">Expiry Date</th>
                         <th width="5%" class="text-center">File</th>
                         <th width="10%">Actions</th>
@@ -45,7 +44,6 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ isset($row->doc_type->name)?ucfirst($row->doc_type->name):''}}</td>
-                            <td>{{ isset($row->issue_date)?date('Y-m-d', strtotime($row->issue_date)):''}}</td>
                             <td>{{ isset($row->expiry_date)?date('Y-m-d', strtotime($row->expiry_date)):''}}</td>
                             <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>
                             <td>
