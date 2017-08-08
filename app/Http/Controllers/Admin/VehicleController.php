@@ -99,30 +99,6 @@ class VehicleController extends Controller
     {
         $title = 'Add Vehicle';
 
-        /*$extrajs = "<script>
-            $(function() {
-                var colpick = $('.color').each( function() {
-                    $(this).minicolors({
-                      control: $(this).attr('data-control') || 'hue',
-                      inline: $(this).attr('data-inline') === 'true',
-                      letterCase: 'lowercase',
-                      opacity: false,
-                      change: function(hex, opacity) {
-                        if(!hex) return;
-                        if(opacity) hex += ', ' + opacity;
-                        try {
-                          console.log(hex);
-                        } catch(e) {}
-                        $(this).select();
-                      },
-                      theme: 'bootstrap'
-                    });
-                });
-            });
-		</script>";
-
-        $css = '<link href="'.asset('public/themes/default/css/colors.css').'" rel="stylesheet" type="text/css" media="screen">';
-        $js = '<script src="'.asset('public/themes/default/js/colors.min.js').'"></script>';*/
 
         $type = $this->typeList(true);
         $model = $this->modelList(true);
@@ -331,25 +307,19 @@ class VehicleController extends Controller
 
             return redirect('admin/vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
         }
-
-        if($file){
+        
+        if($request->hasFile('file')){
+            $image = Input::file('file');
             //Delete previous image from folder
-            if($model->vehicle_image){
-                unlink($model->vehicle_image);
+            if (File::exists('public/uploads/vehicle/'.$model->file)) {
+                File::delete('public/uploads/vehicle/'.$model->file);
             }
 
             // Files destination
             $destinationPath = 'public/uploads/vehicle/';
-
-            // Create folders if they don't exist
-            if ( !file_exists($destinationPath) ) {
-                mkdir ($destinationPath, 0777);
-            }
-
-            $file_original_name = $file->getClientOriginalName();
-            $file_name = rand(11111, 99999) . $file_original_name;
-            $file->move($destinationPath, $file_name);
-            $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
+            $file_name = time(). '_'. str_random(4).'.'.$image->getClientOriginalExtension();
+            $image->move($destinationPath, $file_name);
+            $input['file'] = 'public/uploads/vehicle/' . $file_name;
         }
 
         $model->update($input);
