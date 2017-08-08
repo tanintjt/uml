@@ -85,7 +85,7 @@ class UserController extends Controller
             $message = 'Successfully  updated';
             $http_code = 201;
         } else {
-            $message =  'update failed.';
+            $message =  'update failed with phone no:'.$input['phone'];
             $http_code = 500;
         }
 
