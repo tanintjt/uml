@@ -149,7 +149,14 @@ class LoginController extends Controller
         }
 
         $authUser = $this->findOrCreateUser($request->all());
-        Auth::login($authUser, true);
+        //Auth::login($authUser, true);
+
+        return response()->json(
+            [
+                'status' => false,
+                'result' => $authUser
+            ]
+            , 201);
 
     }
 

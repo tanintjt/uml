@@ -184,20 +184,18 @@ a:hover {
     color: #F288A4;
 }
 
-.main-header .navbar {
-    min-height: 65px;
-}
+
 .skin-blue .main-header .logo {
     background-color: #f05283;
     color: #fff;
     border-bottom: 0 solid transparent;
-    min-height: 65px;
+    min-height:59px;
 }
 .main-header .sidebar-toggle {
     float: left;
     background-color: transparent;
     background-image: none;
-    padding: 22px 16px;
+    padding: 20px 14px;
     font-family: fontAwesome;
 }
 .navbar-nav>li>a {
