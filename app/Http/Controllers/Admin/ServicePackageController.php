@@ -24,7 +24,7 @@ class ServicePackageController extends Controller
 
 			$('.clear').click(function(){
 				$('#search').val('');
-//				$('#status option:selected').val('0');
+				$('#package_type_id option:selected').val('0');
 				$('#admin-form').submit();
 			});
 
