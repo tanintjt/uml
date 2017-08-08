@@ -94,12 +94,7 @@ class LoginController extends Controller
 
         }
 
-        return response()->json(
-            [
-                'status' => false,
-                'message' =>'Thanks for signing up! An email is sent to you for verification.',
-            ]
-        );
+        return response()->json('Thanks for signing up! An email is sent to you for verification.', 401);
     }
 
 
@@ -119,7 +114,7 @@ class LoginController extends Controller
         else
          {
             return response()->json(
-                'Authorization error');
+                'Authorization error', 401);
          }
     }
     /*---------------Basic authentication : end --------------*/
