@@ -12,16 +12,26 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
-use App\Traits\ActivationTrait;
+use App\Activation;
+//use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailer;
+use Illuminate\Mail\Message;
 
 class LoginController extends Controller
 {
-    use ActivationTrait;
+    //use ActivationTrait;
 
     /*private $user;
     public function __construct(User $user){
         $this->user = $user;
     }*/
+
+    protected $mailer;
+
+    public function __construct(Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
 
     /*---------------Basic authentication--------------*/
 
@@ -35,11 +45,7 @@ class LoginController extends Controller
             'name' =>  'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
-            //'phone' => 'required|regex:/(01)[0-9]{9}/',
-            //'phone' => 'required|regex:/^[0-1]{2}\d{9}$/',
             'phone' => 'required|regex:/^[0]{1}[1]{1}[5-9]{1}\d{8}$/',
-
-            //'image' => 'required',
         ];
 
         $messages = [
@@ -50,7 +56,6 @@ class LoginController extends Controller
             'password.required' => 'Password is required!',
             'phone.required' => 'Phone is required!',
             'phone.regex' => 'Not a valid mobile number!',
-            //'image.required' => 'Profile Picture is required!',
         ];
 
         $validator = Validator::make($request->all(),$rules, $messages);
@@ -72,18 +77,27 @@ class LoginController extends Controller
             ]
         );
 
-        //return $user;
-
         if ($user->id > 0) {
             $user->attachRole(4);
-            $this->initiateEmailActivation($user);
+            //$this->initiateEmailActivation($user);
+            $activation = new Activation;
+            $activation->user_id = $user->id;
+            $activation->token = str_random(64);
+            $activation->save();
+
+            $link = route('auth.activation', $activation->token);
+            $message = sprintf('Activate account %s', $link, $link);
+            $this->mailer->raw($message, function (Message $m) use ($user) {
+                $m->to($user->email)->subject('Verify your email address');
+            });
+
+
         }
 
         return response()->json(
             [
-                'status'=>true,
-                'message'=>'User created successfully',
-                'data'=> $user
+                'status' => false,
+                'message' =>'Thanks for signing up! An email is sent to you for verification.',
             ]
         );
     }
@@ -94,9 +108,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $row = $request->user();
-        //print_r($row);exit;
         if ($row) {
-             //return response()->json(['error' => false, 'result' => $row ], 202);
             return response()->json(
                 [
                     'status' => false,
@@ -179,8 +191,6 @@ class LoginController extends Controller
     /*-----------------Social authentication : end----------------*/
 
 
-
-
     public function device_info(Request $request){
 
 
@@ -214,8 +224,6 @@ class LoginController extends Controller
         return response()->json($message, $http_code);
     }
 
-
-
     public function logout(){
 
             Auth::logout();
@@ -225,4 +233,5 @@ class LoginController extends Controller
             ]);
 
     }
+
 }
