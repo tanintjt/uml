@@ -79,7 +79,7 @@ class ServiceRequestCommand extends Command
                         }
                         $data = [
                             'user_id'     => $user_vehicle->user_id,
-                            'message'     => 'You are entitled for free services. Please book your availed free service(s).',
+                            'message'     => 'You are entitled for free services. Please book your next service to avail your quota.',
                         ];
                         NotificationHistory::create($data);
                     }
