@@ -1,8 +1,10 @@
 /node_modules
 /public/storage
 /public/hot
+/public/uploads
 /storage/*.key
 /.idea
+/vendor
 Homestead.json
 Homestead.yaml
 .env
