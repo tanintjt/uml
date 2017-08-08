@@ -396,7 +396,7 @@ class VehicleController extends Controller
 
                     VehicleFeature::create([
                         'vehicle_id' =>   $model->id,
-                        'features' =>   $featurePath . $file_name,
+                        'features' =>   $featurePath . $feature_name,
                     ]);
                 }
             }
