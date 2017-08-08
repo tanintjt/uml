@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use Session;
+use File;
 class NewsEventsController extends Controller
 {
 
