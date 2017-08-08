@@ -82,7 +82,7 @@ class UserController extends Controller
         }
 
         if ($model->update($input)) {
-            $message = 'Successfully  updated';
+            $message = $model->image;
             $http_code = 201;
         } else {
             $message =  'update failed.';
