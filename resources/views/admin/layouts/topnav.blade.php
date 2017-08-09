@@ -1,6 +1,7 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="{!! url(Request::segment(1).'/service-center') !!}" class="logo">
+    {{--<a href="{!! url(Request::segment(1).'/service-center') !!}" class="logo">--}}
+    <a class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><img src="{!! asset('public/themes/default/img/UML-Icon-02.svg') !!}" style="width:85%"></span>
         <!-- logo for regular state and mobile devices -->
