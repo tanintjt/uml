@@ -126,7 +126,7 @@ class VehicleController extends Controller
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
             'features'      => 'required',
-            'brochure'      => 'required',
+            'brochure'      => 'required|mimes:pdf',
         ];
 
         $messages = [
@@ -140,6 +140,7 @@ class VehicleController extends Controller
             'vehicle_image.required' => 'Vehicle Image is required!',
             'features.required' => 'Features is required!',
             'brochure.required' => 'Brochure is required!',
+            'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
 
         ];
 
@@ -308,7 +309,7 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
-            'brochure'      => 'required',
+            'brochure'      => 'required|mimes:pdf',
 
         ];
 
@@ -321,6 +322,7 @@ class VehicleController extends Controller
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
             'brochure.required' => 'Brochure is required!',
+            'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
 
         ];
 

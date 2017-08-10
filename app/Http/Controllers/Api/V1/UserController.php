@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $rules = [
             'phone'     =>  'regex:/^[0]{1}[1]{1}[5-9]{1}\d{8}$/',
-            'file'      => '|mimes:jpeg,png,jpg,gif|max:2048',
+            'file'      =>  'mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $messages = [
