@@ -158,8 +158,8 @@ class VehicleController extends Controller
 
         // Create folders if they don't exist
 
-        if (File::exists($destinationPath)) {
-            mkdir ($destinationPath, 775);
+        if (!file_exists($destinationPath)) {
+            mkdir('public/uploads/vehicle/', 775);
         }
 
         $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
@@ -173,7 +173,7 @@ class VehicleController extends Controller
         // Create folders if they don't exist
 
         if (File::exists($brochurePath)) {
-            mkdir ($brochurePath, 775);
+            mkdir($brochurePath, 775);
         }
 
         $brochure_name = time(). '_'. str_random(4).'.'.$brochure->getClientOriginalExtension();
