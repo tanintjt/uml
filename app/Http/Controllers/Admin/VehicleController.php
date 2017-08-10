@@ -126,6 +126,7 @@ class VehicleController extends Controller
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
             'features'      => 'required',
+            'brochure'      => 'required',
         ];
 
         $messages = [
@@ -138,10 +139,12 @@ class VehicleController extends Controller
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
             'features.required' => 'Features is required!',
+            'brochure.required' => 'Brochure is required!',
 
         ];
 
         $file = Input::file('vehicle_image');
+        $brochure = Input::file('brochure');
 
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -150,7 +153,7 @@ class VehicleController extends Controller
             return redirect('admin/vehicle/create')->withErrors($validator)->withInput();
         }
 
-        // Files destination
+        // Files destination for vehicle image.....
         $destinationPath = 'public/uploads/vehicle/';
 
         // Create folders if they don't exist
@@ -158,6 +161,25 @@ class VehicleController extends Controller
         if (File::exists($destinationPath)) {
             mkdir ($destinationPath, 775);
         }
+
+        $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
+        $file->move($destinationPath, $file_name);
+        $input['vehicle_image'] = $destinationPath . $file_name;
+
+
+        // File destination for brochure......
+        $brochurePath = 'public/uploads/vehicle/brochure/';
+
+        // Create folders if they don't exist
+
+        if (File::exists($brochurePath)) {
+            mkdir ($brochurePath, 775);
+        }
+
+        $brochure_name = time(). '_'. str_random(4).'.'.$brochure->getClientOriginalExtension();
+        $brochure->move($brochurePath, $brochure_name);
+        $input['brochure'] = $brochurePath . $brochure_name;
+
 
         $input = [
             'type_id' => $request->input('type_id'),
@@ -168,10 +190,6 @@ class VehicleController extends Controller
             'engine_details' => $request->input('engine_details'),
             'fuel_system' => $request->input('fuel_system'),
         ];
-
-        $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
-        $file->move($destinationPath, $file_name);
-        $input['vehicle_image'] = $destinationPath . $file_name;
 
         $vehicle = Vehicle::create($input);
 
@@ -290,6 +308,7 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
+            'brochure'      => 'required',
 
         ];
 
@@ -301,6 +320,7 @@ class VehicleController extends Controller
             'engine_displacement.required' => 'Engine Displacement is required!',
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
+            'brochure.required' => 'Brochure is required!',
 
         ];
 
@@ -322,6 +342,7 @@ class VehicleController extends Controller
             'fuel_system' => $request->input('fuel_system'),
         ];
 
+     //vehicle_image.......
         if($request->hasFile('vehicle_image')){
             $file = Input::file('vehicle_image');
             //Delete previous image from folder
@@ -334,6 +355,21 @@ class VehicleController extends Controller
             $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
             $file->move($destinationPath, $file_name);
             $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
+        }
+
+     //brochure.......
+        if($request->hasFile('brochure')){
+            $brochure = Input::file('brochure');
+            //Delete previous image from folder
+            if (File::exists('public/uploads/vehicle/brochure/'.$model->brochure)) {
+                File::delete('public/uploads/vehicle/brochure/'.$model->brochure);
+            }
+
+            // Files destination
+            $brochurePath = 'public/uploads/vehicle/brochure/';
+            $brochure_name = time(). '_'. str_random(4).'.'.$brochure->getClientOriginalExtension();
+            $brochure->move($brochurePath, $brochure_name);
+            $input['brochure'] = 'public/uploads/vehicle/brochure/' . $brochure_name;
         }
 
         $model->update($input);
@@ -418,7 +454,6 @@ class VehicleController extends Controller
         $rows = VehicleColor::where('vehicle_id',$id)->get();
 
         $row = Vehicle::findOrFail($id);
-        //$title =  $row->model->name ;
         $title =  "Available Colors" ;
 
 

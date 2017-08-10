@@ -63,7 +63,7 @@
                 <div class="form-group{{ $errors->has('engine_details') ? ' has-error' : '' }}">
                     {!! Form::label('engine_details', 'Engine Details :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::textarea('engine_details', old('engine_details'), ['class' => 'form-control', 'id' => 'engine_details', 'placeholder' => 'Engine Details', 'rows' => 3]) !!}
+                        {!! Form::textarea('engine_details', old('engine_details'), ['class' => 'form-control', 'id' => 'engine_details', 'placeholder' => 'Engine Details', 'rows' => 4]) !!}
                         @if ($errors->has('engine_details'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('engine_details') }}</strong>
@@ -129,6 +129,17 @@
                         @if ($errors->has('features'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('features') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group{{ $errors->has('brochure') ? ' has-error' : '' }}">
+                    {!! Form::label('brochure', 'Brochure:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-3">
+                        {!! Form::file('brochure',old('brochure'), [ 'class' => 'form-control','required']) !!}
+                        @if ($errors->has('brochure'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('brochure') }}</strong>
                             </span>
                         @endif
                     </div>
