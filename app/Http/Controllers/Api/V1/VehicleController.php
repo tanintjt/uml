@@ -20,7 +20,7 @@ class VehicleController extends Controller
             ->ModelId($request->input('model_id'))
             ->select('vehicle.id','vehicle.production_year','vehicle.engine_displacement','vehicle.engine_details',
                 'vehicle.fuel_system', 'vehicle_type.name as type', 'vehicle_model.name as model',
-                'vehicle.vehicle_image')
+                'vehicle.vehicle_image','vehicle.brochure')
             ->orderBy('id', 'desc')
             ->get();
         $data = [];
@@ -34,6 +34,7 @@ class VehicleController extends Controller
             $data[$i]['type'] = $rows[$i]->type;
             $data[$i]['model'] = $rows[$i]->model;
             $data[$i]['vehicle_image'] = $rows[$i]->vehicle_image;
+            $data[$i]['brochure'] = $rows[$i]->brochure;
 
             $data[$i]['colors'] = $rows[$i]->colors;
             $data[$i]['features'] = $rows[$i]->features;
