@@ -172,7 +172,7 @@ class VehicleController extends Controller
 
         // Create folders if they don't exist
 
-        if (File::exists($brochurePath)) {
+        if (file_exists($brochurePath)) {
             mkdir($brochurePath, 775);
         }
 
