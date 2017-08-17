@@ -2,65 +2,86 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Contracts\Mail\Mailer;
 
-class SendActivationEmail extends Notification implements ShouldQueue
+class SendActivationEmail
 {
-    use Queueable;
+    protected $mailer;
 
-    public $token;
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * from email address
+     * @var string
      */
-    public function __construct($token)
+    protected $fromAddress = 'uttara.motors.bd@gmail.com';
+
+    /**
+     * from name
+     * @var string
+     */
+    protected $fromName = 'Uttara Motors Smart Service';
+
+    /**
+     * email to send to
+     * @var [type]
+     */
+    protected $to;
+
+    /**
+     * Subject of the email
+     * @var [type]
+     */
+    protected $subject;
+
+    /**
+     * view template for email
+     * @var [type]
+     */
+    protected $view;
+
+    /**
+     * data to be sent alone email
+     * @var array
+     */
+    protected $data = [];
+
+
+    public function __construct(Mailer $mailer)
     {
-        $this->token = $token;
+        $this->mailer = $mailer;
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Send Ticket information to user
      *
-     * @param  mixed  $notifiable
-     * @return array
+     * @param  User   $user
+     * @param  Activation  $activation
+     * @return method deliver()
      */
-    public function via($notifiable)
+    public function sendActivation($user, $activation)
     {
-        return ['mail'];
+
+        /*$link = route('auth.activation', $activation->token);
+        $message = sprintf('Activate account %s', $link, $link);
+        $this->mailer->raw($message, function (Message $m) use ($user) {
+            $m->to($user->email)->subject('Verify your email address');
+        });*/
+
+        $this->to = $user->email;
+        $this->subject = "Verify your email address";
+        $this->view = 'emails.activation';
+        $this->data = compact('user', 'activation');
+
+        return $this->deliver();
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * Do the actual sending of the mail
      */
-    public function toMail($notifiable)
+    public function deliver()
     {
-        return (new MailMessage)
-            //->to($this->user())
-            ->subject('Activation email')
-            ->greeting('Hello!')
-            ->line('You need to activate your email before you can start using all of our services.')
-            ->action('Activate Email', route('auth.activation', ['token' => $this->token]))
-            ->line('Thank you for using our application!');
-
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
+        $this->mailer->send($this->view, $this->data, function($message) {
+            $message->from($this->fromAddress, $this->fromName)
+                ->to($this->to)->subject($this->subject);
+        });
     }
 }

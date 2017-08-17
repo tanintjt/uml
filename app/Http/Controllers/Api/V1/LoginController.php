@@ -13,33 +13,24 @@ use Illuminate\Support\Facades\Input;
 use Session;
 use Validator;
 use App\Activation;
-//use Illuminate\Support\Facades\Mail;
-use Illuminate\Mail\Mailer;
-use Illuminate\Mail\Message;
+use App\Notifications\SendActivationEmail;
+
 
 class LoginController extends Controller
 {
-    //use ActivationTrait;
 
-    /*private $user;
-    public function __construct(User $user){
-        $this->user = $user;
-    }*/
 
-    protected $mailer;
-
-    public function __construct(Mailer $mailer)
+    public function __construct()
     {
-        $this->mailer = $mailer;
     }
 
     /*---------------Basic authentication--------------*/
 
-    public function register(Request $request){
+    public function register(Request $request, SendActivationEmail $mailer){
 
         //$input = $request->all();
 
-        $file = Input::file('image');
+        //$file = Input::file('image');
 
         $rules = [
             'name' =>  'required',
@@ -85,20 +76,12 @@ class LoginController extends Controller
             $activation->token = str_random(64);
             $activation->save();
 
-            $link = route('auth.activation', $activation->token);
-            $message = sprintf('Activate account %s', $link, $link);
-            $this->mailer->raw($message, function (Message $m) use ($user) {
-                $m->to($user->email)->subject('Verify your email address');
-            });
-
+            $mailer->sendActivation($user, $activation);
 
         }
 
         return response()->json('Thanks for signing up! An email is sent to you for verification.', 200);
     }
-
-
-
 
     public function login(Request $request)
     {

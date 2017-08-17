@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'shebatech15@gmail.com',
-        'name' => 'Uttara Motors Services',
+        'address' => 'uttara.motors.bd@gmail.com',
+        'name' => 'Uttara Motors Smart Service',
     ],
 
     /*
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => 'shebatech15@gmail.com',
+    'username' => 'uttara.motors.bd@gmail.com',
 
-    'password' => 'sheba@321',
+    'password' => 'Sheb@2020',
 
     /*
     |--------------------------------------------------------------------------
