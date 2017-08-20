@@ -90,17 +90,18 @@ class ServiceRequestController extends Controller
 	public function update(Request $request, $id)
 	{
 
-
 		$model = ServiceRequest::findOrFail($id);
 
 		$date = Carbon::parse($request->input('updated_at'));
 
 		$rules = [
 			'status' => 'required',
+            'updated_at' => 'required|date|after_or_equal:request_time'
 		];
 
 		$messages = [
 			'status.required' => 'Status is required!',
+			'updated_at.after_or_equal' => 'Service date must be after or equal to the request date.',
 		];
 
 		$validator = Validator::make($request->all(), $rules, $messages);
@@ -114,9 +115,7 @@ class ServiceRequestController extends Controller
 			'status' => $request->input('status'),
 			'employee_id' => $request->input('employee_id'),
 			'updated_at' => $date,
-			//'accepted_time' => $date,
 		];
-
 
 		$model->update($data);
 
@@ -214,8 +213,6 @@ class ServiceRequestController extends Controller
             'employee_id' => $request->input('employee_id'),
 
         ];
-
-        //print_r($data);exit;
 
         $model->update($data);
 

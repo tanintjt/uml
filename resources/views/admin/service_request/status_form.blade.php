@@ -52,10 +52,15 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group{{ $errors->has('updated_at') ? ' has-error' : '' }}">
                     {!! Form::label('updated_at', 'Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
                         {!! Form::text('updated_at',  old('updated_at',date('Y-m-d h:i:s a', strtotime($row->request_date.' '.$row->request_time))),['class' => 'form-control datepicker', 'id' => 'start_date', 'placeholder' => 'start date']) !!}
+                        @if ($errors->has('updated_at'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('updated_at') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 
