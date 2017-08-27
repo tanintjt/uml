@@ -12,7 +12,7 @@ class SendActivationEmail
      * from email address
      * @var string
      */
-    protected $fromAddress = 'uttara.motors.bd@gmail.com';
+    protected $fromAddress = 'activation.umss@ugc-bd.net';
 
     /**
      * from name

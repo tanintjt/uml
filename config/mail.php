@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => 'smtp.gmail.com',
+    'host' => 'mail.ugc-bd.net',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => 587,
+    'port' => 465,
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => 'uttara.motors.bd@gmail.com',
+        'address' => 'activation.umss@ugc-bd.net',
         'name' => 'Uttara Motors Smart Service',
     ],
 
@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'encryption' => 'tls',
+    'encryption' => 'ssl',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => 'uttara.motors.bd@gmail.com',
+    'username' => 'activation.umss@ugc-bd.net',
 
-    'password' => 'Sheb@2020',
+    'password' => 'activation@registration',
 
     /*
     |--------------------------------------------------------------------------
