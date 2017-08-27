@@ -61,7 +61,7 @@ class ServiceRequestController extends Controller
 
                 $service_count = ServiceRequest::where('user_id', $user->user_id)->where('status', 5)->count();
 
-                if ($service_count < 4 && $interval < 360) {
+                if ($service_count < 4 && $interval == 360) {
 
                     $service_request =  ServiceRequest::create($data);
 
