@@ -48,9 +48,8 @@ class ServiceRequestController extends Controller
                 'special_request'=> $request->input('special_request')
             ];
 
-        $service_package = ServicePackage::where('id',$request->input('service_package_id'))->pluck('name');
 
-        if($service_package = "Free Service"){
+        if($request->input('service_package_id') == 19 ){
 
             $user = UserVehicle::where('user_id',$request->user()->id)->first();
 
