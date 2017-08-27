@@ -61,19 +61,24 @@ class ServiceRequestController extends Controller
 
                 $service_count = ServiceRequest::where('user_id', $user->user_id)->where('status', 5)->count();
 
-                if ($service_count < 4 && $interval == 360) {
+                if ( $interval == 360) {
 
-                    $service_request =  ServiceRequest::create($data);
+                    if($service_count < 4){
 
-                    if ($service_request) {
-                        $result = 'Successfully Sent Request';
-                        $http_code = 201;
-                    } else {
-                        $result = 'Request failed.';
-                        $http_code = 500;
+                        $service_request =  ServiceRequest::create($data);
+
+                        if ($service_request) {
+                            $result = 'Successfully Sent Request';
+                            $http_code = 201;
+                        } else {
+                            $result = 'Request failed.';
+                            $http_code = 500;
+                        }
+                        return response()->json($result, $http_code);
+                    }else{
+                        return response()->json(
+                            ' You have already taken four free services.', 401);
                     }
-                    return response()->json($result, $http_code);
-
                 }
                 else{
                     return response()->json(
