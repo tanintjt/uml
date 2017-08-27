@@ -28,7 +28,7 @@ class ServiceHistoryController extends Controller
 
             $interval = $purchase_date->diffInDays($current_date, false);
 
-            if($interval==360){
+            if($interval>=360){
                 $total_free_services = 0;
             }else{
                 if($service_count>0){
