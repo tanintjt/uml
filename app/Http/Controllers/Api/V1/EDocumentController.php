@@ -18,11 +18,15 @@ class EDocumentController extends Controller
 
     public function index(Request $request){
 
-        $rows = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
+        /*$rows = EDocument::join('e_doc_type','e_documents.doc_type_id', '=', 'e_doc_type.id')
             ->EDoc($request->input('type'))
             ->where('user_id',$request->user()->id)
             ->select('e_documents.id',
                 'e_documents.expiry_date','e_documents.file','e_doc_type.name')
+            ->get();*/
+
+        $rows = EDocument::EDoc($request->input('type'))
+            ->where('user_id',$request->user()->id)
             ->get();
 
         $result = [];
@@ -30,7 +34,7 @@ class EDocumentController extends Controller
         for( $i = 0; $i< count($rows); $i++) {
 
             $result[$i]['id'] = $rows[$i]->id;
-            $result[$i]['name'] = $rows[$i]->name;
+            $result[$i]['name'] = $rows[$i]->type->name;
             $result[$i]['file'] = $rows[$i]->file;
             $result[$i]['expiry_date'] = date("jS F, Y", strtotime($rows[$i]->expiry_date));
         }

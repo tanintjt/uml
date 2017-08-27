@@ -13,6 +13,7 @@ class EDocTypeController extends Controller
     public function index(Request $request)
     {
         $rows = EDocType::get();
+
         return response()->json($rows, 200);
     }
 
