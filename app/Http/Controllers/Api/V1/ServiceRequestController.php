@@ -37,11 +37,10 @@ class ServiceRequestController extends Controller
 
         $date = Carbon::parse($request->input('request_date'));
 
-        /*$input_date = date('l, jS  F, Y h:i:s', strtotime($date1));
-
-        $carbon = Carbon::parse($date1);*/
-        $time = explode(' ',$date);
+        $input_date = Carbon::parse($request->input('request_date'));
         
+        $time = explode(' ',$input_date);
+
         $data =
             [
                 'user_id'   => $request->user()->id,
