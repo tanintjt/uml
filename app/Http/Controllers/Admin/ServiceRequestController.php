@@ -121,7 +121,7 @@ class ServiceRequestController extends Controller
         $date1 = date("jS F, Y", strtotime($model->request_date));
         $date2 = date("jS F, Y", strtotime($model->updated_at));
 
-
+        print_r($date);exit;
 		if($model->status==2){
 		    $status = 'accepted';
             $message = ('Your Service request has been '.$status.' to '. 'scheduled date/time :'. $date1.'.'.' ' .date('h:i:s a', strtotime($model->request_time)));

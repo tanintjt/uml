@@ -21,11 +21,17 @@ class TestController extends Controller
 
     public function date(){
 
-        $input = '2017-09-01T03:30:00.000Z';
+        $input = '2017-09-01T01:30:00.000Z';
       //$carbon = Carbon::createFromFormat('Y-m-d H:s:i', $input);
         //$carbon = date("Y-m-d H:i:s");
-        $date1 = date('Y-m-d h:i:s', strtotime($input));
+        $date1 = Carbon::parse($input);
 
+        $input_date = date('Y-m-d h:i:s a', strtotime($date1));
+
+        // $carbon = Carbon::parse('Y-m-d H:s:i', $date1);
+print_r($input_date);exit;
+
+        exit;
 
     }
 

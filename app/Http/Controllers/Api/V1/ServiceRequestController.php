@@ -35,15 +35,20 @@ class ServiceRequestController extends Controller
             return response()->json($result, 400);
         }
 
+        //$date = Carbon::parse($request->input('request_date'));
+        $input_date = date('Y-m-d h:i:s a', strtotime($request->input('request_date')));
+
+        $date = Carbon::parse($input_date);
+        //print_r($date);exit;
         $data =
             [
                 'user_id'   => $request->user()->id,
                 'service_center_id'      => $request->input('service_center_id'),
                 'service_package_id'     => $request->input('service_package_id'),
                 'status'    => 1,
-                'request_date' => date('Y-m-d', strtotime($request->input('request_date'))),
-                'request_time' => date('h:i:s', strtotime($request->input('request_date'))),
-                'special_request'=> $request->input('special_request')
+                'request_date' => date('Y-m-d', strtotime($date)),
+                'request_time' => date('h:i:s', strtotime($date)),
+                'special_request'=> $request->input('request_date')
             ];
 
         if($request->input('service_package_id') == 19 ){
