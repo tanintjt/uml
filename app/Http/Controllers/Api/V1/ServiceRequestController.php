@@ -48,7 +48,7 @@ class ServiceRequestController extends Controller
                 'service_package_id'     => $request->input('service_package_id'),
                 'status'    => 1,
                 'request_date' => date('Y-m-d', strtotime($date)),
-                'request_time' => date('h:i:s', strtotime($date)),
+                'request_time' => explode(' ',$date),
                 'special_request'=> $request->input('special_request')
             ];
 

@@ -29,7 +29,7 @@ class TestController extends Controller
         $input_date = date('l, jS  F, Y h:i:s', strtotime($date1));
 
          $carbon = Carbon::parse($date1);
-print_r($date1);exit;
+print_r(explode(' ',$date1));exit;
 
         exit;
 
