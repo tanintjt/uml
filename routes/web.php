@@ -399,7 +399,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 });
 
 
-Route::get('test', [ 'as' => 'test', 'uses' => 'TestController@index']);
+Route::get('test', [ 'as' => 'test', 'uses' => 'TestController@date']);
 
 
 /*------test------*/

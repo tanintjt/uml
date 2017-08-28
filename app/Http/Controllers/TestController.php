@@ -18,6 +18,17 @@ use FCM;
 class TestController extends Controller
 {
 
+
+    public function date(){
+
+        $input = '2017-09-01T03:30:00.000Z';
+      //$carbon = Carbon::createFromFormat('Y-m-d H:s:i', $input);
+        //$carbon = date("Y-m-d H:i:s");
+        $date1 = date('Y-m-d h:i:s', strtotime($input));
+
+
+    }
+
     public function index(Request $request)
     {
         $service_requests = DB::select('select count(id) as cnt, user_id from tbl_service_request
