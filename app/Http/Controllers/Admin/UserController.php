@@ -290,7 +290,7 @@ class UserController extends Controller
         $UserRoles = DB::table('roles')->join('role_user','role_id', '=', 'roles.id')
             ->where('user_id', '=', Auth::user()->id)->first();
 
-        if($UserRoles->name == 'manager'){
+        if($UserRoles->name == 'manager'||'administrator'){
 
             $rows = Role::where('status', 1)->whereNotIn('name',['super-administrator','administrator'])->orderBy('id', 'ASC')->get();
 
