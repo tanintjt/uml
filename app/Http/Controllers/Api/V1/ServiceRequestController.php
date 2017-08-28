@@ -40,7 +40,8 @@ class ServiceRequestController extends Controller
         /*$input_date = date('l, jS  F, Y h:i:s', strtotime($date1));
 
         $carbon = Carbon::parse($date1);*/
-
+        $time = explode(' ',$date);
+        
         $data =
             [
                 'user_id'   => $request->user()->id,
@@ -48,7 +49,7 @@ class ServiceRequestController extends Controller
                 'service_package_id'     => $request->input('service_package_id'),
                 'status'    => 1,
                 'request_date' => date('Y-m-d', strtotime($date)),
-                'request_time' => explode(' ',$date),
+                'request_time' => $time[1],
                 'special_request'=> $request->input('special_request')
             ];
 
