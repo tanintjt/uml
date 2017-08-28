@@ -38,7 +38,7 @@ class ServiceRequestController extends Controller
         $date = Carbon::parse($request->input('request_date'));
 
         $input_date = Carbon::parse($request->input('request_date'));
-        
+
         $time = explode(' ',$input_date);
 
         $data =
