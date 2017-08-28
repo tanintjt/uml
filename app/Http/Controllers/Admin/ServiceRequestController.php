@@ -67,9 +67,8 @@ class ServiceRequestController extends Controller
 
          $rows = ServiceRequest::whereIn('status', [1,2,3,4])->Search(Session::get('search'))->
          Status(Session::get('status'))->
-         orderBy('id', 'asc')->paginate(config('app.limit'));
-
-
+         orderBy('id', 'desc')->paginate(config('app.limit'));
+        
 		return view('admin/service_request/index', compact('rows', 'title','employee', 'extrajs'));
     }
 
