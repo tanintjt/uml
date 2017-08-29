@@ -10,6 +10,9 @@ use DB;
 use Validator;
 use Session;
 use Auth;
+use App\Activation;
+use App\Notifications\SendActivationEmail;
+
 class UserController extends Controller
 {
 
@@ -108,7 +111,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, SendActivationEmail $mailer)
     {
 
         $rules = [
@@ -153,6 +156,14 @@ class UserController extends Controller
 
         if ($user->id > 0) {
             $user->attachRole($request->input('role_id'));
+
+            $activation = new Activation;
+            $activation->user_id = $user->id;
+            $activation->token = str_random(64);
+            $activation->save();
+
+            $mailer->sendActivation($user, $activation);
+
             $message = 'New '.  $user->name.' user added.';
             $error = false;
         } else {

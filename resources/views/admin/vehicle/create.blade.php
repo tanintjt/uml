@@ -48,6 +48,42 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('engine_no') ? ' has-error' : '' }}">
+                    {!! Form::label('engine_no', 'Engine No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('engine_no', old('engine_no'), ['class' => 'form-control', 'id' => 'engine_no', 'placeholder' => 'engine no']) !!}
+                        @if ($errors->has('engine_no'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('engine_no') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('chesis_no') ? ' has-error' : '' }}">
+                    {!! Form::label('chesis_no', 'Chassis No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('chesis_no', old('chesis_no'), ['class' => 'form-control', 'id' => 'chesis_no', 'placeholder' => 'Chassis no']) !!}
+                        @if ($errors->has('chesis_no'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('chesis_no') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('reg_no') ? ' has-error' : '' }}">
+                    {!! Form::label('reg_no', 'Registration No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('reg_no', old('reg_no'), ['class' => 'form-control', 'id' => 'reg_no', 'placeholder' => 'registration no']) !!}
+                        @if ($errors->has('reg_no'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('reg_no') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('engine_displacement') ? ' has-error' : '' }}">
                     {!! Form::label('engine_displacement', 'Engine Displacement :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -136,7 +172,7 @@
                 <div class="form-group{{ $errors->has('brochure') ? ' has-error' : '' }}">
                     {!! Form::label('brochure', 'Brochure:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
-                        {!! Form::file('brochure',old('brochure'), [ 'class' => 'form-control','required']) !!}
+                        {!! Form::file('brochure',old('brochure'), [ 'class' => 'form-control']) !!}
                         @if ($errors->has('brochure'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('brochure') }}</strong>

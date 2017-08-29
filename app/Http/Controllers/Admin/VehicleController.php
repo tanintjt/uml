@@ -121,12 +121,14 @@ class VehicleController extends Controller
             'model_id'   => 'not_in:0',
             'brand_id'   => 'not_in:0',
             'production_year'      => 'required',
+            'chesis_no'      => 'required',
+            'engine_no'      => 'required',
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
             'features'      => 'required',
-            'brochure'      => 'required|mimes:pdf',
+            'brochure'      => 'mimes:pdf',
         ];
 
         $messages = [
@@ -134,12 +136,13 @@ class VehicleController extends Controller
             'model_id.required'     => 'Model is required!',
             'brand_id.required'    => 'Brand is required!',
             'production_year.required' => 'Production Year is required!',
+            'chesis_no.required' => 'Chassis no is required!',
+            'engine_no.required' => 'Engine no is required!',
             'engine_displacement.required' => 'Engine Displacement is required!',
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
             'features.required' => 'Features is required!',
-            'brochure.required' => 'Brochure is required!',
             'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
 
         ];
@@ -187,6 +190,9 @@ class VehicleController extends Controller
             'model_id' => $request->input('model_id'),
             'brand_id' => $request->input('brand_id'),
             'production_year' => $request->input('production_year'),
+            'chesis_no' => $request->input('chesis_no'),
+            'engine_no' => $request->input('engine_no'),
+            'reg_no' => $request->input('reg_no'),
             'engine_displacement' => $request->input('engine_displacement'),
             'engine_details' => $request->input('engine_details'),
             'fuel_system' => $request->input('fuel_system'),
@@ -306,10 +312,12 @@ class VehicleController extends Controller
             'model_id'   => 'not_in:0',
             'brand_id'   => 'not_in:0',
             'production_year'      => 'required',
+            'chesis_no'      => 'required',
+            'engine_no'      => 'required',
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
-            'brochure'      => 'required|mimes:pdf',
+            'brochure'      => 'mimes:pdf',
 
         ];
 
@@ -318,10 +326,11 @@ class VehicleController extends Controller
             'model_id.required'     => 'Model is required!',
             'brand_id.required'    => 'Brand is required!',
             'production_year.required' => 'Production Year is required!',
+            'chesis_no.required' => 'Chassis no is required!',
+            'engine_no.required' => 'Engine no is required!',
             'engine_displacement.required' => 'Engine Displacement is required!',
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
-            'brochure.required' => 'Brochure is required!',
             'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
 
         ];
@@ -335,13 +344,16 @@ class VehicleController extends Controller
         }
 
         $input = [
-            'type_id' => $request->input('type_id'),
-            'model_id' => $request->input('model_id'),
-            'brand_id' => $request->input('brand_id'),
-            'production_year' => $request->input('production_year'),
+            'type_id' =>          $request->input('type_id'),
+            'model_id' =>         $request->input('model_id'),
+            'brand_id' =>         $request->input('brand_id'),
+            'production_year' =>  $request->input('production_year'),
+            'chesis_no' =>        $request->input('chesis_no'),
+            'engine_no' =>        $request->input('engine_no'),
+            'reg_no' =>           $request->input('reg_no'),
             'engine_displacement' => $request->input('engine_displacement'),
-            'engine_details' => $request->input('engine_details'),
-            'fuel_system' => $request->input('fuel_system'),
+            'engine_details' =>      $request->input('engine_details'),
+            'fuel_system' =>         $request->input('fuel_system'),
         ];
 
      //vehicle_image.......

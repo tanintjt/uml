@@ -24,7 +24,7 @@
             @endif
             <div class="col-xs-5">
 
-                <div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
+                {{--<div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
                     {!! Form::label('model_id', 'Vehicle Model :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('model_id', $model, old('model_id'), ['class' => 'form-control', 'id' => 'model_id']) !!}
@@ -34,10 +34,10 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
-                    {!! Form::label('user_id', 'User :', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('user_id', 'Customer Name :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('user_id', $users, old('user_id'), ['class' => 'form-control', 'id' => 'user_id']) !!}
                         @if ($errors->has('user_id'))
@@ -47,9 +47,60 @@
                         @endif
                     </div>
                 </div>
+
+                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                    {!! Form::label('phone', 'Engine No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('phone', old('phone'), ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Phone']) !!}
+                        @if ($errors->has('phone'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                    {!! Form::label('phone', 'Chassis No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('phone', old('phone'), ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Chassis no']) !!}
+                        @if ($errors->has('phone'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-xs-7">
+
+
+                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                    {!! Form::label('phone', 'Registration No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('phone', old('phone'), ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Phone']) !!}
+                        @if ($errors->has('phone'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                    {!! Form::label('phone', 'Color :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('phone', old('phone'), ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Phone']) !!}
+                        @if ($errors->has('phone'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+
                 <div class="form-group{{ $errors->has('purchase_date') ? ' has-error' : '' }}">
                     {!! Form::label('purchase_date', 'Purchase Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
