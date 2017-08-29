@@ -18,28 +18,33 @@ class ServiceHistoryController extends Controller
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
 
         //free services .......
-        $user = UserVehicle::where('user_id',$request->user()->id)->first();
+        /*$users = UserVehicle::where('user_id',$request->user()->id)->get();
 
-        if($user){
-            $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->count();
+        $user_vehicle_no = UserVehicle::where('user_id',$request->user()->id)->count();
+        if($users){
+            foreach($users as $user){
 
-            $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user->purchase_date);
-            $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+                $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->count();
 
-            $interval = $purchase_date->diffInDays($current_date, false);
+                $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user->purchase_date);
+                $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
-            if($interval==360){
-                $total_free_services = 0;
-            }else{
-                if($service_count>0){
-                    $total_free_services =(4 - $service_count) ;
+                $interval = $purchase_date->diffInDays($current_date, false);
+
+                if($interval==360){
+                    $total_free_services = 0;
                 }else{
-                    $total_free_services = 4;
+                    if($service_count>0){
+                        $total_free_services =($user_vehicle_no*4 - $service_count) ;
+                    }else{
+                        $total_free_services = $user_vehicle_no*4;
+                    }
                 }
             }
+
         }else{
             $total_free_services = 0;
-        }
+        }*/
 
         $data = [];
 
@@ -63,7 +68,7 @@ class ServiceHistoryController extends Controller
                 $data[$i]['packages'] = $rows[$i]->packages->name;
                 $data[$i]['request_date'] = date("jS F, Y", strtotime($rows[$i]->request_date));
                 $data[$i]['status'] = $status;
-                $data[$i]['freeservice'] = $total_free_services;
+                //$data[$i]['freeservice'] = $total_free_services;
             }
             $result = $data;
         }
@@ -73,7 +78,7 @@ class ServiceHistoryController extends Controller
             $data[0]['packages'] = 'No history found';
             $data[0]['request_date'] = date("jS F, Y", strtotime(Carbon::now()));
             $data[0]['status'] = 5;
-            $data[0]['freeservice'] = $total_free_services;
+            //$data[0]['freeservice'] = $total_free_services;
 
             $result = $data;
         }
