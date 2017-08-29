@@ -31,6 +31,7 @@
                         @endif
 
                         <span class="hidden-xs">{!! isset(Auth::user()->name)?ucfirst(Auth::user()->name):'' !!}</span>
+
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
