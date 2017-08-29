@@ -112,60 +112,60 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     //Route::resource('/user', 'UserController', [ 'except' => ['index'] , 'middleware' => ['role:super-administrator']]);
 
     Route::get('/user',
-        ['as' => 'admin.user.index', 'uses' => 'UserController@index', 'middleware' => ['role:super-administrator|administrator|manager']
+        ['as' => 'admin.user.index', 'uses' => 'UserController@index', 'middleware' => ['role:super-administrator|sales-manager']
         ]);
 
     Route::get('/user/create',
-        ['as'=>'user-create','uses' => 'UserController@create', 'middleware' => ['role:super-administrator|administrator|manager']]);
+        ['as'=>'user-create','uses' => 'UserController@create', 'middleware' => ['role:super-administrator|sales-manager']]);
 
     Route::post('/user/store',
-        ['as' => 'user-store','uses' => 'UserController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
+        ['as' => 'user-store','uses' => 'UserController@store', 'middleware' => ['role:super-administrator|sales-manager']]);
 
     Route::get('/user/{id}', [
-        'as' => 'admin.user.show', 'uses' => 'UserController@show', 'middleware' => ['role:super-administrator|administrator|manager']
+        'as' => 'admin.user.show', 'uses' => 'UserController@show', 'middleware' => ['role:super-administrator|sales-manager']
     ]);
 
-    Route::get('/user/{id}/edit', [ 'as' => 'user-edit', 'uses' => 'UserController@edit', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::get('/user/{id}/edit', [ 'as' => 'user-edit', 'uses' => 'UserController@edit', 'middleware' => ['role:super-administrator|sales-manager']]);
 
-    Route::put('/user/{id}/update', [ 'as' => 'user-update', 'uses' => 'UserController@update', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::put('/user/{id}/update', [ 'as' => 'user-update', 'uses' => 'UserController@update', 'middleware' => ['role:super-administrator|sales-manager']]);
 
 
-    Route::any('/user/delete/{id}', [ 'as' => 'user-delete', 'uses' => 'UserController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::any('/user/delete/{id}', [ 'as' => 'user-delete', 'uses' => 'UserController@delete', 'middleware' => ['role:super-administrator|sales-manager']]);
 
-    Route::match(['get', 'post'], 'user', ['uses' => 'UserController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::match(['get', 'post'], 'user', ['uses' => 'UserController@index', 'middleware' => ['role:super-administrator|sales-manager']]);
 
 
 
 
     /*service-location*/
-    Route::resource('/service-center',  'ServiceCenterController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::resource('/service-center',  'ServiceCenterController', ['except' => ['index'], 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::match(['get', 'post'], 'service-center', ['uses' => 'ServiceCenterController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::match(['get', 'post'], 'service-center', ['uses' => 'ServiceCenterController@index', 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::post('/service-center/store', ['as' => 'service-center','uses' => 'ServiceCenterController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::post('/service-center/store', ['as' => 'service-center','uses' => 'ServiceCenterController@store', 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::any('/service-center/delete/{id}', [ 'as' => 'service-center-delete', 'uses' => 'ServiceCenterController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::any('/service-center/delete/{id}', [ 'as' => 'service-center-delete', 'uses' => 'ServiceCenterController@delete', 'middleware' => ['role:super-administrator|service-manager']]);
 
 
     /*service-package*/
 
-    Route::resource('/service-package',  'ServicePackageController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::resource('/service-package',  'ServicePackageController', ['except' => ['index'], 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::match(['get', 'post'], 'service-package', ['uses' => 'ServicePackageController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::match(['get', 'post'], 'service-package', ['uses' => 'ServicePackageController@index', 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::post('/service-package/store', ['as' => 'service-package','uses' => 'ServicePackageController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::post('/service-package/store', ['as' => 'service-package','uses' => 'ServicePackageController@store', 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::any('/service-package/delete/{id}', [ 'as' => 'service-package-delete', 'uses' => 'ServicePackageController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::any('/service-package/delete/{id}', [ 'as' => 'service-package-delete', 'uses' => 'ServicePackageController@delete', 'middleware' => ['role:super-administrator|service-manager']]);
 
 
     /*service-package-type*/
-    Route::resource('/service-package-type',  'ServicePackageTypeController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::resource('/service-package-type',  'ServicePackageTypeController', ['except' => ['index'], 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::match(['get', 'post'], 'service-package-type', ['uses' => 'ServicePackageTypeController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::match(['get', 'post'], 'service-package-type', ['uses' => 'ServicePackageTypeController@index', 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::post('/service-package-type/store', ['as' => 'service-package-type-store','uses' => 'ServicePackageTypeController@store', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::post('/service-package-type/store', ['as' => 'service-package-type-store','uses' => 'ServicePackageTypeController@store', 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::any('/service-package-type/delete/{id}', [ 'as' => 'service-package-type-delete', 'uses' => 'ServicePackageTypeController@delete', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::any('/service-package-type/delete/{id}', [ 'as' => 'service-package-type-delete', 'uses' => 'ServicePackageTypeController@delete', 'middleware' => ['role:super-administrator|service-manager']]);
 
 
 
@@ -300,12 +300,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     /*Service History*/
 
-    Route::resource('/service-history',  'ServiceHistoryController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::resource('/service-history',  'ServiceHistoryController', ['except' => ['index'], 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::match(['get', 'post'], 'service-history', ['uses' => 'ServiceHistoryController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::match(['get', 'post'], 'service-history', ['uses' => 'ServiceHistoryController@index', 'middleware' => ['role:super-administrator|service-manager']]);
 
     /*feedback*/
-    Route::resource('/feedback',  'FeedbackController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::resource('/feedback',  'FeedbackController', ['except' => ['index'], 'middleware' => ['role:super-administrator|service-manager']]);
 
     Route::match(['get', 'post'], 'feedback', ['uses' => 'FeedbackController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
 
@@ -318,13 +318,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     /*service_request*/
 
-    Route::resource('/service-request', 'ServiceRequestController', ['except' => ['index'], 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::resource('/service-request', 'ServiceRequestController', ['except' => ['index'], 'middleware' => ['role:super-administrator|service-manager']]);
 
-    Route::match(['get', 'post'], 'service-request', ['uses' => 'ServiceRequestController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::match(['get', 'post'], 'service-request', ['uses' => 'ServiceRequestController@index', 'middleware' => ['role:super-administrator|service-manager']]);
 
     /*notification*/
 
-    Route::get('/notification', ['as' => 'notification','uses' => 'PushNotificationController@index', 'middleware' => ['role:super-administrator|administrator|manager']]);
+    Route::get('/notification', ['as' => 'notification','uses' => 'PushNotificationController@index', 'middleware' => ['role:super-administrator|service-manager']]);
 
 
     /*user-vehicle*/

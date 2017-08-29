@@ -22,8 +22,8 @@
                     {{ Session::get('message') }}
                 </div>
             @endif
-            <div class="col-xs-5">
-                <div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
+            <div class="col-xs-6">
+                {{--<div class="form-group{{ $errors->has('model_id') ? ' has-error' : '' }}">
                     {!! Form::label('model_id', 'Vehicle Model :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::select('model_id', $model, old('model_id',$row->vehicles->model->id), ['class' => 'form-control', 'id' => 'model_id']) !!}
@@ -33,7 +33,7 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
                     {!! Form::label('user_id', 'User :', ['class' => 'col-xs-3 control-label']) !!}
@@ -46,11 +46,59 @@
                         @endif
                     </div>
                 </div>
+
+                <div class="form-group{{ $errors->has('engine_no') ? ' has-error' : '' }}">
+                    {!! Form::label('engine_no', 'Engine No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('engine_no', old('engine_no',$row->vehicles->engine_no), ['class' => 'form-control', 'id' => 'engine_no', 'placeholder' => 'engine no']) !!}
+                        @if ($errors->has('engine_no'))
+                            <span class="help-block">
+                            <strong>{{ $errors->first('engine_no') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('chesis_no') ? ' has-error' : '' }}">
+                    {!! Form::label('chesis_no', 'Chassis No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('chesis_no', old('chesis_no',$row->vehicles->chesis_no), ['class' => 'form-control', 'id' => 'chesis_no', 'placeholder' => 'Chassis no']) !!}
+                        @if ($errors->has('chesis_no'))
+                            <span class="help-block">
+                            <strong>{{ $errors->first('chesis_no') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                </div>
             </div>
 
-            <div class="col-xs-7">
+
+            <div class="col-xs-6">
+
+                <div class="form-group{{ $errors->has('reg_no') ? ' has-error' : '' }}">
+                    {!! Form::label('reg_no', 'Registration No :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('reg_no', old('reg_no',$row->vehicles->reg_no), ['class' => 'form-control', 'id' => 'reg_no', 'placeholder' => 'registration no']) !!}
+                        @if ($errors->has('reg_no'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('reg_no') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group{{ $errors->has('color') ? ' has-error' : '' }}">
+                    {!! Form::label('color', 'Color :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('color', old('color',$row->color), ['class' => 'form-control', 'id' => 'color', 'placeholder' => 'color']) !!}
+                        @if ($errors->has('color'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('color') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
                 <div class="form-group{{ $errors->has('purchase_date') ? ' has-error' : '' }}">
-                    {!! Form::label('purchase_date', 'Purchase Date :', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('purchase_date', 'Purchase Date:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::text('purchase_date',  old('purchase_date',date('Y-m-d', strtotime($row->purchase_date))),['class' => 'form-control datepicker', 'id' => 'purchase_date', 'placeholder' => 'purchase date']) !!}
                         @if ($errors->has('purchase_date'))

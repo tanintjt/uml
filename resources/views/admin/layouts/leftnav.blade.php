@@ -9,6 +9,7 @@
                 <a>
                 </a>
             </li>
+            @if(!Auth::user()->hasRole(['service-manager']))
             <li class="treeview{!!  in_array(Request::segment(2), ['permission', 'role', 'user']) ? ' active': '' !!}">
                 <a href="{!! url(Request::segment(1).'/permissions') !!}">
                     <i class="fa fa-users"></i>
@@ -26,8 +27,10 @@
                             <a href="{!! url(Request::segment(1).'/user') !!}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
+            @endif
 
-            <li class="treeview{!!  in_array(Request::segment(2), ['service-center', 'service-package','service-request','service-history']) ? ' active': '' !!}">
+            @if(!Auth::user()->hasRole(['sales-manager']))
+            <li class="treeview{!!  in_array(Request::segment(2), ['service-center','service-package-type', 'service-package','service-request','service-history']) ? ' active': '' !!}">
                 <a href="#">
                     <i class="fa fa-folder"></i> <span>Services</span>
                     <span class="pull-right-container">
@@ -35,14 +38,17 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li{!!  in_array(Request::segment(2), ['service-center']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
-                    <li{!!  in_array(Request::segment(2), ['service-package-type']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-package-type') !!}"><i class="fa fa-gg"></i> <span>Service Package Type</span></a></li>
-                    <li{!!  in_array(Request::segment(2), ['service-package']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
-                    <li{!!  in_array(Request::segment(2), ['service-request']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-request') !!}"><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
-                    <li{!!  in_array(Request::segment(2), ['service-history']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>
+
+                       <li{!!  in_array(Request::segment(2), ['service-center']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-center') !!}"><i class="fa fa-map-marker"></i> <span>Service Location</span></a></li>
+                       <li{!!  in_array(Request::segment(2), ['service-package-type']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-package-type') !!}"><i class="fa fa-gg"></i> <span>Service Package Type</span></a></li>
+                       <li{!!  in_array(Request::segment(2), ['service-package']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-package') !!}"><i class="fa fa-asterisk"></i> <span>Service Package</span></a></li>
+                       <li{!!  in_array(Request::segment(2), ['service-request']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-request') !!}"><i class="fa fa-arrows"></i> <span>Service Request</span></a></li>
+                       <li{!!  in_array(Request::segment(2), ['service-history']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/service-history') !!}"><i class="fa fa-history"></i> <span>Service History</span></a></li>
+
                 </ul>
             </li>
 
+            @if(!Auth::user()->hasRole(['service-manager']))
             <li class="treeview{!!  in_array(Request::segment(2), ['vehicle-type', 'vehicle-model','vehicle','brand','user-vehicle']) ? ' active': '' !!}">
                 <a href="#">
                     <i class="fa fa-car"></i>
@@ -83,6 +89,8 @@
             <li{!!  in_array(Request::segment(2), ['employee']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/employee') !!}"><i class="fa fa-user"></i> <span>Employee</span></a></li>
             <li{!!  in_array(Request::segment(2), ['feedback']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/feedback') !!}"><i class="fa fa-feed"></i> <span>Feedback</span></a></li>
 
+            @endif
+            @endif
 
         </ul>
     </section>

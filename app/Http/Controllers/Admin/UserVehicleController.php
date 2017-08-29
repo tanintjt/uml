@@ -100,22 +100,22 @@ class UserVehicleController extends Controller
     }
 
 
-
-
-
     public function store(Request $request){
 
-
         $rules = [
-            'model_id'       => 'not_in:0',
+            //'model_id'       => 'not_in:0',
             'user_id'        => 'not_in:0',
             'purchase_date'  => 'required',
+            'chesis_no'      => 'required',
+            'engine_no'      => 'required',
         ];
 
         $messages = [
-            'model_id.required'       => 'Model is required!',
+           // 'model_id.required'       => 'Model is required!',
             'user_id.required'        => 'User is required!',
             'purchase_date.required'  => 'Purchase Date is required!',
+            'chesis_no.required' => 'Chassis no is required!',
+            'engine_no.required' => 'Engine no is required!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -125,7 +125,10 @@ class UserVehicleController extends Controller
             return redirect('admin/user-vehicle/create')->withErrors($validator)->withInput();
         }
 
-         $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
+         //$vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
+         $vehicle = Vehicle::where('engine_no',$request->input('engine_no'))
+                            ->where('chesis_no',$request->input('chesis_no'))
+                            ->first();
 
          if($vehicle){
 
@@ -134,6 +137,7 @@ class UserVehicleController extends Controller
                       'user_id'        => $request->input('user_id'),
                       'vehicle_id'     => $vehicle['id'],
                       'purchase_date'  => $request->input('purchase_date'),
+                      'color'  => $request->input('color'),
                   ]
               );
 
@@ -145,7 +149,7 @@ class UserVehicleController extends Controller
                   $error = true;
               }
          }else{
-              return redirect('admin/user-vehicle/create')->with(['message' => 'Not exists.Please try another vehicle model.']);
+              return redirect('admin/user-vehicle/create')->with(['message' => 'Not exists.Please try another vehicle.']);
          }
 
         return redirect('admin/user-vehicle')->with(['message' => $message, 'error' => $error]);
@@ -222,15 +226,19 @@ class UserVehicleController extends Controller
         $model = UserVehicle::findOrFail($id);
 
         $rules = [
-            'model_id'       => 'not_in:0',
+            //'model_id'       => 'not_in:0',
             'user_id'        => 'not_in:0',
             'purchase_date'  => 'required',
+            'chesis_no'      => 'required',
+            'engine_no'      => 'required',
         ];
 
         $messages = [
-            'model_id.required'       => 'Model is required!',
+            // 'model_id.required'       => 'Model is required!',
             'user_id.required'        => 'User is required!',
             'purchase_date.required'  => 'Purchase Date is required!',
+            'chesis_no.required' => 'Chassis no is required!',
+            'engine_no.required' => 'Engine no is required!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -240,7 +248,9 @@ class UserVehicleController extends Controller
             return redirect('admin/user-vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-        $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
+        $vehicle = Vehicle::where('engine_no',$request->input('engine_no'))
+            ->where('chesis_no',$request->input('chesis_no'))
+            ->first();
 
         if($vehicle){
 
@@ -249,6 +259,7 @@ class UserVehicleController extends Controller
                     'user_id'        => $request->input('user_id'),
                     'vehicle_id'     => $vehicle['id'],
                     'purchase_date'  => $request->input('purchase_date'),
+                    'color'  => $request->input('color'),
                 ];
 
             $model->update($user_vehicle);

@@ -33,8 +33,9 @@
                     <tr class="active">
                         <th width="5%">#</th>
                         <th width="5%">User Name</th>
-                        {{--<th width="5%">Refer To</th>--}}
                         <th width="5%">Vehicle</th>
+                        <th width="5%">Engine No</th>
+                        <th width="5%">Chassis No</th>
                         <th width="5%">Purchase Date</th>
                         <th width="10%">Actions</th>
                     </tr>
@@ -45,9 +46,9 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td>{{ isset($row->users->name)?$row->users->name:''}}</td>
-                            {{--<td>{{ isset($row->parent_data->name)?$row->parent_data->name:''}}</td>--}}
-                            {{--<td>{{ isset($vehicle)?$vehicle['model']:''}}</td>--}}
                             <td>{{ $row->vehicles->model->name }}</td>
+                            <td>{{ $row->vehicles->engine_no }}</td>
+                            <td>{{ $row->vehicles->chesis_no }}</td>
                             <td>{{ isset($row->purchase_date)?date('Y-m-d', strtotime($row->purchase_date)):''}}</td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/user-vehicle/'.$row->id.'/view') !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>

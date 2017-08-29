@@ -74,11 +74,22 @@ class UserController extends Controller
         $roles = $this->roleList();
         $users = $this->userList();
 
+
+        if(Auth::user()->hasRole(['sales-manager'])){
+
+            $rows = User::Role()->whereNotIn('role_id', [1,2,3])->Search(Session::get('search'))->
+            RoleId(Session::get('role_id'))->
+            Status(Session::get('status'))->
+            orderBy('id', 'desc')->
+            paginate(config('app.limit'));
+        }
+        else{
             $rows = User::Role()->Search(Session::get('search'))->
             RoleId(Session::get('role_id'))->
             Status(Session::get('status'))->
             orderBy('id', 'desc')->
             paginate(config('app.limit'));
+        }
 
        /* $role = Auth::user()->roles()->pluck('id');
         print_r($role);exit;*/
@@ -301,9 +312,9 @@ class UserController extends Controller
         $UserRoles = DB::table('roles')->join('role_user','role_id', '=', 'roles.id')
             ->where('user_id', '=', Auth::user()->id)->first();
 
-        if($UserRoles->name == 'manager'||'administrator'){
+        if($UserRoles->name == 'sales-manager'){
 
-            $rows = Role::where('status', 1)->whereNotIn('name',['super-administrator','administrator'])->orderBy('id', 'ASC')->get();
+            $rows = Role::where('status', 1)->whereIn('name',['registered'])->orderBy('id', 'ASC')->get();
 
         }else{
             $rows = Role::where('status', 1)->orderBy('id', 'ASC')->get();

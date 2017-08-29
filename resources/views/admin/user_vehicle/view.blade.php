@@ -25,6 +25,18 @@
                         <td>{!! $row->vehicles->model->name !!}</td>
                     </tr>
                     <tr>
+                        <th width="20%" class="active">Engine No</th>
+                        <td>{!! $row->vehicles->engine_no !!}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%" class="active">Chassis No</th>
+                        <td>{!! $row->vehicles->chesis_no !!}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%" class="active">Color</th>
+                        <td>{!! $row->color !!}</td>
+                    </tr>
+                    <tr>
                         <th class="active">Purchase Date</th>
                         <td>{!! isset($row->purchase_date)?date('Y-m-d', strtotime($row->purchase_date)):'' !!}</td>
                     </tr>

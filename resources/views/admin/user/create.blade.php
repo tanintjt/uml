@@ -61,10 +61,10 @@
                     {!! Form::label('status', 'Status :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         <label class="radio-inline">
-                            {!! Form::radio('status', '1', true, ['id' => 'statuson']) !!} Yes
+                            {!! Form::radio('status', '1', false, ['id' => 'statuson']) !!} Yes
                         </label>
                         <label class="radio-inline">
-                            {!! Form::radio('status', '2', false, ['id' => 'statusoff']) !!} No
+                            {!! Form::radio('status', '2', true, ['id' => 'statusoff']) !!} No
                         </label>
                     </div>
                 </div>

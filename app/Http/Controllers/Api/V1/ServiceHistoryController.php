@@ -18,28 +18,45 @@ class ServiceHistoryController extends Controller
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
 
         //free services .......
-        $user = UserVehicle::where('user_id',$request->user()->id)->first();
+        //if($rows){
+            foreach($rows as $row){
+                $users = UserVehicle::where('user_id',$row->user_id)->get();
 
-        if($user){
-            $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->count();
+                if($users){
+                    foreach($users as $user){
 
-            $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user->purchase_date);
-            $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+                        $service_count = ServiceRequest::where('user_id',$user->user_id)->where('status',5)->get();
+                        //print_r($service_count);exit;
+                        print_r($service_count);exit;
+                        $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user->purchase_date);
+                        $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
-            $interval = $purchase_date->diffInDays($current_date, false);
+                        $interval = $purchase_date->diffInDays($current_date, false);
 
-            if($interval>=360){
-                $total_free_services = 0;
-            }else{
-                if($service_count>0){
-                    $total_free_services =(4 - $service_count) ;
+                        if($interval>=360){
+                            $total_free_services = 0;
+                        }else{
+                            if($service_count>0){
+                                $total_free_services =(4 - $service_count) ;
+                            }else{
+                                $total_free_services = 4;
+                            }
+                        }
+                    }
+
                 }else{
-                    $total_free_services = 4;
+                    $total_free_services = 0;
                 }
+
             }
-        }else{
-            $total_free_services = 0;
-        }
+
+
+       // }
+
+
+  //print_r($users);exit;
+
+
 
         $data = [];
 
@@ -64,6 +81,7 @@ class ServiceHistoryController extends Controller
                 $data[$i]['request_date'] = date("jS F, Y", strtotime($rows[$i]->request_date));
                 $data[$i]['status'] = $status;
                 $data[$i]['freeservice'] = $total_free_services;
+                $data[$i]['vehicle'] = $user->vehicle_id;
             }
             $result = $data;
         }

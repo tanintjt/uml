@@ -67,7 +67,7 @@ class LoginController extends Controller
                 //return redirect($this->redirectTo);
                 return redirect('admin/service-center');
             } else {
-                if(Auth::user()->hasRole(['administrator', 'manager'])) {
+                if(Auth::user()->hasRole(['sales-manager', 'service-manager'])) {
                     return redirect('admin/service-center');
                 } else {
 
