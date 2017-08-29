@@ -24,9 +24,9 @@ class TestController extends Controller
         $input = '2017-09-01T21:37:00.000Z';
 
         $date1 = Carbon::parse($input);
-
-        //$input_date = date('l, jS  F, Y h:i:s', strtotime($date1));
-
+       //print_r($date1);exit;
+        $input_date = date('l, jS  F, Y h:i:s', strtotime($date1));
+        print_r($input_date);exit;
          //$carbon = Carbon::parse($date1);
          $dd= explode(' ',$date1);
 print_r($dd[1]);
