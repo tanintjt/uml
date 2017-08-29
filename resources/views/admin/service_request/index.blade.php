@@ -48,8 +48,7 @@
                             <td>{{ ucfirst($row->users->name)}}</td>
                             <td>{{ $row->service_package->name}}</td>
                             <td>{{ date("jS F, Y", strtotime($row->request_date))}}</td>
-                            {{--<td>{{ date( 'g:i a', strtotime($row->request_time))}}</td>--}}
-                            <td>{{ $row->request_time}}</td>
+                            <td>{{ date( 'g:i A', strtotime($row->request_time))}}</td>
                             <td>
                                 <a href="{!! url(Request::segment(1).'/service-request/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span>
                                     @if($row->status==1)
