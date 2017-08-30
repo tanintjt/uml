@@ -63,12 +63,15 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'status' => 1 ], $request->input('remember'))) {
 
 
-            if(Auth::user()->hasRole('super-administrator'||'service-manager')) {
-                //return redirect($this->redirectTo);
+            if(Auth::user()->hasRole('super-administrator')) {
+
                 return redirect('admin/service-center');
             } else {
-                if(Auth::user()->hasRole(['sales-manager', 'service-manager'])) {
+                if(Auth::user()->hasRole('sales-manager')) {
                     return redirect('admin/user');
+                }
+                elseif(Auth::user()->hasRole('service-manager')) {
+                    return redirect('admin/service-center');
                 }
                 else {
                     Auth::logout();
