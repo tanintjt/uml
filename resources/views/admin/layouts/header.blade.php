@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link href="{!! asset('public/themes/default/css/select2.min.css') !!}" rel="stylesheet">
+    {{--<link href="{!! asset('public/themes/default/css/select2.min.css') !!}" rel="stylesheet">--}}
     <!-- Theme style -->
     <link href="{!! asset('public/themes/default/css/AdminLTE.min.css') !!}" rel="stylesheet">
     <link href="{!! asset('public/themes/default/css/skins/_all-skins.min.css') !!}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{!! asset('public/themes/default/plugins/iCheck/flat/blue.css') !!}" rel="stylesheet">
+    <link href="{!! asset('public/themes/select2/dist/css/select2.min.css') !!}" rel="stylesheet">
     <!-- jvectormap -->
     <link href="{!! asset('public/themes/default/plugins/jvectormap/jquery-jvectormap-1.2.2.css') !!}" rel="stylesheet">
     <!-- Date Picker -->

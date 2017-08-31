@@ -17,6 +17,25 @@ class ServiceHistoryController extends Controller
 
         $rows = ServiceRequest::where('user_id',$request->user()->id)->get();
 
+
+
+        /*if($users){
+            $rows = DB::table("user_vehicles")
+                ->select('user_vehicles.user_id','user_vehicles.vehicle_id',
+                    'user_vehicles.purchase_date','service_request.status')
+
+                ->leftjoin("service_request", function ($join) use ($request){
+
+                    $join->on("user_vehicles.user_id", "=", "service_request.user_id");
+
+                })->where("service_request.status",5)
+                ->where("user_vehicles.user_id",$request->user()->id)
+                ->count();
+
+
+        }*/
+
+
         //free services .......
         /*$users = UserVehicle::where('user_id',$request->user()->id)->get();
 
@@ -79,7 +98,6 @@ class ServiceHistoryController extends Controller
             $data[0]['request_date'] = date("jS F, Y", strtotime(Carbon::now()));
             $data[0]['status'] = 5;
             //$data[0]['freeservice'] = $total_free_services;
-
             $result = $data;
         }
 

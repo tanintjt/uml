@@ -363,7 +363,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::match(['get', 'post'], 'employee', ['uses' => 'EmployeeController@index', 'middleware' => ['role:super-administrator']]);
 
     Route::get('/employee/{id}/delete', [ 'as' => 'employee-delete', 'uses' => 'EmployeeController@delete', 'middleware' => ['role:super-administrator']]);
-    
+
 
 /*employee assign.....*/
 

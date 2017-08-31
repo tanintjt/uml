@@ -390,6 +390,7 @@ class ComposerStaticInit76026344e0d627229202a3b9a605712d
         'AlterServicePackageTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_27_152413_alter_service_package_table.php',
         'AlterServiceRequestSrtTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_01_113027_alter_service_request_srt_table.php',
         'AlterServiceRequestStructureTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_30_181047_alter_service_request_structure_table.php',
+        'AlterServiceRequestStructuresTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_31_114014_alter_service_request_structures_table.php',
         'AlterServiceRequestTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_17_100738_alter_service_request_table.php',
         'AlterUserVehicleStructureTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_23_111518_alter_user_vehicle_structure_table.php',
         'AlterUserVehiclesStructuresTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_29_121951_alter_user_vehicles_structures_table.php',

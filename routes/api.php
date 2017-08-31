@@ -143,6 +143,14 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
   /*notification-history*/
 
     Route::get('/notification/history', [ 'as' => 'notification.history', 'uses' => 'NotificationHistoryController@index']);
+
+
+    /*USER VEHICLE*/
+    Route::get('/user/vehicle', [ 'as' => 'user/vehicle', 'uses' => 'VehicleController@user_vehicle']);
+
+
+
+
 });
 
 

@@ -18,6 +18,7 @@ return array(
     'AlterServicePackageTable' => $baseDir . '/database/migrations/2017_07_27_152413_alter_service_package_table.php',
     'AlterServiceRequestSrtTable' => $baseDir . '/database/migrations/2017_08_01_113027_alter_service_request_srt_table.php',
     'AlterServiceRequestStructureTable' => $baseDir . '/database/migrations/2017_07_30_181047_alter_service_request_structure_table.php',
+    'AlterServiceRequestStructuresTable' => $baseDir . '/database/migrations/2017_08_31_114014_alter_service_request_structures_table.php',
     'AlterServiceRequestTable' => $baseDir . '/database/migrations/2017_07_17_100738_alter_service_request_table.php',
     'AlterUserVehicleStructureTable' => $baseDir . '/database/migrations/2017_07_23_111518_alter_user_vehicle_structure_table.php',
     'AlterUserVehiclesStructuresTable' => $baseDir . '/database/migrations/2017_08_29_121951_alter_user_vehicles_structures_table.php',

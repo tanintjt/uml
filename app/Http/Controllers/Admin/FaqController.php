@@ -82,16 +82,14 @@ class FaqController extends Controller
         $input = $request->all();
 
         $rules = [
-            'title' => 'required',
-            'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
+            'question' => 'required',
+            'answer' => 'required',
         ];
 
         $messages = [
-            'title.required' => 'Title is required!',
-            'file.required' => 'File is required!',
+            'question.required' => 'Question is required!',
+            'answer.required' => 'Answer is required!',
         ];
-
-        $file = Input::file('file');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -100,24 +98,10 @@ class FaqController extends Controller
             return redirect('admin/faq/create')->withErrors($validator)->withInput();
         }
 
-        // Files destination
-        $destinationPath = 'public/uploads/faq/';
+        $faq = Faq::create($input);
 
-        // Create folders if they don't exist
-        if ( !file_exists($destinationPath) ) {
-            mkdir ($destinationPath, 777);
-        }
-
-        $file_original_name = $file->getClientOriginalName();
-        $file_name = rand(11111, 99999) . $file_original_name;
-        $file->move($destinationPath, $file_name);
-        $input['file'] = 'public/uploads/faq/' . $file_name;
-
-
-        $brochure = Faq::create($input);
-
-        if ($brochure->id > 0) {
-            $message = 'New '.  $brochure->title.' Faq added.';
+        if ($faq->id > 0) {
+            $message = 'New  Faq added.';
             $error = false;
         } else {
             $message =  'New '. $request->get('title') .'Faq adding fail.';
@@ -151,41 +135,20 @@ class FaqController extends Controller
         $model = Faq::findOrFail($id);
 
         $rules = [
-            'title' => 'required',
-            'file' => 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
+            'question' => 'required',
+            'answer' => 'required',
         ];
 
         $messages = [
-            'title.required' => 'Title is required!',
-           // 'file.required' => 'File is required!',
+            'question.required' => 'Question is required!',
+            'answer.required' => 'Answer is required!',
         ];
-
-
-        $file = Input::file('file');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
 
             return redirect('admin/faq/'.$id.'/edit')->withErrors($validator)->withInput();
-        }
-
-        if(count($file)>0){
-            //Delete previous image from folder
-            unlink($model->file);
-
-            // Files destination
-            $destinationPath = 'public/uploads/faq/';
-
-            // Create folders if they don't exist
-            if ( !file_exists($destinationPath) ) {
-                mkdir ($destinationPath, 0777);
-            }
-
-            $file_original_name = $file->getClientOriginalName();
-            $file_name = rand(11111, 99999) . $file_original_name;
-            $file->move($destinationPath, $file_name);
-            $input['file'] = 'public/uploads/faq/' . $file_name;
         }
 
         $model->update($input);
@@ -210,13 +173,12 @@ class FaqController extends Controller
     }
 
 
-
     public function delete($id)
     {
 
         $model = Faq::where('id',$id)->first();
 
-        $message =  $model->name.'  deleted.';
+        $message = ' Successfully deleted.';
         $error = false;
 
         $model->delete();

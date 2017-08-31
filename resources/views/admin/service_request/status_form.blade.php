@@ -52,6 +52,18 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('vehicle_id') ? ' has-error' : '' }}">
+                    {!! Form::label('vehicle_id', 'Vehicle :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::select('vehicle_id', $vehicle, old('vehicle_id'), ['class' => 'form-control', 'id' => 'vehicle_id']) !!}
+                        @if ($errors->has('vehicle_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('vehicle_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('updated_at') ? ' has-error' : '' }}">
                     {!! Form::label('updated_at', 'Date :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">

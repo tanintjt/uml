@@ -30,23 +30,23 @@
                     <thead>
                     <tr class="active">
                         <th width="5%" class="text-center">#</th>
-                        <th width="20%" class="text-center">Title</th>
-                        <th width="20%" class="text-center">Upload File</th>
+
+                        <th width="20%" class="text-center">Question</th>
+                        <th width="20%" class="text-center">Answer</th>
                         <th width="10%" class="text-center">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
                     @foreach ($rows as $row)
-                        <tr>
+                        <tr class="read-more-state" id="post-1">
                             <td class="text-center">{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td class="text-center">{{ $row->title}}</td>
-                            <td class="text-center"><a href='{!! asset(isset($row->file)?$row->file:'')!!}' target="_blank"><i class=" fa fa-file-picture-o"></i></a></td>
+                            <td class="text-center">{{ $row->question}}</td>
+                            <td class="text-center">{{ $row->answer}}</td>
+
                             <td class="text-center">
                                 <a href="{!! url(Request::segment(1).'/faq/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/faq/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-
-                                {{--<a href="{!! url(Request::segment(1).'/permission/'.$row->id.'/delete') !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" role="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
                                 <a href="{!! route('faq-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
@@ -80,4 +80,6 @@
         </div>
     </div>
 @endsection
+
+
 

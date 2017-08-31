@@ -13,26 +13,38 @@
         </div>
         <div class="box-body">
             <div class="col-xs-12">
-                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                    {!! Form::label('title', 'Title :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-3">
-                        {!! Form::text('title', old('title',$row->title), ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Title']) !!}
-                        @if ($errors->has('title'))
+
+                <div class="form-group{{ $errors->has('question') ? ' has-error' : '' }}">
+                    {!! Form::label('question', 'Question :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::textarea('question', old('question',$row->question), ['class' => 'form-control', 'id' => 'question', 'placeholder' => 'Question', 'rows' => 2]) !!}
+                        @if ($errors->has('question'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('title') }}</strong>
+                                <strong>{{ $errors->first('question') }}</strong>
                             </span>
                         @endif
                     </div>
                 </div>
-                <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
-                    {!! Form::label('file', 'File:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-3">
-                        {!! Form::file('file',old('file'), [ 'class' => 'form-control','required']) !!}
-                        @if ($errors->has('file'))
+                <div class="form-group{{ $errors->has('answer') ? ' has-error' : '' }}">
+                    {!! Form::label('answer', 'Answer:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-6">
+                        {!! Form::textarea('answer', old('answer',$row->answer), ['class' => 'form-control', 'id' => 'answer', 'placeholder' => 'Answer', 'rows' =>4]) !!}
+                        @if ($errors->has('answer'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('file') }}</strong>
+                                <strong>{{ $errors->first('answer') }}</strong>
                             </span>
                         @endif
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('status', 'Status :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        <label class="radio-inline">
+                            {!! Form::radio('status', '1', true, ['id' => 'statuson']) !!} Yes
+                        </label>
+                        <label class="radio-inline">
+                            {!! Form::radio('status', '2', false, ['id' => 'statusoff']) !!} No
+                        </label>
                     </div>
                 </div>
             </div>

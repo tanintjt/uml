@@ -6,6 +6,7 @@ use App\Employee;
 use App\NotificationHistory;
 use App\ServiceRequest;
 use App\UserDevices;
+use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -58,31 +59,34 @@ class ServiceRequestController extends Controller
 
 		</script>";
 
-        $employee = $this->employeeList(true);
 
         if ($request->isMethod('post')) {
              Session::put('status', $request->input('status'));
              Session::put('search', $request->input('search'));
         }
 
-         $rows = ServiceRequest::whereIn('status', [1,2,3,4])->Search(Session::get('search'))->
+         $rows = ServiceRequest::whereIn('status', [1,2,4])->Search(Session::get('search'))->
          Status(Session::get('status'))->
          orderBy('id', 'desc')->paginate(config('app.limit'));
 
-		return view('admin/service_request/index', compact('rows', 'title','employee', 'extrajs'));
+        $datas = ServiceRequest::whereIn('status', [3,5])->Search(Session::get('search'))->
+        Status(Session::get('status'))->
+        orderBy('id', 'desc')->paginate(config('app.limit'));
+
+		return view('admin/service_request/index', compact('rows', 'title','employee', 'extrajs','datas'));
     }
 
 
 	public function edit($id)
 	{
 
-
 		$row = ServiceRequest::findOrFail($id);
 		$title = 'Edit Status';
 
         $employee = $this->employeeList(true);
+        $vehicle = $this->vehicleList(true);
 
-		return view('admin.service_request.status_form',compact('title', 'row', 'extrajs','employee'));
+		return view('admin.service_request.status_form',compact('title', 'row', 'extrajs','employee','vehicle'));
 	}
 
 
@@ -113,15 +117,16 @@ class ServiceRequestController extends Controller
 		$data = [
 			'status' => $request->input('status'),
 			'employee_id' => $request->input('employee_id'),
+			'vehicle_id' => $request->input('vehicle_id'),
 			'updated_at' => $date,
 		];
+		//print_r($data);exit;
 
 		$model->update($data);
 
         $date1 = date("jS F, Y", strtotime($model->request_date));
         $date2 = date("jS F, Y", strtotime($model->updated_at));
 
-        //print_r($date);exit;
 		if($model->status==2){
 		    $status = 'accepted';
             $message = ('Your Service request has been '.$status.' to '. 'scheduled date/time :'. $date1.'.'.' ' .date('h:i:s a', strtotime($model->request_time)));
@@ -135,7 +140,6 @@ class ServiceRequestController extends Controller
             $status = 'completed';
             $message =  ('Your Service has been '.$status.' . '. 'Thank you for being with Uttara Motors.');
         }
-
 
         $token = UserDevices::where('user_id',$model->user_id)->first()->device_id;
 
@@ -174,6 +178,26 @@ class ServiceRequestController extends Controller
         return $list;
     }
 
+
+    private function vehicleList($boolean = false)
+    {
+
+        $list[0] = ($boolean == true ? 'Select Vehicle' : 'All Vehicle');
+
+        $rows = Vehicle::join('vehicle_type', 'vehicle.type_id', '=', 'vehicle_type.id')
+            ->join('vehicle_model', 'vehicle.model_id', '=', 'vehicle_model.id')
+
+            ->select('vehicle.id','vehicle.engine_no','vehicle.chesis_no',
+                'vehicle_type.name as type', 'vehicle_model.name as model')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        foreach($rows as $row):
+            $list[$row->id] = $row->model;
+        endforeach;
+
+        return $list;
+    }
 
     public function create($id)
     {

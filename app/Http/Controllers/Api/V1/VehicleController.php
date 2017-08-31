@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\api\V1;
 
+use App\ServiceRequest;
+use App\UserVehicle;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-
+use Carbon\Carbon;
 class VehicleController extends Controller
 {
 
@@ -44,5 +46,65 @@ class VehicleController extends Controller
         return response()->json($data, 200);
 
     }
+
+
+
+    public function user_vehicle(Request $request){
+
+        $user_vehicles = UserVehicle::where('user_id',$request->user()->id)->get();
+        $service_count = ServiceRequest::where('user_id', $request->user()->id)->where('status', 5)->count();
+
+        if (count($user_vehicles) > 0) {
+
+            $user_vehicle_no = count($user_vehicles);
+
+                foreach ($user_vehicles as $user_vehicle) {
+                    //$vehicle = Vehicle::where('id',$user_vehicle->vehicle_id)->get();
+                    //$service_count = ServiceRequest::where('user_id', $user_vehicle->user_id)->where('status', 5)->count();
+
+                    $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+
+                    $service = $this->freeService($purchase_date,$service_count,$user_vehicle_no);
+
+                    if($service > 0){
+
+                      $vehicle = DB::table("vehicle")
+                          ->select('vehicle.id')
+                          ->leftjoin("service_request", function ($join) use ($request){
+
+                              $join->on("vehicle.id", "=", "service_request.vehicle_id");
+                          })
+                          ->where("user_vehicles.user_id",$request->user()->id)
+                          ->count();
+                    }
+                }
+
+        }else{
+            $total_free_services = 0;
+        }
+
+      //rint_r($vehicle);exit;
+    }
+
+
+    public function freeService($purchase_date,$service_count,$user_vehicle_no){
+
+        $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
+
+        $interval = $purchase_date->diffInDays($current_date, false);
+
+        if ($interval > 360) {
+            $total_free_services = 0;
+        } else {
+            if ($service_count < 17 ) {
+                $total_free_services = ($user_vehicle_no * 16 - $service_count);
+            } else {
+                $total_free_services = 0;
+            }
+        }
+        return $total_free_services;
+
+    }
+
 
 }

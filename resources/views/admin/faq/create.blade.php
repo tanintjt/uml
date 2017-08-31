@@ -26,12 +26,12 @@
                     </div>
                 </div>
                 <div class="form-group{{ $errors->has('answer') ? ' has-error' : '' }}">
-                    {!! Form::label('file', 'Answer:', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('answer', 'Answer:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-6">
-                        {!! Form::textarea('question', old('question'), ['class' => 'form-control', 'id' => 'question', 'placeholder' => 'Answer', 'rows' =>4]) !!}
-                        @if ($errors->has('file'))
+                        {!! Form::textarea('answer', old('answer'), ['class' => 'form-control', 'id' => 'answer', 'placeholder' => 'Answer', 'rows' =>4]) !!}
+                        @if ($errors->has('answer'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('file') }}</strong>
+                                <strong>{{ $errors->first('answer') }}</strong>
                             </span>
                         @endif
                     </div>

@@ -17,8 +17,16 @@
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
-                        <th width="20%" class="active">Title</th>
-                        <td>{!! $row->title !!}</td>
+                        <th width="20%" class="active">Answer</th>
+                        <td>{!! $row->answer !!}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%" class="active">Question</th>
+                        <td>{!! $row->question !!}</td>
+                    </tr>
+                    <tr>
+                        <th class="active">Status</th>
+                        <td>{!! $row->status == 1 ? '<span class="label label-primary">Active</span>':'<span class="label label-danger">Inactive</span>' !!}</td>
                     </tr>
                     </tbody>
                 </table>
