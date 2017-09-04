@@ -51,43 +51,64 @@ class VehicleController extends Controller
 
     public function user_vehicle(Request $request){
 
-        $user_vehicles = UserVehicle::where('user_id',$request->user()->id)->get();
-        $service_count = ServiceRequest::where('user_id', $request->user()->id)->where('status', 5)->count();
+        //vehicle information join with user_vehicle by user_id.....
 
-        if (count($user_vehicles) > 0) {
+        $vehicles  = Vehicle::join('vehicle_type', 'vehicle.type_id', '=', 'vehicle_type.id')
+            ->join('vehicle_model', 'vehicle.model_id', '=', 'vehicle_model.id')
+            ->join('user_vehicles', 'user_vehicles.vehicle_id', '=', 'vehicle.id')
+            ->select('vehicle.id','vehicle.engine_no','user_vehicles.purchase_date',
+                'vehicle.fuel_system', 'vehicle_type.name as type', 'vehicle_model.name as model')
+            ->where('user_id', '=', $request->user()->id)
+            ->orderBy('id', 'desc')
+            ->get();
 
-            $user_vehicle_no = count($user_vehicles);
+        if (count($vehicles)>0) {
 
-                foreach ($user_vehicles as $user_vehicle) {
-                    //$vehicle = Vehicle::where('id',$user_vehicle->vehicle_id)->get();
-                    //$service_count = ServiceRequest::where('user_id', $user_vehicle->user_id)->where('status', 5)->count();
+            //TODO..add necessary vehicle info
+            $data = [];
+            for($i=0; $i < count($vehicles); $i++) {
+            $data[$i]['id'] = $vehicles[$i]->id;
+            $data[$i]['engine_no'] = $vehicles[$i]->engine_no;
+            $data[$i]['fuel_system'] = $vehicles[$i]->fuel_system;
+            $data[$i]['type'] = $vehicles[$i]->type;
+            $data[$i]['model'] = $vehicles[$i]->model;
+            }
 
-                    $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $user_vehicle->purchase_date);
+            $j=0;
+                foreach ($vehicles as $vehicle) {
+                    //get service request data ....
+                    $services = ServiceRequest::where('user_id', $request->user()->id)
+                                    ->where('vehicle_id',$vehicle->id)
+                                    ->where('status', 5)
+                                    ->get();
 
-                    $service = $this->freeService($purchase_date,$service_count,$user_vehicle_no);
+                    $service_count = count($services);
 
-                    if($service > 0){
+                    $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $vehicle->purchase_date);
 
-                      $vehicle = DB::table("vehicle")
-                          ->select('vehicle.id')
-                          ->leftjoin("service_request", function ($join) use ($request){
+                    //count free services.....
+                    $service = $this->freeService($purchase_date,$service_count);
 
-                              $join->on("vehicle.id", "=", "service_request.vehicle_id");
-                          })
-                          ->where("user_vehicles.user_id",$request->user()->id)
-                          ->count();
+                    if($service){
+                        $data[$j]['free_services'] = $service;
+                        $j++;
+                    }else{
+                        $data[0]['free_services'] = 0;
                     }
                 }
-
         }else{
-            $total_free_services = 0;
+            $data[0]['id'] = '';
+            $data[0]['engine_no'] = '';
+            $data[0]['fuel_system'] = '';
+            $data[0]['type'] = '';
+            $data[0]['model'] = '';
         }
-
-      //rint_r($vehicle);exit;
+        return response()->json($data, 200);
     }
 
 
-    public function freeService($purchase_date,$service_count,$user_vehicle_no){
+
+    public function freeService($purchase_date,$service_count){
 
         $current_date = Carbon::createFromFormat('Y-m-d H:s:i', Carbon::now());
 
@@ -97,14 +118,12 @@ class VehicleController extends Controller
             $total_free_services = 0;
         } else {
             if ($service_count < 17 ) {
-                $total_free_services = ($user_vehicle_no * 16 - $service_count);
+                $total_free_services = (16 - $service_count);
             } else {
                 $total_free_services = 0;
             }
         }
         return $total_free_services;
-
     }
-
 
 }
