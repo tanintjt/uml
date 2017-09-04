@@ -75,27 +75,25 @@ class VehicleController extends Controller
             }
 
             $j=0;
-                foreach ($vehicles as $vehicle) {
-                    //get service request data ....
-                    $services = ServiceRequest::where('user_id', $request->user()->id)
-                                    ->where('vehicle_id',$vehicle->id)
-                                    ->where('status', 5)
-                                    ->get();
+            foreach ($vehicles as $vehicle) {
+                //count completed service....
+                $service_count = ServiceRequest::where('user_id', $request->user()->id)
+                                ->where('vehicle_id',$vehicle->id)
+                                ->where('status', 5)
+                                ->count();
 
-                    $service_count = count($services);
+                $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $vehicle->purchase_date);
 
-                    $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $vehicle->purchase_date);
+                //count free services.....
+                $service = $this->freeService($purchase_date,$service_count);
 
-                    //count free services.....
-                    $service = $this->freeService($purchase_date,$service_count);
-
-                    if($service){
-                        $data[$j]['free_services'] = $service;
-                        $j++;
-                    }else{
-                        $data[0]['free_services'] = 0;
-                    }
+                if($service){
+                    $data[$j]['free_services'] = $service;
+                    $j++;
+                }else{
+                    $data[0]['free_services'] = 0;
                 }
+            }
         }else{
             $data[0]['id'] = '';
             $data[0]['engine_no'] = '';
