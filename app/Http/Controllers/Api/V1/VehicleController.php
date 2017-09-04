@@ -84,7 +84,7 @@ class VehicleController extends Controller
 
                 $purchase_date = Carbon::createFromFormat('Y-m-d H:s:i', $vehicle->purchase_date);
 
-                //count free services.....
+                //calculate free services.....
                 $service = $this->freeService($purchase_date,$service_count);
 
                 if($service){
