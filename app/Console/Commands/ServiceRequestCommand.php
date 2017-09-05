@@ -72,7 +72,7 @@ class ServiceRequestCommand extends Command
 
                     $interval = $purchase_date->diffInDays($current_date, false);
 
-                    if($service_request->cnt < 4 ){
+                    if($service_request->cnt < 17 ){
                         if($interval == 89 || $interval == 179 || $interval == 359){
 
                             $this->sendNotification($device_ids);

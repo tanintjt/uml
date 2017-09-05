@@ -14,7 +14,6 @@
     <link href="{!! asset('public/themes/default/css/skins/_all-skins.min.css') !!}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{!! asset('public/themes/default/plugins/iCheck/flat/blue.css') !!}" rel="stylesheet">
-    <link href="{!! asset('public/themes/select2/dist/css/select2.min.css') !!}" rel="stylesheet">
     <!-- jvectormap -->
     <link href="{!! asset('public/themes/default/plugins/jvectormap/jquery-jvectormap-1.2.2.css') !!}" rel="stylesheet">
     <!-- Date Picker -->

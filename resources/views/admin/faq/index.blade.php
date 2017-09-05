@@ -1,3 +1,5 @@
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 @extends('admin.layouts.master')
 
 @section('content')
@@ -27,35 +29,27 @@
             @endif
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <thead>
-                    <tr class="active">
-                        <th width="5%" class="text-center">#</th>
-
-                        <th width="20%" class="text-center">Question</th>
-                        <th width="20%" class="text-center">Answer</th>
-                        <th width="10%" class="text-center">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
                     <?php $i = 1; ?>
                     @foreach ($rows as $row)
-                        <tr class="read-more-state" id="post-1">
-                            <td class="text-center">{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td class="text-center">{{ $row->question}}</td>
-                            <td class="text-center">{{ $row->answer}}</td>
-
-                            <td class="text-center">
-                                <a href="{!! url(Request::segment(1).'/faq/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                <a href="{!! url(Request::segment(1).'/faq/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-                                <a href="{!! route('faq-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->display_name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
-                            </td>
-                        </tr>
+                        <div class="panel panel-default" id="panel1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-target="#collapseOne"
+                                       href="#collapseOne">
+                                        {{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }}  .  {{ ucfirst($row->question)}}
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    {{ ucfirst($row->answer)}}
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
-
         <div class="box-footer">
             {{ $rows->links() }}
         </div>
@@ -79,6 +73,40 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .panel-heading a:after {
+            font-family:'Glyphicons Halflings';
+            content:"\2212";
+            float: right;
+            color: grey;
+        }
+        .panel-heading a.collapsed:after {
+            content:"\2b";
+        }
+
+        .panel-heading a:after {
+            font-family:'Glyphicons Halflings';
+            content:"\2212";
+            float: right;
+            color: grey;
+        }
+        .panel-heading a.collapsed:after {
+            content:"\2b";
+        }
+    </style>
+
+    <script type = "text/javascript">
+
+         $(function () { $('#collapseOne').collapse({
+             toggle: false
+         })});
+
+        //        $(function () { $('#collapseTwo').collapse('show')});
+        //        $(function () { $('#collapseThree').collapse('toggle')});
+        $(function () { $('#collapseOne').collapse('show')});
+    </script>
+
 @endsection
 
 

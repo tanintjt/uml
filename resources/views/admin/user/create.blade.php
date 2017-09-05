@@ -1,3 +1,13 @@
+<link href="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.css') !!}" rel="stylesheet">
+<link href="{!! asset('public/themes/default/css/bootstrap.min.css') !!}" rel="stylesheet">
+<script src="{!! asset('public/themes/default/plugins/jQuery/jquery-2.2.3.min.js') !!}"></script>
+<script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.js') !!}"></script>
+
+
+<link href="{!! asset('public/themes/default/select2/dist/css/select2.css') !!}" rel="stylesheet">
+<script src="{!! asset('public/themes/default/select2/dist/js/select2.js') !!}"></script>
+
+
 @extends('admin.layouts.master')
 
 @section('content')
@@ -95,7 +105,7 @@
                 <div class="form-group{{ $errors->has('parent_id') ? ' has-error' : '' }}">
                     {!! Form::label('parent_id', 'Refer To  :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::select('parent_id', $users, old('parent_id'), ['class' => 'form-control', 'id' => 'parent_id']) !!}
+                        {!! Form::select('parent_id', $users, old('parent_id'), ['class' => 'form-control', 'id' => 'parent_id','id'=>'nameText']) !!}
                         @if ($errors->has('parent_id'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('parent_id') }}</strong>
@@ -116,4 +126,17 @@
         </div>
     </div>
     {!! Form::close() !!}
+
+
+    <script>
+
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format:'yyyy-mm-dd',
+        })
+
+        $("#nameText").select2();
+
+    </script>
+
 @endsection

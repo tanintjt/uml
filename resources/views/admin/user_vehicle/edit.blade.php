@@ -5,6 +5,9 @@
 <script src="{!! asset('public/themes/default/plugins/datepicker/bootstrap-datepicker.min.js') !!}"></script>
 
 
+<link href="{!! asset('public/themes/default/select2/dist/css/select2.css') !!}" rel="stylesheet">
+<script src="{!! asset('public/themes/default/select2/dist/js/select2.js') !!}"></script>
+
 
 @extends('admin.layouts.master')
 
@@ -38,7 +41,7 @@
                 <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
                     {!! Form::label('user_id', 'User :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::select('user_id', $users, old('user_id',$row->user_id), ['class' => 'form-control', 'id' => 'user_id']) !!}
+                        {!! Form::select('user_id', $users, old('user_id',$row->user_id), ['class' => 'form-control','id'=>'searchText']) !!}
                         @if ($errors->has('user_id'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('user_id') }}</strong>
@@ -123,9 +126,14 @@
 
 
     <script>
+
         $('.datepicker').datepicker({
             autoclose: true,
-            format:'yyyy-mm-dd'
+            format:'yyyy-mm-dd',
         })
+
+        $("#searchText").select2();
+
     </script>
+
 @endsection
