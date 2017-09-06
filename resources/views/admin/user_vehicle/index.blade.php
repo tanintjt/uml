@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.master')
 
 
@@ -14,7 +15,7 @@
                 </span>
             </div>
             <div class="pull-right">
-                {!! Form::select('user_id', $users, old('user_id', Session::get('user_id') ), ['class' => 'form-control input-sm', 'id' => 'user_id']) !!}
+                {!! Form::select('user_id', $users, old('user_id', Session::get('user_id') ), ['class' => 'form-control input-sm']) !!}
                 {{--{!! Form::select('model_id', $model, old('model_id', Session::get('model_id') ), ['class' => 'form-control input-sm', 'id' => 'model_id']) !!}--}}
             </div>
 

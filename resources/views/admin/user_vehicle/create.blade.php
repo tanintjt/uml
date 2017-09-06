@@ -51,6 +51,17 @@
                     </div>
                 </div>
 
+                <div class="form-group{{ $errors->has('chesis_no') ? ' has-error' : '' }}">
+                    {!! Form::label('chesis_no', 'Chassis No:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('chesis_no', old('chesis_no'), ['class' => 'form-control', 'id' => 'chesis_no', 'placeholder' => 'Chassis no']) !!}
+                        @if ($errors->has('chesis_no'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('chesis_no') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="form-group{{ $errors->has('engine_no') ? ' has-error' : '' }}">
                     {!! Form::label('engine_no', 'Engine No:', ['class' => 'col-xs-3 control-label']) !!}
@@ -64,17 +75,6 @@
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('chesis_no') ? ' has-error' : '' }}">
-                    {!! Form::label('chesis_no', 'Chassis No:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('chesis_no', old('chesis_no'), ['class' => 'form-control', 'id' => 'chesis_no', 'placeholder' => 'Chassis no']) !!}
-                        @if ($errors->has('chesis_no'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('chesis_no') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
                 <div class="form-group{{ $errors->has('reg_no') ? ' has-error' : '' }}">
                     {!! Form::label('reg_no', 'Registration No:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -138,8 +138,6 @@
         $("#searchText").select2();
 
     </script>
-
-
 
 
 @endsection

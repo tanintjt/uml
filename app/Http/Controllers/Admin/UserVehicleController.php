@@ -69,13 +69,10 @@ class UserVehicleController extends Controller
         $model = $this->modelList(true);
         $users = $this->userList();
 
-        $rows = UserVehicle::with('users')->
+        $rows = UserVehicle::Search(Session::get('search'))->with('users')->
         UserId(Session::get('user_id'))->
-       // ModelId(Session::get('model_id'))->
-        orderBy('created_at', 'asc')->
+        orderBy('user_vehicles.created_at', 'asc')->
         paginate(config('app.limit'));
-
-        //$parent_data = $this->parentId();
 
         return view('admin/user_vehicle/index', compact('rows', 'title', 'type','model','brand','users','vehicle','parent_data','extrajs'));
     }
@@ -224,18 +221,19 @@ class UserVehicleController extends Controller
         $model = UserVehicle::findOrFail($id);
 
         $rules = [
-            //'model_id'       => 'not_in:0',
+//            'model_id'       => 'not_in:0',
             'user_id'        => 'not_in:0',
             'purchase_date'  => 'required',
-            'chesis_no'      => 'required',
+            'chesis_no'      => 'required|digits:17',
             'engine_no'      => 'required',
         ];
 
         $messages = [
-            // 'model_id.required'       => 'Model is required!',
+//            'model_id.required'       => 'Model is required!',
             'user_id.required'        => 'User is required!',
             'purchase_date.required'  => 'Purchase Date is required!',
             'chesis_no.required' => 'Chassis no is required!',
+            'chesis_no.digits' => 'Chassis no is 17 Digit Mandatory!',
             'engine_no.required' => 'Engine no is required!',
         ];
 
@@ -329,6 +327,19 @@ class UserVehicleController extends Controller
         endforeach;
 
         return $brandlist;
+    }
+
+    public function vehicle_engine_no(){
+
+        $input_chassis_no = Input::get('chesis_no');
+        try{
+            $data = Vehicle::where('chesis_no',$input_chassis_no)->get();
+            if($data){
+                return  Response::make($data['engine_no']);
+            }
+        }catch(\Exception $e){
+            return  Response::make($e->getMessage());
+        }
     }
 
 

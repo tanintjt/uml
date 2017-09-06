@@ -56,7 +56,9 @@ class User extends Authenticatable
     public function scopeSearch($query, $name)
     {
         if( trim($name) != '' ) {
-            return $query->where('users.name', 'LIKE', '%' . trim($name) . '%');
+            return $query->where('users.name', 'LIKE', '%' . trim($name) . '%')
+                ->orWhere('users.phone', 'LIKE', '%' . trim($name) . '%')
+                ->orWhere('users.email', 'LIKE', '%' . trim($name) . '%');
         }
     }
 

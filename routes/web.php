@@ -334,6 +334,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     Route::match(['get', 'post'], 'user-vehicle', ['uses' => 'UserVehicleController@index', 'middleware' => ['role:super-administrator|sales-manager']]);
 
+    Route::any('vehicle/engine', ['as' => 'vehicle/engine','uses' => 'UserVehicleController@vehicle_engine_no','middleware' => 'role:super-administrator|sales-manager']);
 
     Route::get('/user-vehicle/vehicle/{typeid}/{modelid}', 'UserVehicleController@vehicle');
 
