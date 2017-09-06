@@ -1,8 +1,43 @@
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 @extends('admin.layouts.master')
 
+<style>
+    /*FAQS*/
+    .faq_question {
+        margin: 0px;
+        padding: 0px 0px 5px 0px;
+        /*display: inline-block;*/
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .faq_answer_container {
+        height: 0px;
+        overflow: hidden;
+        padding: 0px;
+    }
+    .panel-body1 {
+        padding: 0px 30px;
+
+    }
+    .panel-title1 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 13px;
+        color: inherit;
+    }
+    .more-less {
+        float: right;
+        color: #212121;
+    }
+    .faq_question:hover {
+        color:#F288A4;
+    }
+
+</style>
+
 @section('content')
+
     {!! Form::open(array('url' => Request::segment(1).'/faq', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -14,9 +49,6 @@
                     <a href="{!! url(Request::segment(1).'/faq/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
                 </span>
             </div>
-            {{--<div class="pull-right">
-                {!! Form::select('status', ['0' => 'All Status', '1' => 'Active','2' => 'Inactive'], old('status', Session::get('status') ), ['class' => 'form-control input-sm', 'id' => 'status']) !!}
-            </div>--}}
 
         </div>
         <div class="box-body">
@@ -31,21 +63,23 @@
                 <table class="table table-bordered">
                     <?php $i = 1; ?>
                     @foreach ($rows as $row)
-                        <div class="panel panel-default" id="panel1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-target="#collapseOne"
-                                       href="#collapseOne">
-                                        {{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }}  .  {{ ucfirst($row->question)}}
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    {{ ucfirst($row->answer)}}
+
+                        <div class="panel panel-default faq_container" id="panel1">
+                            <div class="faq">
+                                <div class="faq_question panel-title1 panel-heading" style="background-color:#fff0f5;" onclick="toggleColor();" >
+                                    {{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }}  . {{ ucfirst($row->question)}}
+                                    {{--<span class="more-less glyphicon glyphicon-plus" ></span>--}}
+                                    {{--<span class="more-less glyphicon glyphicon-minus" style="display: none" id="minus"></span>--}}
+                                    <a href="{!! route('faq-delete',$row->id) !!}" title="Delete {!! $row->display_name !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->display_name !!}" data-message="Are you sure you want to delete {!!  $row->display_name !!} ?"><span class="glyphicon glyphicon-trash pull-right" style="margin-left: 1%"></span></a>
+
+                                    <a href="{!! url(Request::segment(1).'/faq/'.$row->id.'/edit') !!}" ><span class="glyphicon glyphicon-edit pull-right"></span></a>
+                                </div>
+                                <div class="faq_answer_container">
+                                    <div class="panel-body1 faq_answer">{{ ucfirst($row->answer)}}</div>
                                 </div>
                             </div>
-                        </div>
+                         </div>
+
                     @endforeach
                 </table>
             </div>
@@ -74,37 +108,56 @@
         </div>
     </div>
 
-    <style>
-        .panel-heading a:after {
-            font-family:'Glyphicons Halflings';
-            content:"\2212";
-            float: right;
-            color: grey;
-        }
-        .panel-heading a.collapsed:after {
-            content:"\2b";
-        }
 
-        .panel-heading a:after {
-            font-family:'Glyphicons Halflings';
-            content:"\2212";
-            float: right;
-            color: grey;
+    {{--<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>--}}
+    <script src="{!! asset('public/themes/default/js/jquery-1.11.0.min.js') !!}"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.faq_question').click(function() {
+
+                if ($(this).parent().is('.open')){
+                    $(this).closest('.faq').find('.faq_answer_container').animate({'height':'0'},500);
+                    $(this).closest('.faq').removeClass('open');
+//                    $(this).toggleClass('<span class="more-less glyphicon glyphicon-plus" >');
+                }else{
+                    var newHeight =$(this).closest('.faq').find('.faq_answer').height() +'px';
+                    $(this).closest('.faq').find('.faq_answer_container').animate({'height':newHeight},500);
+                    $(this).closest('.faq').addClass('open');
+//                    $(this).toggleClass('<span class="more-less glyphicon glyphicon-minus" >');
+                }
+
+            });
+
+            function toggleIcon(e) {
+                $(e.target)
+                    .prev('.panel-heading')
+                    .find(".more-less")
+                    .toggleClass('glyphicon-plus glyphicon-minus');
+            }
+            $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+            $('.panel-group').on('shown.bs.collapse', toggleIcon);
+
+        });
+
+
+        function toggleColor() {
+            var x = document.getElementById('myDIV');
+            x.classList.toggle("mystyle");
         }
-        .panel-heading a.collapsed:after {
-            content:"\2b";
-        }
-    </style>
+    </script>
 
-    <script type = "text/javascript">
+    <script>
+        $("#plus").click(function(){
+            $("#minus").show();
+            $("#plus").hide();
+        });
 
-         $(function () { $('#collapseOne').collapse({
-             toggle: false
-         })});
-
-        //        $(function () { $('#collapseTwo').collapse('show')});
-        //        $(function () { $('#collapseThree').collapse('toggle')});
-        $(function () { $('#collapseOne').collapse('show')});
+        $("#minus").click(function(){
+            $("#plus").show();
+            $("#minus").hide();
+        });
     </script>
 
 @endsection

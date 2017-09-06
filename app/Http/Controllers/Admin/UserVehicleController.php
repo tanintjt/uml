@@ -18,7 +18,7 @@ class UserVehicleController extends Controller
     public function index(Request $request)
     {
 
-        $title = 'User Vehicle';
+        $title = 'Customer Vehicle';
         $extrajs = "<script>
 		$(function() {
 
@@ -91,7 +91,7 @@ class UserVehicleController extends Controller
 
     public function create()
     {
-        $title = 'Add User Vehicle';
+        $title = 'Add Customer Vehicle';
 
         $model = $this->modelList(true);
         $users = $this->userList(true);
@@ -124,8 +124,6 @@ class UserVehicleController extends Controller
 
             return redirect('admin/user-vehicle/create')->withErrors($validator)->withInput();
         }
-
-         //$vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
          $vehicle = Vehicle::where('engine_no',$request->input('engine_no'))
                             ->where('chesis_no',$request->input('chesis_no'))
                             ->first();

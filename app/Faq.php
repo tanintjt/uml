@@ -17,7 +17,7 @@ class Faq extends Model
     public function scopeSearch($query, $name)
     {
         if( trim($name) != '' ) {
-            return $query->where('title', 'LIKE', '%' . trim($name) . '%');
+            return $query->where('question', 'LIKE', '%' . trim($name) . '%')->orWhere('answer', 'LIKE', '%' . trim($name) . '%');
         }
     }
 }
