@@ -63,12 +63,14 @@ Route::get('api/promotion', [ 'as' => 'promotion', 'uses' => 'Api\V1\PromotionCo
 Route::get('api/spare-parts', [ 'as' => 'spare-parts', 'uses' => 'Api\V1\SparePartsController@index']);
 
 
-
-
 /*location*/
 Route::get('api/service-center', [ 'as' => 'service-center', 'uses' => 'Api\V1\ServiceCenterController@index']);
 
 Route::post('api/min-distance',[ 'as' => 'min-distance', 'uses' => 'Api\V1\ServiceCenterController@distanceCalculation']);
+
+/*vehicle details*/
+
+Route::get('/vehicle/details', [ 'as' => 'vehicle/details', 'uses' => 'SpecDetailsController@index']);
 
 
 Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basic'], function () {
@@ -149,9 +151,7 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     Route::get('/user/vehicle', [ 'as' => 'user/vehicle', 'uses' => 'VehicleController@user_vehicle']);
 
 
-    /*vehicle specification*/
 
-    Route::get('/vehicle/details', [ 'as' => 'vehicle/details', 'uses' => 'SpecDetailsController@index']);
 
 
 });
