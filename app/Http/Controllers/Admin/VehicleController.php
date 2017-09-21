@@ -305,22 +305,20 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        print_r($input);exit;
 
         $model = Vehicle::findOrFail($id);
 
         $rules = [
-//            'type_id'   => 'not_in:0',
-//            'model_id'   => 'not_in:0',
-//            'brand_id'   => 'not_in:0',
-//            'production_year'      => 'required',
-//            'chesis_no'      => 'required',
-//            'engine_no'      => 'required',
-//            'engine_displacement'      => 'required',
-//            'engine_details'      => 'required',
-//            'fuel_system'      => 'required',
-//            'brochure'      => 'mimes:pdf',
+            'type_id'   => 'not_in:0',
+            'model_id'   => 'not_in:0',
+            'brand_id'   => 'not_in:0',
+            'production_year'      => 'required',
+            'chesis_no'      => 'required',
+            'engine_no'      => 'required',
+            'engine_displacement'      => 'required',
+            'engine_details'      => 'required',
+            'fuel_system'      => 'required',
+            'brochure'      => 'mimes:pdf',
 
         ];
 

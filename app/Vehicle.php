@@ -49,11 +49,11 @@ class Vehicle extends Model
     }
 
     public function colors(){
-        return $this->hasMany('App\VehicleColor','vehicle_id', 'id')->select('available_colors as image');
+        return $this->hasMany('App\VehicleColor','vehicle_id', 'id')->select('available_colors as img','color_code as hex');
     }
 
     public function features(){
-        return $this->hasMany('App\VehicleFeature','vehicle_id', 'id')->select('features as feature_image','title');
+        return $this->hasMany('App\VehicleFeature','vehicle_id', 'id')->select('features as img','title as sub');
     }
 
     public function scopevehicle($query, $id)
