@@ -70,7 +70,7 @@ Route::post('api/min-distance',[ 'as' => 'min-distance', 'uses' => 'Api\V1\Servi
 
 /*vehicle details*/
 
-Route::get('/vehicle/details', [ 'as' => 'vehicle/details', 'uses' => 'SpecDetailsController@index']);
+Route::get('api/vehicle/details', [ 'as' => 'vehicle/details', 'uses' => 'Api\V1\SpecDetailsController@index']);
 
 
 Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basic'], function () {

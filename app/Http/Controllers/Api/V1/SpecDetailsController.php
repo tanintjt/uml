@@ -14,34 +14,40 @@ class SpecDetailsController extends Controller
     public function index(Request $request){
 
 
-        /*$spec = SpecCategory::join('spec_details', 'spec_details.cat_id', '=', 'spec_category.id')->
+       /* $spec_rows = SpecCategory::join('spec_details', 'spec_details.cat_id', '=', 'spec_category.id')->
         select([
             'spec_category.title as name','spec_details.title as title','spec_details.spec_value as value'
         ])->
-        join('vehicle', function ($join) use($request){
-            $join->on('vehicle.id', '=', 'spec_details.vehicle_id')-> where('vehicle_id',$request->input('id'));
+                join('vehicle', function ($join) use($request){
+                $join->on('vehicle.id', '=', 'spec_details.vehicle_id')-> where('vehicle_id',$request->input('id'));
 
-        })->get();*/
+            })->get();
 
-        $spec_rows = SpecCategory::get();
 
-        //return $spec_rows;
+
+        $value = [];
+        for($i=0; $i < count($spec_rows); $i++) {
+
+           $value[$i]['name'] = $spec_rows[$i]->title;
+
+            foreach ($spec_rows as $val) {
+                $value[$i]['elems'][$val->title] = $val->value;
+            }
+        }*/
+
+
+       $spec_rows = SpecCategory::get();
+
+      //  return $spec_rows;
 
         $value = [];
         for($i=0; $i < count($spec_rows); $i++) {
 
             $value[$i]['name'] = $spec_rows[$i]->title;
 
-            //$value[$i]['elems'] = [];
-
-            /*for($j=0; $j < count($spec_rows[$i]->spec_details); $j++) {
-                $value[$i]['elems'][$spec_rows[$i]->spec_details[$j]->title] = $spec_rows[$i]->spec_details[$j]->value;
-                //$value[$i]['elems'] = $spec_rows[$i]->spec_details[$j]->title;
-            }*/
             foreach ($spec_rows[$i]->spec_details as $val) {
                 $value[$i]['elems'][$val->title] = $val->value;
             }
-
         }
 
         //return $value;
@@ -62,7 +68,6 @@ class SpecDetailsController extends Controller
 
         return response()->json($data, 200);
     }
-
 
 
 
