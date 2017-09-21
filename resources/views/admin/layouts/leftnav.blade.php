@@ -66,8 +66,21 @@
                                     <li{!!  in_array(Request::segment(2), ['user-vehicle']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/user-vehicle') !!}"><i class="fa fa-circle-o"></i>Customer Vehicle</a></li>
                                 </ul>
                             </li>
+                        <li class="treeview{!!  in_array(Request::segment(2), ['spec-category', 'spec-details']) ? ' active': '' !!}">
+                            <a href="#">
+                                <i class="fa fa-car"></i>
+                                <span>Vehicle Specification</span>
+                                <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li{!!  in_array(Request::segment(2), ['spec-category']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/spec/category') !!}"><i class="fa fa-circle-o"></i> Category</a></li>
+                                <li{!!  in_array(Request::segment(2), ['spec-details']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/spec/details') !!}"><i class="fa fa-circle-o"></i> Details</a></li>
+                            </ul>
+                        </li>
                         @endif
-                    {{--<li><a href="{!! url(Request::segment(1).'/spare-parts-category') !!}"><i class="fa fa-gg"></i> <span>Spare Parts Category</span></a></li>--}}
+
                         <li{!!  in_array(Request::segment(2), ['spare-parts']) ? ' class="active"': '' !!}><a href="{!! url(Request::segment(1).'/spare-parts') !!}"><i class="fa fa-houzz"></i> <span>Spare Parts</span></a></li>
 
                         <li class="treeview{!!  in_array(Request::segment(2), ['brochure', 'e-doc-type','e-documents','faq','news-events','promotions']) ? ' active': '' !!}">

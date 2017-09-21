@@ -96,7 +96,7 @@ class ServiceHistoryController extends Controller
             $data[0]['registration_date'] = date("jS F, Y", strtotime($request->user()->created_at));
             $data[0]['packages'] = 'No history found';
             $data[0]['request_date'] = date("jS F, Y", strtotime(Carbon::now()));
-            $data[0]['status'] = 5;
+            $data[0]['status'] = 0;
             //$data[0]['freeservice'] = $total_free_services;
             $result = $data;
         }

@@ -62,10 +62,27 @@
                             </td>
                             <td>
 
-                                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <div class="dropdown show">
+
+                                    <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary dropdown-toggle" title="edit" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                    <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                    <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="{!! route('vehicle-colors',$row->id) !!}" class="btn btn-xs btn-info" title="available colors">Colors</a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="text-align: left;margin-left:-1%;min-width: 130px;box-shadow: none">
+                                        <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}"  title="edit colors" class="text-black">Colors</a><br>
+                                        <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}"  title="edit colors" class="text-black">Features</a><br>
+                                        <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}"  title="edit colors" class="text-black">Specifications</a>
+                                    </div>
+                                </div>
+
+
+
+                                {{--<a href="{!! url(Request::segment(1).'/vehicle/'.$row->id) !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                 <a href="{!! route('vehicle-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
-                                <a href="{!! route('vehicle-colors',$row->id) !!}" class="btn btn-xs btn-info" title="available colors">Colors</a>
+                                <a href="{!! route('vehicle-colors',$row->id) !!}" class="btn btn-xs btn-info" title="available colors">Colors</a>--}}
                             </td>
                         </tr>
                     @endforeach

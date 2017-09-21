@@ -13,7 +13,7 @@ class Vehicle extends Model
 
     protected $fillable = [
        'brand_id', 'type_id', 'model_id','production_year','engine_displacement','engine_details',
-        'fuel_system','vehicle_image','brochure','engine_no','chesis_no','reg_no'
+        'fuel_system','vehicle_image','brochure','engine_no','chesis_no','reg_no','color_code'
     ];
 
     public function scopeTypeId($query, $typeid)
@@ -53,8 +53,20 @@ class Vehicle extends Model
     }
 
     public function features(){
-        return $this->hasMany('App\VehicleFeature','vehicle_id', 'id')->select('features as feature_image');
+        return $this->hasMany('App\VehicleFeature','vehicle_id', 'id')->select('features as feature_image','title');
     }
+
+    public function scopevehicle($query, $id)
+    {
+        if( $id > 0 ) {
+            return $query->where('id', $id);
+        }
+    }
+
+    public function spec_details(){
+        return $this->hasMany('App\SpecDetails','vehicle_id', 'id')->select('title','spec_value as value');
+    }
+
 
     public function scopeSearch($query, $name)
     {

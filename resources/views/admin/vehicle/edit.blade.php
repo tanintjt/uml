@@ -9,7 +9,7 @@
 
         <div class="panel-body">
 
-            <div class="col-xs-7">
+            <div class="col-xs-6">
                 <div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }}">
                     {!! Form::label('type_id', 'Type :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-6">
 
                 <div class="form-group{{ $errors->has('production_year') ? ' has-error' : '' }}">
                     {!! Form::label('production_year', 'Production Year :', ['class' => 'col-xs-3 control-label']) !!}
@@ -145,8 +145,16 @@
                                 <strong>{{ $errors->first('available_colors') }}</strong>
                             </span>
                         @endif
+
                     </div>
                 </div>
+
+                {{--<div class="form-group">
+                    {!! Form::label('color_code', 'Color Code:', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('color_code', old('color_code', '#07ad22'), ['class' => 'form-control color', 'id' => 'color']) !!}
+                    </div>
+                </div>--}}
 
                 <div class="form-group{{ $errors->has('features') ? ' has-error' : '' }}">
                     {!! Form::label('features', 'Features:', ['class' => 'col-xs-3 control-label']) !!}

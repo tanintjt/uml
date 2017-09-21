@@ -158,6 +158,9 @@
                     </div>
                 </div>
 
+
+
+
                 <div class="form-group{{ $errors->has('features') ? ' has-error' : '' }}">
                     {!! Form::label('features', 'Features:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">

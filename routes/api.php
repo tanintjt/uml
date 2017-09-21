@@ -149,6 +149,9 @@ Route::group(['prefix'=>'api','namespace' => 'Api\V1','middleware' => 'auth.basi
     Route::get('/user/vehicle', [ 'as' => 'user/vehicle', 'uses' => 'VehicleController@user_vehicle']);
 
 
+    /*vehicle specification*/
+
+    Route::get('/vehicle/details', [ 'as' => 'vehicle/details', 'uses' => 'SpecDetailsController@index']);
 
 
 });

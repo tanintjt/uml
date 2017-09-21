@@ -375,6 +375,61 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::put('/employee/{id}/assign',
         ['as' => 'employee-assign','uses' => 'ServiceRequestController@assign', 'middleware' => ['role:super-administrator|service-manager']]);
 
+
+
+    /*spec category....*/
+
+    Route::get('/spec/category',
+        ['as' => 'spec-category', 'uses' => 'SpecCategoryController@index', 'middleware' => ['role:super-administrator']
+        ]);
+
+    Route::get('/spec/category/create',
+        ['as'=>'spec-category-create','uses' => 'SpecCategoryController@create', 'middleware' => ['role:super-administrator']]);
+
+    Route::post('/spec/category/store',
+        ['as' => 'spec-category-store','uses' => 'SpecCategoryController@store', 'middleware' => ['role:super-administrator']]);
+
+
+    Route::get('/spec/category/{id}', [
+        'as' => 'admin.spec-category.show', 'uses' => 'SpecCategoryController@show', 'middleware' => ['role:super-administrator']
+    ]);
+
+    Route::get('/spec/category/{id}/edit', [ 'as' => 'spec-category-edit', 'uses' => 'SpecCategoryController@edit', 'middleware' => ['role:super-administrator']]);
+
+    Route::put('/spec/category/{id}/update', [ 'as' => 'spec-category-update', 'uses' => 'SpecCategoryController@update', 'middleware' => ['role:super-administrator']]);
+
+
+    Route::match(['get', 'post'], 'spec-category', ['uses' => 'SpecCategoryController@index', 'middleware' => ['role:super-administrator']]);
+
+    Route::get('/spec-category/{id}/delete', [ 'as' => 'spec-category-delete', 'uses' => 'SpecCategoryController@delete', 'middleware' => ['role:super-administrator']]);
+
+
+    /*spec details....*/
+
+    Route::get('/spec/details',
+        ['as' => 'spec-details', 'uses' => 'SpecDetailsController@index', 'middleware' => ['role:super-administrator']
+        ]);
+
+    Route::get('/spec/details/create',
+        ['as'=>'spec-details-create','uses' => 'SpecDetailsController@create', 'middleware' => ['role:super-administrator']]);
+
+    Route::post('/spec/details/store',
+        ['as' => 'spec-details-store','uses' => 'SpecDetailsController@store', 'middleware' => ['role:super-administrator']]);
+
+
+    Route::get('/spec/details/{id}', [
+        'as' => 'admin.spec-details.show', 'uses' => 'SpecDetailsController@show', 'middleware' => ['role:super-administrator']
+    ]);
+
+    Route::get('/spec/details/{id}/edit', [ 'as' => 'spec-details-edit', 'uses' => 'SpecDetailsController@edit', 'middleware' => ['role:super-administrator']]);
+
+    Route::put('/spec/details/{id}/update', [ 'as' => 'spec-details-update', 'uses' => 'SpecDetailsController@update', 'middleware' => ['role:super-administrator']]);
+
+    Route::match(['get', 'post'], 'spec/details', ['uses' => 'SpecDetailsController@index', 'middleware' => ['role:super-administrator']]);
+
+    Route::get('/spec-details/{id}/delete', [ 'as' => 'spec-details-delete', 'uses' => 'SpecDetailsController@delete', 'middleware' => ['role:super-administrator']]);
+
+
 });
 
 
