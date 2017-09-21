@@ -63,7 +63,7 @@ class SpecDetailsController extends Controller
 
             $data[$i]['colors'] = $rows[$i]->colors;
             $data[$i]['features'] = $rows[$i]->features;
-            $data[$i]['spec_details'] =  $value;
+            $data[$i]['specs'] =  $value;
         }
 
         return response()->json($data, 200);
