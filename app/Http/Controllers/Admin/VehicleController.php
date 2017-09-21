@@ -355,7 +355,7 @@ class VehicleController extends Controller
             'engine_displacement' => $request->input('engine_displacement'),
             'engine_details' =>      $request->input('engine_details'),
             'fuel_system' =>         $request->input('fuel_system'),
-            'color_code' =>         $request->input('color_code'),
+            //'color_code' =>         $request->input('color_code'),
         ];
 
      //vehicle_image.......

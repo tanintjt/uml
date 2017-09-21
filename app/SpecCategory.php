@@ -31,4 +31,13 @@ class SpecCategory extends Model
         return $this->hasMany('App\SpecDetails','cat_id', 'id')
             ->select('title','spec_value as value');
     }
+
+    public  function specDetails($query,$name){
+
+        if( $name > 0 ) {
+
+            return $query->join('vehicle', 'spec_details.vehicle_id', '=', 'vehicle.id')->
+            where('doc_type_id', $name);
+        }
+    }
 }

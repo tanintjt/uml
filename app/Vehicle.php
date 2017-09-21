@@ -53,7 +53,7 @@ class Vehicle extends Model
     }
 
     public function features(){
-        return $this->hasMany('App\VehicleFeature','vehicle_id', 'id')->select('features as img','title as sub');
+        return $this->hasMany('App\VehicleFeature','vehicle_id', 'id')->select('features as img','title as sub')->orderBy('id','asc');
     }
 
     public function scopevehicle($query, $id)
