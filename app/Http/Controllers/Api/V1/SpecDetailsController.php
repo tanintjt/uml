@@ -13,34 +13,35 @@ class SpecDetailsController extends Controller
 
     public function index(Request $request){
 
+        $specs = SpecCategory::orderBy('title', 'asc')->get();
 
-       /*$spec_rows = SpecCategory::select('spec_category.title')
-                   ->join('spec_details', 'spec_details.cat_id', '=', 'spec_category.id')
-                   ->where('vehicle_id',$request->input('id'))
-                    ->groupBy('spec_category.title')
-                    ->get();*/
-
-        $spec_rows = SpecCategory::get();
-        //  return $spec_rows;
         $value = [];
-        for($i=0; $i < count($spec_rows); $i++) {
-            $value[$i]['name'] = $spec_rows[$i]->title;
-            foreach ($spec_rows[$i]->spec_details as $val) {
-                $value[$i]['elems'][$val->title] = $val->value;
-            }
+        for($i=0; $i < count($specs); $i++) {
+            $value[$i]['name'] = $specs[$i]->title;
+            $value[$i]['elems'] = $this->getDetails($specs[$i]->id, $request->input('id'));
         }
-        //return $value;
+
         $rows = Vehicle::where('id',$request->input('id'))
             ->select('vehicle.id')
             ->orderBy('id', 'desc')
             ->get();
         $data = [];
-        for($i=0; $i < count($rows); $i++) {
-            $data[$i]['colors'] = $rows[$i]->colors;
-            $data[$i]['features'] = $rows[$i]->features;
-            $data[$i]['specs'] =  $value;
+        foreach ($rows as $row) {
+            $data['colors'] = $row->colors;
+            $data['features'] = $row->features;
+            $data['specs'] =  $value;
         }
         return response()->json($data, 200);
+    }
+
+    public function getDetails($catid, $vehicleid) {
+        $rows = SpecDetails::select('title', 'spec_value')
+            ->where('cat_id', $catid)->where('vehicle_id', $vehicleid)->get();
+        $elms = [];
+        foreach($rows as $row) {
+            $elms[$row->title] = $row->spec_value;
+        }
+        return $elms;
     }
 
 
