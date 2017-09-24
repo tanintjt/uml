@@ -323,3 +323,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+
+.dp{
+
+    text-align: left;
+    margin-left: -1%;
+    min-width: 130px;
+    box-shadow: none;
+    border-style: solid;
+    /*border-style: solid;*/
+    border-width: 6px;
+    border-color: #F288A4;
+
+}
+

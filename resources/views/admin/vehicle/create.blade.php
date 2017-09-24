@@ -110,6 +110,18 @@
             </div>
             <div class="col-xs-5">
 
+                <div class="form-group{{ $errors->has('engine_displacement') ? ' has-error' : '' }}">
+                    {!! Form::label('engine_displacement', 'Engine Displacement :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('engine_displacement',  old('engine_displacement'),['class' => 'form-control', 'id' => 'engine_displacement', 'placeholder' => 'engine_displacement']) !!}
+                        @if ($errors->has('engine_displacement'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('engine_displacement') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('production_year') ? ' has-error' : '' }}">
                     {!! Form::label('production_year', 'Production Year :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -146,7 +158,7 @@
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('available_colors') ? ' has-error' : '' }}">
+                {{--<div class="form-group{{ $errors->has('available_colors') ? ' has-error' : '' }}">
                     {!! Form::label('available_colors', 'Available Colors:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
                         {!! Form::file('available_colors[]', ['multiple'=>true]) !!}
@@ -171,8 +183,9 @@
                             </span>
                         @endif
                     </div>
-                </div>
-                <div class="form-group{{ $errors->has('brochure') ? ' has-error' : '' }}">
+                </div>--}}
+
+                {{--<div class="form-group{{ $errors->has('brochure') ? ' has-error' : '' }}">
                     {!! Form::label('brochure', 'Brochure:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
                         {!! Form::file('brochure',old('brochure'), [ 'class' => 'form-control']) !!}
@@ -182,7 +195,7 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </div>--}}
 
                 <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">

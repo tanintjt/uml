@@ -89,19 +89,21 @@ class SpecDetailsController extends Controller
 
     public function store(Request $request){
 
+$input = $request->all();
+print_r($input);exit;
 
         $rules = [
             'model_id'       => 'not_in:0',
             'cat_id'        => 'not_in:0',
-            'title'  => 'required',
-            'spec_value'  => 'required',
+//            'title'  => 'required',
+//            'spec_value'  => 'required',
         ];
 
         $messages = [
             'model_id.required'   => 'Model is required!',
             'cat_id.required'     => 'Category is required!',
-            'title.required'      => 'Title is required!',
-            'spec_value.required'      => 'Value is required!',
+//            'title.required'      => 'Title is required!',
+//            'spec_value.required'      => 'Value is required!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -112,16 +114,29 @@ class SpecDetailsController extends Controller
         }
 
         $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
+       $category = SpecCategory::where('title', 'like', '%' . $request->input('cat_id') . '%')->first();
+
+        /*if( strtolower($request->input('cat_id')=='brakes')){
 
 
-        $spec_details = SpecDetails::create(
-            [
-                'cat_id'        => $request->input('cat_id'),
-                'vehicle_id'     => $vehicle['id'],
-                'title'  => $request->input('title'),
-                'spec_value'  => $request->input('spec_value'),
-            ]
-        );
+        }*/
+
+
+//        foreach($request->all() as $key=>$value){
+            for($i=5; $i > count($request->all()); $i++) {
+            $spec_details =
+                [
+                    'cat_id'         =>  $category['id'],
+                   // 'cat_id'         => $request->input('cat_id'),
+                    'vehicle_id'     =>  $vehicle['id'],
+                    'title'          =>  $key,
+                    'spec_value'     =>  $request->input('front'),
+                ];
+
+
+        }
+        return $key;
+        //print_r($spec_details);exit;
 
         if ($spec_details->id > 0) {
             $message = 'Successfully added.';
@@ -242,7 +257,7 @@ class SpecDetailsController extends Controller
         $catlist[0] = ($boolean == true ? 'Select a Specification Category' : 'All Category');
 
         foreach($rows as $row):
-            $catlist[$row->id] = ucfirst($row->title);
+            $catlist[$row->title] = ucfirst($row->title);
         endforeach;
 
         return $catlist;

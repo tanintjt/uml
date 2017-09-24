@@ -127,8 +127,8 @@ class VehicleController extends Controller
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
-            'features'      => 'required',
-            'brochure'      => 'mimes:pdf',
+//            'features'      => 'required',
+//            'brochure'      => 'mimes:pdf',
         ];
 
         $messages = [
@@ -143,8 +143,8 @@ class VehicleController extends Controller
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
-            'features.required' => 'Features is required!',
-            'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
+//            'features.required' => 'Features is required!',
+//            'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
 
         ];
 
@@ -172,7 +172,7 @@ class VehicleController extends Controller
         $input['vehicle_image'] = $destinationPath . $file_name;
 
 
-        if($brochure){
+        /*if($brochure){
 
             // File destination for brochure......
             $brochurePath = 'public/uploads/vehicle/brochure/';
@@ -184,7 +184,7 @@ class VehicleController extends Controller
             $brochure_name = time(). '_'. str_random(4).'.'.$brochure->getClientOriginalExtension();
             $brochure->move($brochurePath, $brochure_name);
             $input['brochure'] = $brochurePath . $brochure_name;
-        }
+        }*/
 
         $input = [
             'type_id' => $request->input('type_id'),
@@ -201,7 +201,7 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::create($input);
 
-        $colors = Input::file('available_colors');
+       /* $colors = Input::file('available_colors');
 
         if($colors){
             foreach($colors as $color) {
@@ -219,9 +219,9 @@ class VehicleController extends Controller
                     'available_colors' => $colorPath . $color_name
                 ]);
             }
-        }
+        }*/
 
-        $features = Input::file('features');
+        /*$features = Input::file('features');
 
         if($features){
             foreach($features as $feature) {
@@ -240,7 +240,7 @@ class VehicleController extends Controller
                     'features' => $featurePath . $feature_name,
                 ]);
             }
-        }
+        }*/
         if ($vehicle->id > 0) {
             $message = 'Successfully Added';
             $error = false;
@@ -463,7 +463,25 @@ class VehicleController extends Controller
     }
 
 
+    public function color($id)
+    {
+        $rows = VehicleColor::where('vehicle_id',$id)->get();
 
+        $row = Vehicle::with('model')->findOrFail($id);
+
+        $title = 'Add/Edit Colors : '.''.$row['model']['name'];
+
+        return view('admin.vehicle.color',compact('title', 'rows','row'));
+    }
+
+    public function create_color($id){
+
+       $title = 'Add Color';
+       $rows = VehicleColor::where('vehicle_id',$id)->get();
+
+       return view('admin.vehicle.add_color', compact('title','rows') );
+
+    }
 
     public function vehicle_colors($id){
 
@@ -476,6 +494,9 @@ class VehicleController extends Controller
         return view('admin.vehicle.available_colors',compact('title', 'rows','row'));
 
     }
+
+
+
     /**
      * Remove the specified resource from storage.
      *
