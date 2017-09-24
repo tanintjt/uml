@@ -483,6 +483,118 @@ class VehicleController extends Controller
 
     }
 
+    public function store_color(Request $request){
+
+        $rules = [
+            'cat_id'   => 'not_in:0',
+            'model_id'   => 'not_in:0',
+            'available_colors'      => 'required|dimensions:width=680,height=398',
+            'color_code'      => 'required',
+//            'brochure'      => 'mimes:pdf',
+        ];
+
+        $messages = [
+            'cat_id.not_in'    => 'Type is required!',
+            'model_id.required'     => 'Model is required!',
+            'vehicle_image.required' => 'Vehicle Image is required!',
+            'color_code.required' => 'Color code is required!',
+            'available_colors.required' => ' color image is required!',
+            'available_colors.dimensions' => 'Invalid file format ! Please Upload width=680,height=398.',
+
+        ];
+
+        $file = Input::file('vehicle_image');
+        $brochure = Input::file('brochure');
+
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect('admin/vehicle/create')->withErrors($validator)->withInput();
+        }
+
+        // Files destination for vehicle image.....
+        $destinationPath = 'public/uploads/vehicle/';
+
+        // Create folders if they don't exist
+
+        if (!file_exists($destinationPath)) {
+            mkdir('public/uploads/vehicle/', 775);
+        }
+
+        $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
+        $file->move($destinationPath, $file_name);
+        $input['vehicle_image'] = $destinationPath . $file_name;
+
+
+
+
+        $input = [
+            'type_id' => $request->input('type_id'),
+            'model_id' => $request->input('model_id'),
+            'brand_id' => $request->input('brand_id'),
+            'production_year' => $request->input('production_year'),
+            'chesis_no' => $request->input('chesis_no'),
+            'engine_no' => $request->input('engine_no'),
+            'reg_no' => $request->input('reg_no'),
+            'engine_displacement' => $request->input('engine_displacement'),
+            'engine_details' => $request->input('engine_details'),
+            'fuel_system' => $request->input('fuel_system'),
+        ];
+
+        $vehicle = Vehicle::create($input);
+
+        /* $colors = Input::file('available_colors');
+
+         if($colors){
+             foreach($colors as $color) {
+
+                 $colorPath = 'public/uploads/vehicle/colors/';
+                 // Create folders if they don't exist
+                 if ( !file_exists($colorPath) ) {
+                     mkdir ($colorPath, 775);
+                 }
+                 $color_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
+                 $color->move($colorPath, $color_name);
+
+                 VehicleColor::create([
+                     'vehicle_id' => $vehicle->id,
+                     'available_colors' => $colorPath . $color_name
+                 ]);
+             }
+         }*/
+
+        /*$features = Input::file('features');
+
+        if($features){
+            foreach($features as $feature) {
+
+                $featurePath = 'public/uploads/vehicle/features/';
+                // Create folders if they don't exist
+                if ( !file_exists($featurePath) ) {
+                    mkdir ($featurePath, 775);
+                }
+
+                $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
+                $feature->move($featurePath, $feature_name);
+
+                VehicleFeature::create([
+                    'vehicle_id' => $vehicle->id,
+                    'features' => $featurePath . $feature_name,
+                ]);
+            }
+        }*/
+        if ($vehicle->id > 0) {
+            $message = 'Successfully Added';
+            $error = false;
+        } else {
+            $message =  'Adding fail.';
+            $error = true;
+        }
+
+        return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
+    }
+
     public function vehicle_colors($id){
 
         $rows = VehicleColor::where('vehicle_id',$id)->get();
