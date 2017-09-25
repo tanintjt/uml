@@ -479,72 +479,47 @@ class VehicleController extends Controller
        $title = 'Add Color';
        $rows = VehicleColor::where('vehicle_id',$id)->get();
 
-       return view('admin.vehicle.add_color', compact('title','rows') );
+       return view('admin.vehicle.add_color', compact('title','rows','id') );
 
     }
 
     public function store_color(Request $request){
 
+      /* $colors = $request->file('files');
+
+       print_r($colors);exit;
+
+        $name = [];
+        if(count($request->files)) {
+            foreach ($request->files as $image) {
+
+                $image_name = time(). '_'. str_random(4).'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('photos') , $image_name);
+                $name[] = $image_name;
+            }
+        }*/
+
+
         $rules = [
-            'cat_id'   => 'not_in:0',
-            'model_id'   => 'not_in:0',
-            'available_colors'      => 'required|dimensions:width=680,height=398',
+//           'files'      => 'required|dimensions:width=680,height=398',
+           'files'      => 'required',
             'color_code'      => 'required',
-//            'brochure'      => 'mimes:pdf',
         ];
 
         $messages = [
-            'cat_id.not_in'    => 'Type is required!',
-            'model_id.required'     => 'Model is required!',
-            'vehicle_image.required' => 'Vehicle Image is required!',
             'color_code.required' => 'Color code is required!',
-            'available_colors.required' => ' color image is required!',
-            'available_colors.dimensions' => 'Invalid file format ! Please Upload width=680,height=398.',
+            'files.required' => ' color image is required!',
+//            'files.dimensions' => 'Invalid file format ! Please Upload with specific dimensions as width=680,height=398.',
 
         ];
-
-        $file = Input::file('vehicle_image');
-        $brochure = Input::file('brochure');
-
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return redirect('admin/vehicle/create')->withErrors($validator)->withInput();
+            return redirect(route('vehicle-create-color',$request->input('vehicle_id')))->withErrors($validator)->withInput();
         }
 
-        // Files destination for vehicle image.....
-        $destinationPath = 'public/uploads/vehicle/';
-
-        // Create folders if they don't exist
-
-        if (!file_exists($destinationPath)) {
-            mkdir('public/uploads/vehicle/', 775);
-        }
-
-        $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
-        $file->move($destinationPath, $file_name);
-        $input['vehicle_image'] = $destinationPath . $file_name;
-
-
-
-
-        $input = [
-            'type_id' => $request->input('type_id'),
-            'model_id' => $request->input('model_id'),
-            'brand_id' => $request->input('brand_id'),
-            'production_year' => $request->input('production_year'),
-            'chesis_no' => $request->input('chesis_no'),
-            'engine_no' => $request->input('engine_no'),
-            'reg_no' => $request->input('reg_no'),
-            'engine_displacement' => $request->input('engine_displacement'),
-            'engine_details' => $request->input('engine_details'),
-            'fuel_system' => $request->input('fuel_system'),
-        ];
-
-        $vehicle = Vehicle::create($input);
-
-        /* $colors = Input::file('available_colors');
+         $colors = $request->file('files');
 
          if($colors){
              foreach($colors as $color) {
@@ -557,34 +532,14 @@ class VehicleController extends Controller
                  $color_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
                  $color->move($colorPath, $color_name);
 
-                 VehicleColor::create([
-                     'vehicle_id' => $vehicle->id,
+                $data =  VehicleColor::create([
+                     'vehicle_id' => $request->input('vehicle_id'),
+                     'color_code' => $request->input('color_code'),
                      'available_colors' => $colorPath . $color_name
                  ]);
              }
-         }*/
-
-        /*$features = Input::file('features');
-
-        if($features){
-            foreach($features as $feature) {
-
-                $featurePath = 'public/uploads/vehicle/features/';
-                // Create folders if they don't exist
-                if ( !file_exists($featurePath) ) {
-                    mkdir ($featurePath, 775);
-                }
-
-                $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
-                $feature->move($featurePath, $feature_name);
-
-                VehicleFeature::create([
-                    'vehicle_id' => $vehicle->id,
-                    'features' => $featurePath . $feature_name,
-                ]);
-            }
-        }*/
-        if ($vehicle->id > 0) {
+         }
+        if ($data) {
             $message = 'Successfully Added';
             $error = false;
         } else {
@@ -592,7 +547,21 @@ class VehicleController extends Controller
             $error = true;
         }
 
-        return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
+        return redirect(route('vehicle.color',$request->input('vehicle_id')))->with(['message' => $message, 'error' => $error]);
+    }
+
+
+    public function destroy(Request $request,$id){
+
+        $vehicles = VehicleColor::findOrFail($id);
+
+        $vehicles->delete();
+        $message =  ' Successfully deleted';
+        $error = true ;
+
+        return redirect(route('vehicle.color',$request->input('vehicle_id')))->with(['message' => $message, 'error' => $error]);
+
+
     }
 
     public function vehicle_colors($id){

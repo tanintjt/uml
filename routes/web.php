@@ -197,8 +197,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     /* colors....*/
     Route::any('/vehicle/{id}/colors', [ 'as' => 'vehicle.color', 'uses' => 'VehicleController@color', 'middleware' => ['role:super-administrator|sales-manager']]);
 
-    Route::get('/vehicle/{id}/create/color',
+    Route::any('/vehicle/{id}/create/color',
         ['as'=>'vehicle-create-color','uses' => 'VehicleController@create_color', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+    Route::any('/vehicle/store/color',
+        ['as'=>'admin.vehicle-store-color','uses' => 'VehicleController@store_color', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+    Route::any('/vehicle/destroy/{id}', [ 'as' => 'vehicle-destroy', 'uses' => 'VehicleController@destroy', 'middleware' => ['role:super-administrator|sales-manager']]);
 
 
     /*Vehicle brands*/

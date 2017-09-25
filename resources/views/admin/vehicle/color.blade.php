@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
-    {!! Form::open(array('url' => 'admin/vehicle/', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form', 'method' => 'get')) !!}
+    {!! Form::open(array('url' => '/vehicle/'.$row->id.'/colors', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form', 'method' => 'get')) !!}
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="input-group-btn">
@@ -11,17 +11,18 @@
 
                 <a href="{!! url('admin/vehicle')!!}" class="btn btn-sm btn-success pull-right"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
                 </span>
-            {{--<div class="input-group pull-right">
-                <span class="input-group-btn">
-
-                </span>
-            </div>--}}
         </div>
 
         <div class="panel-body">
+
+            @if(Session::has('message'))
+                <div class="alert {{ Session::get('error') == true ? 'alert-danger' : 'alert-success' }} alert-dismissible" user="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ Session::get('message') }}
+                </div>
+            @endif
+
             <div class="table-responsive">
-
-
                 <table class="table table-bordered">
                     <thead>
                     <tr class="active">
@@ -37,13 +38,12 @@
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td style="align-content: center">
-                                <img src="{!! asset(isset($row->available_colors)?$row->available_colors:'') !!}"style="align-content: center">
+                                <img src="{!! asset(isset($row->available_colors)?$row->available_colors:'') !!}" width="80px" height="50px" style="align-content: center">
                             <td>{{ $row->color_code }}</td>
                             </td>
                             <td class="text-center">
-                                {{--<a href="{!! url(Request::segment(1).'/user-vehicle/'.$row->id.'/view') !!}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>--}}
-                                <a href="{!! url(Request::segment(1).'/user-vehicle/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-                                <a href="{!! route('user-vehicle.delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="{!! route('vehicle-destroy',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button"data-toggle="modal" data-target="#confirmDelete" data-title="Delete " data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
+                                {{--<a href="{!! route('vehicle-destroy',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
                             </td>
                         </tr>
                     @endforeach
@@ -53,4 +53,24 @@
         </div>
     </div>
     {!! Form::close() !!}
+
+
+    <div class="modal modal-danger" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove-circle"></span></button>
+                    <h4 class="modal-title">Delete Parmanently</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure about this ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-flat btn-default" id="confirm"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                    <button type="button" class="btn btn-sm btn-flat btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection

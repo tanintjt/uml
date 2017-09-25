@@ -9,7 +9,7 @@ class VehicleColor extends Model
     protected $table = 'vehicle_color';
 
     protected $fillable = [
-        'vehicle_id', 'available_colors'
+        'vehicle_id', 'available_colors','color_code'
     ];
 
 
