@@ -14,7 +14,7 @@ class SpecDetailsController extends Controller
 {
 
 
-    public function index(Request $request)
+    public function index(Request $request,$id)
     {
 
         $title = 'Specification Details';
@@ -66,24 +66,26 @@ class SpecDetailsController extends Controller
 
         $model = $this->modelList(true);
         $spec_category = $this->SpecList(true);
-
+        $row = Vehicle::with('model')->findOrFail($id);
 
         $rows = SpecDetails::Search(Session::get('search'))->
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
-        return view('admin/spec_details/index', compact('rows', 'title', 'type','model','spec_category','extrajs'));
+        return view('admin/spec_details/index', compact('rows', 'title', 'type','model','spec_category','extrajs','row'));
     }
 
 
-    public function create()
+    public function create($id)
     {
         $title = 'Add Specification Details';
 
         $model = $this->modelList(true);
         $spec_category = $this->SpecList(true);
 
-        return view('admin.spec_details.create', compact('title','model','spec_category') );
+        $row = Vehicle::with('model')->findOrFail($id);
+
+        return view('admin.spec_details.create', compact('title','model','spec_category','row') );
     }
 
 

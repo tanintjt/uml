@@ -172,21 +172,6 @@ class VehicleController extends Controller
         $file->move($destinationPath, $file_name);
         $input['vehicle_image'] = $destinationPath . $file_name;
 
-
-        /*if($brochure){
-
-            // File destination for brochure......
-            $brochurePath = 'public/uploads/vehicle/brochure/';
-
-            // Create folders if they don't exist
-            if (!file_exists($brochurePath)) {
-                mkdir ($brochurePath, 775);
-            }
-            $brochure_name = time(). '_'. str_random(4).'.'.$brochure->getClientOriginalExtension();
-            $brochure->move($brochurePath, $brochure_name);
-            $input['brochure'] = $brochurePath . $brochure_name;
-        }*/
-
         $input = [
             'type_id' => $request->input('type_id'),
             'model_id' => $request->input('model_id'),

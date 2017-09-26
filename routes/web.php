@@ -430,11 +430,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     /*spec details....*/
 
-    Route::get('/spec/details',
+    Route::get('/spec/{id}/details',
         ['as' => 'spec-details', 'uses' => 'SpecDetailsController@index', 'middleware' => ['role:super-administrator']
         ]);
 
-    Route::get('/spec/details/create',
+    Route::get('/spec/{id}/details/create',
         ['as'=>'spec-details-create','uses' => 'SpecDetailsController@create', 'middleware' => ['role:super-administrator']]);
 
     Route::post('/spec/details/store',
@@ -452,7 +452,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::match(['get', 'post'], 'spec/details', ['uses' => 'SpecDetailsController@index', 'middleware' => ['role:super-administrator']]);
 
     Route::get('/spec-details/{id}/delete', [ 'as' => 'spec-details-delete', 'uses' => 'SpecDetailsController@delete', 'middleware' => ['role:super-administrator']]);
-
 
 });
 

@@ -2,7 +2,7 @@
 
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/spec/details', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/spec/'.$row->id.'details', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
@@ -10,7 +10,9 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-success btn-sm go"><span class="glyphicon glyphicon-search"></span> Go</button>
                     <button type="button" class="btn btn-info btn-sm clear"><span class="glyphicon glyphicon-refresh"></span> Clear</button>
-                    <a href="{!! url(Request::segment(1).'/spec/details/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
+                    {{--<a href="{!! url(Request::segment(1).'/spec/details/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>--}}
+                    <a href="{!! url(Request::segment(1).'/spec/'.$row->id.'/details/create') !!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
+
                 </span>
             </div>
             <div class="pull-right">
