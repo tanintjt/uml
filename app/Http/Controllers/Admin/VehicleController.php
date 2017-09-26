@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Validator;
 use Session;
 use File;
+use Image;
 class VehicleController extends Controller
 {
 
@@ -469,7 +470,7 @@ class VehicleController extends Controller
 
         $row = Vehicle::with('model')->findOrFail($id);
 
-        $title = 'Add/Edit Colors : '.''.$row['model']['name'];
+        $title = 'Add Colors : '.''.$row['model']['name'];
 
         return view('admin.vehicle.color',compact('title', 'rows','row'));
     }
@@ -485,32 +486,14 @@ class VehicleController extends Controller
 
     public function store_color(Request $request){
 
-      /* $colors = $request->file('files');
-
-       print_r($colors);exit;
-
-        $name = [];
-        if(count($request->files)) {
-            foreach ($request->files as $image) {
-
-                $image_name = time(). '_'. str_random(4).'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('photos') , $image_name);
-                $name[] = $image_name;
-            }
-        }*/
-
-
         $rules = [
-//           'files'      => 'required|dimensions:width=680,height=398',
-           'files'      => 'required',
+            'files'      => 'required',
             'color_code'      => 'required',
         ];
 
         $messages = [
             'color_code.required' => 'Color code is required!',
             'files.required' => ' color image is required!',
-//            'files.dimensions' => 'Invalid file format ! Please Upload with specific dimensions as width=680,height=398.',
-
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -524,18 +507,26 @@ class VehicleController extends Controller
          if($colors){
              foreach($colors as $color) {
 
-                 $colorPath = 'public/uploads/vehicle/colors/';
+                 //$colorPath = 'public/uploads/vehicle/colors/';
                  // Create folders if they don't exist
-                 if ( !file_exists($colorPath) ) {
-                     mkdir ($colorPath, 775);
+                 if ( !file_exists(config('image.vc_path')) ) {
+                     mkdir (config('image.vc_path'), 775);
                  }
+
+
+                 // Set the image name over the request image
                  $color_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
-                 $color->move($colorPath, $color_name);
+                 // Make the intervention image over the request image
+                 $interventionImage = \Image::make($color->getPathname());
+                 // Resize the intervention image over the request image
+                 $interventionImage->resize(config('image.vc_width'), config('image.vc_height'));
+                 // Save the intervention image over the request image
+                 $interventionImage->save(config('image.vc_path'). $color_name, 100);
 
                 $data =  VehicleColor::create([
                      'vehicle_id' => $request->input('vehicle_id'),
                      'color_code' => $request->input('color_code'),
-                     'available_colors' => $colorPath . $color_name
+                     'available_colors' =>  $color_name
                  ]);
              }
          }
@@ -577,6 +568,129 @@ class VehicleController extends Controller
     }
 
 
+
+
+    public function features($id)
+    {
+        $rows = VehicleFeature::where('vehicle_id',$id)->get();
+
+        $row = Vehicle::with('model')->findOrFail($id);
+
+        $title = 'Add Feature : '.''.$row['model']['name'];
+
+        return view('admin.vehicle.features',compact('title', 'rows','row'));
+    }
+
+
+    public function create_features($id){
+
+        $title = 'Add Features';
+        $rows = VehicleFeature::where('vehicle_id',$id)->get();
+
+        return view('admin.vehicle.add_feature', compact('title','rows','id') );
+
+    }
+
+    public function store_features(Request $request){
+
+        $rules = [
+            'files'      => 'required',
+            'title'      => 'required',
+        ];
+
+        $messages = [
+            'title.required' => 'Title is required!',
+            'files.required' => ' feature image is required!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect(route('vehicle-create-features',$request->input('vehicle_id')))->withErrors($validator)->withInput();
+        }
+
+        $features = $request->file('files');
+
+        if($features){
+           foreach($features as $key=>$feature) {
+
+                    $featuresPath = 'public/uploads/vehicle/features/';
+                    // Create folders if they don't exist
+                    if ( !file_exists($featuresPath) ) {
+                        mkdir ($featuresPath, 775);
+                    }
+
+                   $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
+
+                   $interventionImage = \Image::make($feature->getPathname());
+
+                   if($key[0]){
+
+                       $interventionImage->resize(config('image.fc_width_1'), config('image.fc_height_1'));
+                   }
+                   if($key[1]){
+
+                       $interventionImage->resize(config('image.fc_width_2'), config('image.fc_height_2'));
+                   }
+                   if($key[2]){
+
+                       $interventionImage->resize(config('image.fc_width_3'), config('image.fc_height_3'));
+                   }
+                   if($key[3]){
+
+                       $interventionImage->resize(config('image.fc_width_2'), config('image.fc_height_2'));
+                   }
+                   if($key[4]){
+
+                       $interventionImage->resize(config('image.fc_width_3'), config('image.fc_height_3'));
+                   }
+
+                    $interventionImage->save(config('image.fc_path'). $feature_name, 100);
+
+                    $data =  VehicleFeature::create([
+                        'vehicle_id' =>  $request->input('vehicle_id'),
+                        'title'      =>  $request->input('title'),
+                        'features'   =>  $feature_name
+                    ]);
+           }
+
+        }
+        if ($data) {
+            $message = 'Successfully Added';
+            $error = false;
+        } else {
+            $message =  'Adding fail.';
+            $error = true;
+        }
+
+        return redirect(route('vehicle.features',$request->input('vehicle_id')))->with(['message' => $message, 'error' => $error]);
+    }
+
+
+   /* public function resize_features($key){
+
+        // Make the intervention image over the request image
+        $interventionImage = \Image::make($features->getPathname());
+        // Resize the intervention image over the request image
+        $interventionImage->resize(config('image.vc_width'), config('image.vc_height'));
+        // Save the intervention image over the request image
+        $interventionImage->save(config('image.vc_path'). $color_name, 100);
+
+    }*/
+
+
+    public function feature_delete(Request $request,$id){
+
+        $vehicles = VehicleFeature::findOrFail($id);
+
+        $vehicles->delete();
+        $message =  ' Successfully deleted';
+        $error = true ;
+
+        return redirect(route('vehicle.features',$request->input('vehicle_id')))->with(['message' => $message, 'error' => $error]);
+
+
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -89,9 +89,6 @@ class SpecDetailsController extends Controller
 
     public function store(Request $request){
 
-$input = $request->all();
-print_r($input);exit;
-
         $rules = [
             'model_id'       => 'not_in:0',
             'cat_id'        => 'not_in:0',
@@ -114,29 +111,20 @@ print_r($input);exit;
         }
 
         $vehicle = Vehicle::with('model')->where('model_id','=',$request->input('model_id'))->first();
-       $category = SpecCategory::where('title', 'like', '%' . $request->input('cat_id') . '%')->first();
-
-        /*if( strtolower($request->input('cat_id')=='brakes')){
-
-
-        }*/
-
+        $category = SpecCategory::where('title', 'like', '%' . $request->input('cat_id') . '%')->first();
 
 //        foreach($request->all() as $key=>$value){
-            for($i=5; $i > count($request->all()); $i++) {
-            $spec_details =
+//            for($i=5; $i > count($request->all()); $i++) {
+        $data =
                 [
                     'cat_id'         =>  $category['id'],
                    // 'cat_id'         => $request->input('cat_id'),
                     'vehicle_id'     =>  $vehicle['id'],
-                    'title'          =>  $key,
-                    'spec_value'     =>  $request->input('front'),
+                    'title'          =>  $request->input('title'),
+                    'spec_value'     =>  $request->input('spec_value'),
                 ];
-
-
-        }
-        return $key;
-        //print_r($spec_details);exit;
+//        }
+        $spec_details = SpecDetails::create($data);
 
         if ($spec_details->id > 0) {
             $message = 'Successfully added.';

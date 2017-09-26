@@ -183,8 +183,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Edujugon\PushNotification\Providers\PushNotificationServiceProvider::class,
-        LaravelFCM\FCMServiceProvider::class
-
+        LaravelFCM\FCMServiceProvider::class,
     ],
 
     /*

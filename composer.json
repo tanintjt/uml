@@ -11,7 +11,7 @@
         "edujugon/push-notification": "^2.1",
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/html": "5.*",
-        "intervention/image": "^2.3",
+        "intervention/image": "^2.4",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",

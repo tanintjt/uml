@@ -39,7 +39,7 @@
 
             </div>
             <div class="col-xs-7">
-                   <div class="form-group{{ $errors->has('front_value') ? ' has-error' : '' }}" style="display: none" id="brakes_front">
+                   {{--<div class="form-group{{ $errors->has('front_value') ? ' has-error' : '' }}" style="display: none" id="brakes_front">
                        {!! Form::label('front_value', 'Front :', ['class' => 'col-xs-3 control-label']) !!}
                        <div class="col-xs-9">
                            {!! Form::text('front',  old('front_value'),['class' => 'form-control', 'id' => 'front_value', 'placeholder' => 'front value']) !!}
@@ -124,7 +124,31 @@
                             @endif
                         </div>
                     </div>
+--}}
 
+                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                    {!! Form::label('title', 'Title :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('title', old('title'), ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'title such as front/rear....']) !!}
+                        @if ($errors->has('title'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('title') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('spec_value') ? ' has-error' : '' }}">
+                    {!! Form::label('spec_value', 'Spec Value :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::text('spec_value', old('spec_value'), ['class' => 'form-control', 'id' => 'spec_value', 'placeholder' => ' value of front/rear.....']) !!}
+                        @if ($errors->has('spec_value'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('spec_value') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-xs-offset-3 col-xs-9">
@@ -139,7 +163,7 @@
     {!! Form::close() !!}
 
 
-    <script>
+    {{--<script>
         $('select[id=category]').change(function () {
 
             if ($(this).val().toLowerCase() === 'brakes' || $(this).val().toLowerCase() ==='suspension') {
@@ -172,7 +196,7 @@
             }
 
         });
-    </script>
+    </script>--}}
 
 @endsection
 

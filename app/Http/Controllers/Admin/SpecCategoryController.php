@@ -58,11 +58,9 @@ class SpecCategoryController extends Controller
             Session::put('search', $request->input('search'));
         }
 
-        $rows = SpecCategory::
-//        Search(Session::get('search'))->
-        // Status(Session::get('status'))->
-        orderBy('id', 'asc')->
-        paginate(config('app.limit'));
+        $rows = SpecCategory::Search(Session::get('search'))->
+                orderBy('id', 'asc')->
+                paginate(config('app.limit'));
 
         return view('admin/spec_category/index', compact('rows', 'title', 'extrajs'));
     }

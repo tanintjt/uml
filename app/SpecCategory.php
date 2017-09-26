@@ -13,7 +13,7 @@ class SpecCategory extends Model
         'title', 'status'
     ];
 
-    public function scopeSearch($query, $name)
+    /*public function scopeSearch($query, $name)
     {
         if( trim($name) != '' ) {
 
@@ -24,6 +24,14 @@ class SpecCategory extends Model
                 ->orWhere('vehicle.engine_no', 'LIKE', '%' . trim($name) . '%')
                 ->orWhere('vehicle_model.name', 'LIKE', '%' . trim($name) . '%')
                 ->orWhere('users.name', 'LIKE', '%' . trim($name) . '%');
+        }
+    }*/
+
+
+    public function scopeSearch($query, $name)
+    {
+        if( trim($name) != '' ) {
+            return $query->where('title', 'LIKE', '%' . trim($name) . '%');
         }
     }
 

@@ -203,7 +203,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::any('/vehicle/store/color',
         ['as'=>'admin.vehicle-store-color','uses' => 'VehicleController@store_color', 'middleware' => ['role:super-administrator|sales-manager']]);
 
-    Route::any('/vehicle/destroy/{id}', [ 'as' => 'vehicle-destroy', 'uses' => 'VehicleController@destroy', 'middleware' => ['role:super-administrator|sales-manager']]);
+    Route::any('/destroy/vehicle/{id}', [ 'as' => 'delete-vehicle', 'uses' => 'VehicleController@destroy', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+
+    /*features*/
+    Route::any('/vehicle/{id}/features', [ 'as' => 'vehicle.features', 'uses' => 'VehicleController@features', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+    Route::any('/vehicle/{id}/create/features',
+        ['as'=>'vehicle-create-features','uses' => 'VehicleController@create_features', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+    Route::post('/store/features',
+        ['as'=>'admin.vehicle-store-features','uses' => 'VehicleController@store_features', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+
+    Route::any('/features/delete/{id}', [ 'as' => 'features-delete', 'uses' => 'VehicleController@feature_delete', 'middleware' => ['role:super-administrator|sales-manager']]);
 
 
     /*Vehicle brands*/

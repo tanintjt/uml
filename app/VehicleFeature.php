@@ -11,7 +11,7 @@ class VehicleFeature extends Model
     protected $table = 'vehicle_features';
 
     protected $fillable = [
-        'vehicle_id', 'features'
+        'vehicle_id', 'features','title'
     ];
 
 

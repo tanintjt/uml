@@ -76,7 +76,7 @@
 
                                     <div class="dropdown-menu dp" aria-labelledby="dropdownMenuLink" >
                                         <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/colors') !!}"  title="add/edit colors" class="text-black">Colors</a><br>
-                                        <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}"  title="edit colors" class="text-black">Features</a><br>
+                                        <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/features') !!}"  title="edit colors" class="text-black">Features</a><br>
                                         <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/edit') !!}"  title="edit colors" class="text-black">Specifications</a>
                                     </div>
                                 </div>
