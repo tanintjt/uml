@@ -187,46 +187,7 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::create($input);
 
-       /* $colors = Input::file('available_colors');
 
-        if($colors){
-            foreach($colors as $color) {
-
-                $colorPath = 'public/uploads/vehicle/colors/';
-                // Create folders if they don't exist
-                if ( !file_exists($colorPath) ) {
-                    mkdir ($colorPath, 775);
-                }
-                $color_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
-                $color->move($colorPath, $color_name);
-
-                VehicleColor::create([
-                    'vehicle_id' => $vehicle->id,
-                    'available_colors' => $colorPath . $color_name
-                ]);
-            }
-        }*/
-
-        /*$features = Input::file('features');
-
-        if($features){
-            foreach($features as $feature) {
-
-                $featurePath = 'public/uploads/vehicle/features/';
-                // Create folders if they don't exist
-                if ( !file_exists($featurePath) ) {
-                    mkdir ($featurePath, 775);
-                }
-
-                $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
-                $feature->move($featurePath, $feature_name);
-
-                VehicleFeature::create([
-                    'vehicle_id' => $vehicle->id,
-                    'features' => $featurePath . $feature_name,
-                ]);
-            }
-        }*/
         if ($vehicle->id > 0) {
             $message = 'Successfully Added';
             $error = false;
@@ -451,13 +412,46 @@ class VehicleController extends Controller
 
     public function color($id)
     {
+        $extrajs = "<script>
+		$(function() {
+
+			$('.go').click(function(){
+				$('#admin-form').submit();
+			});
+
+			$('a[data-target=\"#confirmDelete\"]').on('click', function(e) {
+				var target_modal = $(e.currentTarget).data('target');
+				var href = $(this).attr('href');
+				var message = $(e.currentTarget).attr('data-message');
+				var title = $(e.currentTarget).attr('data-title');
+				var modal = $(target_modal);
+				$('#confirm').attr('href', href);
+
+				modal.on('show.bs.modal', function () {
+      				$(modal).find('.modal-body p').text(message);
+					$(modal).find('.modal-title').text(title);
+				}).modal();
+
+				return false;
+			});
+
+			$('#confirm').click(function (e) {
+			  e.preventDefault()
+			  $('#confirmDelete').modal('hide');
+			  window.location = $(this).attr('href');
+			})
+
+		});
+
+		</script>";
+
         $rows = VehicleColor::where('vehicle_id',$id)->get();
 
         $row = Vehicle::with('model')->findOrFail($id);
 
         $title = 'Add Colors : '.''.$row['model']['name'];
 
-        return view('admin.vehicle.color',compact('title', 'rows','row'));
+        return view('admin.vehicle.color',compact('title', 'rows','row','extrajs'));
     }
 
     public function create_color($id){
@@ -527,7 +521,7 @@ class VehicleController extends Controller
     }
 
 
-    public function destroy(Request $request,$id){
+    public function destroy($id){
 
         $vehicles = VehicleColor::findOrFail($id);
 
@@ -535,7 +529,7 @@ class VehicleController extends Controller
         $message =  ' Successfully deleted';
         $error = true ;
 
-        return redirect(route('vehicle.color',$request->input('vehicle_id')))->with(['message' => $message, 'error' => $error]);
+        return redirect()->back()->with(['message' => $message, 'error' => $error]);
 
 
     }
@@ -557,13 +551,47 @@ class VehicleController extends Controller
 
     public function features($id)
     {
+        $extrajs = "<script>
+		$(function() {
+
+			$('.go').click(function(){
+				$('#admin-form').submit();
+			});
+
+			$('a[data-target=\"#confirmDelete\"]').on('click', function(e) {
+				var target_modal = $(e.currentTarget).data('target');
+				var href = $(this).attr('href');
+				var message = $(e.currentTarget).attr('data-message');
+				var title = $(e.currentTarget).attr('data-title');
+				var modal = $(target_modal);
+				$('#confirm').attr('href', href);
+
+				modal.on('show.bs.modal', function () {
+      				$(modal).find('.modal-body p').text(message);
+					$(modal).find('.modal-title').text(title);
+				}).modal();
+
+				return false;
+			});
+
+			$('#confirm').click(function (e) {
+			  e.preventDefault()
+			  $('#confirmDelete').modal('hide');
+			  window.location = $(this).attr('href');
+			})
+
+		});
+
+		</script>";
+
+
         $rows = VehicleFeature::where('vehicle_id',$id)->get();
 
         $row = Vehicle::with('model')->findOrFail($id);
 
         $title = 'Add Feature : '.''.$row['model']['name'];
 
-        return view('admin.vehicle.features',compact('title', 'rows','row'));
+        return view('admin.vehicle.features',compact('title', 'rows','row','extrajs'));
     }
 
 
@@ -652,19 +680,7 @@ class VehicleController extends Controller
     }
 
 
-   /* public function resize_features($key){
-
-        // Make the intervention image over the request image
-        $interventionImage = \Image::make($features->getPathname());
-        // Resize the intervention image over the request image
-        $interventionImage->resize(config('image.vc_width'), config('image.vc_height'));
-        // Save the intervention image over the request image
-        $interventionImage->save(config('image.vc_path'). $color_name, 100);
-
-    }*/
-
-
-    public function feature_delete(Request $request,$id){
+    public function feature_delete($id){
 
         $vehicles = VehicleFeature::findOrFail($id);
 
@@ -672,7 +688,7 @@ class VehicleController extends Controller
         $message =  ' Successfully deleted';
         $error = true ;
 
-        return redirect(route('vehicle.features',$request->input('vehicle_id')))->with(['message' => $message, 'error' => $error]);
+        return redirect()->back()->with(['message' => $message, 'error' => $error]);
 
 
     }
