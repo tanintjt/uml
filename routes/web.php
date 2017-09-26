@@ -449,7 +449,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
 
     Route::put('/spec/details/{id}/update', [ 'as' => 'spec-details-update', 'uses' => 'SpecDetailsController@update', 'middleware' => ['role:super-administrator']]);
 
-    Route::match(['get', 'post'], 'spec/details', ['uses' => 'SpecDetailsController@index', 'middleware' => ['role:super-administrator']]);
+    Route::match(['get', 'post'], '/spec/{id}/details', ['uses' => 'SpecDetailsController@index', 'middleware' => ['role:super-administrator']]);
 
     Route::get('/spec-details/{id}/delete', [ 'as' => 'spec-details-delete', 'uses' => 'SpecDetailsController@delete', 'middleware' => ['role:super-administrator']]);
 

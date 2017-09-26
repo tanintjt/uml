@@ -5,11 +5,9 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="input-group-btn">
-
-                    <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/create/color') !!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
-
+                <a href="{!! url(Request::segment(1).'/vehicle/'.$row->id.'/create/color') !!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
                 <a href="{!! url('admin/vehicle')!!}" class="btn btn-sm btn-success pull-right"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
-                </span>
+             </span>
         </div>
 
         <div class="panel-body">

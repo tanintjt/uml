@@ -3,8 +3,6 @@
 
 @section('content')
 
-
-
     {!! Form::open(array('url' => Request::segment(1).'/vehicle/store/color', 'class' => 'form-horizontal','id'=>'upload',
       'name' => 'admin-form', 'id' => 'admin-form','files' => true)) !!}
 

@@ -2,7 +2,7 @@
 
 
 @section('content')
-    {!! Form::open(array('url' => Request::segment(1).'/spec/'.$row->id.'details', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
+    {!! Form::open(array('url' => Request::segment(1).'/spec/'.$row->id.'/details', 'method' => 'POST', 'class' => 'form-inline', 'name' => 'admin-form', 'id' => 'admin-form')) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <div class="input-group">
@@ -12,13 +12,11 @@
                     <button type="button" class="btn btn-info btn-sm clear"><span class="glyphicon glyphicon-refresh"></span> Clear</button>
                     {{--<a href="{!! url(Request::segment(1).'/spec/details/create')!!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>--}}
                     <a href="{!! url(Request::segment(1).'/spec/'.$row->id.'/details/create') !!}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> New</a>
+                    <a href="{!! url('admin/vehicle')!!}" class="btn btn-sm btn-success" style="margin-left:245%"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
 
                 </span>
             </div>
             <div class="pull-right">
-                {{--{!! Form::select('type_id', $type, old('type_id', Session::get('type_id') ), ['class' => 'form-control input-sm', 'id' => 'type_id']) !!}--}}
-                {{--{!! Form::select('model_id', $model, old('model_id', Session::get('model_id') ), ['class' => 'form-control input-sm', 'id' => 'model_id']) !!}--}}
-                {{--{!! Form::select('brand_id', $brand, old('brand_id', Session::get('brand_id') ), ['class' => 'form-control input-sm', 'id' => 'brand_id']) !!}--}}
             </div>
 
         </div>
