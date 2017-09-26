@@ -39,9 +39,7 @@
                             <td class="text-center">{{ $row->color_code }}</td>
                             </td>
                             <td class="text-center">
-                                {{--<a href="{!! route('vehicle-destroy',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button"data-toggle="modal" data-target="#confirmDelete" data-title="Delete " data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
-                                <a href="{!! route('delete-vehicle',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete {!! $row->color_code !!}" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete {!!  $row->color_code !!}" data-message="Are you sure you want to delete {!!  $row->name !!} ?"><span class="glyphicon glyphicon-trash"></span></a>
-                                {{--<a href="{!! route('vehicle-destroy',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete " user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>--}}
+                                <a href="{!! route('delete-vehicle',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     @endforeach
