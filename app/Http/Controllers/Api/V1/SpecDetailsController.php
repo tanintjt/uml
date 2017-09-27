@@ -13,6 +13,8 @@ class SpecDetailsController extends Controller
 
     public function index(Request $request){
 
+        // 'vc_path' => public_path(). '/uploads/vehicle/colors/',
+
         $specs = SpecCategory::orderBy('title', 'asc')->get();
 
         $value = [];

@@ -780,24 +780,22 @@ class VehicleController extends Controller
         $features = $request->file('files');
 
         if($features){
-             foreach($features as $feature) {
+            foreach($features as $feature) {
 
-                   // Create folders if they don't exist
-                   if ( !file_exists(config('image.fc_path')) ) {
-                       mkdir (config('image.fc_path'), 775);
-                   }
+                // Create folders if they don't exist
+                if ( !file_exists(config('image.fc_path')) ) {
+                    mkdir (config('image.fc_path'), 775);
+                }
 
-                    $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
-                    $interventionImage = \Image::make($feature->getPathname());
-                    $interventionImage->resize(config('image.fc_width'), config('image.fc_height'));
-                    $interventionImage->save(config('image.fc_path'). $feature_name, 100);
+                $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
+                $feature->move(config('image.fc_path'), $feature_name,100);
 
-                   $data =  VehicleFeature::create([
-                            'vehicle_id' =>  $request->input('vehicle_id'),
-                            'title'      =>  $request->input('title'),
-                            'features'   =>  $feature_name
-                    ]);
-             }
+                $data =  VehicleFeature::create([
+                    'vehicle_id' =>  $request->input('vehicle_id'),
+                    'title'      =>  $request->input('title'),
+                    'features'   =>  $feature_name,
+                ]);
+            }
         }
         if ($data) {
             $message = 'Successfully Added';
