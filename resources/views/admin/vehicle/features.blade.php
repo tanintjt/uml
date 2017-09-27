@@ -34,7 +34,7 @@
                     @foreach ($rows as $row)
                         <tr>
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
-                            <td class="text-center">{{ $row->title }}</td>
+                            <td class="text-center">{{ ucfirst($row->title) }}</td>
                             <td style="align-content: center">
                                 {{--<img src="{!! asset(isset($row->features)?$row->features:'') !!}" width="80px" height="50px" style="align-content: center">--}}
                                 <img src="{!! isset($row->features)? asset('public/uploads/vehicle/features/'.$row->features) :'' !!}" width="80px" height="50px" style="align-content: center">

@@ -28,7 +28,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name(required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name(required)','required']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -45,7 +45,7 @@
 
                     {!! Form::label('files', 'File :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::file('files[]', ['class'=>"imgControl1",'data-width'=>"400" ,'data-height'=>"600",'id'=>'file1','multiple' => true])!!} <small style="color:grey;font-weight: bold;">width 400px, height: 600px </small>
+                        {!! Form::file('files[]', ['class'=>"imgControl1",'data-width'=>"400" ,'data-height'=>"600",'id'=>'file1','multiple' => true,'required'])!!} <small style="color:grey;font-weight: bold;">width 400px, height: 600px </small>
                     @if ($errors->has('files'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('files') }}</strong>
@@ -65,7 +65,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)','required']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -81,7 +81,7 @@
                 <div class="form-group{{ $errors->has('files') ? ' has-error' : '' }}">
                     {!! Form::label('files', 'File :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::file('files[]', ['class'=>"imgControl2",'data-width'=>"543" ,'data-height'=>"300",'id'=>'file2','multiple' => true]) !!}<small style="color:grey;font-weight: bold;">width 543px, height: 300px </small>
+                        {!! Form::file('files[]', ['class'=>"imgControl2",'data-width'=>"543" ,'data-height'=>"300",'id'=>'file2','multiple' => true,'required']) !!}<small style="color:grey;font-weight: bold;">width 543px, height: 300px </small>
                         @if ($errors->has('files'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('files') }}</strong>
@@ -100,7 +100,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)','required']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -116,7 +116,7 @@
                 <div class="form-group{{ $errors->has('files') ? ' has-error' : '' }}">
                     {!! Form::label('files', 'File :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::file('files[]', ['class'=>"imgControl3",'data-width'=>"268" ,'data-height'=>"300",'id'=>'file3','multiple' => true]) !!}<small style="color:grey;font-weight: bold;">width 268px, height: 300px </small>
+                        {!! Form::file('files[]', ['class'=>"imgControl3",'data-width'=>"268" ,'data-height'=>"300",'id'=>'file3','multiple' => true,'required']) !!}<small style="color:grey;font-weight: bold;">width 268px, height: 300px </small>
                         @if ($errors->has('files'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('files') }}</strong>
@@ -135,7 +135,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)','required']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -151,7 +151,7 @@
                 <div class="form-group{{ $errors->has('files') ? ' has-error' : '' }}">
                     {!! Form::label('files', 'File :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::file('files[]', ['class'=>"imgControl4",'data-width'=>"543" ,'data-height'=>"300",'id'=>'file4','multiple' => true]) !!}<small style="color:grey;font-weight: bold;">width 543px, height: 300px </small>
+                        {!! Form::file('files[]', ['class'=>"imgControl4",'data-width'=>"543" ,'data-height'=>"300",'id'=>'file4','multiple' => true,'required']) !!}<small style="color:grey;font-weight: bold;">width 543px, height: 300px </small>
                         @if ($errors->has('files'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('files') }}</strong>
@@ -170,7 +170,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)','required']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -186,7 +186,7 @@
                 <div class="form-group{{ $errors->has('files') ? ' has-error' : '' }}">
                     {!! Form::label('files', 'File :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::file('files[]', ['class'=>"imgControl5",'data-width'=>"268" ,'data-height'=>"300",'id'=>'file5','multiple' => true]) !!}<small style="color:grey;font-weight: bold;">width 268px, height: 300px </small>
+                        {!! Form::file('files[]', ['class'=>"imgControl5",'data-width'=>"268" ,'data-height'=>"300",'id'=>'file5','multiple' => true,'required']) !!}<small style="color:grey;font-weight: bold;">width 268px, height: 300px </small>
                         @if ($errors->has('files'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('files') }}</strong>

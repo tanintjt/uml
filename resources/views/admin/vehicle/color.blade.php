@@ -36,7 +36,7 @@
                             <td>{{ ((\Request::get('page', 1) - 1) * config('app.limit')) + $i++ }} </td>
                             <td style="align-content: center">
                                 <img src="{!! isset($row->available_colors)? asset('public/uploads/vehicle/colors/'.$row->available_colors) :'' !!}" width="80px" height="50px" style="align-content: center">
-                            <td class="text-center">{{ $row->color_code }}</td>
+                            <td class="text-center">{{ ucfirst($row->color_code) }}</td>
                             </td>
                             <td class="text-center">
                                 <a href="{!! url(Request::segment(1).'/edit/vehicle/'.$row->id.'/color') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
