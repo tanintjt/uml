@@ -482,16 +482,16 @@ class VehicleController extends Controller
         }
 
          $colors = $request->file('files');
+         $color_codes = $request->input('color_code');
 
          if($colors){
-             foreach($colors as $color) {
+             foreach($colors as $key=>$color) {
 
                  //$colorPath = 'public/uploads/vehicle/colors/';
                  // Create folders if they don't exist
                  if ( !file_exists(config('image.vc_path')) ) {
                      mkdir (config('image.vc_path'), 775);
                  }
-
 
                  // Set the image name over the request image
                  $color_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
@@ -502,9 +502,9 @@ class VehicleController extends Controller
                  // Save the intervention image over the request image
                  $interventionImage->save(config('image.vc_path'). $color_name, 100);
 
-                $data =  VehicleColor::create([
+                 $data =  VehicleColor::create([
                      'vehicle_id' => $request->input('vehicle_id'),
-                     'color_code' => $request->input('color_code'),
+                     'color_code' => $color_codes[$key],
                      'available_colors' =>  $color_name
                  ]);
              }
@@ -518,6 +518,162 @@ class VehicleController extends Controller
         }
 
         return redirect(route('vehicle.color',$request->input('vehicle_id')))->with(['message' => $message, 'error' => $error]);
+    }
+
+    public function edit_color($id)
+    {
+        $row = VehicleColor::findOrFail($id);
+
+        $title = 'Edit ';
+
+        return view('admin.vehicle.edit_color',compact('title', 'row', 'extrajs','id'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_color(Request $request, $id)
+    {
+
+        $model = Vehicle::findOrFail($id);
+
+        $rules = [
+            'color_code'      => 'required',
+        ];
+
+        $messages = [
+
+            'color_code.required' => 'Color Code is required!',
+        ];
+
+        $file = Input::file('vehicle_image');
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect('admin/vehicle/'.$id.'/edit')->withErrors($validator)->withInput();
+        }
+
+        $input = [
+            'type_id' =>          $request->input('type_id'),
+            'model_id' =>         $request->input('model_id'),
+            'brand_id' =>         $request->input('brand_id'),
+            'production_year' =>  $request->input('production_year'),
+            'chesis_no' =>        $request->input('chesis_no'),
+            'engine_no' =>        $request->input('engine_no'),
+            'reg_no' =>           $request->input('reg_no'),
+            'engine_displacement' => $request->input('engine_displacement'),
+            'engine_details' =>      $request->input('engine_details'),
+            'fuel_system' =>         $request->input('fuel_system'),
+            //'color_code' =>         $request->input('color_code'),
+        ];
+
+        //vehicle_image.......
+        if($request->hasFile('vehicle_image')){
+            $file = Input::file('vehicle_image');
+            //Delete previous image from folder
+            if (File::exists('public/uploads/vehicle/'.$model->vehicle_image)) {
+                File::delete('public/uploads/vehicle/'.$model->vehicle_image);
+            }
+
+            // Files destination
+            $destinationPath = 'public/uploads/vehicle/';
+            $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
+            $file->move($destinationPath, $file_name);
+            $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
+        }
+
+        //brochure.......
+        if($request->hasFile('brochure')){
+            $brochure = Input::file('brochure');
+            //Delete previous image from folder
+            if (File::exists('public/uploads/vehicle/brochure/'.$model->brochure)) {
+                File::delete('public/uploads/vehicle/brochure/'.$model->brochure);
+            }
+
+            // Files destination
+            $brochurePath = 'public/uploads/vehicle/brochure/';
+            $brochure_name = time(). '_'. str_random(4).'.'.$brochure->getClientOriginalExtension();
+            $brochure->move($brochurePath, $brochure_name);
+            $input['brochure'] = 'public/uploads/vehicle/brochure/' . $brochure_name;
+        }
+
+        $model->update($input);
+
+        if ($model->id > 0) {
+
+            $colors = Input::file('available_colors');
+            $features = Input::file('features');
+
+            if($colors){
+                $colorPath = 'public/uploads/vehicle/colors/';
+                // Create folders if they don't exist
+                if ( !file_exists($colorPath) ) {
+                    mkdir ($colorPath, 0777);
+                }
+                $vehicle_colors = VehicleColor::where('vehicle_id',$model->id)->get();
+
+                foreach($vehicle_colors as $vehicle_color) {
+
+                    if (File::exists($colorPath.$vehicle_color->available_colors)) {
+                        File::delete($colorPath.$vehicle_color->available_colors);
+                    }
+
+                    $vehicle_color->delete();
+                }
+
+                foreach($colors as $color) {
+
+                    $file_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
+                    $color->move($colorPath, $file_name);
+
+                    VehicleColor::create([
+                        'vehicle_id'       =>   $model->id,
+                        'available_colors' =>   $colorPath . $file_name,
+                    ]);
+                }
+            }
+
+            if($features){
+                $featurePath = 'public/uploads/vehicle/features/';
+                // Create folders if they don't exist
+                if ( !file_exists($featurePath) ) {
+                    mkdir ($featurePath, 0777);
+                }
+                $vehicle_features = VehicleFeature::where('vehicle_id',$model->id)->get();
+
+                foreach($vehicle_features as $vehicle_feature) {
+
+                    if (File::exists($featurePath.$vehicle_feature->features)) {
+                        File::delete($featurePath.$vehicle_feature->features);
+                    }
+                    $vehicle_feature->delete();
+                }
+
+                foreach($features as $feature) {
+
+                    $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
+                    $feature->move($featurePath, $feature_name);
+
+
+                    VehicleFeature::create([
+                        'vehicle_id' =>   $model->id,
+                        'features' =>   $featurePath . $feature_name,
+                    ]);
+                }
+            }
+            $message = 'Successfully Updated';
+            $error = false;
+        } else {
+            $message =  'Adding fail.';
+            $error = true;
+        }
+
+        return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
     }
 
 

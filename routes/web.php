@@ -206,6 +206,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin','middleware'=>'auth'],
     Route::any('/destroy/vehicle/{id}', [ 'as' => 'delete-vehicle', 'uses' => 'VehicleController@destroy', 'middleware' => ['role:super-administrator|sales-manager']]);
 
 
+    Route::any('/vehicle/color/{id}/edit', [ 'as' => 'vehicle-color-edit', 'uses' => 'VehicleController@edit_color', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+
+    Route::put('/vehicle/color/{id}/update', [ 'as' => 'vehicle-color-update', 'uses' => 'VehicleController@update_color', 'middleware' => ['role:super-administrator|sales-manager']]);
+
+
+
+
+
     /*features*/
     Route::any('/vehicle/{id}/features', [ 'as' => 'vehicle.features', 'uses' => 'VehicleController@features', 'middleware' => ['role:super-administrator|sales-manager']]);
 

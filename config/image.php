@@ -16,10 +16,13 @@ return array(
     */
 
     'driver' => 'gd',
+
+    /*color_path...*/
     'vc_width' => 680,
     'vc_height' => 398,
     'vc_path' => public_path(). '/uploads/vehicle/colors/',
 
+    /*feature_path...*/
     'fc_width_1' => 400,
     'fc_height_1' => 600,
 

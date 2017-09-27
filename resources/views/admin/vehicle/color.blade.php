@@ -39,6 +39,7 @@
                             <td class="text-center">{{ $row->color_code }}</td>
                             </td>
                             <td class="text-center">
+                                {{--<a href="{!! url(Request::segment(1).'/vehicle/color/'.$row->id.'/edit') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>--}}
                                 <a href="{!! route('delete-vehicle',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
