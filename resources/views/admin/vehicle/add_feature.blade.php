@@ -17,7 +17,7 @@
             <a href="{!! route('vehicle.features',$id)!!}" class="btn btn-flat btn-danger pull-right"><i class="fa fa-remove"></i> Cancel</a>
             <button class="btn btn-flat btn-primary pull-right" id="upload"><i class="fa fa-check"></i> Save</button>
             <div class="DivClass" id="myDiv"></div> <p>&nbsp;&nbsp;</p>
-            {{--<p></p>--}}
+
         </div>
 
         <div class="panel-body">

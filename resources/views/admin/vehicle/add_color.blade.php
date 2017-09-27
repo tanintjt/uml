@@ -22,7 +22,7 @@
                 <div class="form-group{{ $errors->has('files') ? ' has-error' : '' }}">
                     {!! Form::label('files', 'File :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-3">
-                        {!! Form::file('files[]', ['id'=>'files','multiple' => true]) !!}
+                        {!! Form::file('files[]', ['id'=>'files','multiple' => true,'required']) !!}
                         @if ($errors->has('files'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('files') }}</strong>
@@ -38,7 +38,7 @@
                 <div class="form-group{{ $errors->has('color_code') ? ' has-error' : '' }}">
                     {!! Form::label('color_code', 'Color:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('color_code[]',  old('color_code'),['multiple' => true,'class' => 'form-control', 'id' => 'color_code', 'placeholder' => 'color code']) !!}
+                        {!! Form::text('color_code[]',  old('color_code'),['required','multiple' => true,'class' => 'form-control', 'id' => 'color_code', 'placeholder' => 'color code']) !!}
                         @if ($errors->has('color_code'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('color_code') }}</strong>
@@ -72,7 +72,7 @@
                 '<div class="form-group{{ $errors->has('files') ? ' has-error' : '' }}">' +
                 '  {!! Form::label('files', 'File :', ['class' => 'col-xs-3 control-label']) !!}' +
                 '     <div class="col-xs-3">' +
-                '         {!! Form::file('files[]', ['id'=>'files','multiple' => true]) !!}' +
+                '         {!! Form::file('files[]', ['id'=>'files','multiple' => true,'required']) !!}' +
                 '              @if ($errors->has('files'))' +
                 '                   <span class="help-block">' +
                 '                         <strong>{{ $errors->first('files') }}</strong>' +
@@ -86,7 +86,7 @@
                 '     <div class="form-group{{ $errors->has('color_code') ?' has-error' : '' }}">' +
                 '         {!! Form::label('color_code', 'Color:', ['class' => 'col-xs-2 control-label']) !!}' +
                 '             <div class="col-xs-9">' +
-                '                 {!! Form::text('color_code[]',  old('color_code'),['multiple' => true,'class' => 'form-control','id' =>'color_code','placeholder' =>'color code']) !!}' +
+                '                 {!! Form::text('color_code[]',  old('color_code'),['required','multiple' => true,'class' => 'form-control','id' =>'color_code','placeholder' =>'color code']) !!}' +
                 '                       @if ($errors->has('color_code'))' +
                 '                          <span class="help-block">' +
                 '                              <strong>{{ $errors->first('color_code') }}</strong>' +
