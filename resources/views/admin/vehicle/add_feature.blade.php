@@ -28,7 +28,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title',  old('title'),['class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name(required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name(required)']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -65,7 +65,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title',  old('title'),['class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -100,7 +100,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title',  old('title'),['class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -135,7 +135,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title',  old('title'),['class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -170,7 +170,7 @@
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {!! Form::label('title', 'Name:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('title',  old('title'),['class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
+                        {!! Form::text('title[]',  old('title'),['multiple' => true,'class' => 'form-control', 'id' => 'title', 'placeholder' => 'feature name (required)']) !!}
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>

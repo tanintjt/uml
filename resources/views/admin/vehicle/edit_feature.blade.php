@@ -3,7 +3,7 @@
 
 @section('content')
 
-    {!! Form::model($row,['method' => 'PUT','route'=>['vehicle-color-update',$row->id],'class' => 'form-horizontal', 'id' => 'admin-form','files'=>'true' ]) !!}
+    {!! Form::model($row,['method' => 'PUT','route'=>['vehicle-feature-update',$row->id],'class' => 'form-horizontal', 'id' => 'admin-form','files'=>'true' ]) !!}
 
     <div class="panel panel-default">
 
@@ -31,15 +31,15 @@
 
             </div>
 
-            <div class="col-xs-7" id="code">
+            <div class="col-xs-7">
 
-                <div class="form-group{{ $errors->has('color_code') ? ' has-error' : '' }}">
-                    {!! Form::label('color_code', 'Color:', ['class' => 'col-xs-2 control-label']) !!}
+                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                    {!! Form::label('title', 'Title:', ['class' => 'col-xs-2 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('color_code',  old('color_code',$row->color_code),['class' => 'form-control', 'id' => 'color_code', 'placeholder' => 'color code']) !!}
-                        @if ($errors->has('color_code'))
+                        {!! Form::text('title',  old('title',$row->title),['class' => 'form-control', 'id' => 'title', 'placeholder' => 'title']) !!}
+                        @if ($errors->has('title'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('color_code') }}</strong>
+                                <strong>{{ $errors->first('title') }}</strong>
                             </span>
                         @endif
                     </div>

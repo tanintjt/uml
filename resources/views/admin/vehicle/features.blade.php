@@ -40,6 +40,7 @@
                                 <img src="{!! isset($row->features)? asset('public/uploads/vehicle/features/'.$row->features) :'' !!}" width="80px" height="50px" style="align-content: center">
                             </td>
                             <td class="text-center">
+                                <a href="{!! url(Request::segment(1).'/edit/vehicle/'.$row->id.'/features') !!}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                                 <a href="{!! route('features-delete',$row->id) !!}" class="btn btn-xs btn-danger" title="Delete" user="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete" data-message="Are you sure you want to delete ?"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>

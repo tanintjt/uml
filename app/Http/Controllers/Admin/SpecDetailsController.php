@@ -27,9 +27,6 @@ class SpecDetailsController extends Controller
 
 			$('.clear').click(function(){
 				$('#search').val('');
-//				$('#type_id option:selected').val('0');
-//				$('#model_id option:selected').val('0');
-//				$('#brand_id option:selected').val('0');
 				$('#admin-form').submit();
 			});
 
@@ -68,7 +65,7 @@ class SpecDetailsController extends Controller
         $spec_category = $this->SpecList(true);
         $row = Vehicle::with('model')->findOrFail($id);
 
-        $rows = SpecDetails::Search(Session::get('search'))->
+        $rows = SpecDetails::Search(Session::get('search'))->where('vehicle_id',$id)->
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
