@@ -8,7 +8,7 @@
     <div class="panel panel-default">
 
         <div class="panel-heading">
-            <a href="{!! route('vehicle.color',$id)!!}" class="btn btn-flat btn-danger pull-right"><i class="fa fa-remove"></i> Cancel</a>
+            <a href="{!! url(Request::segment(1).'/vehicle/'.$row->vehicle_id.'/colors') !!}" class="btn btn-flat btn-danger pull-right"><i class="fa fa-remove"></i> Cancel</a>
             <button class="btn btn-flat btn-primary pull-right" id="upload"><i class="fa fa-check"></i> Save</button>
             <div class="DivClass" id="myDiv"></div> <p>&nbsp;&nbsp;</p>
         </div>

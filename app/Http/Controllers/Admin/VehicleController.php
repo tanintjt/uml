@@ -555,6 +555,10 @@ class VehicleController extends Controller
             return redirect(route('vehicle-color-edit',$model->vehicle_id))->withErrors($validator)->withInput();
 
         }
+        $input = [
+            'vehicle_id' =>    $model->vehicle_id,
+            'color_code' =>    $request->input('color_code'),
+        ];
 
         if($request->hasFile('files')){
 
@@ -573,13 +577,8 @@ class VehicleController extends Controller
             $interventionImage->resize(config('image.vc_width'), config('image.vc_height'));
             // Save the intervention image over the request image
             $interventionImage->save(config('image.vc_path'). $color_name, 100);
+            $input['available_colors'] = $color_name;
         }
-
-        $input = [
-            'vehicle_id' =>    $model->vehicle_id,
-            'color_code' =>    $request->input('color_code'),
-            'available_colors' =>  $color_name
-        ];
 
         $model->update($input);
 
@@ -735,7 +734,7 @@ class VehicleController extends Controller
         $row = VehicleFeature::findOrFail($id);
         $title = 'Edit ';
 
-        return view('admin.vehicle.edit_features',compact('title', 'row', 'extrajs','id'));
+        return view('admin.vehicle.edit_feature',compact('title', 'row', 'extrajs','id'));
     }
 
     /**
@@ -765,30 +764,30 @@ class VehicleController extends Controller
             return redirect(route('vehicle-features-edit',$model->vehicle_id))->withErrors($validator)->withInput();
         }
 
+        $input = [
+            'vehicle_id' =>    $model->vehicle_id,
+            'title'      =>    $request->input('title'),
+        ];
+
         if($request->hasFile('files')){
 
             $file = $request->file('files');
 
             //Delete previous image from folder
-            if (File::exists('public/uploads/vehicle/colors/'.$model->available_colors)) {
-                File::delete('public/uploads/vehicle/colors/'.$model->available_colors);
+            if (File::exists('public/uploads/vehicle/features/'.$model->features)) {
+                File::delete('public/uploads/vehicle/features/'.$model->features);
             }
 
             // Set the image name over the request image
-            $color_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
+            $features_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
             // Make the intervention image over the request image
             $interventionImage = \Image::make($file->getPathname());
             // Resize the intervention image over the request image
-            $interventionImage->resize(config('image.vc_width'), config('image.vc_height'));
+            $interventionImage->resize(config('image.fc_width'), config('image.fc_height'));
             // Save the intervention image over the request image
-            $interventionImage->save(config('image.vc_path'). $color_name, 100);
+            $interventionImage->save(config('image.fc_path'). $features_name, 100);
+            $input['features'] = $features_name;
         }
-
-        $input = [
-            'vehicle_id' =>    $model->vehicle_id,
-            'color_code' =>    $request->input('color_code'),
-            'available_colors' =>  $color_name
-        ];
 
         $model->update($input);
 
@@ -801,7 +800,7 @@ class VehicleController extends Controller
             $error = true;
         }
 
-        return redirect(route('vehicle.color',$model->vehicle_id))->with(['message' => $message, 'error' => $error]);
+        return redirect(route('vehicle.features',$model->vehicle_id))->with(['message' => $message, 'error' => $error]);
     }
 
 
