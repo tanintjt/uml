@@ -12,8 +12,7 @@ class SpecDetailsController extends Controller
 {
 
     public function index(Request $request){
-
-        // 'vc_path' => public_path(). '/uploads/vehicle/colors/',
+        
 
         $specs = SpecCategory::orderBy('title', 'asc')->get();
 
@@ -29,14 +28,24 @@ class SpecDetailsController extends Controller
             ->get();
         $data = [];
         foreach ($rows as $row) {
-            $data['colors'] = $row->colors;
-            $data['features'] = $row->features;
-            $data['specs'] =  $value;
+
+            for ($j=0; $j < count($row->colors); $j++) {
+                $data['colors'][$j]['img']    =    asset('public/uploads/vehicle/colors/'.$row->colors[$j]->img);
+                $data['colors'][$j]['hex']    =    $row->colors[$j]->hex;
+            }
+
+            for ($k=0; $k < count($row->features); $k++) {
+                $data['features'][$k]['img']    =    asset('public/uploads/vehicle/features/'.$row->features[$k]->img);
+                $data['features'][$k]['sub']    =    $row->features[$k]->sub;
+            }
+
+            $data['specs']     =     $value;
         }
         return response()->json($data, 200);
     }
 
     public function getDetails($catid, $vehicleid) {
+
         $rows = SpecDetails::select('title', 'spec_value')
             ->where('cat_id', $catid)->where('vehicle_id', $vehicleid)->get();
         $elms = [];
