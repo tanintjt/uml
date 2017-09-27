@@ -128,7 +128,7 @@ class VehicleController extends Controller
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
-//            'features'      => 'required',
+            'description'      => 'required',
 //            'brochure'      => 'mimes:pdf',
         ];
 
@@ -144,14 +144,12 @@ class VehicleController extends Controller
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
-//            'features.required' => 'Features is required!',
+            'description.required' => 'Description is required!',
 //            'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
 
         ];
 
         $file = Input::file('vehicle_image');
-        $brochure = Input::file('brochure');
-
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -183,6 +181,7 @@ class VehicleController extends Controller
             'engine_displacement' => $request->input('engine_displacement'),
             'engine_details' => $request->input('engine_details'),
             'fuel_system' => $request->input('fuel_system'),
+            'description' => $request->input('description'),
         ];
 
         $vehicle = Vehicle::create($input);
@@ -265,6 +264,7 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
+            'description'      => 'required',
             'brochure'      => 'mimes:pdf',
 
         ];
@@ -279,11 +279,10 @@ class VehicleController extends Controller
             'engine_displacement.required' => 'Engine Displacement is required!',
             'engine_details.required' => 'Engine Details is required!',
             'fuel_system.required' => 'Fuel System is required!',
+            'description.required' => 'Description is required!',
             'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
 
         ];
-
-        $file = Input::file('vehicle_image');
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -302,7 +301,7 @@ class VehicleController extends Controller
             'engine_displacement' => $request->input('engine_displacement'),
             'engine_details' =>      $request->input('engine_details'),
             'fuel_system' =>         $request->input('fuel_system'),
-            //'color_code' =>         $request->input('color_code'),
+            'description' =>         $request->input('description'),
         ];
 
      //vehicle_image.......

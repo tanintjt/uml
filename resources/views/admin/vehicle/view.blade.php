@@ -36,6 +36,10 @@
                             <td>{!! $row->production_year !!}</td>
                         </tr>
                         <tr>
+                            <th class="active">Description</th>
+                            <td>{!! $row->description !!}</td>
+                        </tr>
+                        <tr>
                             <th class="active">Engine Displacement</th>
                             <td>{!! $row->engine_displacement !!}</td>
                         </tr>

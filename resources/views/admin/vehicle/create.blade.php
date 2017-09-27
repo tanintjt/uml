@@ -11,7 +11,7 @@
 
         <div class="panel-body">
 
-            <div class="col-xs-7">
+            <div class="col-xs-6">
                 <div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }}">
                     {!! Form::label('type_id', 'Type :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -83,6 +83,21 @@
                         @endif
                     </div>
                 </div>
+                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                    {!! Form::label('description', 'Description :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::textarea('description', old('description'), ['class' => 'form-control', 'id' => 'description', 'placeholder' => 'description', 'rows' => 4]) !!}
+                        @if ($errors->has('description'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-xs-6">
 
                 <div class="form-group{{ $errors->has('engine_displacement') ? ' has-error' : '' }}">
                     {!! Form::label('engine_displacement', 'Engine Displacement :', ['class' => 'col-xs-3 control-label']) !!}
@@ -97,26 +112,12 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('engine_details') ? ' has-error' : '' }}">
-                    {!! Form::label('engine_details', 'Engine Details :', ['class' => 'col-xs-3 control-label']) !!}
+                    {!! Form::label('engine_details', 'Engine Details:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::textarea('engine_details', old('engine_details'), ['class' => 'form-control', 'id' => 'engine_details', 'placeholder' => 'Engine Details', 'rows' => 4]) !!}
                         @if ($errors->has('engine_details'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('engine_details') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-5">
-
-                <div class="form-group{{ $errors->has('engine_displacement') ? ' has-error' : '' }}">
-                    {!! Form::label('engine_displacement', 'Engine Displacement :', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('engine_displacement',  old('engine_displacement'),['class' => 'form-control', 'id' => 'engine_displacement', 'placeholder' => 'engine_displacement']) !!}
-                        @if ($errors->has('engine_displacement'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('engine_displacement') }}</strong>
                             </span>
                         @endif
                     </div>

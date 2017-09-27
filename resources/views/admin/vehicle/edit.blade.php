@@ -84,6 +84,21 @@
                 </div>
 
 
+                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                    {!! Form::label('description', 'Description :', ['class' => 'col-xs-3 control-label']) !!}
+                    <div class="col-xs-9">
+                        {!! Form::textarea('description', old('description'), ['class' => 'form-control', 'id' => 'description', 'placeholder' => 'description', 'rows' => 4]) !!}
+                        @if ($errors->has('description'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
                 <div class="form-group{{ $errors->has('engine_displacement') ? ' has-error' : '' }}">
                     {!! Form::label('engine_displacement', 'Engine Displacement :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
@@ -96,14 +111,17 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('engine_details', 'Engine Details :', ['class' => 'col-xs-3 control-label']) !!}
+                <div class="form-group{{ $errors->has('engine_details') ? ' has-error' : '' }}">
+                    {!! Form::label('engine_details', 'Engine Details:', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
                         {!! Form::textarea('engine_details', old('engine_details'), ['class' => 'form-control', 'id' => 'engine_details', 'placeholder' => 'Engine Details', 'rows' => 4]) !!}
+                        @if ($errors->has('engine_details'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('engine_details') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-6">
 
                 <div class="form-group{{ $errors->has('production_year') ? ' has-error' : '' }}">
                     {!! Form::label('production_year', 'Production Year :', ['class' => 'col-xs-3 control-label']) !!}
@@ -131,49 +149,6 @@
                         @if ($errors->has('vehicle_image'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('vehicle_image') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group{{ $errors->has('available_colors') ? ' has-error' : '' }}">
-                    {!! Form::label('available_colors', 'Available Colors:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-3">
-                        {!! Form::file('available_colors[]', ['multiple'=>true]) !!}
-                        @if ($errors->has('available_colors'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('available_colors') }}</strong>
-                            </span>
-                        @endif
-
-                    </div>
-                </div>
-
-                {{--<div class="form-group">
-                    {!! Form::label('color_code', 'Color Code:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-9">
-                        {!! Form::text('color_code', old('color_code', '#07ad22'), ['class' => 'form-control color', 'id' => 'color']) !!}
-                    </div>
-                </div>--}}
-
-                <div class="form-group{{ $errors->has('features') ? ' has-error' : '' }}">
-                    {!! Form::label('features', 'Features:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-3">
-                        {!! Form::file('features[]', ['multiple'=>true]) !!}
-                        @if ($errors->has('features'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('features') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group{{ $errors->has('brochure') ? ' has-error' : '' }}">
-                    {!! Form::label('brochure', 'Brochure:', ['class' => 'col-xs-3 control-label']) !!}
-                    <div class="col-xs-3">
-                        {!! Form::file('brochure',old('brochure'), [ 'class' => 'form-control']) !!}
-                        @if ($errors->has('brochure'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('brochure') }}</strong>
                             </span>
                         @endif
                     </div>
