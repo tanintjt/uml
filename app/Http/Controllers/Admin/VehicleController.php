@@ -83,8 +83,6 @@ class VehicleController extends Controller
         TypeId(Session::get('type_id'))->
         ModelId(Session::get('model_id'))->
         BrandId(Session::get('brand_id'))->
-
-       // Status(Session::get('status'))->
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
@@ -129,7 +127,6 @@ class VehicleController extends Controller
             'fuel_system'      => 'required',
             'vehicle_image'      => 'required',
             'description'      => 'required',
-//            'brochure'      => 'mimes:pdf',
         ];
 
         $messages = [
@@ -145,8 +142,6 @@ class VehicleController extends Controller
             'fuel_system.required' => 'Fuel System is required!',
             'vehicle_image.required' => 'Vehicle Image is required!',
             'description.required' => 'Description is required!',
-//            'brochure.mimes' => 'Invalid file format ! Please Upload brochure as pdf format.',
-
         ];
 
         $file = Input::file('vehicle_image');
@@ -236,7 +231,7 @@ class VehicleController extends Controller
         $model = $this->modelList(true);
         $brand = $this->brandList(true);
 
-        return view('admin.vehicle.edit',compact('title', 'row', 'type', 'model','brand','css', 'js', 'extrajs'));
+        return view('admin.vehicle.edit',compact('title', 'row', 'type', 'model','brand'));
     }
 
     /**
@@ -261,7 +256,6 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
-//            'description'      => 'required',
             'brochure'      => 'mimes:pdf',
 
         ];
@@ -316,85 +310,9 @@ class VehicleController extends Controller
             $input['vehicle_image'] = 'public/uploads/vehicle/' . $file_name;
         }
 
-     //brochure.......
-        if($request->hasFile('brochure')){
-            $brochure = Input::file('brochure');
-            //Delete previous image from folder
-            if (File::exists('public/uploads/vehicle/brochure/'.$model->brochure)) {
-                File::delete('public/uploads/vehicle/brochure/'.$model->brochure);
-            }
-
-            // Files destination
-            $brochurePath = 'public/uploads/vehicle/brochure/';
-            $brochure_name = time(). '_'. str_random(4).'.'.$brochure->getClientOriginalExtension();
-            $brochure->move($brochurePath, $brochure_name);
-            $input['brochure'] = 'public/uploads/vehicle/brochure/' . $brochure_name;
-        }
-
         $model->update($input);
 
         if ($model->id > 0) {
-
-            $colors = Input::file('available_colors');
-            $features = Input::file('features');
-
-            if($colors){
-                $colorPath = 'public/uploads/vehicle/colors/';
-                // Create folders if they don't exist
-                if ( !file_exists($colorPath) ) {
-                    mkdir ($colorPath, 0777);
-                }
-                $vehicle_colors = VehicleColor::where('vehicle_id',$model->id)->get();
-
-                foreach($vehicle_colors as $vehicle_color) {
-
-                    if (File::exists($colorPath.$vehicle_color->available_colors)) {
-                        File::delete($colorPath.$vehicle_color->available_colors);
-                    }
-
-                    $vehicle_color->delete();
-                }
-
-                foreach($colors as $color) {
-
-                    $file_name = time(). '_'. str_random(4).'.'.$color->getClientOriginalExtension();
-                    $color->move($colorPath, $file_name);
-
-                    VehicleColor::create([
-                        'vehicle_id'       =>   $model->id,
-                        'available_colors' =>   $colorPath . $file_name,
-                    ]);
-                }
-            }
-
-            if($features){
-                $featurePath = 'public/uploads/vehicle/features/';
-                // Create folders if they don't exist
-                if ( !file_exists($featurePath) ) {
-                    mkdir ($featurePath, 0777);
-                }
-                $vehicle_features = VehicleFeature::where('vehicle_id',$model->id)->get();
-
-                foreach($vehicle_features as $vehicle_feature) {
-
-                    if (File::exists($featurePath.$vehicle_feature->features)) {
-                        File::delete($featurePath.$vehicle_feature->features);
-                    }
-                    $vehicle_feature->delete();
-                }
-
-                foreach($features as $feature) {
-
-                    $feature_name = time(). '_'. str_random(4).'.'.$feature->getClientOriginalExtension();
-                    $feature->move($featurePath, $feature_name);
-
-
-                    VehicleFeature::create([
-                        'vehicle_id' =>   $model->id,
-                        'features' =>   $featurePath . $feature_name,
-                    ]);
-                }
-            }
             $message = 'Successfully Updated';
             $error = false;
         } else {
@@ -452,8 +370,11 @@ class VehicleController extends Controller
 
     public function create_color($id){
 
-       $title = 'Add Color';
-       $rows = VehicleColor::where('vehicle_id',$id)->get();
+        $row = Vehicle::with('model')->findOrFail($id);
+
+        $title = 'Add Colors : '.''.$row['model']['name'];
+
+        $rows = VehicleColor::where('vehicle_id',$id)->get();
 
        return view('admin.vehicle.add_color', compact('title','rows','id') );
 
@@ -517,10 +438,13 @@ class VehicleController extends Controller
 
     public function edit_color($id)
     {
-        $row = VehicleColor::findOrFail($id);
-        $title = 'Edit ';
+//        $rows = VehicleColor::with('vehicle')->findOrFail($id);
 
-        return view('admin.vehicle.edit_color',compact('title', 'row', 'extrajs','id'));
+//        $title = 'Edit Colors : '.''.$rows['model']['name'];
+
+        $row = VehicleColor::findOrFail($id);
+
+        return view('admin.vehicle.edit_color',compact('title', 'row', 'extrajs','id','rows'));
     }
 
     /**
@@ -547,7 +471,6 @@ class VehicleController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            //return redirect('admin/vehicle/color/'.$id.'/edit')->withErrors($validator)->withInput();
             return redirect(route('vehicle-color-edit',$model->vehicle_id))->withErrors($validator)->withInput();
 
         }
@@ -606,11 +529,9 @@ class VehicleController extends Controller
 
     public function vehicle_colors($id){
 
-        $rows = VehicleColor::where('vehicle_id',$id)->get();
-
-        $row = Vehicle::findOrFail($id);
         $title =  "Available Colors" ;
-
+        $rows = VehicleColor::where('vehicle_id',$id)->get();
+        $row = Vehicle::findOrFail($id);
 
         return view('admin.vehicle.available_colors',compact('title', 'rows','row'));
 
@@ -653,7 +574,6 @@ class VehicleController extends Controller
 
 
         $rows = VehicleFeature::where('vehicle_id',$id)->get();
-
         $row = Vehicle::with('model')->findOrFail($id);
 
         $title = 'Add Feature : '.''.$row['model']['name'];
@@ -727,7 +647,7 @@ class VehicleController extends Controller
         $row = VehicleFeature::findOrFail($id);
         $title = 'Edit ';
 
-        return view('admin.vehicle.edit_feature',compact('title', 'row', 'extrajs','id'));
+        return view('admin.vehicle.edit_feature',compact('title', 'row','id'));
     }
 
     /**
