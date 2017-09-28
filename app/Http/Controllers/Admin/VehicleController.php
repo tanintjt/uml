@@ -85,7 +85,7 @@ class VehicleController extends Controller
         BrandId(Session::get('brand_id'))->
 
        // Status(Session::get('status'))->
-        orderBy('id', 'desc')->
+        orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
         return view('admin/vehicle/index', compact('rows', 'title', 'type','model','brand', 'extrajs'));
