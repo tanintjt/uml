@@ -15,7 +15,7 @@ class AlterVehicleSrtsTable extends Migration
     {
         Schema::table('vehicle', function($table)
         {
-            $table->string('description')->nullable()->after('reg_no');
+            $table->text('description')->nullable()->after('reg_no');
         });
     }
 

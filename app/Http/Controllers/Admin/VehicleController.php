@@ -85,7 +85,7 @@ class VehicleController extends Controller
         BrandId(Session::get('brand_id'))->
 
        // Status(Session::get('status'))->
-        orderBy('id', 'asc')->
+        orderBy('id', 'desc')->
         paginate(config('app.limit'));
 
         return view('admin/vehicle/index', compact('rows', 'title', 'type','model','brand', 'extrajs'));
@@ -157,19 +157,6 @@ class VehicleController extends Controller
             return redirect('admin/vehicle/create')->withErrors($validator)->withInput();
         }
 
-        // Files destination for vehicle image.....
-        $destinationPath = 'public/uploads/vehicle/';
-
-        // Create folders if they don't exist
-
-        if (!file_exists($destinationPath)) {
-            mkdir('public/uploads/vehicle/', 775);
-        }
-
-        $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
-        $file->move($destinationPath, $file_name);
-        $input['vehicle_image'] = $destinationPath . $file_name;
-
         $input = [
             'type_id' => $request->input('type_id'),
             'model_id' => $request->input('model_id'),
@@ -184,6 +171,19 @@ class VehicleController extends Controller
             'description' => $request->input('description'),
         ];
 
+        // Files destination for vehicle image.....
+        $destinationPath = 'public/uploads/vehicle/';
+
+        // Create folders if they don't exist
+
+        if (!file_exists($destinationPath)) {
+            mkdir('public/uploads/vehicle/', 775);
+        }
+
+        $file_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
+        $file->move($destinationPath, $file_name);
+        $input['vehicle_image'] = $destinationPath . $file_name;
+
         $vehicle = Vehicle::create($input);
 
 
@@ -197,9 +197,6 @@ class VehicleController extends Controller
 
         return redirect('admin/vehicle')->with(['message' => $message, 'error' => $error]);
     }
-
-
-
 
     /**
      * Display the specified resource.
@@ -264,7 +261,7 @@ class VehicleController extends Controller
             'engine_displacement'      => 'required',
             'engine_details'      => 'required',
             'fuel_system'      => 'required',
-            'description'      => 'required',
+//            'description'      => 'required',
             'brochure'      => 'mimes:pdf',
 
         ];

@@ -63,7 +63,7 @@
                 <div class="form-group{{ $errors->has('chesis_no') ? ' has-error' : '' }}">
                     {!! Form::label('chesis_no', 'Chassis No :', ['class' => 'col-xs-3 control-label']) !!}
                     <div class="col-xs-9">
-                        {!! Form::text('chesis_no', old('chesis_no'), ['class' => 'form-control', 'id' => 'chesis_no', 'placeholder' => 'Chassis no']) !!}
+                        {!! Form::text('chesis_no', old('chesis_no'), ['class' => 'form-control', 'id' => 'chesis_no', 'placeholder' => 'Chassis no (17 digits mandatory)']) !!}
                         @if ($errors->has('chesis_no'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('chesis_no') }}</strong>
