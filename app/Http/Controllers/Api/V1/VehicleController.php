@@ -22,8 +22,8 @@ class VehicleController extends Controller
             ->ModelId($request->input('model_id'))
             ->select('vehicle.id','vehicle.production_year','vehicle.engine_displacement','vehicle.engine_details','vehicle.description',
                 'vehicle.fuel_system', 'vehicle_type.name as type', 'vehicle_model.name as model',
-                'vehicle.vehicle_image','vehicle.brochure')
-            ->orderBy('id', 'desc')
+                'vehicle.vehicle_image','vehicle.brochure')->
+             orderBy('id', 'asc')
             ->get();
         $data = [];
         $colors =[];
