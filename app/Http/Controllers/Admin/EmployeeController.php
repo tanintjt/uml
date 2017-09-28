@@ -59,16 +59,11 @@ class EmployeeController extends Controller
 
 		</script>";
 
-
-
-
         if ($request->isMethod('post')) {
-//            Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
         }
 
         $rows = Employee::Search(Session::get('search'))->
-//        Status(Session::get('status'))->
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 

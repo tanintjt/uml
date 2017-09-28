@@ -55,12 +55,10 @@ class ServiceCenterController extends Controller
 		</script>";
 
         if ($request->isMethod('post')) {
-           // Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
         }
 
         $rows = ServiceCenter::Search(Session::get('search'))->
-       // Status(Session::get('status'))->
         orderBy('id', 'asc')->
         paginate(config('app.limit'));
 
@@ -159,7 +157,6 @@ class ServiceCenterController extends Controller
             'longitude' => 'required',
             'phone' => 'required',
             'address' => 'required',
-//            'store_image' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg',
         ];
 
         $messages = [
@@ -167,7 +164,6 @@ class ServiceCenterController extends Controller
             'longitude.required' => ' Longitude is required!',
             'phone.required' => ' Phone is required!',
             'address.required' => ' Address is required!',
-//            'store_image.required' => ' Image is required!',
         ];
 
         $file = Input::file('store_image');
@@ -197,7 +193,6 @@ class ServiceCenterController extends Controller
             $file_original_name = $file->getClientOriginalName();
             $file_name = rand(11111, 99999) . $file_original_name;
             $file->move($destinationPath, $file_name);
-            //$input['store_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
             $input['store_image'] = 'public/uploads/service_center/' . $file_name;
 
         }

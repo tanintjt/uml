@@ -57,7 +57,6 @@ class BrochureController extends Controller
 		</script>";
 
         if ($request->isMethod('post')) {
-            // Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
         }
 
@@ -156,7 +155,6 @@ class BrochureController extends Controller
 
         $messages = [
             'title.required' => 'Title is required!',
-            //'file.required' => 'File is required!',
         ];
 
 

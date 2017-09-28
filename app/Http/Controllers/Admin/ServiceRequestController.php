@@ -120,7 +120,6 @@ class ServiceRequestController extends Controller
 			'vehicle_id' => $request->input('vehicle_id'),
 			'updated_at' => $date,
 		];
-		//print_r($data);exit;
 
 		$model->update($data);
 

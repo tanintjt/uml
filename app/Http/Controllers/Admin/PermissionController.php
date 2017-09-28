@@ -107,7 +107,7 @@ class PermissionController extends Controller
         if ($validator->fails()) {
             return redirect('admin/permission/create')->withErrors($validator)->withInput();
         }
-        // empty($input['parent_id']) ? 0 : $input['parent_id'];
+
         $permission = Permission::create(
             [
                 'display_name'  => $request->get('name'),

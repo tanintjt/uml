@@ -61,7 +61,6 @@ class EDocumentController extends Controller
         }
 
         $doc_type = $this->docTypeList();
-        //print_r($doc_type);exit;
 
         $rows = EDocument::with('doc_type')->
         EDoc(Session::get('doc_type_id'))->
@@ -118,7 +117,6 @@ class EDocumentController extends Controller
 		$file_original_name = $file->getClientOriginalName();
 		$file_name = rand(11111, 99999) . $file_original_name;
 		$file->move($destinationPath, $file_name);
-//        $input['vehicle_image'] = date('Y-m-d h:i:s', time()).'  '.$file_name;
 		$input['file'] = 'public/uploads/e_documents/' . $file_name;
 
 		$vehicle = EDocument::create($input);
@@ -179,7 +177,6 @@ class EDocumentController extends Controller
 		$messages = [
 			'doc_type_id.not_in'    => 'Type is required!',
 			'expiry_date.required'    => 'Expiry Date is required!',
-			//'file.required' => 'File is required!',
 		];
 
 

@@ -59,7 +59,6 @@ class NewsEventsController extends Controller
 
 
         if ($request->isMethod('post')) {
-            // Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
         }
 
@@ -86,16 +85,12 @@ class NewsEventsController extends Controller
 
         $rules = [
             'title' => 'required',
-//            'start_date' => 'required',
-//            'end_date' => 'required',
             'file' => 'required|mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
         ];
 
         $messages = [
             'title.required' => 'Title is required!',
             'file.required' => 'File is required!',
-//            'start_date.required' => 'Start Date is required!',
-//            'end_date.required' => 'End Date is required!',
         ];
 
         $file = Input::file('file');
@@ -159,16 +154,11 @@ class NewsEventsController extends Controller
 
         $rules = [
             'title' => 'required',
-//            'start_date' => 'required',
-//            'end_date' => 'required',
             'file' => 'mimes:png,gif,jpeg,txt,pdf,doc,jpg,docx,pptx,ppt,pub'
         ];
 
         $messages = [
             'title.required' => 'Title is required!',
-//            'file.required' => 'File is required!',
-//            'start_date.required' => 'Start Date is required!',
-//            'end_date.required' => 'End Date is required!',
         ];
 
 

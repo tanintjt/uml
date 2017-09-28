@@ -52,7 +52,6 @@ class FeedbackController extends Controller
 		</script>";
 
         if ($request->isMethod('post')) {
-//            Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
             Session::put('user_id', $request->input('user_id'));
         }

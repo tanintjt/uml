@@ -88,13 +88,11 @@ class ServicePackageController extends Controller
         $rules = [
             'package_type_id'   => 'not_in:0',
             'name' => 'required',
-           // 'package_rate' => 'required',
         ];
 
         $messages = [
             'package_type_id.not_in'    => 'Type is required!',
             'name.required'             => ' Name is required!',
-            //'package_rate.required'    => ' Rate is required!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -151,8 +149,6 @@ class ServicePackageController extends Controller
         $messages = [
             'package_type_id.not_in'    => 'Type is required!',
             'name.required' => ' Name is required!',
-
-            //'package_rate.required' => ' Rate is required!',
         ];
 
 

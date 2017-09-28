@@ -17,7 +17,6 @@ class VehicleController extends Controller
 
         $rows = Vehicle::join('vehicle_type', 'vehicle.type_id', '=', 'vehicle_type.id')
             ->join('vehicle_model', 'vehicle.model_id', '=', 'vehicle_model.id')
-            //->leftjoin('vehicle_color', 'vehicle_color.vehicle_id', '=','vehicle.id')
             ->TypeId($request->input('type_id'))
             ->ModelId($request->input('model_id'))
             ->select('vehicle.id','vehicle.production_year','vehicle.engine_displacement','vehicle.engine_details','vehicle.description',
@@ -30,18 +29,10 @@ class VehicleController extends Controller
         for($i=0; $i < count($rows); $i++) {
             $data[$i]['id'] = $rows[$i]->id;
             $data[$i]['production_year'] = $rows[$i]->production_year;
-//            $data[$i]['engine_displacement'] = $rows[$i]->engine_displacement;
-//            $data[$i]['engine_details'] = $rows[$i]->engine_details;
-//            $data[$i]['fuel_system'] = $rows[$i]->fuel_system;
             $data[$i]['type'] = $rows[$i]->type;
             $data[$i]['model'] = $rows[$i]->model;
             $data[$i]['vehicle_image'] = $rows[$i]->vehicle_image;
             $data[$i]['description'] = $rows[$i]->description;
-//            $data[$i]['brochure'] = $rows[$i]->brochure;
-
-//            $data[$i]['colors'] = $rows[$i]->colors;
-//            $data[$i]['features'] = $rows[$i]->features;
-
         }
 
         return response()->json($data, 200);

@@ -616,9 +616,6 @@ class VehicleController extends Controller
 
     }
 
-
-
-
     public function features($id)
     {
         $extrajs = "<script>
@@ -742,7 +739,7 @@ class VehicleController extends Controller
      */
     public function update_features(Request $request, $id)
     {
-
+//exit('454546');
         $model = VehicleFeature::findOrFail($id);
 
         $rules = [
@@ -774,15 +771,9 @@ class VehicleController extends Controller
                 File::delete('public/uploads/vehicle/features/'.$model->features);
             }
 
-            // Set the image name over the request image
-            $features_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
-            // Make the intervention image over the request image
-            $interventionImage = \Image::make($file->getPathname());
-            // Resize the intervention image over the request image
-            $interventionImage->resize(config('image.fc_width'), config('image.fc_height'));
-            // Save the intervention image over the request image
-            $interventionImage->save(config('image.fc_path'). $features_name, 100);
-            $input['features'] = $features_name;
+            $feature_name = time(). '_'. str_random(4).'.'.$file->getClientOriginalExtension();
+            $file->move(config('image.fc_path'), $feature_name,100);
+            $input['features'] = $feature_name;
         }
 
         $model->update($input);

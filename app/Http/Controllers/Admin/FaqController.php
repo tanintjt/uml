@@ -56,7 +56,6 @@ class FaqController extends Controller
 
 
         if ($request->isMethod('post')) {
-            // Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
         }
 

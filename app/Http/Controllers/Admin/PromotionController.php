@@ -58,7 +58,6 @@ class PromotionController extends Controller
 		</script>";
 
         if ($request->isMethod('post')) {
-            // Session::put('status', $request->input('status'));
             Session::put('search', $request->input('search'));
         }
 
@@ -167,7 +166,6 @@ class PromotionController extends Controller
             'title.required' => 'Title is required!',
             'start_date.required' => 'Start Date is required!',
             'end_date.required' => 'End Date is required!',
-            //'file.required' => 'File is required!',
         ];
 
 

@@ -97,13 +97,10 @@ class RoleController extends Controller
                       placeholder: 'Select a permission',
                       tag: true,
                   })
-                
-                
-                
+                 
             });
 		</script>";
         $js = '<script src="'.asset('public/themes/default/js/select2.min.js').'"></script>';
-        //$css = '<link href="'.asset('public/themes/default/css/select2.min.css').'" rel="stylesheet">';
 
         $permissions = $this->permissionList(true);
         return view('admin.role.create', compact('title', 'permissions', 'js', 'extrajs') );
@@ -234,7 +231,7 @@ class RoleController extends Controller
         if ($validator->fails()) {
             return redirect('admin/role/'.$id.'/edit')->withErrors($validator)->withInput();
         }
-        //dd($request->input('permission_id'));
+
         $input = array(
             'name'          => empty($request->input('slug')) ?  str_slug($request->input('name'), '-') : $request->input('slug'),
             'display_name'  => $request->input('name'),
