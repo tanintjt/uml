@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-info"><a href="javascript:void(0);" class="increment" title="Add more file/color">Add More...</a></button>
+                <a href="javascript:void(0);" class="increment" title="Add more file/color" class="btn-info"><u style="font-weight: bold">Add More...</u></a>
             </div>
 
 
@@ -89,7 +89,7 @@
                 '<div class="col-xs-2">' +
                 '     <div class="form-group">' +
                 '             <div class="col-xs-9">' +
-                '                 <button class="remCF" style="color: black;margin-top: 5%" title="delete this one"><span class="glyphicon glyphicon-remove"></span></button>' +
+                '                 <button class="remCF btn-info" style="color: black;margin-top: 5%" title="delete this one"><span class="glyphicon glyphicon-remove"></span></button>' +
                 '             </div>' +
                 '      </div>' +
                 '</div>'+'</div>'
